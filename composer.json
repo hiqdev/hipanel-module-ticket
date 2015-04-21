@@ -10,7 +10,7 @@
         "source": "https://github.com/hiqdev/hipanel-module-ticket",
         "issues": "https://github.com/hiqdev/hipanel-module-ticket/issues",
         "wiki":   "https://github.com/hiqdev/hipanel-module-ticket/wiki",
-        "forum":  "https://forum.hiqdev.com/yii2"
+        "forum":  "https://forum.hiqdev.com/hipanel"
     },
     "authors": [
         {
@@ -29,7 +29,7 @@
             "role":     "Lead frontend developer",
             "name":     "Andrey Klochok",
             "email":    "tafid@hiqdev.com",
-            "homepage": "https://hiqdev.com/"
+            "homepage": "http://tafid.me/"
         },
         {
             "role":     "QA Lead",
