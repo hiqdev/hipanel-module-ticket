@@ -61,6 +61,7 @@ CSS
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="message">
             <?= $form->field($model, 'message')->textarea(['rows' => 1, 'placeholder' => 'Write a message here'])->label(false); ?>
+
         </div>
         <div role="tabpanel" class="tab-pane" id="preview">
             <div class="well well-sm preview-container">
@@ -72,6 +73,13 @@ CSS
 <div class="hidden-form-inputs">
     <div class="row">
         <div class="col-md-12">
+            <div class="text-right">
+                <?= Html::a(
+                    Html::img('/img/github_markdown-16.png') . '&nbsp;&nbsp;Markdown supported',
+                    'https://guides.github.com/features/mastering-markdown/',
+                    ['target' => '_blank', 'class' => 'label label-default']
+                ); ?>
+            </div>
             <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
                 'options' => [
                     'accept' => 'image/*',
