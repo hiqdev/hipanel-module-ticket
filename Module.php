@@ -9,4 +9,5 @@ namespace hipanel\modules\ticket;
 
 class Module extends \hipanel\base\Module
 {
+    public $controllerNamespace = 'hipanel\modules\ticket\controllers';
 }

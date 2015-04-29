@@ -5,28 +5,49 @@
  * @copyright Copyright (c) 2015 HiQDev
  */
 
-use hipanel\modules\ticket\grid\TicketGridView;
-use hipanel\widgets\Pjax;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\widgets\DetailView;
+use yii\helpers\StringHelper;
+use yii\helpers\Url;
 
-$this->title                   = Html::encode($model->domain);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Domains'), 'url' => ['index']];
+$this->title = StringHelper::truncateWords($model->threadViewTitle, 5);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->registerCss('
+    .text-message {
+        margin: 1rem;
+    }
+');
 ?>
 
-<? Pjax::begin(Yii::$app->params['pjax']) ?>
+<?php $form = ActiveForm::begin([
+    'action' => $model->scenario == 'insert' ? Url::toRoute(['create']) : Url::toRoute([
+        'update',
+        'id' => $model->id
+    ]),
+    'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form']
+]); ?>
 <div class="row">
+    <div class="col-md-3">
+        <?= $this->render('_leftBlock', [
+            'model' => $model,
+            'form' => $form,
+            'topic_data' => $topic_data,
+            'state_data' => $state_data,
+            'priority_data' => $priority_data,
 
-<div class="col-md-4">
-    <?= TicketGridView::detailView([
-        'model'   => $model,
-        'columns' => [
-            'seller_id','client_id',
-            ['attribute' => 'ticket'],
-        ],
-    ]) ?>
+        ]); ?>
+    </div>
+    <div class="col-md-9">
+        <?= $this->render('_rightBlock', [
+            'form' => $form,
+            'model' => $model,
+            'topic_data' => $topic_data,
+            'state_data' => $state_data,
+            'priority_data' => $priority_data,
+        ]); ?>
+    </div>
 </div>
-
-</div>
-<?php Pjax::end() ?>
+<?php $form::end(); ?>

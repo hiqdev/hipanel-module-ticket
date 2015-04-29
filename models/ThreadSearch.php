@@ -7,6 +7,11 @@
 
 namespace hipanel\modules\ticket\models;
 
-class TicketSearch extends Ticket{
+/**
+ * Class TicketSearch
+ * @package hipanel\modules\ticket\models
+ */
+class ThreadSearch extends Thread
+{
     use \hipanel\base\SearchModelTrait;
 }
