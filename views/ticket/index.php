@@ -7,12 +7,13 @@
 
 use hipanel\widgets\Gravatar;
 use hipanel\grid\ActionColumn;
-use hipanel\grid\BoxedGridView;
+use hipanel\grid\GridView;
 use hipanel\widgets\ActionBox;
 use hipanel\widgets\Select2;
 use hipanel\modules\ticket\widgets\Topic;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use hipanel\widgets\Box;
 
 $this->title = Yii::t('app', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
@@ -69,8 +70,27 @@ CSS
 ]); ?>
 <?php $box::end(); ?>
 
-<?= BoxedGridView::widget([
-    'boxOptions' => ['options' => ['class' => 'box-primary']],
+<?php $box = Box::begin(['renderBody' => false, 'options' => ['class' => 'box-primary']]); ?>
+<?php $box->beginHeader(); ?>
+<?= $box->renderTitle('&nbsp;'); ?>
+<?php $box->beginTools(); ?>
+
+<?= \hipanel\widgets\GridViewSortTool::widget([
+    'sort' => $sort,
+    'sortNames' => [
+        'create_time',
+        'lastanswer',
+        'time',
+        'subject',
+        'spent',
+        'author',
+        'rescipient',
+    ]
+]); ?>
+
+<?php $box->endTools(); ?>
+<?php $box->beginBody(); ?>
+<?= GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'id' => 'ticket-grid',
@@ -295,3 +315,6 @@ CSS
         'checkbox',
     ],
 ]); ?>
+<?php $box->endBody(); ?>
+<?php $box->endHeader(); ?>
+<?php $box::end(); ?>

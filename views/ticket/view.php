@@ -20,6 +20,7 @@ $this->registerCss('
         margin: 1rem;
     }
 ');
+//\yii\helpers\VarDumper::dump($model, 10, true);
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -34,6 +35,7 @@ $this->registerCss('
         <?= $this->render('_leftBlock', [
             'model' => $model,
             'form' => $form,
+            'client' => $client,
             'topic_data' => $topic_data,
             'state_data' => $state_data,
             'priority_data' => $priority_data,

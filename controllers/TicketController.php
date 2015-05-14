@@ -7,15 +7,29 @@
 
 namespace hipanel\modules\ticket\controllers;
 
+use hipanel\modules\client\assets\combo2\Client;
 use Yii;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\TicketSettings;
 use common\models\File;
 use hiqdev\hiar\HiResException;
+use yii\data\Sort;
 use yii\helpers\ArrayHelper;
+use hipanel\helpers\ArrayHelper as AH;
+use hipanel\modules\client\models\Client as ClientModel;
 
 /**
  * Class TicketController
+ *
+ * Usage:
+ *
+ * GridViewSortTool::widget([
+ *      'sort' => $sort, // Sort object
+ *      'sortNames' => [
+ *          'names_of_sorts',
+ *          ....
+ *       ]
+ * ]);
  * @package hipanel\modules\ticket\controllers
  */
 class TicketController extends \hipanel\base\CrudController
@@ -50,7 +64,36 @@ class TicketController extends \hipanel\base\CrudController
      */
     public function actionIndex()
     {
-        return parent::actionIndex($this->prepareRefs());
+        $searchModel = static::searchModel();
+        $sort = new Sort([
+            'attributes' => [
+                'create_time' => [
+                    'label' => 'Create time',
+                ],
+                'lastanswer' => [
+                    'label' => 'Latest answer',
+                ],
+                'time' => [
+                    'label' => 'Time',
+                ],
+                'subject' => [
+                    'label' => 'Subject',
+                ],
+                'spent' => [
+                    'label' => 'Spent time',
+                ],
+                'author' => [
+                    'label' => 'Author',
+                ],
+                'rescipient' => [
+                    'label' => 'Recipient',
+                ],
+            ],
+        ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', AH::merge(compact('searchModel', 'dataProvider', 'sort'), $this->prepareRefs()));
+//        return parent::actionIndex($this->prepareRefs());
     }
 
     /**
@@ -61,7 +104,8 @@ class TicketController extends \hipanel\base\CrudController
     public function actionView($id)
     {
         $model = $this->findModel(ArrayHelper::merge(compact('id'), ['with_answers' => 1, 'with_files' => 1]), ['scenario' => 'answer']);
-        return $this->render('view', ArrayHelper::merge(compact('model'), $this->prepareRefs()));
+        $client = ClientModel::find()->where(['id' => $model->author_id, 'with_contact' => 1])->asArray()->one();
+        return $this->render('view', ArrayHelper::merge(compact('model', 'client'), $this->prepareRefs()));
     }
 
     /**
