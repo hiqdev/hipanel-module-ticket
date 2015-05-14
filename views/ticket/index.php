@@ -84,7 +84,7 @@ CSS
         'subject',
         'spent',
         'author',
-        'rescipient',
+        'recipient',
     ]
 ]); ?>
 

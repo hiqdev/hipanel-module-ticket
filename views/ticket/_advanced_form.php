@@ -4,8 +4,8 @@
  * @license http://hiqdev.com/hipanel/license
  * @copyright Copyright (c) 2015 HiQDev
  */
-use hipanel\widgets\Combo2;
-use hipanel\widgets\DefaultCombo2;
+use hipanel\modules\client\widgets\combo\ClientCombo;
+use hipanel\widgets\combo\StaticCombo;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 
@@ -15,14 +15,8 @@ use yii\web\JsExpression;
     $model->topics = 'general';
 else
     $model->topics = array_keys($model->topics);
-print $form->field($model, 'topics')->widget(Combo2::classname(), [
-    'type' => DefaultCombo2::className(),
-    'fieldOptions' => [
-        'pluginOptions' => [
-            'allowClear' => true,
-            'data' => array_merge(["" => ""], $topic_data),
-        ],
-    ]
+print $form->field($model, 'topics')->widget(StaticCombo::className(), [
+        'data' => array_merge(["" => ""], $topic_data)
 ]); ?>
 <div class="row">
     <div class="col-md-6">
@@ -30,13 +24,8 @@ print $form->field($model, 'topics')->widget(Combo2::classname(), [
         <?php
         if ($model->isNewRecord)
             $model->state = 'opened';
-        print $form->field($model, 'state')->widget(Combo2::classname(), [
-            'type' => DefaultCombo2::className(),
-            'fieldOptions' => [
-                'pluginOptions' => [
-                    'data' => array_merge(["" => ""], $state_data),
-                ]
-            ]
+        print $form->field($model, 'state')->widget(StaticCombo::classname(), [
+            'data' => array_merge(["" => ""], $state_data),
         ]); ?>
     </div>
     <div class="col-md-6">
@@ -44,33 +33,27 @@ print $form->field($model, 'topics')->widget(Combo2::classname(), [
         <?php
         if ($model->isNewRecord)
             $model->priority = 'medium';
-        print $form->field($model, 'priority')->widget(Combo2::classname(), [
-            'type' => DefaultCombo2::className(),
-            'fieldOptions' => [
-                'pluginOptions' => [
-                    'data' => array_merge(["" => ""], $priority_data),
-                    'allowClear' => true,
-                ]
-            ]
+        print $form->field($model, 'priority')->widget(StaticCombo::classname(), [
+                'data' => array_merge(["" => ""], $priority_data),
         ]); ?>
     </div>
 </div>
 
     <!-- Responsible -->
-<?= $form->field($model, 'responsible_id')->widget(Combo2::classname(), [
-    'type' => \hipanel\modules\client\assets\combo2\Manager::className()
+<?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
+    'clientType' => 'manager'
 ]); ?>
 
 <?php if ($model->scenario == 'insert') : ?>
-    <?= $form->field($model, 'watchers')->widget(Combo2::classname(), [
-        'type' => \hipanel\modules\client\assets\combo2\Manager::className()
+    <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
+        'clientType' => 'manager'
     ]); ?>
 <?php endif; ?>
 
 <?php
 if ($model->isNewRecord)
     $model->recipient_id = \Yii::$app->user->identity->id;
-print $form->field($model, 'recipient_id')->widget(Combo2::classname(), ['type' => \hipanel\modules\client\assets\combo2\Client::className()]); ?>
+print $form->field($model, 'recipient_id')->widget(ClientCombo::classname()); ?>
 
 <?php if ($model->scenario != 'answer') : ?>
     <?= $form->field($model, 'spent')->widget(kartik\widgets\TimePicker::className(), [

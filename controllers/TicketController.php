@@ -7,7 +7,7 @@
 
 namespace hipanel\modules\ticket\controllers;
 
-use hipanel\modules\client\assets\combo2\Client;
+use hipanel\modules\client\assets\combo2\ClientCombo;
 use Yii;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\TicketSettings;
