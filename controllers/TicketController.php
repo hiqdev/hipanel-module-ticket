@@ -68,25 +68,25 @@ class TicketController extends \hipanel\base\CrudController
         $sort = new Sort([
             'attributes' => [
                 'create_time' => [
-                    'label' => 'Create time',
+                    'label' => Yii::t('app', 'Create time'),
                 ],
                 'lastanswer' => [
-                    'label' => 'Latest answer',
+                    'label' => Yii::t('app', 'Latest answer'),
                 ],
                 'time' => [
-                    'label' => 'Time',
+                    'label' => Yii::t('app', 'Time'),
                 ],
                 'subject' => [
-                    'label' => 'Subject',
+                    'label' => Yii::t('app', 'Subject'),
                 ],
                 'spent' => [
-                    'label' => 'Spent time',
+                    'label' => Yii::t('app', 'Spent time'),
                 ],
                 'author' => [
-                    'label' => 'Author',
+                    'label' => Yii::t('app', 'Author'),
                 ],
-                'rescipient' => [
-                    'label' => 'Recipient',
+                'recipient' => [
+                    'label' => Yii::t('app', 'Recipient'),
                 ],
             ],
         ]);
