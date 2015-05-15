@@ -19,7 +19,6 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
     'pluginOptions' => [
         'select2Options' => [
             'multiple' => true,
-            'tags' => true,
         ]
     ],
     'data' => $topic_data
