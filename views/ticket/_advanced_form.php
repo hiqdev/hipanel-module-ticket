@@ -19,7 +19,6 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
     'pluginOptions' => [
         'select2Options' => [
             'multiple' => true,
-            'tags' => true,
         ]
     ],
     'data' => $topic_data
@@ -52,7 +51,12 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
 
 <?php if ($model->scenario == 'insert') : ?>
     <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
-        'clientType' => 'manager'
+        'clientType' => 'manager',
+        'pluginOptions' => [
+            'select2Options' => [
+                'multiple' => true,
+            ],
+        ],
     ]); ?>
 <?php endif; ?>
 
