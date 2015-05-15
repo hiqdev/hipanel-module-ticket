@@ -14,9 +14,15 @@ use yii\web\JsExpression;
 <?php if ($model->isNewRecord)
     $model->topics = 'general';
 else
-    $model->topics = array_keys($model->topics);
+    $model->topics = implode(',', array_keys($model->topics));
 print $form->field($model, 'topics')->widget(StaticCombo::className(), [
-        'data' => array_merge(["" => ""], $topic_data)
+    'pluginOptions' => [
+        'select2Options' => [
+            'multiple' => true,
+            'tags' => true,
+        ]
+    ],
+    'data' => $topic_data
 ]); ?>
 <div class="row">
     <div class="col-md-6">
@@ -25,7 +31,7 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
         if ($model->isNewRecord)
             $model->state = 'opened';
         print $form->field($model, 'state')->widget(StaticCombo::classname(), [
-            'data' => array_merge(["" => ""], $state_data),
+            'data' => $state_data,
         ]); ?>
     </div>
     <div class="col-md-6">
@@ -34,7 +40,7 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
         if ($model->isNewRecord)
             $model->priority = 'medium';
         print $form->field($model, 'priority')->widget(StaticCombo::classname(), [
-                'data' => array_merge(["" => ""], $priority_data),
+                'data' => $priority_data,
         ]); ?>
     </div>
 </div>
