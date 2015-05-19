@@ -1,5 +1,7 @@
 <?php
 
+use hipanel\modules\client\widgets\combo\ClientCombo;
+use hipanel\widgets\combo\StaticCombo;
 use kartik\widgets\Select2;
 use kartik\widgets\DatePicker;
 use yii\web\JsExpression;
@@ -53,109 +55,33 @@ JS
                 ]
             ]); ?>
         </div>
-        <?php echo $form->field($model, 'state')->dropDownList($state_data, ['prompt' => '']) ?>
-    </div>
-
-    <div class="col-md-4">
-        <?php echo $form->field($model, 'author_id')->widget(Select2::classname(), [
-            'options' => ['placeholder' => 'Search for a responsible ...'],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'minimumInputLength' => 3,
-                'ajax' => [
-                    'url' => Url::to(['/client/client/client-all-list']),
-                    'dataType' => 'json',
-                    'data' => new JsExpression('function(term,page) { return {search:term}; }'),
-                    'results' => new JsExpression('function(data,page) { return {results:data.results}; }'),
-                ],
-                'initSelection' => new JsExpression('function (elem, callback) {
-                    var id=$(elem).val();
-                    $.ajax("' . Url::to(['/client/client/client-all-list']) . '?id=" + id, {
-                        dataType: "json"
-                    }).done(function(data) {
-                        callback(data.results);
-                    });
-                }')
-            ],
-        ]) ?>
-
-        <?php echo $form->field($model, 'responsible_id')->widget(Select2::classname(), [
-            'options' => ['placeholder' => 'Search for a responsible ...'],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'minimumInputLength' => 3,
-                'ajax' => [
-                    'url' => Url::to(['/client/client/can-manage-list']),
-                    'dataType' => 'json',
-                    'data' => new JsExpression('function(term,page) { return {search:term}; }'),
-                    'results' => new JsExpression('function(data,page) { return {results:data.results}; }'),
-                ],
-                'initSelection' => new JsExpression('function (elem, callback) {
-                    var id=$(elem).val();
-                    $.ajax("' . Url::to(['/client/client/can-manage-list']) . '?id=" + id, {
-                        dataType: "json"
-                    }).done(function(data) {
-                        callback(data.results);
-                    });
-                }')
-            ],
-        ]) ?>
-
-        <?= $form->field($model, 'topics')->widget(Select2::classname(), [
-            'data' => array_merge(["" => ""], $topic_data),
-            'options' => ['placeholder' => 'Select a topic ...', 'multiple' => true],
-            'pluginOptions' => [
-                'allowClear' => true,
-            ],
+        <?= $form->field($model, 'state')->widget(StaticCombo::classname(), [
+            'data' => array_merge(['' => ''], $state_data),
         ]); ?>
     </div>
 
     <div class="col-md-4">
-        <?php echo $form->field($model, 'recipient_id')->widget(Select2::classname(), [
-            'options' => ['placeholder' => 'Search for a responsible ...'],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'minimumInputLength' => 3,
-                'ajax' => [
-                    'url' => Url::to(['/client/client/client-all-list']),
-                    'dataType' => 'json',
-                    'data' => new JsExpression('function(term,page) { return {search:term}; }'),
-                    'results' => new JsExpression('function(data,page) { return {results:data.results}; }'),
-                ],
-                'initSelection' => new JsExpression('function (elem, callback) {
-                    var id=$(elem).val();
-                    $.ajax("' . Url::to(['/client/client/client-all-list']) . '?id=" + id, {
-                        dataType: "json"
-                    }).done(function(data) {
-                        callback(data.results);
-                    });
-                }')
-            ],
-        ]) ?>
-        <?php echo $form->field($model, 'priority')->dropDownList(array_merge(['' => ''], $priority_data)) ?>
+        <?= $form->field($model, 'author_id')->widget(ClientCombo::classname()); ?>
 
-        <?php echo $form->field($model, 'watchers')->widget(Select2::classname(), [
-            'options' => ['placeholder' => 'Select watchers ...', 'multiple' => true],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'minimumInputLength' => 3,
-                'multiple' => true,
-                'ajax' => [
-                    'url' => Url::to(['/client/client/client-all-list']),
-                    'dataType' => 'json',
-                    'data' => new JsExpression('function(term,page) { return {search:term}; }'),
-                    'results' => new JsExpression('function(data,page) { return {results:data.results}; }'),
-                ],
-                'initSelection' => new JsExpression('function (elem, callback) {
-                                                            var id=$(elem).val();
-                                                            $.ajax("' . Url::to(['/client/client/client-all-list']) . '?id=" + id, {
-                                                                dataType: "json"
-                                                            }).done(function(data) {
-                                                                callback(data.results);
-                                                            });
-                                                        }')
-            ],
+        <?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
+            'clientType' => 'manager'
         ]); ?>
+
+        <?= $form->field($model, 'topics')->widget(StaticCombo::classname(), [
+            'data' => array_merge(['' => ''], $topic_data),
+        ]); ?>
+    </div>
+
+    <div class="col-md-4">
+        <?= $form->field($model, 'recipient_id')->widget(ClientCombo::classname(), [
+            'clientType' => 'client'
+        ]); ?>
+
+        <?= $form->field($model, 'priority')->widget(StaticCombo::classname(), [
+            'data' => array_merge(['' => ''], $priority_data),
+        ]);?>
+
+        <?php echo $form->field($model, 'watchers')->widget(ClientCombo::classname()); ?>
     </div>
 
 
