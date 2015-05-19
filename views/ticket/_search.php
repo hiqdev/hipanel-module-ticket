@@ -56,7 +56,7 @@ JS
             ]); ?>
         </div>
         <?= $form->field($model, 'state')->widget(StaticCombo::classname(), [
-            'data' => array_merge(['' => ''], $state_data),
+            'data' => $state_data,
         ]); ?>
     </div>
 
@@ -64,11 +64,21 @@ JS
         <?= $form->field($model, 'author_id')->widget(ClientCombo::classname()); ?>
 
         <?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
-            'clientType' => 'manager'
+            'clientType' => 'manager',
+//            'pluginOptions' => [
+//                'select2Options' => [
+//                    'multiple' => true,
+//                ],
+//            ],
         ]); ?>
 
         <?= $form->field($model, 'topics')->widget(StaticCombo::classname(), [
-            'data' => array_merge(['' => ''], $topic_data),
+            'data' => $topic_data,
+            'pluginOptions' => [
+                'select2Options' => [
+                    'multiple' => true,
+                ]
+            ],
         ]); ?>
     </div>
 
@@ -78,17 +88,17 @@ JS
         ]); ?>
 
         <?= $form->field($model, 'priority')->widget(StaticCombo::classname(), [
-            'data' => array_merge(['' => ''], $priority_data),
+            'data' => $priority_data,
         ]);?>
 
-        <?php echo $form->field($model, 'watchers')->widget(ClientCombo::classname()); ?>
+        <?php echo $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
+//            'pluginOptions' => [
+//                'select2Options' => [
+//                    'multiple' => true,
+//                ],
+//            ],
+        ]); ?>
     </div>
-
-
-    <?php // echo $form->field($model, 'message') ?>
-
-    <?php // echo $form->field($model, 'answer_message') ?>
-
 
     <div class="col-md-12">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

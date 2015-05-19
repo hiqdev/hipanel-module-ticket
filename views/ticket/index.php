@@ -221,14 +221,18 @@ CSS
         [
             'attribute' => 'responsible_id',
             'format' => 'html',
-            'filterInputOptions' => ['id' => 'responsible_id'],
+//            'filterInputOptions' => ['id' => 'responsible_id'],
             'value' => function ($data) {
                 return Html::a($data['responsible'], ['/client/client/view', 'id' => $data->responsible_id]);
             },
-            'filter' => Select2::widget([
+            'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
                 'attribute' => 'responsible_id',
                 'model' => $searchModel,
-                'url' => Url::to(['/client/client/client-all-list'])
+                'formElementSelector' => 'td',
+                'inputOptions' => [
+                    'id' => 'responsible_id',
+                ]
+//                'url' => Url::to(['/client/client/client-all-list'])
             ]),
         ],
         [
