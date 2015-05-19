@@ -58,6 +58,18 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
             ],
         ],
     ]); ?>
+<?php else : ?>
+    <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
+//        'clientType' => 'manager',
+        'inputOptions' => [
+            'value' => implode(',', array_keys($model->watchers)),
+        ],
+        'pluginOptions' => [
+            'select2Options' => [
+                'multiple' => true,
+            ],
+        ],
+    ]); ?>
 <?php endif; ?>
 
 <?php

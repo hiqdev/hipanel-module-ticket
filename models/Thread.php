@@ -245,8 +245,8 @@ class Thread extends \hipanel\base\Model
 
     public function afterFind()
     {
-        // if (is_array($this->topics)) $this->topics = array_keys($this->topics);
-        if (is_array($this->watchers)) $this->watchers = array_keys($this->watchers);
+//        if (is_array($this->topics)) $this->topics = array_keys($this->topics);
+//        if (is_array($this->watchers)) $this->watchers = array_keys($this->watchers);
 
         parent::afterFind();
     }
