@@ -82,7 +82,7 @@ CSS
             </div>
             <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
                 'options' => [
-                    'accept' => 'image/*',
+//                    'accept' => 'image/*',
                     'multiple' => true
                 ],
                 'pluginOptions' => [

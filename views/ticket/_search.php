@@ -57,6 +57,7 @@ JS
         </div>
         <?= $form->field($model, 'state')->widget(StaticCombo::classname(), [
             'data' => $state_data,
+            'hasId' => true,
         ]); ?>
     </div>
 
@@ -64,7 +65,7 @@ JS
         <?= $form->field($model, 'author_id')->widget(ClientCombo::classname()); ?>
 
         <?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
-            'clientType' => 'manager',
+//            'clientType' => 'manager',
 //            'pluginOptions' => [
 //                'select2Options' => [
 //                    'multiple' => true,
@@ -74,6 +75,7 @@ JS
 
         <?= $form->field($model, 'topics')->widget(StaticCombo::classname(), [
             'data' => $topic_data,
+            'hasId' => true,
             'pluginOptions' => [
                 'select2Options' => [
                     'multiple' => true,

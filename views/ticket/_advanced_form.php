@@ -16,6 +16,7 @@ use yii\web\JsExpression;
 else
     $model->topics = implode(',', array_keys($model->topics));
 print $form->field($model, 'topics')->widget(StaticCombo::className(), [
+    'hasId' => true,
     'pluginOptions' => [
         'select2Options' => [
             'multiple' => true,
@@ -31,6 +32,7 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
             $model->state = 'opened';
         print $form->field($model, 'state')->widget(StaticCombo::classname(), [
             'data' => $state_data,
+            'hasId' => true
         ]); ?>
     </div>
     <div class="col-md-6">
@@ -40,13 +42,14 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
             $model->priority = 'medium';
         print $form->field($model, 'priority')->widget(StaticCombo::classname(), [
                 'data' => $priority_data,
+                'hasId' => true
         ]); ?>
     </div>
 </div>
 
     <!-- Responsible -->
 <?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
-    'clientType' => 'manager'
+//    'clientType' => 'manager'
 ]); ?>
 
 <?php if ($model->scenario == 'insert') : ?>
@@ -59,8 +62,10 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
         ],
     ]); ?>
 <?php else : ?>
+    <?php \yii\helpers\VarDumper::dump(implode(',', array_keys($model->watchers)), 10, true); ?>
     <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
 //        'clientType' => 'manager',
+        'hasId' => true,
         'inputOptions' => [
             'value' => implode(',', array_keys($model->watchers)),
         ],
