@@ -92,7 +92,7 @@ FlagIconCssAsset::register($this);
             </div>
         <?php endif; ?>
         <?php $box->beginFooter(); ?>
-        <?php if (is_array($model->watchers) && array_keys(Yii::$app->user->identity->id, $model->watchers)) : ?>
+        <?php if (array_key_exists(Yii::$app->user->identity->id, $model->watchers)) : ?>
             <?= Html::a('<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;' . Yii::t('app', 'Unsubscribe'), ['unsubscribe', 'id' => $model->id], ['class' => 'btn  btn-default btn-block']) ?>
         <?php else : ?>
             <?= Html::a('<i class="fa fa-eye"></i>&nbsp;&nbsp;' . Yii::t('app', 'Subscribe'), ['subscribe', 'id' => $model->id], ['class' => 'btn  btn-default btn-block']) ?>
