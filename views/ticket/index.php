@@ -232,22 +232,23 @@ CSS
                 'inputOptions' => [
                     'id' => 'responsible_id',
                 ]
-//                'url' => Url::to(['/client/client/client-all-list'])
             ]),
         ],
         [
             'attribute' => 'recipient_id',
             'format' => 'html',
-            'filterInputOptions' => ['id' => 'recipient_id'],
             'label' => Yii::t('app', 'Recipient'),
             'value' => function ($data) {
                 return Html::a($data->recipient, ['/client/client/view', 'id' => $data->recipient_id]);
 
             },
-            'filter' => Select2::widget([
+            'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
                 'attribute' => 'recipient_id',
                 'model' => $searchModel,
-                'url' => Url::to(['/client/client/can-manage-list'])
+                'formElementSelector' => 'td',
+                'inputOptions' => [
+                    'id' => 'recipient_id',
+                ]
             ]),
         ],
         [
@@ -267,12 +268,14 @@ CSS
                 . Html::a($data->author, ['/client/client/view', 'id' => $data->author_id]);
             },
             'format' => 'html',
-            'filterInputOptions' => ['id' => 'author_id'],
             'label' => Yii::t('app', 'Author'),
-            'filter' => Select2::widget([
+            'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
                 'attribute' => 'author_id',
                 'model' => $searchModel,
-                'url' => Url::to(['/client/client/client-all-list'])
+                'formElementSelector' => 'td',
+                'inputOptions' => [
+                    'id' => 'author_id',
+                ]
             ]),
         ],
         [
