@@ -26,17 +26,14 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
                 'tickets' => [
                     'label' => 'Tickets',
                     'url'   => ['/ticket/ticket/index'],
-                    'icon'  => 'fa-ticket',
                 ],
                 'settings' => [
                     'label' => 'Tickets settings',
                     'url'   => ['/ticket/ticket/settings'],
-                    'icon'  => 'fa-gears',
                 ],
                 'statistics' => [
                     'label' => 'Tickets statistic',
                     'url'   => ['/ticket/ticket/statistics'],
-                    'icon'  => 'fa-bar-chart',
                 ],
             ],
         ],
