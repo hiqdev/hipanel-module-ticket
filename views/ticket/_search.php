@@ -1,8 +1,7 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
-use hipanel\widgets\combo\StaticCombo;
-use kartik\widgets\Select2;
+use hiqdev\combo\StaticCombo;
 use kartik\widgets\DatePicker;
 use yii\web\JsExpression;
 use yii\widgets\ActiveForm;

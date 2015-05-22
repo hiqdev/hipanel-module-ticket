@@ -4,8 +4,9 @@
  * @license http://hiqdev.com/hipanel/license
  * @copyright Copyright (c) 2015 HiQDev
  */
+
+use hiqdev\combo\StaticCombo;
 use hipanel\modules\client\widgets\combo\ClientCombo;
-use hipanel\widgets\combo\StaticCombo;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 
