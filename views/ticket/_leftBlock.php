@@ -1,12 +1,12 @@
 <?php
 /**
- * @link http://hiqdev.com/...
- * @copyright Copyright (c) 2015 HiQDev
- * @license http://hiqdev.com/.../license
+ * @link        http://hiqdev.com/hipanel-module-ticket
+ * @license     http://hiqdev.com/hipanel-module-ticket/license
+ * @copyright   Copyright (c) 2015 HiQDev
  */
 
 use cebe\gravatar\Gravatar;
-use frontend\assets\FlagIconCssAsset;
+use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\Box;
 use yii\helpers\Html;

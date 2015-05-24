@@ -5,7 +5,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-// use frontend\assets\iCheckAsset;
+// use hiqdev\assets\icheck\iCheckAsset;
 
 // iCheckAsset::register($this);
 //$this->registerJs(new \yii\web\JsExpression("

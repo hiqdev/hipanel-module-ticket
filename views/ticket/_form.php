@@ -1,8 +1,9 @@
 <?php
-use frontend\assets\AutosizeAsset;
+
+use hiqdev\assets\icheck\iCheckAsset;
+use hiqdev\assets\autosize\AutosizeAsset;
 use yii\helpers\Html;
 use yii\web\JsExpression;
-use frontend\assets\iCheckAsset;
 use yii\helpers\Url;
 
 iCheckAsset::register($this);
