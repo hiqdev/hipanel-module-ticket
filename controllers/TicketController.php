@@ -12,7 +12,7 @@ use Yii;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\TicketSettings;
 use common\models\File;
-use hiqdev\hiar\HiResException;
+use hiqdev\hiart\HiResException;
 use yii\data\Sort;
 use yii\helpers\ArrayHelper;
 use hipanel\helpers\ArrayHelper as AH;
