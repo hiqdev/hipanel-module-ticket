@@ -63,7 +63,6 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
         ],
     ]); ?>
 <?php else : ?>
-    <?php \yii\helpers\VarDumper::dump(implode(',', array_keys($model->watchers)), 10, true); ?>
     <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
 //        'clientType' => 'manager',
         'hasId' => true,
