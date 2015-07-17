@@ -9,7 +9,7 @@ use hipanel\widgets\Gravatar;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\GridView;
 use hipanel\widgets\ActionBox;
-use hipanel\widgets\Select2;
+//use hipanel\widgets\Select2;
 use hipanel\modules\ticket\widgets\Topic;
 use yii\helpers\Html;
 use yii\helpers\Url;
