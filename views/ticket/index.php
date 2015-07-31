@@ -14,6 +14,7 @@ use hipanel\modules\ticket\widgets\Topic;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use hipanel\widgets\Box;
+use hipanel\widgets\LinkSorter;
 
 $this->title = Yii::t('app', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
@@ -55,7 +56,7 @@ CSS
     &nbsp;
     <?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-info search-button']) ?>
     &nbsp;
-    <?=  \hipanel\widgets\LinkSorter::widget([
+    <?=  LinkSorter::widget([
         'show' => true,
         'sort' => $sort,
         'attributes' => [
@@ -67,7 +68,7 @@ CSS
             'author',
             'recipient',
         ]
-    ]); ?>
+    ]) ?>
 <?php $box->endActions(); ?>
 <?php $box->beginBulkActions(); ?>
     <?= Html::a(Yii::t('app', 'Subscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
@@ -84,20 +85,6 @@ CSS
 <?php $box = Box::begin(['renderBody' => false, 'options' => ['class' => 'box-primary']]); ?>
 <?php $box->beginBody(); ?>
 <?= GridView::widget([
-//    'sorter' => [
-//        'class' => '\hipanel\widgets\LinkSorter',
-//        'show' => true,
-//        'sort' => $sort,
-//        'attributes' => [
-//            'create_time',
-//            'lastanswer',
-//            'time',
-//            'subject',
-//            'spent',
-//            'author',
-//            'recipient',
-//        ]
-//    ],
     'dataProvider' => $dataProvider,
     'filterModel' => $model,
     'id' => 'ticket-grid',
