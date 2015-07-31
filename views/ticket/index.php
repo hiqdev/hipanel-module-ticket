@@ -93,6 +93,7 @@ CSS
         return ['class' => ($model['priority'] == 'high') ? 'bg-danger' : ''];
     },
     'columns' => [
+        'checkbox',
         [
             'attribute' => 'subject',
             'format' => 'raw',
@@ -207,7 +208,6 @@ CSS
                 },
             ],
         ],
-        'checkbox',
     ],
 ]); ?>
 <?php $box->endBody(); ?>
