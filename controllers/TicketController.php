@@ -64,7 +64,7 @@ class TicketController extends \hipanel\base\CrudController
      */
     public function actionIndex()
     {
-        $searchModel = static::searchModel();
+        $model = static::searchModel();
         $sort = new Sort([
             'attributes' => [
                 'create_time' => [
@@ -90,9 +90,9 @@ class TicketController extends \hipanel\base\CrudController
                 ],
             ],
         ]);
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $model->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', AH::merge(compact('searchModel', 'dataProvider', 'sort'), $this->prepareRefs()));
+        return $this->render('index', AH::merge(compact('model', 'dataProvider', 'sort'), $this->prepareRefs()));
 //        return parent::actionIndex($this->prepareRefs());
     }
 

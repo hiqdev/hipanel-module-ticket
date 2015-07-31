@@ -51,23 +51,18 @@ CSS
 
 <?php $box = ActionBox::begin(['bulk' => true, 'options' => ['class' => 'box-info']]) ?>
 <?php $box->beginActions(); ?>
-<?= Html::a(Yii::t('app', 'Create {modelClass}', ['modelClass' => 'Ticket']), ['create'], ['class' => 'btn btn-primary']) ?>&nbsp;
-<?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-info search-button']) ?>
+    <?= Html::a(Yii::t('app', 'Create {modelClass}', ['modelClass' => 'Ticket']), ['create'], ['class' => 'btn btn-primary']) ?>&nbsp;
+    <?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-info search-button']) ?>
 <?php $box->endActions(); ?>
 <?php $box->beginBulkActions(); ?>
-<?= Html::a(Yii::t('app', 'Subscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
-&nbsp;
-<?= Html::a(Yii::t('app', 'Unsubscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
-&nbsp;
-<?= Html::a(Yii::t('app', 'Close'), ['create'], ['class' => 'btn btn-danger']) ?>
+    <?= Html::a(Yii::t('app', 'Subscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
+    &nbsp;
+    <?= Html::a(Yii::t('app', 'Unsubscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
+    &nbsp;
+    <?= Html::a(Yii::t('app', 'Close'), ['create'], ['class' => 'btn btn-danger']) ?>
 <?php $box->endBulkActions(); ?>
 
-<?= $this->render('_search', [
-    'model' => $searchModel,
-    'topic_data' => $topic_data,
-    'priority_data' => $priority_data,
-    'state_data' => $state_data,
-]); ?>
+<?= $this->render('_search', compact('model', 'topic_data', 'priority_data', 'state_data')) ?>
 <?php $box::end(); ?>
 
 <?php $box = Box::begin(['renderBody' => false, 'options' => ['class' => 'box-primary']]); ?>
@@ -86,13 +81,13 @@ CSS
         'author',
         'recipient',
     ]
-]); ?>
+]) ?>
 
 <?php $box->endTools(); ?>
 <?php $box->beginBody(); ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
+    'filterModel' => $model,
     'id' => 'ticket-grid',
     'striped' => false,
     'rowOptions' => function ($model, $key, $index, $grid) {
@@ -121,7 +116,7 @@ CSS
             },
             'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
                 'attribute' => 'responsible_id',
-                'model' => $searchModel,
+                'model' => $model,
                 'formElementSelector' => 'td',
                 'inputOptions' => [
                     'id' => 'responsible_id',
@@ -138,7 +133,7 @@ CSS
             },
             'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
                 'attribute' => 'recipient_id',
-                'model' => $searchModel,
+                'model' => $model,
                 'formElementSelector' => 'td',
                 'inputOptions' => [
                     'id' => 'recipient_id',
@@ -165,7 +160,7 @@ CSS
             'label' => Yii::t('app', 'Author'),
             'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
                 'attribute' => 'author_id',
-                'model' => $searchModel,
+                'model' => $model,
                 'formElementSelector' => 'td',
                 'inputOptions' => [
                     'id' => 'author_id',
