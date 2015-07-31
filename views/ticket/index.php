@@ -51,25 +51,12 @@ CSS
 
 <?php $box = ActionBox::begin(['bulk' => true, 'options' => ['class' => 'box-info']]) ?>
 <?php $box->beginActions(); ?>
-    <?= Html::a(Yii::t('app', 'Create {modelClass}', ['modelClass' => 'Ticket']), ['create'], ['class' => 'btn btn-primary']) ?>&nbsp;
+    <?= Html::a(Yii::t('app', 'Create {modelClass}', ['modelClass' => 'Ticket']), ['create'], ['class' => 'btn btn-primary']) ?>
+    &nbsp;
     <?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-info search-button']) ?>
-<?php $box->endActions(); ?>
-<?php $box->beginBulkActions(); ?>
-    <?= Html::a(Yii::t('app', 'Subscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
     &nbsp;
-    <?= Html::a(Yii::t('app', 'Unsubscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
-    &nbsp;
-    <?= Html::a(Yii::t('app', 'Close'), ['create'], ['class' => 'btn btn-danger']) ?>
-<?php $box->endBulkActions(); ?>
-
-<?= $this->render('_search', compact('model', 'topic_data', 'priority_data', 'state_data')) ?>
-<?php $box::end(); ?>
-
-<?php $box = Box::begin(['renderBody' => false, 'options' => ['class' => 'box-primary']]); ?>
-<?php $box->beginBody(); ?>
-<?= GridView::widget([
-    'sorter' => [
-        'class' => '\hipanel\widgets\LinkSorter',
+    <?=  \hipanel\widgets\LinkSorter::widget([
+        'show' => true,
         'sort' => $sort,
         'attributes' => [
             'create_time',
@@ -80,7 +67,37 @@ CSS
             'author',
             'recipient',
         ]
-    ],
+    ]); ?>
+<?php $box->endActions(); ?>
+<?php $box->beginBulkActions(); ?>
+    <?= Html::a(Yii::t('app', 'Subscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
+    &nbsp;
+    <?= Html::a(Yii::t('app', 'Unsubscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
+    &nbsp;
+    <?= Html::a(Yii::t('app', 'Close'), ['create'], ['class' => 'btn btn-danger']) ?>
+
+<?php $box->endBulkActions(); ?>
+
+<?= $this->render('_search', compact('model', 'topic_data', 'priority_data', 'state_data')) ?>
+<?php $box::end(); ?>
+
+<?php $box = Box::begin(['renderBody' => false, 'options' => ['class' => 'box-primary']]); ?>
+<?php $box->beginBody(); ?>
+<?= GridView::widget([
+//    'sorter' => [
+//        'class' => '\hipanel\widgets\LinkSorter',
+//        'show' => true,
+//        'sort' => $sort,
+//        'attributes' => [
+//            'create_time',
+//            'lastanswer',
+//            'time',
+//            'subject',
+//            'spent',
+//            'author',
+//            'recipient',
+//        ]
+//    ],
     'dataProvider' => $dataProvider,
     'filterModel' => $model,
     'id' => 'ticket-grid',
