@@ -86,6 +86,9 @@ class Thread extends \hipanel\base\Model
             'is_private',
             'anonym_email',
             'anonym_seller',
+
+            'lastanswer',
+            'time',
         ];
     }
 

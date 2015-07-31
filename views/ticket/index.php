@@ -71,26 +71,21 @@ CSS
 <?php $box::end(); ?>
 
 <?php $box = Box::begin(['renderBody' => false, 'options' => ['class' => 'box-primary']]); ?>
-<?php $box->beginHeader(); ?>
-<?= $box->renderTitle('&nbsp;'); ?>
-<?php $box->beginTools(); ?>
-
-<?= \hipanel\widgets\GridViewSortTool::widget([
-    'sort' => $sort,
-    'sortNames' => [
-        'create_time',
-        'lastanswer',
-        'time',
-        'subject',
-        'spent',
-        'author',
-        'recipient',
-    ]
-]); ?>
-
-<?php $box->endTools(); ?>
 <?php $box->beginBody(); ?>
 <?= GridView::widget([
+    'sorter' => [
+        'class' => '\hipanel\widgets\LinkSorter',
+        'sort' => $sort,
+        'attributes' => [
+            'create_time',
+            'lastanswer',
+            'time',
+            'subject',
+            'spent',
+            'author',
+            'recipient',
+        ]
+    ],
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'id' => 'ticket-grid',
