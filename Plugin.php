@@ -10,6 +10,9 @@ namespace hipanel\modules\ticket;
 class Plugin extends \hiqdev\pluginmanager\Plugin
 {
     protected $_items = [
+        'aliases' => [
+            "@ticket" => "/ticket/ticket",
+        ],
         'menus' => [
             [
                 'class' => 'hipanel\modules\ticket\SidebarMenu',
