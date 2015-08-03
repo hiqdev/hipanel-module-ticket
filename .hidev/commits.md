@@ -3,6 +3,7 @@ hiqdev/hipanel-module-ticket commits history
 
 ## Under development
 
+    - 6549eea 2015-08-03 hideved (sol@hiqdev.com)
 - Added basic functionality
     - 752bd0e 2015-08-03 Bulk buttons change (andreyklochok@gmail.com)
     - 12aeebe 2015-08-02 * Plugin: + aliases (sol@hiqdev.com)

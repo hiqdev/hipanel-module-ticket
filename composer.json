@@ -49,7 +49,7 @@
     },
     "autoload": {
         "psr-4": {
-            "hipanel\\modules\\ticket\\": ""
+            "hipanel\\modules\\ticket\\": "src"
         }
     }
 }
