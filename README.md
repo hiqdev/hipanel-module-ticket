@@ -1,7 +1,7 @@
 Ticket Plugin for HiPanel
 -------------------------
 
-Tickets
+Ticket Plugin for HiPanel
 
 For more info see wiki:
 https://github.com/hiqdev/hipanel-module-ticket/wiki
