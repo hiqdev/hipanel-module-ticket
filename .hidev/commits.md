@@ -3,6 +3,10 @@ hiqdev/hipanel-module-ticket commits history
 
 ## Under development
 
+- Changed code style: hideved, moved to src and php-cs-fixed
+    - e6c5ed8 2015-08-03 php-cs-fixed (sol@hiqdev.com)
+    - 7b2f876 2015-08-03 php-cs-fixed (sol@hiqdev.com)
+    - 665d514 2015-08-03 moved to src (sol@hiqdev.com)
     - 6549eea 2015-08-03 hideved (sol@hiqdev.com)
 - Added basic functionality
     - 752bd0e 2015-08-03 Bulk buttons change (andreyklochok@gmail.com)
