@@ -1,27 +1,22 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-ticket
- * @license http://hiqdev.com/hipanel-module-ticket/license
- * @copyright Copyright (c) 2015 HiQDev
- */
 
-use hipanel\modules\ticket\models\Thread;
-use hipanel\widgets\BulkButtons;
-use hipanel\widgets\Gravatar;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\GridView;
-use hipanel\widgets\ActionBox;
-//use hipanel\widgets\Select2;
+use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Topic;
+use hipanel\widgets\ActionBox;
+use hipanel\widgets\Box;
+//use hipanel\widgets\Select2;
+use hipanel\widgets\BulkButtons;
+use hipanel\widgets\Gravatar;
+use hipanel\widgets\LinkSorter;
 use yii\bootstrap\Button;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use hipanel\widgets\Box;
-use hipanel\widgets\LinkSorter;
 
-$this->title = Yii::t('app', 'Tickets');
+$this->title                   = Yii::t('app', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['subtitle'] = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
+$this->params['subtitle']      = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
 
 $this->registerCss(<<<CSS
 .list-inline {
@@ -60,8 +55,8 @@ CSS
     <?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-info search-button']) ?>
     &nbsp;
     <?=  LinkSorter::widget([
-        'show' => true,
-        'sort' => $sort,
+        'show'       => true,
+        'sort'       => $sort,
         'attributes' => [
             'create_time',
             'lastanswer',
@@ -70,29 +65,29 @@ CSS
             'spent',
             'author',
             'recipient',
-        ]
+        ],
     ]) ?>
 <?php $box->endActions(); ?>
 <?php $box->beginBulkActions(); ?>
 <?= BulkButtons::widget([
-    'model' => new Thread,
+    'model' => new Thread(),
     'items' => [
         Button::widget([
-            'label' => Yii::t('app', 'Subscribe'),
+            'label'   => Yii::t('app', 'Subscribe'),
             'options' => [
                 'class' => 'btn btn-default',
             ],
         ]),
         Button::widget([
-            'label' => Yii::t('app', 'Unsubscribe'),
+            'label'   => Yii::t('app', 'Unsubscribe'),
             'options' => [
-                'class' => 'btn btn-default'
+                'class' => 'btn btn-default',
             ],
         ]),
         Button::widget([
-            'label' => Yii::t('app', 'Close'),
+            'label'   => Yii::t('app', 'Close'),
             'options' => [
-                'class' => 'btn btn-danger'
+                'class' => 'btn btn-danger',
             ],
         ]),
     ],
@@ -107,69 +102,70 @@ CSS
 <?php $box->beginBody(); ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel' => $model,
-    'id' => 'ticket-grid',
-    'striped' => false,
-    'rowOptions' => function ($model, $key, $index, $grid) {
-        return ['class' => ($model['priority'] == 'high') ? 'bg-danger' : ''];
+    'filterModel'  => $model,
+    'id'           => 'ticket-grid',
+    'striped'      => false,
+    'rowOptions'   => function ($model, $key, $index, $grid) {
+        return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
     },
     'columns' => [
         'checkbox',
         [
             'attribute' => 'subject',
-            'format' => 'raw',
-            'value' => function ($data) {
-                $state = $data->state == 'opened' ?
+            'format'    => 'raw',
+            'value'     => function ($data) {
+                $state = $data->state === 'opened' ?
                     Html::tag('div', '<span class="fa fa-circle-o text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type']) :
                     Html::tag('div', '<span class="fa fa-check-circle text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type']);
                 $t = Html::tag('b', Html::a($data->subject, $data->threadUrl)) . Topic::widget(['topics' => $data->topics]) .
                     Html::tag('div', '#' . $data->id . '&nbsp;opened ' . Yii::$app->formatter->asDatetime($data->create_time), ['class' => 'text-muted']);
-                return $state.Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
-            }
+
+                return $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
+            },
 
         ],
         [
             'attribute' => 'responsible_id',
-            'format' => 'html',
+            'format'    => 'html',
 //            'filterInputOptions' => ['id' => 'responsible_id'],
             'value' => function ($data) {
                 return Html::a($data['responsible'], ['/client/client/view', 'id' => $data->responsible_id]);
             },
             'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
-                'attribute' => 'responsible_id',
-                'model' => $model,
+                'attribute'           => 'responsible_id',
+                'model'               => $model,
                 'formElementSelector' => 'td',
-                'inputOptions' => [
+                'inputOptions'        => [
                     'id' => 'responsible_id',
-                ]
+                ],
             ]),
         ],
         [
             'attribute' => 'recipient_id',
-            'format' => 'html',
-            'label' => Yii::t('app', 'Recipient'),
-            'value' => function ($data) {
+            'format'    => 'html',
+            'label'     => Yii::t('app', 'Recipient'),
+            'value'     => function ($data) {
                 return Html::a($data->recipient, ['/client/client/view', 'id' => $data->recipient_id]);
 
             },
             'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
-                'attribute' => 'recipient_id',
-                'model' => $model,
+                'attribute'           => 'recipient_id',
+                'model'               => $model,
                 'formElementSelector' => 'td',
-                'inputOptions' => [
+                'inputOptions'        => [
                     'id' => 'recipient_id',
-                ]
+                ],
             ]),
         ],
         [
             'attribute' => 'author_id',
-            'value' => function ($data) {
+            'value'     => function ($data) {
                 return (
                 $data->author_email ? Gravatar::widget([
-                    'emailHash' => $data->author_email,
+                    'emailHash'    => $data->author_email,
                     'defaultImage' => 'identicon',
-                    'options' => [
-                        'alt' => '',
+                    'options'      => [
+                        'alt'   => '',
                         'class' => 'img-circle',
                     ],
                     'size' => 16,
@@ -178,33 +174,33 @@ CSS
                 . Html::a($data->author, ['/client/client/view', 'id' => $data->author_id]);
             },
             'format' => 'html',
-            'label' => Yii::t('app', 'Author'),
+            'label'  => Yii::t('app', 'Author'),
             'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
-                'attribute' => 'author_id',
-                'model' => $model,
+                'attribute'           => 'author_id',
+                'model'               => $model,
                 'formElementSelector' => 'td',
-                'inputOptions' => [
+                'inputOptions'        => [
                     'id' => 'author_id',
-                ]
+                ],
             ]),
         ],
         [
             'attribute' => 'answer_count',
-            'label' => Yii::t('app', 'Answers'),
-            'format' => 'raw',
-            'filter' => false,
-            'value' => function ($data) {
+            'label'     => Yii::t('app', 'Answers'),
+            'format'    => 'raw',
+            'filter'    => false,
+            'value'     => function ($data) {
                 return Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment text-muted']) . '&nbsp;&nbsp;' . $data->answer_count;
             },
             'contentOptions' => [
-                'style' => 'font-size: larger;'
-            ]
+                'style' => 'font-size: larger;',
+            ],
         ],
         [
-            'class' => ActionColumn::className(),
+            'class'    => ActionColumn::className(),
             'template' => '{view}',
-            'header' => Yii::t('app', 'Actions'),
-            'buttons' => [
+            'header'   => Yii::t('app', 'Actions'),
+            'buttons'  => [
                 //                'view' => function ($url, $model, $key) {
                 //                    return GridActionButton::widget([
                 //                        'url' => $url,
@@ -213,7 +209,7 @@ CSS
                 //                    ]);
                 //                },
                 'state' => function ($url, $model, $key) {
-                    if ($model->state == 'opened') {
+                    if ($model->state === 'opened') {
                         //                        $title = Yii::t('app', 'Close');
                         //                        return Html::a('<i class="fa fa-times"></i>&nbsp;&nbsp;'.$title,
                         //                            ['close', 'id' => $model->id],

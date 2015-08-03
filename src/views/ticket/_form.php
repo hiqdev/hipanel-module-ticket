@@ -1,10 +1,8 @@
 <?php
 
-use hiqdev\assets\icheck\iCheckAsset;
 use hiqdev\assets\autosize\AutosizeAsset;
+use hiqdev\assets\icheck\iCheckAsset;
 use yii\helpers\Html;
-use yii\web\JsExpression;
-use yii\helpers\Url;
 
 iCheckAsset::register($this);
 AutosizeAsset::register($this);
@@ -45,8 +43,9 @@ $this->registerCss(<<< CSS
 CSS
 ); ?>
 
-<?php if ($model->isNewRecord)
-    print $form->field($model, 'subject'); ?>
+<?php if ($model->isNewRecord) {
+    print $form->field($model, 'subject');
+} ?>
 
 <div role="tabpanel" class="comment-tab">
     <!-- Nav tabs -->
@@ -84,21 +83,22 @@ CSS
             <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
                 'options' => [
 //                    'accept' => 'image/*',
-                    'multiple' => true
+                    'multiple' => true,
                 ],
                 'pluginOptions' => [
-                    'previewFileType' => 'any',
-                    'showRemove' => true,
-                    'showUpload' => false,
+                    'previewFileType'          => 'any',
+                    'showRemove'               => true,
+                    'showUpload'               => false,
                     'initialPreviewShowDelete' => true,
-                    'maxFileCount' => 5,
-                    'msgFilesTooMany' => 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}. Please retry your upload!',
-                ]
+                    'maxFileCount'             => 5,
+                    'msgFilesTooMany'          => 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}. Please retry your upload!',
+                ],
             ]); ?>
         </div>
         <div class="col-md-3">
-            <?php if (!$model->isNewRecord)
-                print $form->field($model, 'is_private')->checkbox(['class' => 'icheck']); ?>
+            <?php if (!$model->isNewRecord) {
+    print $form->field($model, 'is_private')->checkbox(['class' => 'icheck']);
+} ?>
         </div>
         <div class="col-md-9">
             <div class="pull-right">

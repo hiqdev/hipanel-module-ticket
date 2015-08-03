@@ -3,7 +3,6 @@
 use hipanel\widgets\Pjax;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 // use hiqdev\assets\icheck\iCheckAsset;
 
@@ -15,7 +14,7 @@ use yii\helpers\Url;
 //});
 //"), yii\web\View::POS_READY);
 
-$this->title = Yii::t('app', 'Ticket Settings');
+$this->title                   = Yii::t('app', 'Ticket Settings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(Yii::$app->params['pjax']); ?>

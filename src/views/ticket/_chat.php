@@ -1,4 +1,5 @@
 <?php
+
 use cebe\gravatar\Gravatar;
 use frontend\modules\ticket\models\Thread;
 use yii\helpers\ArrayHelper;
@@ -58,17 +59,17 @@ JS
         <div class="scroller" style="height: 200rem;" data-always-visible="1" data-rail-visible1="1" data-height="200rem">
             <ul class="chats">
                 <?php foreach ($model->answers as $answer_id => $answer) : ?>
-                    <?php if (ArrayHelper::getValue($answer, 'message') != null) : ?>
+                    <?php if (ArrayHelper::getValue($answer, 'message') !== null) : ?>
                         <?= Html::beginTag('li', ['class' => ($answer['is_answer']) ? 'out' : 'in', 'id' => 'answer-' . $answer['answer_id']]) ?>
                         <?php if (isset($answer['email']) && filter_var($answer['email'], FILTER_VALIDATE_EMAIL)) : ?>
                             <?= Gravatar::widget([
-                                'email' => $answer['email'],
+                                'email'        => $answer['email'],
                                 'defaultImage' => 'identicon',
-                                'options' => [
-                                    'alt' => $answer['author'],
+                                'options'      => [
+                                    'alt'   => $answer['author'],
                                     'class' => 'avatar',
                                 ],
-                                'size' => 45
+                                'size' => 45,
                             ]); ?>
                         <?php endif; ?>
 
@@ -78,23 +79,25 @@ JS
                             <div class="info">
                                 <?= Html::a($answer['author'], [
                                     '/client/client/view',
-                                    'id' => $answer['author_id']
+                                    'id' => $answer['author_id'],
                                 ], ['class' => 'name']); ?>&nbsp;
                                 <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer['create_time']), ['class' => 'datetime']) ?>&nbsp;
-                                <?php if ($answer['spent']) print Html::tag('span', Yii::t('app', 'Time spent: {n}', ['n' => $answer['spent']]), ['class' => 'spent-time']); ?>&nbsp;
+                                <?php if ($answer['spent']) {
+    print Html::tag('span', Yii::t('app', 'Time spent: {n}', ['n' => $answer['spent']]), ['class' => 'spent-time']);
+} ?>&nbsp;
                             </div>
 
                             <div class="buttons">
                                 <?= Html::button(Yii::t('app', '{i}Quote', ['i' => '<span class="fa fa-quote-left"></span>&nbsp;&nbsp;']), ['class' => 'quote-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); ?>
                                 <?= Html::button(Yii::t('app', '{i}Hide', ['i' => '<span class="fa fa-minus"></span>&nbsp;&nbsp;']), ['class' => 'hide-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); ?>
                                 <?= Html::button(Yii::t('app', '{i}Show', ['i' => '<span class="fa fa-plus"></span>&nbsp;&nbsp;']), ['class' => 'show-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']], 'style' => 'display: none;']); ?>
-                                <? /* = Html::button(Yii::t('app', '{i}Split', ['i' => '<span class="fa fa-scissors"></span>&nbsp;&nbsp;']), ['class' => 'split-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); */ ?>
+                                <?php /* = Html::button(Yii::t('app', '{i}Split', ['i' => '<span class="fa fa-scissors"></span>&nbsp;&nbsp;']), ['class' => 'split-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); */ ?>
                             </div>
 
                             <div class="clearfix"></div>
 
                             <?= Html::tag('span', Thread::parseMessage($answer['message']), ['class' => 'body']); ?>
-                            <?php if (ArrayHelper::getValue($answer, 'files') != null) : ?>
+                            <?php if (ArrayHelper::getValue($answer, 'files') !== null) : ?>
                                 <?= $this->render('_attachment', ['attachment' => $answer['files'], 'object_id' => $model->id, 'object_name' => 'thread', 'answer_id' => $answer_id]); ?>
                             <?php endif; ?>
 
