@@ -5,12 +5,15 @@
  * @copyright Copyright (c) 2015 HiQDev
  */
 
+use hipanel\modules\ticket\models\Thread;
+use hipanel\widgets\BulkButtons;
 use hipanel\widgets\Gravatar;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\GridView;
 use hipanel\widgets\ActionBox;
 //use hipanel\widgets\Select2;
 use hipanel\modules\ticket\widgets\Topic;
+use yii\bootstrap\Button;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use hipanel\widgets\Box;
@@ -71,11 +74,29 @@ CSS
     ]) ?>
 <?php $box->endActions(); ?>
 <?php $box->beginBulkActions(); ?>
-    <?= Html::a(Yii::t('app', 'Subscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
-    &nbsp;
-    <?= Html::a(Yii::t('app', 'Unsubscribe'), ['create'], ['class' => 'btn btn-primary']) ?>
-    &nbsp;
-    <?= Html::a(Yii::t('app', 'Close'), ['create'], ['class' => 'btn btn-danger']) ?>
+<?= BulkButtons::widget([
+    'model' => new Thread,
+    'items' => [
+        Button::widget([
+            'label' => Yii::t('app', 'Subscribe'),
+            'options' => [
+                'class' => 'btn btn-default',
+            ],
+        ]),
+        Button::widget([
+            'label' => Yii::t('app', 'Unsubscribe'),
+            'options' => [
+                'class' => 'btn btn-default'
+            ],
+        ]),
+        Button::widget([
+            'label' => Yii::t('app', 'Close'),
+            'options' => [
+                'class' => 'btn btn-danger'
+            ],
+        ]),
+    ],
+]) ?>
 
 <?php $box->endBulkActions(); ?>
 
