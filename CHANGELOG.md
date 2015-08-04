@@ -1,7 +1,11 @@
 hiqdev/hipanel-module-ticket changelog
 --------------------------------------
 
-### 0.1.0 under development
+## Under development
 
-- inited
+- Changed code style: hideved, moved to src and php-cs-fixed
+- Added basic functionality
+- Added: inited
+
+## Development started 2015-04-21
 

@@ -1,20 +1,23 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-ticket
- * @license http://hiqdev.com/hipanel-module-ticket/license
- * @copyright Copyright (c) 2015 HiQDev
+
+/*
+ * Ticket Plugin for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-ticket
+ * @package   hipanel-module-ticket
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
  */
 
 namespace hipanel\modules\ticket;
 
 class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInterface
 {
-
     protected $_addTo = 'sidebar';
 
     protected $_where = [
-        'after'     => ['finance', 'clients', 'dashboard', 'header'],
-        'before'    => ['domains', 'servers', 'hosting'],
+        'after'  => ['finance', 'clients', 'dashboard', 'header'],
+        'before' => ['domains', 'servers', 'hosting'],
     ];
 
     protected $_items = [
@@ -38,5 +41,4 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
             ],
         ],
     ];
-
 }

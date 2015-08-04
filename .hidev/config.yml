@@ -1,0 +1,11 @@
+package:
+    name:           hipanel-module-ticket
+    namespace:      hipanel\modules\ticket
+    label:          HiPanel TicketModule
+    title:          Ticket Plugin for HiPanel
+    type:           yii2-extension
+    keywords:       ticket, hipanel, plugin
+    year:           2014
+
+require:
+    hiqdev/hidev-config-php:    "*@dev"

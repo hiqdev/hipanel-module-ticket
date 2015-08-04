@@ -1,13 +1,7 @@
 <?php
-/**
- * @link http://hiqdev.com/...
- * @copyright Copyright (c) 2015 HiQDev
- * @license http://hiqdev.com/.../license
- */
 
 use hipanel\widgets\Box;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\web\View;
 
@@ -33,20 +27,20 @@ JS
     <!-- Chat box -->
     <?php $box = Box::begin([
         'options' => [
-            'class' => 'box-primary'
-        ]
+            'class' => 'box-primary',
+        ],
     ]); ?>
     <?= $this->render('_form', [
-        'form' => $form,
-        'model' => $model,
-        'topic_data' => $topic_data,
+        'form'          => $form,
+        'model'         => $model,
+        'topic_data'    => $topic_data,
         'priority_data' => $priority_data,
-        'state_data' => $state_data,
+        'state_data'    => $state_data,
     ]) ?>
     <hr class="no-panel-padding-h panel-wide padding-bottom">
         <div class="widget-article-comments tab-pane panel no-padding no-border fade in active">
             <?php foreach ($model->answers as $answer_id => $answer) : ?>
-                <?php if (ArrayHelper::getValue($answer, 'message') != null) : ?>
+                <?php if (ArrayHelper::getValue($answer, 'message') !== null) : ?>
                     <?= $this->render('_comment', ['model' => $model, 'answer_id' => $answer_id, 'answer' => $answer]); ?>
                 <?php endif; ?>
             <?php endforeach; ?>

@@ -2,50 +2,54 @@
     "name": "hiqdev/hipanel-module-ticket",
     "type": "yii2-extension",
     "description": "Ticket Plugin for HiPanel",
-    "keywords": ["ticket","hipanel","plugin"],
-    "homepage": "https://hiqdev.com/hipanel-module-ticket",
-    "license": "BSD-3-clause",
+    "keywords": [
+        "ticket",
+        "hipanel",
+        "plugin"
+    ],
+    "homepage": "https://github.com/hiqdev/hipanel-module-ticket",
+    "license": "BSD-3-Clause",
     "support": {
-        "email":  "support@hiqdev.com",
+        "email": "support@hiqdev.com",
         "source": "https://github.com/hiqdev/hipanel-module-ticket",
         "issues": "https://github.com/hiqdev/hipanel-module-ticket/issues",
-        "wiki":   "https://github.com/hiqdev/hipanel-module-ticket/wiki",
-        "forum":  "https://forum.hiqdev.com/hipanel"
+        "wiki": "https://github.com/hiqdev/hipanel-module-ticket/wiki",
+        "forum": "https://forum.hiqdev.com/hipanel"
     },
     "authors": [
         {
-            "role":     "Project lead",
-            "name":     "Andrii Vasyliev",
-            "email":    "sol@hiqdev.com",
+            "name": "Andrii Vasyliev",
+            "role": "Project lead",
+            "email": "sol@hiqdev.com",
             "homepage": "https://hipanel.com/"
         },
         {
-            "role":     "Lead backend developer",
-            "name":     "Dmitry Naumenko",
-            "email":    "silverfire@hiqdev.com",
+            "name": "Dmitry Naumenko",
+            "role": "Lead backend developer",
+            "email": "silverfire@hiqdev.com",
             "homepage": "http://silverfire.me/"
         },
         {
-            "role":     "Lead frontend developer",
-            "name":     "Andrey Klochok",
-            "email":    "tafid@hiqdev.com",
-            "homepage": "http://tafid.me/"
+            "name": "Andrey Klochok",
+            "role": "Lead frontend developer",
+            "email": "tafid@hiqdev.com",
+            "homepage": "https://hiqdev.com/"
         },
         {
-            "role":     "QA Lead",
-            "name":     "Yuriy Myronchuk",
-            "email":    "bladeroot@hiqdev.com",
+            "name": "Yuriy Myronchuk",
+            "role": "QA Lead",
+            "email": "bladeroot@hiqdev.com",
             "homepage": "https://hiqdev.com/"
         }
     ],
     "require": {
-        "yiisoft/yii2":                 "~2.0",
-        "hiqdev/yii2-asset-icheck":     "~1.0",
-        "hiqdev/yii2-asset-autosize":   "~3.0"
+        "yiisoft/yii2": "~2.0",
+        "hiqdev/yii2-asset-icheck": "~1.0",
+        "hiqdev/yii2-asset-autosize": "~3.0"
     },
     "autoload": {
         "psr-4": {
-            "hipanel\\modules\\ticket\\": ""
+            "hipanel\\modules\\ticket\\": "src"
         }
     }
 }

@@ -3,10 +3,10 @@
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hiqdev\combo\StaticCombo;
 use kartik\widgets\DatePicker;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
-use yii\helpers\Url;
-use yii\helpers\Html;
 
 $this->registerJs(new JsExpression(<<<JS
 // Button handle
@@ -30,10 +30,10 @@ JS
 <?php endif; ?>
 
     <?php $form = ActiveForm::begin([
-        'id' => 'ticket-search',
-        'action' => Url::to('index'),
-        'method' => 'get',
-        'options' => ['data-pjax' => true]
+        'id'      => 'ticket-search',
+        'action'  => Url::to('index'),
+        'method'  => 'get',
+        'options' => ['data-pjax' => true],
     ]); ?>
     <?= $form->field($model, 'search_form')->hiddenInput(['value' => 1])->label(false); ?>
     <div class="col-md-4">
@@ -42,20 +42,20 @@ JS
         <div class="form-group">
             <?= Html::tag('label', 'Date range', ['class' => 'control-label']); ?>
             <?= DatePicker::widget([
-                'model' => $model,
+                'model'     => $model,
                 'attribute' => 'time_from',
                 // 'value' => date('d-m-Y'),
-                'type' => DatePicker::TYPE_RANGE,
+                'type'       => DatePicker::TYPE_RANGE,
                 'attribute2' => 'time_till',
                 // 'value2' => date('d-m-Y'),
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'dd-mm-yyyy'
-                ]
+                    'format'    => 'dd-mm-yyyy',
+                ],
             ]); ?>
         </div>
         <?= $form->field($model, 'state')->widget(StaticCombo::classname(), [
-            'data' => $state_data,
+            'data'  => $state_data,
             'hasId' => true,
         ]); ?>
     </div>
@@ -73,19 +73,19 @@ JS
         ]); ?>
 
         <?= $form->field($model, 'topics')->widget(StaticCombo::classname(), [
-            'data' => $topic_data,
-            'hasId' => true,
+            'data'          => $topic_data,
+            'hasId'         => true,
             'pluginOptions' => [
                 'select2Options' => [
                     'multiple' => true,
-                ]
+                ],
             ],
         ]); ?>
     </div>
 
     <div class="col-md-4">
         <?= $form->field($model, 'recipient_id')->widget(ClientCombo::classname(), [
-            'clientType' => 'client'
+            'clientType' => 'client',
         ]); ?>
 
         <?= $form->field($model, 'priority')->widget(StaticCombo::classname(), [

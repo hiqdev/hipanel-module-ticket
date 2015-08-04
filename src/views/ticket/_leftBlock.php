@@ -1,22 +1,17 @@
 <?php
-/**
- * @link        http://hiqdev.com/hipanel-module-ticket
- * @license     http://hiqdev.com/hipanel-module-ticket/license
- * @copyright   Copyright (c) 2015 HiQDev
- */
 
 use cebe\gravatar\Gravatar;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use hipanel\base\Re;
+use hipanel\modules\ticket\widgets\Label;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\Box;
+use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 use yii\helpers\Url;
-
-use hipanel\modules\ticket\widgets\Label;
 //use hipanel\modules\ticket\widgets\Topic;
 //use hipanel\modules\ticket\widgets\Watcher;
-use hipanel\base\Re;
+use yii\widgets\DetailView;
+
 FlagIconCssAsset::register($this);
 ?>
 <div class="row page-ticket">
@@ -24,16 +19,16 @@ FlagIconCssAsset::register($this);
 
         <?php $box = Box::begin([
             'options' => [
-                'class' => 'box-solid'
+                'class' => 'box-solid',
             ],
         ]); ?>
 
         <?= $this->render('_advanced_form', [
-            'form' => $form,
-            'model' => $model,
-            'topic_data' => $topic_data,
+            'form'          => $form,
+            'model'         => $model,
+            'topic_data'    => $topic_data,
             'priority_data' => $priority_data,
-            'state_data' => $state_data,
+            'state_data'    => $state_data,
         ]); ?>
 
 
@@ -69,19 +64,19 @@ FlagIconCssAsset::register($this);
             <div class="margin-bottom">
             <?php foreach ($model->watchers as $watcherId => $watcher) : ?>
                 <?php
-                $piece = explode(' ', $watcher);
+                $piece            = explode(' ', $watcher);
                 $watcherEmailHash = array_pop(explode(' ', $watcher));
                 if ($watcherEmailHash) {
                     print Html::beginTag('a', [
                         'href' => Url::toRoute(['/client/client/view', 'id' => $watcherId]),
                     ]);
                     print Gravatar::widget([
-                        'emailHash' => $watcherEmailHash,
+                        'emailHash'    => $watcherEmailHash,
                         'defaultImage' => 'identicon',
-                        'options' => [
-                            'alt' => reset($piece),
+                        'options'      => [
+                            'alt'   => reset($piece),
                             'class' => '',
-                            'title' => reset($piece)
+                            'title' => reset($piece),
                         ],
                         'size' => 32,
                     ]);
@@ -137,7 +132,7 @@ FlagIconCssAsset::register($this);
         */ ?>
         <?php $box = Box::begin([
             'options' => [
-                'class' => 'box-solid'
+                'class' => 'box-solid',
             ],
         ]); ?>
         <div class="profile-block">
@@ -145,10 +140,10 @@ FlagIconCssAsset::register($this);
                 <?php
                 if ($model->author_email) {
                     print Gravatar::widget([
-                        'emailHash' => $model->author_email,
+                        'emailHash'    => $model->author_email,
                         'defaultImage' => 'identicon',
-                        'options' => [
-                            'alt' => '',
+                        'options'      => [
+                            'alt'   => '',
                             'class' => 'img-circle',
                         ],
                         'size' => 160,
@@ -161,40 +156,40 @@ FlagIconCssAsset::register($this);
         </div>
         <?php $box->beginFooter(); ?>
         <?= DetailView::widget([
-            'model' => $client,
+            'model'      => $client,
             'attributes' => [
                 // 'subject',
                 [
                     'attribute' => 'state',
-                    'format' => 'html',
-                    'value' => Html::tag('span', $client['state'], ['class' => 'label label-default'])
+                    'format'    => 'html',
+                    'value'     => Html::tag('span', $client['state'], ['class' => 'label label-default']),
                 ],
                 [
                     'attribute' => 'balance',
-                    'format' => 'html',
-                    'value' => Topic::widget(['topics' => $model->topics]),
-                    'visible' => $model->topics != null,
+                    'format'    => 'html',
+                    'value'     => Topic::widget(['topics' => $model->topics]),
+                    'visible'   => $model->topics !== null,
                 ],
                 [
                     'attribute' => 'credit',
-                    'format' => 'html',
-                    'value'=> Label::widget([
-                        'type'=>'priority',
-                        'label'=> Re::l($model->priority_label),
-                        'value'=>$model->priority,
-                    ])
+                    'format'    => 'html',
+                    'value'     => Label::widget([
+                        'type'  => 'priority',
+                        'label' => Re::l($model->priority_label),
+                        'value' => $model->priority,
+                    ]),
                 ],
                 [
                     'attribute' => 'contact',
-                    'label' => Yii::t('app', 'Country'),
-                    'format' => 'html',
-                    'value' => Html::tag('span', '', ['class' => 'flag-icon flag-icon-' . $client['contact']['country']]) . '&nbsp;&nbsp;' . $client['contact']['country_name']
+                    'label'     => Yii::t('app', 'Country'),
+                    'format'    => 'html',
+                    'value'     => Html::tag('span', '', ['class' => 'flag-icon flag-icon-' . $client['contact']['country']]) . '&nbsp;&nbsp;' . $client['contact']['country_name'],
                 ],
                 [
                     'attribute' => 'contact',
-                    'label' => Yii::t('app', 'Email'),
-                    'format' => 'html',
-                    'value' => Html::mailto($client['contact']['email'], $client['contact']['email'])
+                    'label'     => Yii::t('app', 'Email'),
+                    'format'    => 'html',
+                    'value'     => Html::mailto($client['contact']['email'], $client['contact']['email']),
                 ],
 //                // 'subject',
 //                [
