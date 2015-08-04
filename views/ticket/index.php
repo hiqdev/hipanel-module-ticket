@@ -47,7 +47,6 @@ $this->registerCss(<<<CSS
 
 .table-list-title {
   width: 740px;
-  padding-top: 12px;
 }
 CSS
 );
@@ -100,7 +99,7 @@ CSS
 
 <?php $box->endBulkActions(); ?>
 
-<?= $this->render('_search', compact('model', 'topic_data', 'priority_data', 'state_data')) ?>
+
 <?php $box::end(); ?>
 
 <?php $box = Box::begin(['renderBody' => false, 'options' => ['class' => 'box-primary']]); ?>
