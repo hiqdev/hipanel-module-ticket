@@ -56,15 +56,10 @@ CSS
     &nbsp;
     <?=  LinkSorter::widget([
         'show'       => true,
-        'sort'       => $sort,
+        'sort'       => $dataProvider->getSort(),
         'attributes' => [
-            'create_time',
-            'lastanswer',
-            'time',
-            'subject',
-            'spent',
-            'author',
-            'recipient',
+            'create_time', 'lastanswer', 'spent', 'answer_count',
+            'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
         ],
     ]) ?>
 <?php $box->endActions(); ?>
@@ -114,15 +109,45 @@ CSS
             'attribute' => 'subject',
             'format'    => 'raw',
             'value'     => function ($data) {
-                $state = $data->state === 'opened' ?
-                    Html::tag('div', '<span class="fa fa-circle-o text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type']) :
-                    Html::tag('div', '<span class="fa fa-check-circle text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type']);
+                $ava = Html::tag('div', Gravatar::widget([
+                    'emailHash'    => $data->author_email,
+                    'defaultImage' => 'identicon',
+                    'options'      => [
+                        'alt'   => '',
+                        'class' => 'img-circle',
+                    ],
+                    'size' => 40,
+                ]), ['class' => 'pull-right']);
+                $state = $data->state === 'opened'
+                    ? Html::tag('div', '<span class="fa fa-circle-o text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type'])
+                    : Html::tag('div', '<span class="fa fa-check-circle text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type'])
+                ;
                 $t = Html::tag('b', Html::a($data->subject, $data->threadUrl)) . Topic::widget(['topics' => $data->topics]) .
                     Html::tag('div', '#' . $data->id . '&nbsp;opened ' . Yii::$app->formatter->asDatetime($data->create_time), ['class' => 'text-muted']);
 
-                return $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
+                return $ava . $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
             },
 
+        ],
+        [
+            'attribute' => 'author_id',
+            'value'     => function ($data) {
+                return                 Html::a($data->author, ['@client/view', 'id' => $data->author_id]) .
+                (Yii::$app->user->can('support')
+                    ? ' / ' . Html::a($data->author_seller, ['@client/view', 'id' => $data->author_seller_id])
+                    : ''
+                );
+            },
+            'format' => 'html',
+            'label'  => Yii::t('app', 'Author'),
+            'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
+                'attribute'           => 'author_id',
+                'model'               => $model,
+                'formElementSelector' => 'td',
+                'inputOptions'        => [
+                    'id' => 'author_id',
+                ],
+            ]),
         ],
         [
             'attribute' => 'responsible_id',
@@ -154,33 +179,6 @@ CSS
                 'formElementSelector' => 'td',
                 'inputOptions'        => [
                     'id' => 'recipient_id',
-                ],
-            ]),
-        ],
-        [
-            'attribute' => 'author_id',
-            'value'     => function ($data) {
-                return (
-                $data->author_email ? Gravatar::widget([
-                    'emailHash'    => $data->author_email,
-                    'defaultImage' => 'identicon',
-                    'options'      => [
-                        'alt'   => '',
-                        'class' => 'img-circle',
-                    ],
-                    'size' => 16,
-                ]) : '')
-                . '&nbsp;&nbsp;'
-                . Html::a($data->author, ['/client/client/view', 'id' => $data->author_id]);
-            },
-            'format' => 'html',
-            'label'  => Yii::t('app', 'Author'),
-            'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
-                'attribute'           => 'author_id',
-                'model'               => $model,
-                'formElementSelector' => 'td',
-                'inputOptions'        => [
-                    'id' => 'author_id',
                 ],
             ]),
         ],
