@@ -13,7 +13,7 @@ $('.comment-reply-button').on('click', function(event) {
     $('#thread-message').focus();
 });
 // Quote button
-$(".comment-qute-button").on("click", function(event) {
+$(".comment-quote-button").on("click", function(event) {
     event.preventDefault();
     var ta = document.querySelector('textarea');
     var chatInput = $('#thread-message');
@@ -79,7 +79,7 @@ JS
 <?= Html::beginTag('div', ['class' => 'comment-footer']); ?>
     <button class="link-button comment-reply-button"><?= Yii::t('app', 'Reply'); ?></button>
     &nbsp;&nbsp;·&nbsp;&nbsp;
-    <button class="link-button comment-qute-button" data-answer-id="<?= $answer_id; ?>"><?= Yii::t('app', 'Qute'); ?></button>
+    <button class="link-button comment-quote-button" data-answer-id="<?= $answer_id; ?>"><?= Yii::t('app', 'Quote'); ?></button>
 <?= Html::endTag('div'); ?>
 
 <?= Html::endTag('div'); ?>
