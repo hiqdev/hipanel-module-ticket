@@ -47,12 +47,9 @@ class TicketController extends \hipanel\base\CrudController
                 'class'       => 'hipanel\actions\ViewAction',
                 'findOptions' => ['with_answers' => 1, 'with_files' => 1],
                 'data'        => function ($action, $id) {
-                    return [
-                        'client'        => Client::find()->where(['id' => $action->model->author_id, 'with_contact' => 1])->one(),
-                        'topic_data'    => $this->getRefs('topic,ticket'),
-                        'state_data'    => $this->GetClassRefs('state'),
-                        'priority_data' => $this->getPriorities(),
-                    ];
+                    return array_merge([
+                        'client' => Client::find()->where(['id' => $action->model->author_id, 'with_contact' => 1])->one(),
+                    ], $this->prepareRefs());
                 },
             ],
             'validate-form' => [
@@ -61,19 +58,15 @@ class TicketController extends \hipanel\base\CrudController
             'set-note' => [
                 'class'     => 'hipanel\actions\SmartUpdateAction',
                 'success'   => Yii::t('app', 'Note changed'),
-                'error'     => Yii::t('app', 'Failed change note'),
             ],
             'create' => [
                 'class'     => 'hipanel\actions\SmartCreateAction',
-                'success'   => Yii::t('app', 'Name server created'),
-            ],
-            'update' => [
-                'class'     => 'hipanel\actions\SmartUpdateAction',
-                'success'   => Yii::t('app', 'Name server updated'),
+                'success'   => Yii::t('app', 'Ticket posted'),
+                'data'      => function () { return $this->prepareRefs(); },
             ],
             'delete' => [
                 'class'     => 'hipanel\actions\SmartDeleteAction',
-                'success'   => Yii::t('app', 'Name server deleted'),
+                'success'   => Yii::t('app', 'Ticket deleted'),
             ],
         ];
     }

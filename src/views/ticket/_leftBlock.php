@@ -169,6 +169,7 @@ FlagIconCssAsset::register($this);
                 'country', 'email',
             ],
         ]); ?>
+            <?= Html::a('<i class="fa fa-info-circle" style="font-size:120%"></i>&nbsp;&nbsp;' . Yii::t('app', 'Client details'), ['@client/view', 'id' => $client->id], ['class' => 'btn  btn-default btn-block']) ?>
         <?php $box->endFooter(); ?>
         <?php $box::end(); ?>
     </div>

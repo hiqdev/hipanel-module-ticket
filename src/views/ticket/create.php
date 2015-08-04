@@ -8,20 +8,16 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\ticket\models\Thread */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'Ticket',
-]);
+$this->title                   = Yii::t('app', 'Create ticket');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="ticket-create">
-    <?php $form = ActiveForm::begin([
-        'action' => $model->scenario === 'insert' ? Url::toRoute(['create']) : Url::toRoute([
-            'update',
-            'id' => $model->id,
-        ]),
-        'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
-    ]); ?>
+<?php $form = ActiveForm::begin([
+    'action'  => $model->scenario === 'create' ? Url::toRoute(['create']) : Url::toRoute(['update', 'id' => $model->id,]),
+    'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
+]) ?>
 
     <div class="row">
         <div class="col-md-3">
@@ -31,14 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'box-solid',
                 ],
             ]); ?>
-            <?= $this->render('_advanced_form', [
-                'form'          => $form,
-                'model'         => $model,
-                'topic_data'    => $topic_data,
-                'priority_data' => $priority_data,
-                'state_data'    => $state_data,
-            ]); ?>
-            <?php $box::end(); ?>
+                <?= $this->render('_advanced_form', [
+                    'form'          => $form,
+                    'model'         => $model,
+                    'topic_data'    => $topic_data,
+                    'priority_data' => $priority_data,
+                    'state_data'    => $state_data,
+                ]) ?>
+            <?php $box::end() ?>
         </div>
         <div class="col-md-9">
             <?php $box = Box::begin([
@@ -46,15 +42,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'box-primary',
                 ],
             ]); ?>
-            <?= $this->render('_form', [
-                'form'          => $form,
-                'model'         => $model,
-                'topic_data'    => $topic_data,
-                'priority_data' => $priority_data,
-                'state_data'    => $state_data,
-            ]) ?>
-            <?php $box::end(); ?>
-            <?php $form::end(); ?>
+                <?= $this->render('_form', [
+                    'form'          => $form,
+                    'model'         => $model,
+                    'topic_data'    => $topic_data,
+                    'priority_data' => $priority_data,
+                    'state_data'    => $state_data,
+                ]) ?>
+            <?php $box::end() ?>
         </div>
     </div>
+
+<?php $form::end(); ?>
 </div>

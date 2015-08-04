@@ -37,7 +37,7 @@ class Thread extends \hipanel\base\Model
                 'class'          => 'common\behaviors\File',
                 'attribute'      => 'file',
                 'savedAttribute' => 'file_ids',
-                'scenarios'      => ['insert', 'answer'],
+                'scenarios'      => ['create', 'answer'],
             ],
         ];
     }
@@ -100,7 +100,7 @@ class Thread extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['subject', 'message'], 'required', 'on' => ['insert']],
+            [['subject', 'message'], 'required', 'on' => ['create']],
             [['message'], 'required', 'on' => ['answer']],
             [
                 [
@@ -110,12 +110,12 @@ class Thread extends \hipanel\base\Model
                     'responsible_id',
                     'recipient_id',
                     'watchers',
-                    'spent',
+//                    'spent', TODO FIX to work
                     'spent_hours',
                     'file_ids',
                 ],
                 'safe',
-                'on' => 'insert',
+                'on' => 'create',
             ],
             [
                 [
@@ -253,9 +253,9 @@ class Thread extends \hipanel\base\Model
         return $message;
     }
 
-    public function beforeSave($insert)
+    public function beforeSave($create)
     {
-        if (!parent::beforeSave($insert)) {
+        if (!parent::beforeSave($create)) {
             return false;
         }
         // spent time handle
@@ -286,7 +286,7 @@ class Thread extends \hipanel\base\Model
     public function scenarioCommands()
     {
         return [
-            'insert' => 'create',
+            'create' => 'create',
         ];
     }
 }
