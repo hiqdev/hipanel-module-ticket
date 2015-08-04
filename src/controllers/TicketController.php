@@ -13,9 +13,10 @@ namespace hipanel\modules\ticket\controllers;
 
 use common\models\File;
 use hipanel\helpers\ArrayHelper as AH;
-use hipanel\modules\client\models\Client as ClientModel;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\TicketSettings;
+use hipanel\modules\domain\models\Domain;
 use hiqdev\hiart\HiResException;
 use Yii;
 use yii\data\Sort;
@@ -36,6 +37,47 @@ use yii\helpers\ArrayHelper;
  */
 class TicketController extends \hipanel\base\CrudController
 {
+    public function actions()
+    {
+        return [
+            'index' => [
+                'class' => 'hipanel\actions\IndexAction',
+            ],
+            'view' => [
+                'class'       => 'hipanel\actions\ViewAction',
+                'findOptions' => ['with_answers' => 1, 'with_files' => 1],
+                'data'        => function ($action, $id) {
+                    return [
+                        'client'        => Client::find()->where(['id' => $action->model->author_id, 'with_contact' => 1])->one(),
+                        'topic_data'    => $this->getRefs('topic,ticket'),
+                        'state_data'    => $this->GetClassRefs('state'),
+                        'priority_data' => $this->getPriorities(),
+                    ];
+                },
+            ],
+            'validate-form' => [
+                'class' => 'hipanel\actions\ValidateFormAction',
+            ],
+            'set-note' => [
+                'class'     => 'hipanel\actions\SmartUpdateAction',
+                'success'   => Yii::t('app', 'Note changed'),
+                'error'     => Yii::t('app', 'Failed change note'),
+            ],
+            'create' => [
+                'class'     => 'hipanel\actions\SmartCreateAction',
+                'success'   => Yii::t('app', 'Name server created'),
+            ],
+            'update' => [
+                'class'     => 'hipanel\actions\SmartUpdateAction',
+                'success'   => Yii::t('app', 'Name server updated'),
+            ],
+            'delete' => [
+                'class'     => 'hipanel\actions\SmartDeleteAction',
+                'success'   => Yii::t('app', 'Name server deleted'),
+            ],
+        ];
+    }
+
     /**
      * @var array
      */
@@ -61,57 +103,14 @@ class TicketController extends \hipanel\base\CrudController
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function actionIndex()
-    {
-        $model = static::searchModel();
-        $sort  = new Sort([
-            'attributes' => [
-                'create_time' => [
-                    'label' => Yii::t('app', 'Create time'),
-                ],
-                'lastanswer' => [
-                    'label' => Yii::t('app', 'Latest answer'),
-                ],
-                'time' => [
-                    'label' => Yii::t('app', 'Time'),
-                ],
-                'subject' => [
-                    'label' => Yii::t('app', 'Subject'),
-                ],
-                'spent' => [
-                    'label' => Yii::t('app', 'Spent time'),
-                ],
-                'author' => [
-                    'label' => Yii::t('app', 'Author'),
-                ],
-                'recipient' => [
-                    'label' => Yii::t('app', 'Recipient'),
-                ],
-            ],
-        ]);
-        $dataProvider = $model->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', AH::merge(compact('model', 'dataProvider', 'sort'), $this->prepareRefs()));
-//        return parent::actionIndex($this->prepareRefs());
-    }
-
-    /**
-     * @param int $id
-     *
-     * @throws \yii\web\NotFoundHttpException
-     *
-     * @return string
-     */
     public function actionView($id)
     {
         $model  = $this->findModel(ArrayHelper::merge(compact('id'), ['with_answers' => 1, 'with_files' => 1]), ['scenario' => 'answer']);
-        $client = ClientModel::find()->where(['id' => $model->author_id, 'with_contact' => 1])->asArray()->one();
+        $client = Client::find()->where(['id' => $model->author_id, 'with_contact' => 1])->asArray()->one();
 
         return $this->render('view', ArrayHelper::merge(compact('model', 'client'), $this->prepareRefs()));
     }
+
 
     /**
      * @return string|\yii\web\Response

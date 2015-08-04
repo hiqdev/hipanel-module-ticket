@@ -9,7 +9,6 @@ use hipanel\widgets\Box;
 //use hipanel\widgets\Select2;
 use hipanel\widgets\BulkButtons;
 use hipanel\widgets\Gravatar;
-use hipanel\widgets\LinkSorter;
 use yii\bootstrap\Button;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -47,50 +46,28 @@ CSS
 );
 ?>
 
-<?php $box = ActionBox::begin(['bulk' => true, 'options' => ['class' => 'box-info']]) ?>
-<?php $box->beginActions(); ?>
-    <?= Html::a(Yii::t('app', 'Create {modelClass}', ['modelClass' => 'Ticket']), ['create'], ['class' => 'btn btn-primary']) ?>
-    &nbsp;
-    <?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-info search-button']) ?>
-    &nbsp;
-    <?=  LinkSorter::widget([
-        'show'       => true,
-        'sort'       => $dataProvider->getSort(),
-        'attributes' => [
-            'create_time', 'lastanswer', 'spent', 'answer_count',
-            'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
+<?php $box = ActionBox::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
+    <?php $box->beginActions() ?>
+        <?= $box->renderCreateButton(Yii::t('app', 'Create ticket')) ?>
+        &nbsp;
+        <?= $box->renderSearchButton() ?>
+        &nbsp;
+        <?= $box->renderSorter([
+            'attributes' => [
+                'create_time', 'lastanswer', 'spent', 'answer_count',
+                'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
+            ],
+        ]) ?>
+    <?php $box->endActions(); ?>
+    <?php $box->renderBulkActions([
+        'items' => [
+            $box->renderBulkButton(Yii::t('app', 'Subscribe'), 'subscribe'),
+            $box->renderBulkButton(Yii::t('app', 'Unsubscribe'), 'unsubscribe'),
+            $box->renderBulkButton(Yii::t('app', 'Close'), 'close', 'danger'),
         ],
     ]) ?>
-<?php $box->endActions(); ?>
-<?php $box->beginBulkActions(); ?>
-<?= BulkButtons::widget([
-    'model' => new Thread(),
-    'items' => [
-        Button::widget([
-            'label'   => Yii::t('app', 'Subscribe'),
-            'options' => [
-                'class' => 'btn btn-default',
-            ],
-        ]),
-        Button::widget([
-            'label'   => Yii::t('app', 'Unsubscribe'),
-            'options' => [
-                'class' => 'btn btn-default',
-            ],
-        ]),
-        Button::widget([
-            'label'   => Yii::t('app', 'Close'),
-            'options' => [
-                'class' => 'btn btn-danger',
-            ],
-        ]),
-    ],
-]) ?>
-
-<?php $box->endBulkActions(); ?>
-
-
-<?php $box::end(); ?>
+    <?= $box->renderSearchForm() ?>
+<?php $box::end() ?>
 
 <?php $box = Box::begin(['renderBody' => false, 'options' => ['class' => 'box-primary']]); ?>
 <?php $box->beginBody(); ?>
@@ -130,12 +107,8 @@ CSS
         ],
         [
             'attribute' => 'author_id',
-            'value'     => function ($data) {
-                return                 Html::a($data->author, ['@client/view', 'id' => $data->author_id]) .
-                (Yii::$app->user->can('support')
-                    ? ' / ' . Html::a($data->author_seller, ['@client/view', 'id' => $data->author_seller_id])
-                    : ''
-                );
+            'value'     => function ($model) {
+                return ClientSellerLink::widget(compact('model'));
             },
             'format' => 'html',
             'label'  => Yii::t('app', 'Author'),

@@ -4,9 +4,9 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
-$this->title                   = StringHelper::truncateWords($model->threadViewTitle, 5);
+$this->title                   = $model->threadViewTitle;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tickets'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = StringHelper::truncateWords($model->threadViewTitle, 5);
 
 $this->registerCss('
     .text-message {

@@ -57,6 +57,7 @@ class Thread extends \hipanel\base\Model
             'author_id',
             'responsible_id',
             'author_seller',
+            'author_seller_id',
             'recipient_id',
             'recipient',
             'recipient_seller',
@@ -177,6 +178,26 @@ class Thread extends \hipanel\base\Model
             'file_ids'         => Yii::t('app', 'file_ids'),
             'file'             => Yii::t('app', 'Files'),
         ]);
+    }
+
+    public function getClient()
+    {
+        return $this->author;
+    }
+
+    public function getClientId()
+    {
+        return $this->author_id;
+    }
+
+    public function getSeller()
+    {
+        return $this->author_seller;
+    }
+
+    public function getSellerId()
+    {
+        return $this->author_seller_id;
     }
 
     public function getThreadUrl()

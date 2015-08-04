@@ -2,15 +2,17 @@
 
 use cebe\gravatar\Gravatar;
 use hipanel\base\Re;
+use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\ticket\widgets\Label;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\Box;
+use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
-use yii\helpers\Url;
+use hipanel\helpers\Url;
 //use hipanel\modules\ticket\widgets\Topic;
 //use hipanel\modules\ticket\widgets\Watcher;
-use yii\widgets\DetailView;
+use hipanel\grid\DetailView;
 
 FlagIconCssAsset::register($this);
 ?>
@@ -151,93 +153,20 @@ FlagIconCssAsset::register($this);
                 }
                 ?>
             </div>
-            <?= Html::tag('div', $model->author, ['class' => 'profile-user-name']); ?>
-            <?= Html::tag('div', $model->author_seller, ['class' => 'profile-user-role']); ?>
+            <div class="profile-user-name"><?= ClientSellerLink::widget(compact('model')) ?></div>
+            <div class="profile-user-role"><?= $client->type ?></div>
         </div>
         <?php $box->beginFooter(); ?>
-        <?= DetailView::widget([
-            'model'      => $client,
-            'attributes' => [
-                // 'subject',
+        <?= ClientGridView::detailView([
+            'model'   => $client,
+            'boxed'   => false,
+            'columns' => [
+                'name', 'state', 'balance',
                 [
-                    'attribute' => 'state',
-                    'format'    => 'html',
-                    'value'     => Html::tag('span', $client['state'], ['class' => 'label label-default']),
-                ],
-                [
-                    'attribute' => 'balance',
-                    'format'    => 'html',
-                    'value'     => Topic::widget(['topics' => $model->topics]),
-                    'visible'   => $model->topics !== null,
-                ],
-                [
+                    'class'     => 'hipanel\grid\CurrencyColumn',
                     'attribute' => 'credit',
-                    'format'    => 'html',
-                    'value'     => Label::widget([
-                        'type'  => 'priority',
-                        'label' => Re::l($model->priority_label),
-                        'value' => $model->priority,
-                    ]),
                 ],
-                [
-                    'attribute' => 'contact',
-                    'label'     => Yii::t('app', 'Country'),
-                    'format'    => 'html',
-                    'value'     => Html::tag('span', '', ['class' => 'flag-icon flag-icon-' . $client['contact']['country']]) . '&nbsp;&nbsp;' . $client['contact']['country_name'],
-                ],
-                [
-                    'attribute' => 'contact',
-                    'label'     => Yii::t('app', 'Email'),
-                    'format'    => 'html',
-                    'value'     => Html::mailto($client['contact']['email'], $client['contact']['email']),
-                ],
-//                // 'subject',
-//                [
-//                    'attribute'=>'state',
-//                    'format'=>'html',
-//                    'value'=>Label::widget([
-//                        'type'=>'state',
-//                        'label'=> Re::l($model->state_label),
-//                        'value'=>$model->state,
-//                    ]),
-//                ],
-//                [
-//                    'attribute' => 'topics',
-//                    'format'=>'html',
-//                    'value' => Topic::widget(['topics' => $model->topics]),
-//                    'visible' => $model->topics != null,
-//                ],
-//                [
-//                    'attribute'=>'priority',
-//                    'format'=>'html',
-//                    'value'=> Label::widget([
-//                        'type'=>'priority',
-//                        'label'=> Re::l($model->priority_label),
-//                        'value'=>$model->priority,
-//                    ])
-//                ],
-//                [
-//                    'attribute'=>'author',
-//                    'format'=>'html',
-//                    'value'=>Html::a($model->author,['/client/client/view','id'=>$model->author_id]),
-//                ],
-//                [
-//                    'attribute'=>'responsible',
-//                    'format'=>'html',
-//                    'value'=>Html::a($model->responsible,['/client/client/view','id'=>$model->responsible_id]),
-//                    'visible'=> $model->responsible != null,
-//                ],
-//                [
-//                    'attribute'=>'recipient',
-//                    'format'=>'html',
-//                    'value'=>Html::a($model->recipient,['/client/client/view','id'=>$model->recipient_id]),
-//                ],
-//                [
-//                    'attribute'=>'watcher',
-//                    'format'=>'html',
-//                    // 'value'=> Watcher::widget(['watchers'=>$model->watcher]),
-//                    'visible'=> is_array($model->watcher)
-//                ],
+                'country', 'email',
             ],
         ]); ?>
         <?php $box->endFooter(); ?>
