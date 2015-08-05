@@ -46,9 +46,15 @@ class TicketController extends \hipanel\base\CrudController
             'view' => [
                 'class'       => 'hipanel\actions\ViewAction',
                 'findOptions' => ['with_answers' => 1, 'with_files' => 1],
-                'data'        => function ($action, $id) {
+                'data'        => function ($action) {
                     return array_merge([
-                        'client' => Client::find()->where(['id' => $action->model->author_id, 'with_contact' => 1])->one(),
+                        'client' => Client::find()->where([
+                            'id'                 => $action->model->author_id,
+                            'with_contact'       => 1,
+                            'with_domains_count' => 1,
+                            'with_servers_count' => 1,
+                            'with_hosting_count' => 1,
+                        ])->one(),
                     ], $this->prepareRefs());
                 },
             ],
