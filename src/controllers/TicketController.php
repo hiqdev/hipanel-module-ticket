@@ -61,9 +61,9 @@ class TicketController extends \hipanel\base\CrudController
             'validate-form' => [
                 'class' => 'hipanel\actions\ValidateFormAction',
             ],
-            'set-note' => [
+            'answer' => [
                 'class'     => 'hipanel\actions\SmartUpdateAction',
-                'success'   => Yii::t('app', 'Note changed'),
+                'success'   => Yii::t('app', 'Answer posted'),
             ],
             'create' => [
                 'class'     => 'hipanel\actions\SmartCreateAction',
@@ -100,51 +100,6 @@ class TicketController extends \hipanel\base\CrudController
             'state_data'    => $this->GetClassRefs('state'),
             'priority_data' => $this->getPriorities(),
         ];
-    }
-
-    public function actionView($id)
-    {
-        $model  = $this->findModel(ArrayHelper::merge(compact('id'), ['with_answers' => 1, 'with_files' => 1]), ['scenario' => 'answer']);
-        $client = Client::find()->where(['id' => $model->author_id, 'with_contact' => 1])->asArray()->one();
-
-        return $this->render('view', ArrayHelper::merge(compact('model', 'client'), $this->prepareRefs()));
-    }
-
-
-    /**
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
-    {
-        $model           = new Thread();
-        $model->scenario = 'insert';
-        $model->load(Yii::$app->request->post());
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', array_merge(compact('model'), $this->prepareRefs()));
-    }
-
-    /**
-     * @param $id
-     *
-     * @throws \yii\web\NotFoundHttpException
-     *
-     * @return \yii\web\Response
-     */
-    public function actionUpdate($id)
-    {
-        $model           = $this->findModel($id);
-        $model->scenario = 'answer';
-        $model->trigger($model::EVENT_BEFORE_UPDATE);
-        $model->load(Yii::$app->request->post());
-        $model->prepareSpentTime();
-        $model->prepareTopic();
-        if ($model->validate() && $this->_ticketChange($model->getAttributes(), 'Answer', false)) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-        throw new \LogicException('An error has occurred');
     }
 
     /**

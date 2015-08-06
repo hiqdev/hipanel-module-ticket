@@ -22,6 +22,20 @@ class Thread extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
+    public function init()
+    {
+        $this->on(static::EVENT_BEFORE_INSERT, [$this, 'beforeChange']);
+        $this->on(static::EVENT_BEFORE_UPDATE, [$this, 'beforeChange']);
+    }
+
+    public function beforeChange($event)
+    {
+        $this->prepareSpentTime();
+        $this->prepareTopic();
+
+        return true;
+    }
+
     public $time_from;
     public $time_till;
     public $search_form;
@@ -110,8 +124,7 @@ class Thread extends \hipanel\base\Model
                     'responsible_id',
                     'recipient_id',
                     'watchers',
-//                    'spent', TODO FIX to work
-                    'spent_hours',
+                    'spent', 'spent_hours',
                     'file_ids',
                 ],
                 'safe',
@@ -119,6 +132,7 @@ class Thread extends \hipanel\base\Model
             ],
             [
                 [
+                    'id',
                     'topics',
                     'state',
                     'priority',
@@ -146,6 +160,7 @@ class Thread extends \hipanel\base\Model
             'id'               => Yii::t('app', 'ID'),
             'subject'          => Yii::t('app', 'Subject'),
             'message'          => Yii::t('app', 'Message'),
+            'is_private'       => Yii::t('app', 'Make private'),
             'state'            => Yii::t('app', 'State'),
             'state_label'      => Yii::t('app', 'State'),
             'author_id'        => Yii::t('app', 'Author'),
@@ -251,18 +266,6 @@ class Thread extends \hipanel\base\Model
         $message = Markdown::process($message);
 
         return $message;
-    }
-
-    public function beforeSave($create)
-    {
-        if (!parent::beforeSave($create)) {
-            return false;
-        }
-        // spent time handle
-        $this->prepareSpentTime();
-        $this->prepareTopic();
-
-        return true;
     }
 
     public function prepareSpentTime()
