@@ -82,8 +82,7 @@ class Thread extends \hipanel\base\Model
             'responsible',
             'priority',
             'priority_label',
-            'spent',
-            'spent_hours',
+            'spent', 'answer_spent', 'spent_hours',
             'answer_count',
             'status',
             'reply_time',
@@ -105,6 +104,7 @@ class Thread extends \hipanel\base\Model
 
             'lastanswer',
             'time',
+            'add_watchers', 'del_watchers',
         ];
     }
 
@@ -115,7 +115,7 @@ class Thread extends \hipanel\base\Model
     {
         return [
             [['subject', 'message'], 'required', 'on' => ['create']],
-            [['message'], 'required', 'on' => ['answer']],
+            [['id'], 'required', 'on' => ['answer']],
             [
                 [
                     'topics',
@@ -132,13 +132,10 @@ class Thread extends \hipanel\base\Model
             ],
             [
                 [
-                    'id',
-                    'topics',
-                    'state',
-                    'priority',
-                    'responsible_id',
-                    'recipient_id',
-                    'watchers',
+                    'id', 'message',
+                    'topics', 'state', 'priority',
+                    'responsible_id', 'recipient_id',
+                    'watchers', 'add_watchers', 'del_watchers',
                     'is_private',
                     'file_ids',
                     'answer_spent',
@@ -146,7 +143,6 @@ class Thread extends \hipanel\base\Model
                 'safe',
                 'on' => 'answer',
             ],
-            [['search_form'], 'safe'],
             [['file'], 'file', 'maxFiles' => 5],
         ];
     }

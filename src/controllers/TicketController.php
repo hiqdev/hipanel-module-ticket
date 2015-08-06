@@ -12,7 +12,6 @@
 namespace hipanel\modules\ticket\controllers;
 
 use common\models\File;
-use hipanel\helpers\ArrayHelper as AH;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\TicketSettings;
@@ -24,24 +23,25 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Class TicketController.
- *
- * Usage:
- *
- * GridViewSortTool::widget([
- *      'sort' => $sort, // Sort object
- *      'sortNames' => [
- *          'names_of_sorts',
- *          ....
- *       ]
- * ]);
  */
 class TicketController extends \hipanel\base\CrudController
 {
+    /**
+     * Used to create newModel.
+     * @return string
+     */
+    public static function modelClassName()
+    {
+        return Thread::className();
+    }
+
+
     public function actions()
     {
         return [
             'index' => [
                 'class' => 'hipanel\actions\IndexAction',
+                'data'  => $this->prepareRefs(),
             ],
             'view' => [
                 'class'       => 'hipanel\actions\ViewAction',
@@ -71,8 +71,48 @@ class TicketController extends \hipanel\base\CrudController
                 'data'      => function () { return $this->prepareRefs(); },
             ],
             'delete' => [
-                'class'     => 'hipanel\actions\SmartDeleteAction',
+                'class'     => 'hipanel\actions\SmartPerformAction',
                 'success'   => Yii::t('app', 'Ticket deleted'),
+            ],
+            'subscribe' => [
+                'class'      => 'hipanel\actions\SmartPerformAction',
+                'scenario'   => 'answer',
+                'success'    => Yii::t('app', 'Subscribed'),
+                'beforeSave' => function ($action) {
+                    foreach ($action->collection->models as $model) {
+                        $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
+                    }
+                },
+            ],
+            'unsubscribe' => [
+                'class'      => 'hipanel\actions\SmartPerformAction',
+                'scenario'   => 'answer',
+                'success'    => Yii::t('app', 'Unsubscribed'),
+                'beforeSave' => function ($action) {
+                    foreach ($action->collection->models as $model) {
+                        $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
+                    }
+                },
+            ],
+            'close' => [
+                'class'      => 'hipanel\actions\SmartPerformAction',
+                'scenario'   => 'answer',
+                'success'    => Yii::t('app', 'Ticket closed'),
+                'beforeSave' => function ($action) {
+                    foreach ($action->collection->models as $model) {
+                        $model->{'state'} = 'closed';
+                    }
+                },
+            ],
+            'open' => [
+                'class'      => 'hipanel\actions\SmartPerformAction',
+                'scenario'   => 'answer',
+                'success'    => Yii::t('app', 'Ticket opened'),
+                'beforeSave' => function ($action) {
+                    foreach ($action->collection->models as $model) {
+                        $model->{'state'} = 'open';
+                    }
+                },
             ],
         ];
     }
@@ -80,15 +120,7 @@ class TicketController extends \hipanel\base\CrudController
     /**
      * @var array
      */
-    private $_subscribeAction = ['subscribe' => 'add_watchers', 'unsubscribe' => 'del_watchers'];
-
-    /**
-     * @return mixed
-     */
-    public static function modelClassName()
-    {
-        return Thread::className();
-    }
+    private $_the_actions = ['subscribe' => 'add_watchers', 'unsubscribe' => 'del_watchers'];
 
     /**
      * @return array
@@ -100,102 +132,6 @@ class TicketController extends \hipanel\base\CrudController
             'state_data'    => $this->GetClassRefs('state'),
             'priority_data' => $this->getPriorities(),
         ];
-    }
-
-    /**
-     * @param $id
-     *
-     * @return bool|\yii\web\Response
-     */
-    public function actionSubscribe($id)
-    {
-        if (!in_array($this->action->id, array_keys($this->_subscribeAction), true)) {
-            return false;
-        }
-        $options[$id] = [
-            'id'                                       => $id,
-            $this->_subscribeAction[$this->action->id] => \Yii::$app->user->identity->username,
-        ];
-        if ($this->_ticketChange($options)) {
-            \Yii::$app->getSession()->setFlash('success', \Yii::t('app', 'You have successfully subscribed!'));
-        } else {
-            \Yii::$app->getSession()->setFlash('error', \Yii::t('app', 'Some error occurred. You have not been subscribed!'));
-        }
-
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-
-    /**
-     * @param $id
-     *
-     * @return bool|\yii\web\Response
-     */
-    public function actionUnsubscribe($id)
-    {
-        if (!in_array($this->action->id, array_keys($this->_subscribeAction), true)) {
-            return false;
-        }
-        $options[$id] = [
-            'id'                                       => $id,
-            $this->_subscribeAction[$this->action->id] => \Yii::$app->user->identity->username,
-        ];
-        if ($this->_ticketChange($options)) {
-            \Yii::$app->getSession()->setFlash('success', \Yii::t('app', 'You have successfully subscribed!'));
-        } else {
-            \Yii::$app->getSession()->setFlash('error', \Yii::t('app', 'Some error occurred. You have not been subscribed!'));
-        }
-
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-
-    /**
-     * @param $id
-     *
-     * @return \yii\web\Response
-     */
-    public function actionClose($id)
-    {
-        if ($this->_ticketChangeState($id, $this->action->id)) {
-            \Yii::$app->getSession()->setFlash('success', \Yii::t('app', 'The ticket has been closed!'));
-        } else {
-            \Yii::$app->getSession()->setFlash('error', \Yii::t('app', 'Some error occurred. The ticket has not been closed.'));
-        }
-
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-
-    /**
-     * @param $id
-     *
-     * @return \yii\web\Response
-     */
-    public function actionOpen($id)
-    {
-        if ($this->_ticketChangeState($id, $this->action->id)) {
-            \Yii::$app->getSession()->setFlash('success', \Yii::t('app', 'The ticket has been opened!'));
-        } else {
-            \Yii::$app->getSession()->setFlash('error', \Yii::t('app', 'Some error occurred! The ticket has not been opened.'));
-        }
-
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-
-    /**
-     * @param $id
-     * @param $action
-     *
-     * @return bool
-     */
-    private function _ticketChangeState($id, $action)
-    {
-        $options[$id] = ['id' => $id, 'state' => $action];
-        try {
-            Thread::perform(ucfirst($action), $options, true);
-        } catch (HiResException $e) {
-            return false;
-        }
-
-        return true;
     }
 
     /**

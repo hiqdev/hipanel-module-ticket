@@ -35,7 +35,7 @@ JS
         <hr class="no-panel-padding-h panel-wide padding-bottom">
         <div class="widget-article-comments tab-pane panel no-padding no-border fade in active">
             <?php foreach ($model->answers as $answer_id => $answer) : ?>
-                <?php if (ArrayHelper::getValue($answer, 'message') !== null) : ?>
+                <?php if (ArrayHelper::getValue($answer, 'message')) : ?>
                     <?= $this->render('_comment', ['model' => $model, 'answer_id' => $answer_id, 'answer' => $answer]) ?>
                 <?php endif; ?>
             <?php endforeach; ?>
