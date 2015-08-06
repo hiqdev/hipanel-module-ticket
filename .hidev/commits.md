@@ -3,6 +3,15 @@ hiqdev/hipanel-module-ticket commits history
 
 ## Under development
 
+- Changed to all new features: ActionBox, higrid, smart actions
+    - 6368ef2 2015-08-06 unified view and create into _view (sol@hiqdev.com)
+    - f4d44d6 2015-08-06 doing smart actions (sol@hiqdev.com)
+    - 62de535 2015-08-05 + show servers/domains/hosting at ticket details (sol@hiqdev.com)
+    - a589be9 2015-08-04 redoing to smart actions (sol@hiqdev.com)
+    - 0095fdf 2015-08-04 redoing index and view for tickets with new features: ActionBox, higrid, smart actions, ... (sol@hiqdev.com)
+    - 293e5be 2015-08-04 moved avatar to main column (sol@hiqdev.com)
+    - 3701269 2015-08-04 Fix css top-padding (andreyklochok@gmail.com)
+    - 4021563 2015-08-04 fixed typo qute -> quote (sol@hiqdev.com)
 - Changed code style: hideved, moved to src and php-cs-fixed
     - e6c5ed8 2015-08-03 php-cs-fixed (sol@hiqdev.com)
     - 7b2f876 2015-08-03 php-cs-fixed (sol@hiqdev.com)
