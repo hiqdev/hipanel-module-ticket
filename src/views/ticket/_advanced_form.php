@@ -22,25 +22,23 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
 <div class="row">
     <div class="col-md-6">
         <!-- State -->
-        <?php
-        if ($model->isNewRecord) {
+        <?php if ($model->isNewRecord) {
             $model->state = 'opened';
-        }
-        print $form->field($model, 'state')->widget(StaticCombo::classname(), [
+        } ?>
+        <?= $form->field($model, 'state')->widget(StaticCombo::classname(), [
             'data'  => $state_data,
             'hasId' => true,
-        ]); ?>
+        ]) ?>
     </div>
     <div class="col-md-6">
         <!-- Priority -->
-        <?php
-        if ($model->isNewRecord) {
+        <?php if ($model->isNewRecord) {
             $model->priority = 'medium';
-        }
-        print $form->field($model, 'priority')->widget(StaticCombo::classname(), [
-                'data'  => $priority_data,
-                'hasId' => true,
-        ]); ?>
+        } ?>
+        <?= $form->field($model, 'priority')->widget(StaticCombo::classname(), [
+            'data'  => $priority_data,
+            'hasId' => true,
+        ]) ?>
     </div>
 </div>
 
@@ -73,11 +71,10 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
     ]); ?>
 <?php endif; ?>
 
-<?php
-if ($model->isNewRecord) {
+<?php if ($model->isNewRecord) {
     $model->recipient_id = \Yii::$app->user->identity->id;
-}
-print $form->field($model, 'recipient_id')->widget(ClientCombo::classname()); ?>
+} ?>
+<?= $form->field($model, 'recipient_id')->widget(ClientCombo::classname()) ?>
 
 <?php if ($model->scenario !== 'answer') : ?>
     <?= $form->field($model, 'spent')->widget(kartik\widgets\TimePicker::className(), [

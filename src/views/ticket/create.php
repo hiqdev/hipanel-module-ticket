@@ -1,10 +1,5 @@
 <?php
 
-use hipanel\widgets\Box;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
-use yii\helpers\Url;
-
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\ticket\models\Thread */
 
@@ -12,46 +7,8 @@ $this->title                   = Yii::t('app', 'Create ticket');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
+$action = 'create';
+
 ?>
-<div class="ticket-create">
-<?php $form = ActiveForm::begin([
-    'action'  => $model->scenario === 'create' ? Url::toRoute(['create']) : Url::toRoute(['update', 'id' => $model->id,]),
-    'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
-]) ?>
 
-    <div class="row">
-        <div class="col-md-3">
-            <?= Html::a(Yii::t('app', 'Back to index'), ['index'], ['class' => 'btn btn-primary btn-block margin-bottom']); ?>
-            <?php $box = Box::begin([
-                'options' => [
-                    'class' => 'box-solid',
-                ],
-            ]); ?>
-                <?= $this->render('_advanced_form', [
-                    'form'          => $form,
-                    'model'         => $model,
-                    'topic_data'    => $topic_data,
-                    'priority_data' => $priority_data,
-                    'state_data'    => $state_data,
-                ]) ?>
-            <?php $box::end() ?>
-        </div>
-        <div class="col-md-9">
-            <?php $box = Box::begin([
-                'options' => [
-                    'class' => 'box-primary',
-                ],
-            ]); ?>
-                <?= $this->render('_form', [
-                    'form'          => $form,
-                    'model'         => $model,
-                    'topic_data'    => $topic_data,
-                    'priority_data' => $priority_data,
-                    'state_data'    => $state_data,
-                ]) ?>
-            <?php $box::end() ?>
-        </div>
-    </div>
-
-<?php $form::end(); ?>
-</div>
+<?= $this->render('_view', compact('action', 'model', 'client', 'topic_data', 'state_data', 'priority_data')) ?>

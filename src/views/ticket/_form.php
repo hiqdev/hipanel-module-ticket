@@ -43,15 +43,24 @@ $this->registerCss(<<< CSS
 CSS
 ); ?>
 
-<?php if ($model->isNewRecord) {
-    print $form->field($model, 'subject');
-} ?>
+<?php if ($model->isNewRecord) { ?>
+    <?= $form->field($model, 'subject') ?>
+<?php } else { ?>
+    <?= Html::activeHiddenInput($model, 'id') ?>
+<?php } ?>
 
 <div role="tabpanel" class="comment-tab">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs hidden-form-inputs margin-bottom" role="tablist">
+        <div class="pull-right" style="padding-top:0.5em">
+            <?= Html::a(
+                Html::img('/img/github_markdown-16.png') . '&nbsp;&nbsp;Markdown supported',
+                'https://guides.github.com/features/mastering-markdown/',
+                ['target' => '_blank', 'class' => 'label label-default']
+            ) ?>
+        </div>
         <li role="presentation" class="active">
-            <a href="#message" aria-controls="home" role="tab" data-toggle="tab">Message</a>
+            <a href="#message" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold">Message</a>
         </li>
         <li role="presentation">
             <a href="#preview" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview">Preview</a>
@@ -73,13 +82,6 @@ CSS
 <div class="hidden-form-inputs">
     <div class="row">
         <div class="col-md-12">
-            <div class="text-right">
-                <?= Html::a(
-                    Html::img('/img/github_markdown-16.png') . '&nbsp;&nbsp;Markdown supported',
-                    'https://guides.github.com/features/mastering-markdown/',
-                    ['target' => '_blank', 'class' => 'label label-default']
-                ); ?>
-            </div>
             <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
                 'options' => [
 //                    'accept' => 'image/*',
@@ -93,12 +95,12 @@ CSS
                     'maxFileCount'             => 5,
                     'msgFilesTooMany'          => 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}. Please retry your upload!',
                 ],
-            ]); ?>
+            ]) ?>
         </div>
         <div class="col-md-3">
-            <?php if (!$model->isNewRecord) {
-    print $form->field($model, 'is_private')->checkbox(['class' => 'icheck']);
-} ?>
+            <?php if (!$model->isNewRecord) { ?>
+                <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
+            <?php } ?>
         </div>
         <div class="col-md-9">
             <div class="pull-right">

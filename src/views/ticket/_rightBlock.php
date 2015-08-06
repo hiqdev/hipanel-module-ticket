@@ -23,27 +23,23 @@ JS
     , View::POS_READY));
 ?>
 
-<?php if (is_array($model->answers)) : ?>
-    <!-- Chat box -->
-    <?php $box = Box::begin([
-        'options' => [
-            'class' => 'box-primary',
-        ],
-    ]); ?>
-    <?= $this->render('_form', [
-        'form'          => $form,
-        'model'         => $model,
-        'topic_data'    => $topic_data,
-        'priority_data' => $priority_data,
-        'state_data'    => $state_data,
-    ]) ?>
-    <hr class="no-panel-padding-h panel-wide padding-bottom">
+<!-- Chat box -->
+<?php $box = Box::begin([
+    'options' => [
+        'class' => 'box-primary',
+    ],
+]) ?>
+
+    <?= $this->render('_form', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>
+    <?php if (is_array($model->answers)) : ?>
+        <hr class="no-panel-padding-h panel-wide padding-bottom">
         <div class="widget-article-comments tab-pane panel no-padding no-border fade in active">
             <?php foreach ($model->answers as $answer_id => $answer) : ?>
                 <?php if (ArrayHelper::getValue($answer, 'message') !== null) : ?>
-                    <?= $this->render('_comment', ['model' => $model, 'answer_id' => $answer_id, 'answer' => $answer]); ?>
+                    <?= $this->render('_comment', ['model' => $model, 'answer_id' => $answer_id, 'answer' => $answer]) ?>
                 <?php endif; ?>
             <?php endforeach; ?>
-            <?php $box::end(); ?><!-- /.box (chat box) -->
         </div>
-<?php endif; ?>
+    <?php endif; ?>
+
+<?php $box::end() ?><!-- /.box (chat box) -->
