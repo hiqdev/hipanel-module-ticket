@@ -26,7 +26,12 @@ use yii\helpers\Html;
     <?= $search->field('state')->widget(StaticCombo::classname(), [
         'data'  => $state_data,
         'hasId' => true,
-    ]); ?>
+        'pluginOptions' => [
+            'select2Options' => [
+                'multiple' => true,
+            ],
+        ],
+    ]) ?>
 </div>
 
 <div class="col-md-4">
@@ -55,11 +60,11 @@ use yii\helpers\Html;
 <div class="col-md-4">
     <?= $search->field('recipient_id')->widget(ClientCombo::classname(), [
         'clientType' => 'client',
-    ]); ?>
+    ]) ?>
 
     <?= $search->field('priority')->widget(StaticCombo::classname(), [
         'data' => $priority_data,
-    ]);?>
+    ]) ?>
 
     <?php echo $search->field('watchers')->widget(ClientCombo::classname()) ?>
 </div>
