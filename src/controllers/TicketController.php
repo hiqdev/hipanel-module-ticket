@@ -78,6 +78,7 @@ class TicketController extends \hipanel\base\CrudController
                 'class'      => 'hipanel\actions\SmartPerformAction',
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Subscribed'),
+                'pjaxView'   => '_subscribe_button',
                 'beforeSave' => function ($action) {
                     foreach ($action->collection->models as $model) {
                         $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
@@ -88,6 +89,7 @@ class TicketController extends \hipanel\base\CrudController
                 'class'      => 'hipanel\actions\SmartPerformAction',
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Unsubscribed'),
+                'pjaxView'   => '_subscribe_button',
                 'beforeSave' => function ($action) {
                     foreach ($action->collection->models as $model) {
                         $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;

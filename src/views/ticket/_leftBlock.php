@@ -83,14 +83,9 @@ FlagIconCssAsset::register($this);
                 <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-            <?php $box->beginFooter(); ?>
-            <?php if (array_key_exists(Yii::$app->user->identity->id, $model->watchers)) : ?>
-                <?= Html::a('<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;' . Yii::t('app', 'Unsubscribe'), ['unsubscribe', 'id' => $model->id], ['class' => 'btn  btn-default btn-block']) ?>
-            <?php else : ?>
-                <?= Html::a('<i class="fa fa-eye"></i>&nbsp;&nbsp;' . Yii::t('app', 'Subscribe'), ['subscribe', 'id' => $model->id], ['class' => 'btn  btn-default btn-block']) ?>
-            <?php endif; ?>
-
-            <?php $box->endFooter(); ?>
+            <?php $box->beginFooter() ?>
+                <?= $this->render('_subscribe_button', compact('model')) ?>
+            <?php $box->endFooter() ?>
 
         <?php $box::end(); ?>
     </div>
