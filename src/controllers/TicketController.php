@@ -122,7 +122,7 @@ class TicketController extends \hipanel\base\CrudController
     /**
      * @var array
      */
-    private $_the_actions = ['subscribe' => 'add_watchers', 'unsubscribe' => 'del_watchers'];
+    private $_subscribeAction = ['subscribe' => 'add_watchers', 'unsubscribe' => 'del_watchers'];
 
     /**
      * @return array
