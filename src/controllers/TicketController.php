@@ -28,6 +28,7 @@ class TicketController extends \hipanel\base\CrudController
 {
     /**
      * Used to create newModel.
+     *
      * @return string
      */
     public static function modelClassName()
@@ -39,11 +40,11 @@ class TicketController extends \hipanel\base\CrudController
     public function actions()
     {
         return [
-            'index' => [
+            'index'         => [
                 'class' => 'hipanel\actions\IndexAction',
                 'data'  => $this->prepareRefs(),
             ],
-            'view' => [
+            'view'          => [
                 'class'       => 'hipanel\actions\ViewAction',
                 'findOptions' => ['with_answers' => 1, 'with_files' => 1],
                 'data'        => function ($action) {
@@ -61,42 +62,56 @@ class TicketController extends \hipanel\base\CrudController
             'validate-form' => [
                 'class' => 'hipanel\actions\ValidateFormAction',
             ],
-            'answer' => [
-                'class'     => 'hipanel\actions\SmartUpdateAction',
-                'success'   => Yii::t('app', 'Answer posted'),
+            'answer'        => [
+                'class'   => 'hipanel\actions\SmartUpdateAction',
+                'success' => Yii::t('app', 'Answer posted'),
             ],
-            'create' => [
-                'class'     => 'hipanel\actions\SmartCreateAction',
-                'success'   => Yii::t('app', 'Ticket posted'),
-                'data'      => function () { return $this->prepareRefs(); },
+            'create'        => [
+                'class'   => 'hipanel\actions\SmartCreateAction',
+                'success' => Yii::t('app', 'Ticket posted'),
+                'data'    => function () { return $this->prepareRefs(); },
             ],
-            'delete' => [
-                'class'     => 'hipanel\actions\SmartPerformAction',
-                'success'   => Yii::t('app', 'Ticket deleted'),
+            'delete'        => [
+                'class'   => 'hipanel\actions\SmartPerformAction',
+                'success' => Yii::t('app', 'Ticket deleted'),
             ],
-            'subscribe' => [
+            'subscribe'     => [
                 'class'      => 'hipanel\actions\SmartPerformAction',
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Subscribed'),
-                'pjaxView'   => '_subscribe_button',
                 'beforeSave' => function ($action) {
                     foreach ($action->collection->models as $model) {
                         $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
                     }
                 },
+                'POST pjax'  => [
+                    'save'    => true,
+                    'success' => [
+                        'class'       => 'hipanel\actions\ViewAction',
+                        'view'        => '_subscribe_button',
+                        'findOptions' => ['with_answers' => 1],
+                    ],
+                ],
             ],
-            'unsubscribe' => [
+            'unsubscribe'   => [
                 'class'      => 'hipanel\actions\SmartPerformAction',
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Unsubscribed'),
-                'pjaxView'   => '_subscribe_button',
                 'beforeSave' => function ($action) {
                     foreach ($action->collection->models as $model) {
                         $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
                     }
                 },
+                'POST pjax'  => [
+                    'save'    => true,
+                    'success' => [
+                        'class'       => 'hipanel\actions\ViewAction',
+                        'view'        => '_subscribe_button',
+                        'findOptions' => ['with_answers' => 1],
+                    ],
+                ],
             ],
-            'close' => [
+            'close'         => [
                 'class'      => 'hipanel\actions\SmartPerformAction',
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Ticket closed'),
@@ -106,7 +121,7 @@ class TicketController extends \hipanel\base\CrudController
                     }
                 },
             ],
-            'open' => [
+            'open'          => [
                 'class'      => 'hipanel\actions\SmartPerformAction',
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Ticket opened'),
@@ -192,9 +207,9 @@ class TicketController extends \hipanel\base\CrudController
     /**
      * Numerous ticket changes in one method, like BladeRoot did :).
      *
-     * @param array  $options
+     * @param array $options
      * @param string $apiCall
-     * @param bool   $bulk
+     * @param bool $bulk
      *
      * @return bool
      */
