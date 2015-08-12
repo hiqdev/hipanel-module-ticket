@@ -1,16 +1,13 @@
 <?php
 
+use common\components\Lang;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
-use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ActionBox;
-use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Gravatar;
-use yii\bootstrap\Button;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 $this->title                   = Yii::t('app', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
@@ -51,7 +48,7 @@ CSS
         <?= $box->renderSearchButton() ?>
         <?= $box->renderSorter([
             'attributes' => [
-                'create_time', 'lastanswer', 'spent', 'answer_count',
+                'create_time', 'lastanswer', 'spent',
                 'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
             ],
         ]) ?>
@@ -96,8 +93,8 @@ CSS
                         : Html::tag('div', '<span class="fa fa-check-circle text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type'])
                     ;
                     $t = Html::tag('b', Html::a($data->subject, $data->threadUrl)) . Topic::widget(['topics' => $data->topics]) .
-                        Html::tag('div', '#' . $data->id . '&nbsp;opened ' . Yii::$app->formatter->asDatetime($data->create_time), ['class' => 'text-muted']);
-
+                         Html::tag('div', sprintf('#%s %s %s', $data->id, Lang::t($data->state_label), Yii::$app->formatter->asDatetime($data->create_time)), ['class' => 'text-muted']);
+                    // '#' . $data->id . '&nbsp;' . Lang::t($data->state_label) . ' ' . Yii::$app->formatter->asDatetime($data->create_time)
                     return $ava . $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
                 },
 
@@ -152,11 +149,12 @@ CSS
                 ]),
             ],
             [
-                'attribute' => 'answer_count',
-                'label'     => Yii::t('app', 'Answers'),
-                'format'    => 'raw',
-                'filter'    => false,
-                'value'     => function ($data) {
+                'attribute'     => 'answer_count',
+                'label'         => Yii::t('app', 'Answers'),
+                'format'        => 'raw',
+                'filter'        => false,
+                'enableSorting' => false,
+                'value'         => function ($data) {
                     return Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment text-muted']) . '&nbsp;&nbsp;' . $data->answer_count;
                 },
                 'contentOptions' => [

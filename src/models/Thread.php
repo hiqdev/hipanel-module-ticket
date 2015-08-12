@@ -22,6 +22,10 @@ class Thread extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
+    public $search_form;
+
+    public $answer_spent;
+
     public function init()
     {
         $this->on(static::EVENT_BEFORE_INSERT, [$this, 'beforeChange']);
@@ -35,11 +39,6 @@ class Thread extends \hipanel\base\Model
 
         return true;
     }
-
-    public $time_from;
-    public $time_till;
-    public $search_form;
-    public $answer_spent;
 
     /**
      * @return array
@@ -105,6 +104,9 @@ class Thread extends \hipanel\base\Model
             'lastanswer',
             'time',
             'add_watchers', 'del_watchers',
+
+            'time_from',
+            'time_till'
         ];
     }
 

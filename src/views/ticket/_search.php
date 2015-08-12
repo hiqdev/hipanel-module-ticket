@@ -1,10 +1,8 @@
 <?php
-
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hiqdev\combo\StaticCombo;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
-
 ?>
 
 <div class="col-md-4">
@@ -28,7 +26,7 @@ use yii\helpers\Html;
         'hasId' => true,
         'pluginOptions' => [
             'select2Options' => [
-                'multiple' => true,
+                'multiple' => false,
             ],
         ],
     ]) ?>
@@ -64,6 +62,7 @@ use yii\helpers\Html;
 
     <?= $search->field('priority')->widget(StaticCombo::classname(), [
         'data' => $priority_data,
+        'hasId' => true,
     ]) ?>
 
     <?php echo $search->field('watchers')->widget(ClientCombo::classname()) ?>
