@@ -48,15 +48,14 @@ CSS
 <?php $box = ActionBox::begin(compact('model', 'dataProvider')) ?>
     <?php $box->beginActions() ?>
         <?= $box->renderCreateButton(Yii::t('app', 'Create ticket')) ?>
-        &nbsp;
         <?= $box->renderSearchButton() ?>
-        &nbsp;
         <?= $box->renderSorter([
             'attributes' => [
                 'create_time', 'lastanswer', 'spent', 'answer_count',
                 'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
             ],
         ]) ?>
+        <?= $box->renderPerPage() ?>
     <?php $box->endActions(); ?>
     <?php $box->renderBulkActions([
         'items' => [
