@@ -84,7 +84,9 @@ FlagIconCssAsset::register($this);
                 </div>
             <?php endif; ?>
             <?php $box->beginFooter() ?>
-                <?= $this->render('_subscribe_button', compact('model')) ?>
+                <?php if (!$model->isNewRecord) : ?>
+                    <?= $this->render('_subscribe_button', compact('model')) ?>
+                <?php endif; ?>
             <?php $box->endFooter() ?>
 
         <?php $box::end(); ?>
