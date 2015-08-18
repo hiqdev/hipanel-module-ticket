@@ -54,9 +54,9 @@ CSS
     <ul class="nav nav-tabs hidden-form-inputs margin-bottom" role="tablist">
         <div class="pull-right" style="padding-top:0.5em">
             <?= Html::a(
-                Html::img('/img/github_markdown-16.png') . '&nbsp;&nbsp;Markdown supported',
+                'Markdown supported',
                 'https://guides.github.com/features/mastering-markdown/',
-                ['target' => '_blank', 'class' => 'label label-default']
+                ['target' => '_blank', 'class' => 'label label-default markdown-supported']
             ) ?>
         </div>
         <li role="presentation" class="active">
