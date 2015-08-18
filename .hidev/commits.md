@@ -3,6 +3,21 @@ hiqdev/hipanel-module-ticket commits history
 
 ## Under development
 
+- Fixed markdown supported badge
+    - d34ca62 2015-08-18 fixed markdown supported badge (sol@hiqdev.com)
+- Fixed: hidden subscribeButton on ticket create
+    - 62c3238 2015-08-17 Hide subscribeButto on ticket create (andreyklochok@gmail.com)
+- Fixed HTML issues
+    - 4d7ea1c 2015-08-12 Check and fix problem in the Ticket module (andreyklochok@gmail.com)
+    - 1d142f9 2015-08-12 Remove unnecessary gap between action button at index page (andreyklochok@gmail.com)
+- Added PJAX for un/subscribe button
+    - da5ea99 2015-08-07 Fixed (un)subsribe actions in `TicketController` (d.naumenko.a@gmail.com)
+    - 53362c3 2015-08-07 Pjax (un)subscribe button implemented (d.naumenko.a@gmail.com)
+    - 50ee87e 2015-08-07 --amend (silverfire@advancedhosters.com)
+    - 6d12ddf 2015-08-07 Implementing PJAX (un)sunscribe button (silverfire@advancedhosters.com)
+- Changed: redone to smart actions
+    - 401b4dc 2015-08-06 redoing to smart actions: Subscribe/Unsubscribe, Close/Open (sol@hiqdev.com)
+    - 9f428b7 2015-08-06 minort (sol@hiqdev.com)
 - Changed to all new features: ActionBox, higrid, smart actions
     - 6368ef2 2015-08-06 unified view and create into _view (sol@hiqdev.com)
     - f4d44d6 2015-08-06 doing smart actions (sol@hiqdev.com)
