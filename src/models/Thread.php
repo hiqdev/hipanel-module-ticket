@@ -116,6 +116,7 @@ class Thread extends \hipanel\base\Model
     public function rules()
     {
         return [
+            [['author_id'], 'safe'],
             [['subject', 'message'], 'required', 'on' => ['create']],
             [['id'], 'required', 'on' => ['answer']],
             [
@@ -161,9 +162,9 @@ class Thread extends \hipanel\base\Model
             'is_private'       => Yii::t('app', 'Make private'),
             'state'            => Yii::t('app', 'State'),
             'state_label'      => Yii::t('app', 'State'),
-            'author_id'        => Yii::t('app', 'Author'),
             'responsible_id'   => Yii::t('app', 'Assignee'),
             'author'           => Yii::t('app', 'Author'),
+            'author_id'        => Yii::t('app', 'Author'),
             'author_seller'    => Yii::t('app', 'Seller'),
             'recipient_id'     => Yii::t('app', 'Recipient'),
             'recipient'        => Yii::t('app', 'Recipient'),
