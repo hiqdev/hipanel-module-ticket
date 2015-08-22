@@ -24,6 +24,7 @@ class Topic extends Widget
         $colors = [
            'general'   => 'label-default',
            'technical' => 'label-primary',
+           'vds'       => 'label-info',
            'domain'    => 'label-success',
            'financial' => 'label-warning',
        ];
