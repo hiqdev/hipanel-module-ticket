@@ -13,7 +13,7 @@ Pjax::begin(array_merge(Yii::$app->params['pjax'], [
     ],
 ]));
 
-$subscribed = array_key_exists(Yii::$app->user->identity->id, $model->watchers);
+$subscribed = array_key_exists(Yii::$app->user->identity->id, $model->watchers ? : []);
 if ($subscribed) {
     $action = ['unsubscribe', 'id' => $model->id];
     $label  = '<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;' . Yii::t('app', 'Unsubscribe');
