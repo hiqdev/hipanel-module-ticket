@@ -15,11 +15,8 @@ use common\models\File;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\TicketSettings;
-use hipanel\modules\domain\models\Domain;
-use hiqdev\hiart\HiResException;
+use hiqdev\hiart\ErrorResponseException;
 use Yii;
-use yii\data\Sort;
-use yii\helpers\ArrayHelper;
 
 /**
  * Class TicketController.
@@ -217,7 +214,7 @@ class TicketController extends \hipanel\base\CrudController
     {
         try {
             Thread::perform($apiCall, $options, $bulk);
-        } catch (HiResException $e) {
+        } catch (ErrorResponseException $e) {
             return false;
         }
 
@@ -225,8 +222,6 @@ class TicketController extends \hipanel\base\CrudController
     }
 
     /**
-     * @throws HiResException
-     *
      * @return string
      */
     public function actionGetQuotedAnswer()
@@ -235,7 +230,9 @@ class TicketController extends \hipanel\base\CrudController
         if ($request->isAjax) {
             $id = $request->post('id');
             if ($id !== null) {
-                $answer = Thread::perform('GetAnswer', ['id' => $id]);
+                try {
+                    $answer = Thread::perform('GetAnswer', ['id' => $id]);
+                } catch (ErrorResponseException $e) {}
                 if (isset($answer['message'])) {
                     return '> ' . str_replace("\n", "\n> ", $answer['message']);
                 }
