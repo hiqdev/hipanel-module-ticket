@@ -3,6 +3,11 @@ hiqdev/hipanel-module-ticket commits history
 
 ## Under development
 
+- Added info color for VDS topic
+    - 5a0a8ba 2015-08-22 + info color for VDS topic (sol@hiqdev.com)
+- Added user specific index: hidden certain columns
+    - b826271 2015-08-21 Add conditional visibility to some column (andreyklochok@gmail.com)
+    - c674569 2015-08-21 Reformat ticket index (andreyklochok@gmail.com)
 - Fixed markdown supported badge
     - d34ca62 2015-08-18 fixed markdown supported badge (sol@hiqdev.com)
 - Fixed: hidden subscribeButton on ticket create

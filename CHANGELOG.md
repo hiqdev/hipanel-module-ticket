@@ -3,6 +3,8 @@ hiqdev/hipanel-module-ticket changelog
 
 ## Under development
 
+- Added info color for VDS topic
+- Added user specific index: hidden certain columns
 - Fixed markdown supported badge
 - Fixed: hidden subscribeButton on ticket create
 - Fixed HTML issues

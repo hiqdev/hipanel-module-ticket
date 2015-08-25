@@ -4,7 +4,7 @@ use hipanel\widgets\Box;
 use yii\helpers\ArrayHelper;
 use yii\web\JsExpression;
 use yii\web\View;
-
+/*
 $this->registerJs(new JsExpression(<<<'JS'
 // Handle Hide
 //$(".chats").on("click", ".hide-answer", function() {
@@ -21,6 +21,7 @@ $this->registerJs(new JsExpression(<<<'JS'
 // TODO: Handle Split
 JS
     , View::POS_READY));
+*/
 ?>
 
 <!-- Chat box -->

@@ -61,7 +61,7 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
 //        'clientType' => 'manager',
         'hasId'        => true,
         'inputOptions' => [
-            'value' => implode(',', array_keys($model->watchers)),
+            'value' => $model->watchers ? implode(',', array_keys($model->watchers)) : null,
         ],
         'pluginOptions' => [
             'select2Options' => [
