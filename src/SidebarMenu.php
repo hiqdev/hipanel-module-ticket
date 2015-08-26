@@ -34,10 +34,10 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
                     'label' => 'Tickets settings',
                     'url'   => ['/ticket/ticket/settings'],
                 ],
-                'statistics' => [
-                    'label' => 'Tickets statistic',
-                    'url'   => ['/ticket/ticket/statistics'],
-                ],
+//                'statistics' => [
+//                    'label' => 'Tickets statistic',
+//                    'url'   => ['/ticket/ticket/statistics'],
+//                ],
             ],
         ],
     ];
