@@ -43,6 +43,7 @@ class TicketGridView extends BoxedGridView
             'author_id' => [
                 'class' => ClientColumn::className(),
                 'idAttribute' => 'author_id',
+                'sortAttribute' => 'author',
                 'attribute' => 'author_id',
                 'value' => function ($model) {
                     return ClientSellerLink::widget(compact('model'));
@@ -51,6 +52,7 @@ class TicketGridView extends BoxedGridView
             'responsible_id' => [
                 'class' => ClientColumn::className(),
                 'idAttribute' => 'responsible_id',
+                'sortAttribute' => 'responsible',
                 'attribute' => 'responsible_id',
                 'value' => function ($model) {
                     return Html::a($model['responsible'], ['/client/client/view', 'id' => $model->responsible_id]);
@@ -60,6 +62,7 @@ class TicketGridView extends BoxedGridView
             'recipient_id' => [
                 'class' => ClientColumn::className(),
                 'idAttribute' => 'recipient_id',
+                'sortAttribute' => 'recipient',
                 'attribute' => 'recipient_id',
                 'value' => function ($model) {
                     return Html::a($model->recipient, ['/client/client/view', 'id' => $model->recipient_id]);

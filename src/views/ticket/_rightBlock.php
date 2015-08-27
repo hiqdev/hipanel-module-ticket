@@ -43,4 +43,4 @@ JS
         </div>
     <?php endif; ?>
 
-<?php $box::end() ?><!-- /.box (chat box) -->
+<?php $box->end() ?><!-- /.box (chat box) -->
