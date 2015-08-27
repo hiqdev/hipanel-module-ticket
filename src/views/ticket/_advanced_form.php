@@ -1,17 +1,19 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use hipanel\widgets\Gravatar;
 use hiqdev\combo\StaticCombo;
+use yii\helpers\Html;
 
 ?>
-    <!-- Topics -->
+<!-- Topics -->
 <?php if ($model->isNewRecord) {
     $model->topics = 'general';
 } else {
     $model->topics = implode(',', array_keys($model->topics));
 }
 print $form->field($model, 'topics')->widget(StaticCombo::className(), [
-    'hasId'         => true,
+    'hasId' => true,
     'pluginOptions' => [
         'select2Options' => [
             'multiple' => true,
@@ -26,7 +28,7 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
             $model->state = 'opened';
         } ?>
         <?= $form->field($model, 'state')->widget(StaticCombo::classname(), [
-            'data'  => $state_data,
+            'data' => $state_data,
             'hasId' => true,
         ]) ?>
     </div>
@@ -36,64 +38,85 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
             $model->priority = 'medium';
         } ?>
         <?= $form->field($model, 'priority')->widget(StaticCombo::classname(), [
-            'data'  => $priority_data,
+            'data' => $priority_data,
             'hasId' => true,
         ]) ?>
     </div>
 </div>
+<?php if (Yii::$app->user->can('support')) : ?>
+    <?php if ($model->isNewRecord) : ?>
+        <!-- Responsible -->
+        <?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
+                'clientType' => ['manager', 'admin', 'owner'],
+        ]); ?>
+        <?php else : ?>
+        <div class="row ">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">
+                    <?= $model->getAttributeLabel('responsible') ?>:&nbsp;
+                </label>
+                <div class="col-sm-8">
+                    <span class="form-control-static">
+                        <?= Gravatar::widget([
+                            'emailHash'    => $model->responsible_email,
+                            'defaultImage' => 'identicon',
+                            'size' => 14,
+                        ]); ?>
+                        <?= Html::a($model->responsible, ['client/client/view', 'id' => $model->responsible_id]); ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 
-    <!-- Responsible -->
-<?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
-//    'clientType' => 'manager'
-]); ?>
-
-<?php if ($model->scenario === 'insert') : ?>
-    <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
-//        'clientType' => 'manager',
-        'pluginOptions' => [
-            'select2Options' => [
-                'multiple' => true,
+    <?php if ($model->scenario === 'insert') : ?>
+        <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
+            'clientType' => ['manager', 'admin', 'owner'],
+            'pluginOptions' => [
+                'select2Options' => [
+                    'multiple' => true,
+                ],
             ],
-        ],
-    ]); ?>
-<?php else : ?>
-    <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
-//        'clientType' => 'manager',
-        'hasId'        => true,
-        'inputOptions' => [
-            'value' => $model->watchers ? implode(',', array_keys($model->watchers)) : null,
-        ],
-        'pluginOptions' => [
-            'select2Options' => [
-                'multiple' => true,
+        ]); ?>
+    <?php else : ?>
+        <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
+            'clientType' => ['manager', 'admin', 'owner'],
+            'hasId' => true,
+            'inputOptions' => [
+                'value' => $model->watchers ? implode(',', array_keys($model->watchers)) : null,
             ],
-        ],
-    ]); ?>
-<?php endif; ?>
+            'pluginOptions' => [
+                'select2Options' => [
+                    'multiple' => true,
+                ],
+            ],
+        ]); ?>
+    <?php endif; ?>
 
-<?php if ($model->isNewRecord) {
-    $model->recipient_id = \Yii::$app->user->identity->id;
-} ?>
-<?= $form->field($model, 'recipient_id')->widget(ClientCombo::classname()) ?>
+    <?php if ($model->isNewRecord) {
+        $model->recipient_id = \Yii::$app->user->identity->id;
+    } ?>
+    <?= $form->field($model, 'recipient_id')->widget(ClientCombo::classname()) ?>
 
-<?php if ($model->scenario !== 'answer') : ?>
-    <?= $form->field($model, 'spent')->widget(kartik\widgets\TimePicker::className(), [
-        'pluginOptions' => [
-            'showSeconds'  => false,
-            'showMeridian' => false,
-            'minuteStep'   => 1,
-            'hourStep'     => 1,
-            'defaultTime'  => '00:00',
-        ],
-    ]); ?>
-<?php else : ?>
-    <?= $form->field($model, 'answer_spent')->widget(kartik\widgets\TimePicker::className(), [
-        'pluginOptions' => [
-            'showSeconds'  => false,
-            'showMeridian' => false,
-            'minuteStep'   => 1,
-            'hourStep'     => 1,
-            'defaultTime'  => '00:00',
-        ],
-    ])->label(Yii::t('app', 'Spen time')); ?>
+    <?php if ($model->scenario !== 'answer') : ?>
+        <?= $form->field($model, 'spent')->widget(kartik\widgets\TimePicker::className(), [
+            'pluginOptions' => [
+                'showSeconds' => false,
+                'showMeridian' => false,
+                'minuteStep' => 1,
+                'hourStep' => 1,
+                'defaultTime' => '00:00',
+            ],
+        ]); ?>
+    <?php else : ?>
+        <?= $form->field($model, 'answer_spent')->widget(kartik\widgets\TimePicker::className(), [
+            'pluginOptions' => [
+                'showSeconds' => false,
+                'showMeridian' => false,
+                'minuteStep' => 1,
+                'hourStep' => 1,
+                'defaultTime' => '00:00',
+            ],
+        ])->label(Yii::t('app', 'Spen time')); ?>
+    <?php endif; ?>
 <?php endif; ?>

@@ -69,6 +69,7 @@ class Thread extends \hipanel\base\Model
             'author',
             'author_id',
             'responsible_id',
+            'responsible_email',
             'author_seller',
             'author_seller_id',
             'recipient_id',
@@ -274,7 +275,7 @@ class Thread extends \hipanel\base\Model
 
     public function prepareTopic()
     {
-        $this->topics = implode(',', $this->topics);
+        $this->topics = (!is_array($this->topics)) ? : implode(',', $this->topics);
     }
 
     public function afterFind()
