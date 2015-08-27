@@ -12,7 +12,7 @@ use yii\helpers\Html;
 
 $this->title                   = Yii::t('app', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['subtitle']      = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
+$this->params['subtitle']      = array_filter(Yii::$app->request->get($model->formName(), [])) ? 'filtered list' : 'full list';
 
 $this->registerCss(<<<CSS
 .list-inline {
