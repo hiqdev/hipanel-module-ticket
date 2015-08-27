@@ -18,4 +18,4 @@ use yii\bootstrap\ActiveForm;
             <?= $this->render('_rightBlock', compact('form', 'model', 'client', 'topic_data', 'state_data', 'priority_data')) ?>
         </div>
     </div>
-<?php $form::end() ?>
+<?php $form->end() ?>

@@ -63,7 +63,7 @@ CSS
         ],
     ]) ?>
     <?= $box->renderSearchForm(compact('topic_data','state_data','priority_data')) ?>
-<?php $box::end() ?>
+<?php $box->end() ?>
 
 <?php $box->beginBulkForm() ?>
     <?= TicketGridView::widget([
@@ -85,4 +85,4 @@ CSS
             'actions',
         ],
     ]); ?>
-<?php $box::endBulkForm() ?>
+<?php $box->endBulkForm() ?>

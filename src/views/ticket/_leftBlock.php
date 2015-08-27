@@ -89,7 +89,7 @@ FlagIconCssAsset::register($this);
                 <?php endif; ?>
             <?php $box->endFooter() ?>
 
-        <?php $box::end(); ?>
+        <?php $box->end(); ?>
     </div>
 
 <? if ($client) { ?>
@@ -165,7 +165,7 @@ FlagIconCssAsset::register($this);
         ]); ?>
             <?= Html::a('<i class="fa fa-info-circle" style="font-size:120%"></i>&nbsp;&nbsp;' . Yii::t('app', 'Client details'), ['@client/view', 'id' => $client->id], ['class' => 'btn  btn-default btn-block']) ?>
         <?php $box->endFooter(); ?>
-        <?php $box::end(); ?>
+        <?php $box->end(); ?>
     </div>
 <? } ?>
 </div>
