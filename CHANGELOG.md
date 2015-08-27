@@ -3,6 +3,8 @@ hiqdev/hipanel-module-ticket changelog
 
 ## Under development
 
+- Fixed: minor bugs
+- Fixed PHP warnings
 - Added info color for VDS topic
 - Added user specific index: hidden certain columns
 - Fixed markdown supported badge

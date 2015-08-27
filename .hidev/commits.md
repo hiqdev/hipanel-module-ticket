@@ -3,6 +3,14 @@ hiqdev/hipanel-module-ticket commits history
 
 ## Under development
 
+- Fixed: minor bugs
+    - 0013006 2015-08-27 fixed column labels at ticket index (sol@hiqdev.com)
+    - 355ab0c 2015-08-27 Fixed breadcrumbs subtitle (d.naumenko.a@gmail.com)
+    - a79acc0 2015-08-27 Fixed deprecated method calling syntax (d.naumenko.a@gmail.com)
+    - b784b25 2015-08-26 Remove statistic from menu (andreyklochok@gmail.com)
+    - 7bdaf68 2015-08-25 Modifications to implement ErrorResponseException (d.naumenko.a@gmail.com)
+- Fixed PHP warnings
+    - 21bb09c 2015-08-25 Fix warnings (andreyklochok@gmail.com)
 - Added info color for VDS topic
     - 5a0a8ba 2015-08-22 + info color for VDS topic (sol@hiqdev.com)
 - Added user specific index: hidden certain columns
