@@ -50,23 +50,19 @@ print $form->field($model, 'topics')->widget(StaticCombo::className(), [
                 'clientType' => ['manager', 'admin', 'owner'],
         ]); ?>
         <?php else : ?>
-        <div class="row ">
-            <div class="form-group">
-                <label class="col-sm-4 control-label">
-                    <?= $model->getAttributeLabel('responsible') ?>:&nbsp;
-                </label>
-                <div class="col-sm-8">
-                    <span class="form-control-static">
-                        <?= Gravatar::widget([
-                            'emailHash'    => $model->responsible_email,
-                            'defaultImage' => 'identicon',
-                            'size' => 14,
-                        ]); ?>
-                        <?= Html::a($model->responsible, ['client/client/view', 'id' => $model->responsible_id]); ?>
-                    </span>
-                </div>
-            </div>
-        </div>
+        <ul class="list-group ticket-responsible">
+            <li class="list-group-item">
+                <span class="badge">
+                    <?= Gravatar::widget([
+                        'emailHash'    => $model->responsible_email,
+                        'defaultImage' => 'identicon',
+                        'size' => 14,
+                    ]); ?>
+                    <?= Html::a($model->responsible, ['/client/client/view', 'id' => $model->responsible_id]); ?>
+                </span>
+                <?= $model->getAttributeLabel('responsible') ?>
+            </li>
+        </ul>
     <?php endif; ?>
 
     <?php if ($model->scenario === 'insert') : ?>
