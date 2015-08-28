@@ -138,7 +138,7 @@ use yii\helpers\Html;
         </ul>
     <?php endif; ?>
 
-    <?php if ($model->scenario === 'insert') : ?>
+    <?php if ($model->isNewRecord) : ?>
         <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
             'clientType' => ['manager', 'admin', 'owner'],
             'pluginOptions' => [
@@ -147,19 +147,28 @@ use yii\helpers\Html;
                 ],
             ],
         ]); ?>
-    <?php else : ?>
-        <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
-            'clientType' => ['manager', 'admin', 'owner'],
-            'hasId' => true,
-            'inputOptions' => [
-                'value' => $model->watchers ? implode(',', array_keys($model->watchers)) : null,
-            ],
-            'pluginOptions' => [
-                'select2Options' => [
-                    'multiple' => true,
-                ],
-            ],
-        ]); ?>
+    <?php endif; ?>
+    <?php if (Yii::$app->user->can('support')) : ?>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"><?= $model->getAttributeLabel('watchers'); ?>:</label>
+                    <div class="col-sm-8">
+                    <span class="form-control-static">
+                        <?= XEditable::widget([
+                            'model' => $model,
+                            'attribute' => 'watchers',
+                            'value' => [2, 3],
+                            'pluginOptions' => [
+                                'type' => 'select2',
+                                'placement' => 'bottom',
+                            ],
+                        ]); ?>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?php endif; ?>
 
     <?php if ($model->isNewRecord) {
