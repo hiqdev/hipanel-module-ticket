@@ -36,12 +36,12 @@ use yii\helpers\Html;
     <?= $search->field('author_id')->widget(ClientCombo::classname()); ?>
 
     <?= $search->field('responsible_id')->widget(ClientCombo::classname(), [
-//            'clientType' => 'manager',
-//            'pluginOptions' => [
-//                'select2Options' => [
-//                    'multiple' => true,
-//                ],
-//            ],
+            'clientType' => 'manager',
+            'pluginOptions' => [
+                'select2Options' => [
+                    'multiple' => true,
+                ],
+            ],
     ]); ?>
 
     <?= $search->field('topics')->widget(StaticCombo::classname(), [
@@ -65,5 +65,13 @@ use yii\helpers\Html;
         'hasId' => true,
     ]) ?>
 
-    <?php echo $search->field('watchers')->widget(ClientCombo::classname()) ?>
+    <?php echo $search->field('watchers')->widget(ClientCombo::classname(), [
+        'clientType' => ['manager', 'admin', 'owner'],
+        'hasId' => true,
+        'pluginOptions' => [
+            'select2Options' => [
+                'multiple' => true,
+            ],
+        ],
+    ]) ?>
 </div>

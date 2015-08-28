@@ -9,6 +9,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tickets'), 'url' => 
 $this->params['breadcrumbs'][] = StringHelper::truncateWords($model->threadViewTitle, 5);
 
 $action = 'answer';
+$model->scenario = $action;
 
 ?>
 

@@ -17,7 +17,7 @@ $('input.icheck').iCheck({
 $('.leave-comment-form textarea').one('focus', function(e) {
     $('.hidden-form-inputs').toggle();
     $(this).attr('rows', '5');
-    autosize(this);
+//    autosize(this);
 });
 // Fetch preview
 $(".js-get-preview").on('click', function (event) {
@@ -97,17 +97,39 @@ CSS
                 ],
             ]) ?>
         </div>
-        <div class="col-md-3">
-            <?php if (!$model->isNewRecord) { ?>
-                <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
-            <?php } ?>
-        </div>
-        <div class="col-md-9">
-            <div class="pull-right">
-                <?= Html::submitButton(Yii::t('app', 'Submit and close'), ['class' => 'btn btn-default margin-bottom', 'name' => 'submit_close']); ?>
-                &nbsp;
-                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary margin-bottom']); ?>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-1">
+                    <?php // print '&nbsp;' . Html::submitButton(Yii::t('app', 'Submit and close'), ['class' => 'btn btn-default margin-bottom', 'name' => 'submit_close']); ?>
+                    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']); ?>
+                </div>
+                <div class="col-md-7">
+                    <?php if (!$model->isNewRecord) : ?>
+                    <div class="pull-right">
+                        <?= $form->field($model, 'spent')->widget(kartik\widgets\TimePicker::className(), [
+                            'pluginOptions' => [
+                                'showSeconds' => false,
+                                'showMeridian' => false,
+                                'minuteStep' => 1,
+                                'hourStep' => 1,
+                                'defaultTime' => '00:00',
+                            ],
+                        ])->label(false); ?>
+                    </div>
+                    <?php endif; ?>
+                </div>
+                <div class="col-md-4">
+                    <div class="pull-right">
+                        <?php if (!$model->isNewRecord) : ?>
+                            <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
+                        <?php endif; ?>
+                    </div>
+                    <!-- /.pull-right -->
+                </div>
             </div>
         </div>
+        <!-- /.col-md-12 -->
+        <!-- /.row -->
     </div>
+    <!-- /.row -->
 </div>

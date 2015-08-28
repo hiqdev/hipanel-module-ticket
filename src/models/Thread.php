@@ -175,7 +175,6 @@ class Thread extends \hipanel\base\Model
             'replier'          => Yii::t('app', 'Replier'),
             'replier_seller'   => Yii::t('app', 'replier_seller'),
             'replier_name'     => Yii::t('app', 'replier_name'),
-            'responsible'      => Yii::t('app', 'Responsible'),
             'priority'         => Yii::t('app', 'Priority'),
             'priority_label'   => Yii::t('app', 'Priority'),
             'spent'            => Yii::t('app', 'Spent time'),
@@ -281,7 +280,7 @@ class Thread extends \hipanel\base\Model
 
     public function afterFind()
     {
-        //        if (is_array($this->topics)) $this->topics = array_keys($this->topics);
+//        if (is_array($this->topics)) $this->topics = $this->XEFormater($this->topics);
 //        if (is_array($this->watchers)) $this->watchers = array_keys($this->watchers);
 
         parent::afterFind();
@@ -292,5 +291,16 @@ class Thread extends \hipanel\base\Model
         return [
             'create' => 'create',
         ];
+    }
+
+    public function xFormater(array $items) {
+        $result = [];
+        foreach ($items as $id => $label) {
+            $result[] = [
+                'value' => $id,
+                'text' => $label
+            ];
+        }
+        return $result;
     }
 }
