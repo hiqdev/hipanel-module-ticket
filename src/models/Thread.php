@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\ticket\models;
 
+use stdClass;
 use Yii;
 use yii\helpers\Html as Html;
 use yii\helpers\Markdown as Markdown;
@@ -21,6 +22,9 @@ use yii\helpers\Markdown as Markdown;
 class Thread extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
+
+    const STATE_OPEN = 'opened';
+    const STATE_CLOSE = 'closed';
 
     public $search_form;
 
@@ -280,7 +284,7 @@ class Thread extends \hipanel\base\Model
 
     public function afterFind()
     {
-//        if (is_array($this->topics)) $this->topics = $this->XEFormater($this->topics);
+        if (is_array($this->topics)) $this->topics = array_keys($this->topics);
 //        if (is_array($this->watchers)) $this->watchers = array_keys($this->watchers);
 
         parent::afterFind();
@@ -296,10 +300,10 @@ class Thread extends \hipanel\base\Model
     public function xFormater(array $items) {
         $result = [];
         foreach ($items as $id => $label) {
-            $result[] = [
-                'value' => $id,
-                'text' => $label
-            ];
+            $object = new stdClass();
+            $object->value = $id;
+            $object->text = $label;
+            $result[] = $object;
         }
         return $result;
     }

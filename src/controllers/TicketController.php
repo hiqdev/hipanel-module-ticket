@@ -61,7 +61,7 @@ class TicketController extends \hipanel\base\CrudController
             ],
             'answer'        => [
                 'class'   => 'hipanel\actions\SmartUpdateAction',
-                'success' => Yii::t('app', 'Answer posted'),
+                'success' => Yii::t('app', 'Ticket changed'),
             ],
             'create'        => [
                 'class'   => 'hipanel\actions\SmartCreateAction',

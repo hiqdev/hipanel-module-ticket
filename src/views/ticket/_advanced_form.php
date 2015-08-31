@@ -1,13 +1,14 @@
 <?php
-
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\Gravatar;
 use hiqdev\combo\StaticCombo;
 use hiqdev\xeditable\widgets\XEditable;
 use yii\helpers\Html;
+use yii\web\View;
 
 ?>
-    <!-- Topics -->
+
+<!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
     <?php
     $model->topics = 'general';
@@ -22,7 +23,7 @@ use yii\helpers\Html;
     ]); ?>
 <?php else : ?>
     <?php
-//    \yii\helpers\VarDumper::dump($model->state, 10, true);
+//    \yii\helpers\VarDumper::dump($model->topics, 10, true);
 //    \yii\helpers\VarDumper::dump($model->xFormater($topic_data), 10, true);
     ?>
     <div class="panel panel-default">
@@ -34,10 +35,10 @@ use yii\helpers\Html;
                         <?= XEditable::widget([
                             'model' => $model,
                             'attribute' => 'topics',
-                            'value' => [2, 3],
                             'pluginOptions' => [
+                                'disabled' => !Yii::$app->user->can('support'),
                                 'type' => 'checklist',
-                                'source' => $topic_data,
+                                'source' => $model->xFormater($topic_data),
                                 'placement' => 'bottom',
                             ],
                         ]); ?>
@@ -47,67 +48,34 @@ use yii\helpers\Html;
         </div>
     </div>
 <?php endif; ?>
-    <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <!-- State -->
-            <?php if ($model->isNewRecord) : ?>
-                <?php
-                $model->state = 'opened';
-                print $form->field($model, 'state')->widget(StaticCombo::classname(), [
-                    'data' => $state_data,
-                    'hasId' => true,
-                ]);
-                ?>
-            <?php else : ?>
-                <ul class="list-group ticket-list-group">
-                    <li class="list-group-item">
-                <span class="badge">
-                    <?= XEditable::widget([
-                        'model' => $model,
-                        'attribute' => 'state',
-                        'pluginOptions' => [
-//                            'disabled' => !Yii::$app->user->can('own'),
-                            'type' => 'select',
-                            'source' => $state_data,
-                        ],
-                    ]); ?>
-                </span>
-                        <?= $model->getAttributeLabel('state'); ?>
-                    </li>
-                </ul>
-            <?php endif; ?>
-        </div>
-        <div class="col-md-6 col-sm-12">
-            <!-- Priority -->
-            <?php if ($model->isNewRecord) : ?>
-                <?php
-                $model->priority = 'medium';
-                print $form->field($model, 'priority')->widget(StaticCombo::classname(), [
-                    'data' => $priority_data,
-                    'hasId' => true,
-                ]);
-                ?>
-            <?php else : ?>
-                <ul class="list-group ticket-list-group">
-                    <li class="list-group-item">
+<div class="clearfix"></div>
+<!-- Priority -->
+<?php if ($model->isNewRecord) : ?>
+    <?php
+    $model->priority = 'medium';
+    print $form->field($model, 'priority')->widget(StaticCombo::classname(), [
+        'data' => $priority_data,
+        'hasId' => true,
+    ]);
+    ?>
+<?php else : ?>
+    <ul class="list-group ticket-list-group">
+        <li class="list-group-item">
                 <span class="badge">
                     <?= XEditable::widget([
                         'model' => $model,
                         'attribute' => 'priority',
                         'pluginOptions' => [
+                            'disabled' => !Yii::$app->user->can('support'),
                             'type' => 'select',
                             'source' => $priority_data,
                         ],
                     ]); ?>
                 </span>
-                        <?= $model->getAttributeLabel('priority'); ?>
-                    </li>
-                </ul>
-            <?php endif; ?>
-        </div>
-    </div>
-
+            <?= $model->getAttributeLabel('priority'); ?>
+        </li>
+    </ul>
+<?php endif; ?>
 <?php if (Yii::$app->user->can('support')) : ?>
     <?php if ($model->isNewRecord) : ?>
         <!-- Responsible -->
@@ -137,40 +105,39 @@ use yii\helpers\Html;
             </li>
         </ul>
     <?php endif; ?>
-
-    <?php if ($model->isNewRecord) : ?>
-        <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
-            'clientType' => ['manager', 'admin', 'owner'],
-            'pluginOptions' => [
-                'select2Options' => [
-                    'multiple' => true,
+    <!-- Watchers -->
+    <?php if (Yii::$app->user->can('support') && !$model->isNewRecord) : ?>
+        <?php if ($model->isNewRecord) : ?>
+            <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
+                'clientType' => ['manager', 'admin', 'owner'],
+                'pluginOptions' => [
+                    'select2Options' => [
+                        'multiple' => true,
+                    ],
                 ],
-            ],
-        ]); ?>
-    <?php endif; ?>
-    <?php if (Yii::$app->user->can('support')) : ?>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label"><?= $model->getAttributeLabel('watchers'); ?>:</label>
-                    <div class="col-sm-8">
+            ]); ?>
+        <?php else : ?>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><?= $model->getAttributeLabel('watchers'); ?>:</label>
+                        <div class="col-sm-8">
                     <span class="form-control-static">
                         <?= XEditable::widget([
                             'model' => $model,
                             'attribute' => 'watchers',
-                            'value' => [2, 3],
                             'pluginOptions' => [
                                 'type' => 'select2',
                                 'placement' => 'bottom',
                             ],
                         ]); ?>
                     </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
     <?php endif; ?>
-
     <?php if ($model->isNewRecord) {
         $model->recipient_id = \Yii::$app->user->identity->id;
         print $form->field($model, 'recipient_id')->widget(ClientCombo::classname());

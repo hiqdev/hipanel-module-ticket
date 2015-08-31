@@ -3,23 +3,50 @@
 use cebe\gravatar\Gravatar;
 use hipanel\base\Re;
 use hipanel\modules\client\grid\ClientGridView;
+use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Label;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
+use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 use hipanel\helpers\Url;
 //use hipanel\modules\ticket\widgets\Topic;
 //use hipanel\modules\ticket\widgets\Watcher;
 use hipanel\grid\DetailView;
+use yii\web\JsExpression;
 
 FlagIconCssAsset::register($this);
 ?>
 <div class="row page-ticket">
     <div class="col-md-12">
-
-        <?= Html::a(Yii::t('app', 'Back to index'), ['index'], ['class' => 'btn btn-primary btn-block margin-bottom']); ?>
+        <?= Html::a(Yii::t('app', 'Back to index'),
+            ['index'],
+            ['class' => 'btn btn-primary btn-block', 'style' => $model->isNewRecord ? 'margin-bottom: 20px;' : 'margin-bottom: 5px;']); ?>
+        <?php if (!$model->isNewRecord) : ?>
+            <?php
+            $openTicketText = Yii::t('app', 'Open ticket');
+            $closeTicketText = Yii::t('app', 'Close ticket');
+            Pjax::begin(array_merge(Yii::$app->params['pjax'], [
+                'id' => 'stateTicketButton',
+                'enablePushState' => false,
+                'clientOptions'   => [
+                    'type' => 'POST',
+                    'data' => [
+                        "{$model->formName()}[id]" => $model->id,
+                        "{$model->formName()}[state]" => ($model->state == Thread::STATE_CLOSE) ? Thread::STATE_OPEN : Thread::STATE_CLOSE,
+                    ],
+                ],
+            ])); ?>
+            <?= Html::a(($model->state == Thread::STATE_CLOSE) ? $openTicketText : $closeTicketText,
+                ['answer'],
+                [
+                    'class' => ($model->state == Thread::STATE_CLOSE) ? 'btn btn-block margin-bottom btn-warning' : 'btn btn-block margin-bottom btn-danger',
+                    'onClick' => new JsExpression("$(this).button('loading');")
+                ]); ?>
+            <?php Pjax::end(); ?>
+        <?php endif; ?>
 
         <?php $box = Box::begin([
             'options' => [
