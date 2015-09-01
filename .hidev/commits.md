@@ -3,7 +3,15 @@ hiqdev/hipanel-module-ticket commits history
 
 ## Under development
 
+- Added dependencies on related projects
+    - 74f0e4d 2015-08-28 Added dependencies on related projects (d.naumenko.a@gmail.com)
 - Fixed: minor bugs
+    - b949ce6 2015-08-31 XEditble functionality (andreyklochok@gmail.com)
+    - e753231 2015-08-31 fixed showing closed ticket details (sol@hiqdev.com)
+    - 5025abe 2015-08-28 Watchers can change only support (andreyklochok@gmail.com)
+    - 10fc4a7 2015-08-28 Some design fixes (andreyklochok@gmail.com)
+    - 14f4147 2015-08-27 Resonsible view fix (andreyklochok@gmail.com)
+    - 09d149f 2015-08-27 Fix (andreyklochok@gmail.com)
     - 0013006 2015-08-27 fixed column labels at ticket index (sol@hiqdev.com)
     - 355ab0c 2015-08-27 Fixed breadcrumbs subtitle (d.naumenko.a@gmail.com)
     - a79acc0 2015-08-27 Fixed deprecated method calling syntax (d.naumenko.a@gmail.com)

@@ -3,6 +3,7 @@ hiqdev/hipanel-module-ticket changelog
 
 ## Under development
 
+- Added dependencies on related projects
 - Fixed: minor bugs
 - Fixed PHP warnings
 - Added info color for VDS topic
