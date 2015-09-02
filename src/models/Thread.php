@@ -300,7 +300,7 @@ class Thread extends \hipanel\base\Model
     public function getWatchersLogin()
     {
         $results = [];
-        foreach ($this->watchers as $id => $watcher) {
+        foreach ((array)$this->watchers as $id => $watcher) {
             list($login, $email) = explode(' ', $watcher);
             $results[$id] = $login;
         }

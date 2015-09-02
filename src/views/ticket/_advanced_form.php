@@ -136,6 +136,7 @@ use yii\helpers\Html;
                                         'pluginOptions' => [
                                             'select2Options' => [
                                                 'multiple' => true,
+                                                'width' => '20rem',
                                             ],
                                         ],
                                     ],
