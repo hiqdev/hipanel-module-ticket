@@ -95,7 +95,7 @@ use yii\helpers\Html;
                             ],
                             'pluginOptions' => [
                                 'select2Options' => [
-                                    'multiple' => true,
+                                    'multiple' => false,
                                     'width' => '20rem',
                                 ],
                             ],
@@ -133,7 +133,9 @@ use yii\helpers\Html;
 
 
     <?php endif; ?>
+
     <!-- Watchers -->
+    <?php /*
     <?php if (Yii::$app->user->can('support')) : ?>
         <?php if ($model->isNewRecord) : ?>
             <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
@@ -148,8 +150,7 @@ use yii\helpers\Html;
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><?= $model->getAttributeLabel('watchers'); ?>:</label>
-
+                        <div class="col-sm-4"><?= $model->getAttributeLabel('watchers'); ?>:</div>
                         <div class="col-sm-8">
                             <span class="form-control-static">
                                 <?php
@@ -185,6 +186,7 @@ use yii\helpers\Html;
             </div>
         <?php endif; ?>
     <?php endif; ?>
+    */ ?>
     <?php if ($model->isNewRecord) {
         $model->recipient_id = \Yii::$app->user->identity->id;
         print $form->field($model, 'recipient_id')->widget(ClientCombo::classname());
