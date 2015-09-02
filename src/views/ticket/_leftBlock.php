@@ -35,16 +35,14 @@ FlagIconCssAsset::register($this);
                     'type' => 'POST',
                     'data' => [
                         "{$model->formName()}[id]" => $model->id,
-                        "{$model->formName()}[state]" => ($model->state == Thread::STATE_CLOSE) ? Thread::STATE_OPEN : Thread::STATE_CLOSE,
                     ],
                 ],
             ])); ?>
-            <?= Html::a(($model->state == Thread::STATE_CLOSE) ? $openTicketText : $closeTicketText,
-                ['answer'],
-                [
-                    'class' => ($model->state == Thread::STATE_CLOSE) ? 'btn btn-block margin-bottom btn-warning' : 'btn btn-block margin-bottom btn-danger',
-                    'onClick' => new JsExpression("$(this).button('loading');")
-                ]); ?>
+            <?php if ($model->state == Thread::STATE_CLOSE) : ?>
+                <?= Html::a($openTicketText, ['open'], ['class' => 'btn btn-block margin-bottom btn-warning', 'onClick' => new JsExpression("$(this).button('loading');")]); ?>
+            <?php else : ?>
+                <?= Html::a($closeTicketText, ['close'], ['class' => 'btn btn-block margin-bottom btn-danger', 'onClick' => new JsExpression("$(this).button('loading');")]); ?>
+            <?php endif; ?>
             <?php Pjax::end(); ?>
         <?php endif; ?>
 

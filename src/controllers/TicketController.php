@@ -114,9 +114,16 @@ class TicketController extends \hipanel\base\CrudController
                 'success'    => Yii::t('app', 'Ticket closed'),
                 'beforeSave' => function ($action) {
                     foreach ($action->collection->models as $model) {
-                        $model->{'state'} = 'closed';
+                        $model->{'state'} = Thread::STATE_CLOSE;
                     }
                 },
+                'POST pjax' => [
+                    'save' => true,
+                    'success' => [
+                        'class' => 'hipanel\actions\ProxyAction',
+                        'action' => 'view'
+                    ]
+                ]
             ],
             'open'          => [
                 'class'      => 'hipanel\actions\SmartPerformAction',
@@ -124,9 +131,16 @@ class TicketController extends \hipanel\base\CrudController
                 'success'    => Yii::t('app', 'Ticket opened'),
                 'beforeSave' => function ($action) {
                     foreach ($action->collection->models as $model) {
-                        $model->{'state'} = 'open';
+                        $model->{'state'} = Thread::STATE_OPEN;
                     }
                 },
+                'POST pjax' => [
+                    'save' => true,
+                    'success' => [
+                        'class' => 'hipanel\actions\ProxyAction',
+                        'action' => 'view'
+                    ]
+                ]
             ],
         ];
     }

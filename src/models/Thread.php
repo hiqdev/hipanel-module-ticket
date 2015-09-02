@@ -279,7 +279,7 @@ class Thread extends \hipanel\base\Model
 
     public function prepareTopic()
     {
-        $this->topics = (!is_array($this->topics)) ? : implode(',', $this->topics);
+        $this->topics = is_array($this->topics) ? implode(',', $this->topics) : $this->topics;
     }
 
     public function afterFind()
