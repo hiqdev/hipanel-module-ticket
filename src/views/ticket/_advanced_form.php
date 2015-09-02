@@ -83,6 +83,35 @@ use yii\helpers\Html;
         <ul class="list-group ticket-list-group">
             <li class="list-group-item">
                 <span class="badge">
+                    <?= ComboXEditable::widget([
+                        'model' => $model,
+                        'attribute' => 'responsible_id',
+                        'combo' => [
+                            'class' => ClientCombo::className(),
+//                            'hasId' => true,
+                            'clientType' => ['manager', 'admin', 'owner'],
+                            'inputOptions' => [
+                                'class' => 'hidden'
+                            ],
+                            'pluginOptions' => [
+                                'select2Options' => [
+                                    'multiple' => true,
+                                    'width' => '20rem',
+                                ],
+                            ],
+                        ],
+                        'pluginOptions' => [
+                            'placement' => 'bottom',
+                        ],
+                    ]); ?>
+                </span>
+                <?= $model->getAttributeLabel('responsible_id'); ?>
+            </li>
+        </ul>
+
+        <ul class="list-group ticket-list-group">
+        <?php /*<li class="list-group-item">
+                <span class="badge">
                     <?= Gravatar::widget([
                         'emailHash' => $model->responsible_email,
                         'defaultImage' => 'identicon',
@@ -95,15 +124,17 @@ use yii\helpers\Html;
                     <?= Html::a($model->responsible, ['/client/client/view', 'id' => $model->responsible_id]); ?>
                 </span>
                 <?= $model->getAttributeLabel('responsible_id') ?>
-            </li>
+            </li>*/ ?>
             <li class="list-group-item">
                 <span class="badge"><?= $model->elapsed ?></span>
                 <?= Yii::t('app', 'Spend time') ?>
             </li>
         </ul>
+
+
     <?php endif; ?>
     <!-- Watchers -->
-    <?php if (Yii::$app->user->can('support') && !$model->isNewRecord) : ?>
+    <?php if (Yii::$app->user->can('support')) : ?>
         <?php if ($model->isNewRecord) : ?>
             <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
                 'clientType' => ['manager', 'admin', 'owner'],
