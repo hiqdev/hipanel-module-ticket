@@ -297,6 +297,16 @@ class Thread extends \hipanel\base\Model
         ];
     }
 
+    public function getWatchersLogin()
+    {
+        $results = [];
+        foreach ($this->watchers as $id => $watcher) {
+            list($login, $email) = explode(' ', $watcher);
+            $results[$id] = $login;
+        }
+        return $results;
+    }
+
     public function xFormater(array $items) {
         $result = [];
         foreach ($items as $id => $label) {

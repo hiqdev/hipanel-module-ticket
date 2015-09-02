@@ -1,13 +1,13 @@
 <?php
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\Gravatar;
+use hiqdev\combo\ComboAsset;
 use hiqdev\combo\StaticCombo;
+use hiqdev\xeditable\widgets\ComboXEditable;
 use hiqdev\xeditable\widgets\XEditable;
 use yii\helpers\Html;
-use yii\web\View;
 
 ?>
-
 <!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
     <?php
@@ -22,14 +22,11 @@ use yii\web\View;
         'data' => $topic_data,
     ]); ?>
 <?php else : ?>
-    <?php
-//    \yii\helpers\VarDumper::dump($model->topics, 10, true);
-//    \yii\helpers\VarDumper::dump($model->xFormater($topic_data), 10, true);
-    ?>
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="form-group">
                 <label class="col-sm-4 control-label"><?= $model->getAttributeLabel('topics'); ?>:</label>
+
                 <div class="col-sm-8">
                     <span class="form-control-static">
                         <?= XEditable::widget([
@@ -48,8 +45,8 @@ use yii\web\View;
         </div>
     </div>
 <?php endif; ?>
-<div class="clearfix"></div>
-<!-- Priority -->
+    <div class="clearfix"></div>
+    <!-- Priority -->
 <?php if ($model->isNewRecord) : ?>
     <?php
     $model->priority = 'medium';
@@ -121,17 +118,35 @@ use yii\web\View;
                 <div class="panel-body">
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?= $model->getAttributeLabel('watchers'); ?>:</label>
+
                         <div class="col-sm-8">
-                    <span class="form-control-static">
-                        <?= XEditable::widget([
-                            'model' => $model,
-                            'attribute' => 'watchers',
-                            'pluginOptions' => [
-                                'type' => 'select2',
-                                'placement' => 'bottom',
-                            ],
-                        ]); ?>
-                    </span>
+                            <span class="form-control-static">
+                                <?php
+                                $watchers = $model->watchers;
+                                $model->watchers = $model->getWatchersLogin();
+                                echo ComboXEditable::widget([
+                                    'model' => $model,
+                                    'attribute' => 'watchers',
+                                    'combo' => [
+                                        'class' => ClientCombo::className(),
+                                        'clientType' => ['manager', 'admin', 'owner'],
+                                        'inputOptions' => [
+                                            'class' => 'hidden'
+                                        ],
+                                        'pluginOptions' => [
+                                            'select2Options' => [
+                                                'multiple' => true,
+                                            ],
+                                        ],
+                                    ],
+                                    'pluginOptions' => [
+                                        'placement' => 'bottom',
+                                    ],
+                                ]);
+
+                                $model->watchers = $watchers;
+                                ?>
+                            </span>
                         </div>
                     </div>
                 </div>
