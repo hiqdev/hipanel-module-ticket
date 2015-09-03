@@ -8,7 +8,7 @@ use hiqdev\xeditable\widgets\XEditable;
 use yii\helpers\Html;
 
 ?>
-<!-- Topics -->
+    <!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
     <?php
     $model->topics = 'general';
@@ -86,16 +86,15 @@ use yii\helpers\Html;
                     <?= ComboXEditable::widget([
                         'model' => $model,
                         'attribute' => 'responsible_id',
+                        'value' => [['id' => $model->responsible_id, 'text' => $model->responsible]],
                         'combo' => [
                             'class' => ClientCombo::className(),
-//                            'hasId' => true,
                             'clientType' => ['manager', 'admin', 'owner'],
                             'inputOptions' => [
                                 'class' => 'hidden'
                             ],
                             'pluginOptions' => [
                                 'select2Options' => [
-                                    'multiple' => true,
                                     'width' => '20rem',
                                 ],
                             ],
@@ -110,7 +109,7 @@ use yii\helpers\Html;
         </ul>
 
         <ul class="list-group ticket-list-group">
-        <?php /*<li class="list-group-item">
+            <?php /*<li class="list-group-item">
                 <span class="badge">
                     <?= Gravatar::widget([
                         'emailHash' => $model->responsible_email,
