@@ -75,6 +75,7 @@ use yii\helpers\Html;
 <?php endif; ?>
 <?php if (Yii::$app->user->can('support')) : ?>
     <?php if ($model->isNewRecord) : ?>
+        <?php $model->responsible_id = Yii::$app->user->id; ?>
         <!-- Responsible -->
         <?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
             'clientType' => ['manager', 'admin', 'owner'],
