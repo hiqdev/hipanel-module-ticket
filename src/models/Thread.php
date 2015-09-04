@@ -129,7 +129,7 @@ class Thread extends \hipanel\base\Model
                     'topics',
                     'state',
                     'priority',
-                    'responsible_id',
+                    'responsible',
                     'recipient_id',
                     'watchers',
                     'spent', 'spent_hours',
@@ -142,7 +142,7 @@ class Thread extends \hipanel\base\Model
                 [
                     'id', 'message',
                     'topics', 'state', 'priority',
-                    'responsible_id', 'recipient_id',
+                    'responsible', 'recipient_id',
                     'watchers', 'add_watchers', 'del_watchers',
                     'is_private',
                     'file_ids',

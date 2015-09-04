@@ -77,7 +77,7 @@ use yii\helpers\Html;
     <?php if ($model->isNewRecord) : ?>
         <?php $model->responsible_id = Yii::$app->user->id; ?>
         <!-- Responsible -->
-        <?= $form->field($model, 'responsible_id')->widget(ClientCombo::classname(), [
+        <?= $form->field($model, 'responsible')->widget(ClientCombo::classname(), [
             'clientType' => ['manager', 'admin', 'owner'],
         ]); ?>
     <?php else : ?>
@@ -86,8 +86,8 @@ use yii\helpers\Html;
                 <span class="badge">
                     <?= ComboXEditable::widget([
                         'model' => $model,
-                        'attribute' => 'responsible_id',
-                        'value' => [['id' => $model->responsible_id, 'text' => $model->responsible]],
+                        'attribute' => 'responsible',
+//                        'value' => [['id' => $model->responsible_id, 'text' => $model->responsible]],
                         'combo' => [
                             'class' => ClientCombo::className(),
                             'clientType' => ['manager', 'admin', 'owner'],
@@ -105,7 +105,7 @@ use yii\helpers\Html;
                         ],
                     ]); ?>
                 </span>
-                <?= $model->getAttributeLabel('responsible_id'); ?>
+                <?= $model->getAttributeLabel('responsible'); ?>
             </li>
         </ul>
 
