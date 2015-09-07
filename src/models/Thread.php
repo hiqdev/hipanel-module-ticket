@@ -146,7 +146,7 @@ class Thread extends \hipanel\base\Model
                     'watchers', 'add_watchers', 'del_watchers',
                     'is_private',
                     'file_ids',
-                    'answer_spent',
+                    'answer_spent', 'spent', 'spent_hours'
                 ],
                 'safe',
                 'on' => 'answer',

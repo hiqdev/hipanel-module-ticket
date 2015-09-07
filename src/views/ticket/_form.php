@@ -106,7 +106,7 @@ CSS
                 <div class="col-md-7">
                     <?php if (!$model->isNewRecord) : ?>
                     <div class="pull-right">
-                        <?= $form->field($model, 'spent')->widget(kartik\widgets\TimePicker::className(), [
+                        <?= $form->field($model, 'answer_spent')->widget(kartik\widgets\TimePicker::className(), [
                             'pluginOptions' => [
                                 'showSeconds' => false,
                                 'showMeridian' => false,
