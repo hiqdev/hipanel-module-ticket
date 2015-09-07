@@ -126,12 +126,10 @@ use yii\helpers\Html;
                 <?= $model->getAttributeLabel('responsible_id') ?>
             </li>*/ ?>
             <li class="list-group-item">
-                <span class="badge"><?= $model->elapsed ?></span>
+                <span class="badge"><?= Yii::t('app', '{0, duration}', (int)$model->elapsed) ?></span>
                 <?= Yii::t('app', 'Spend time') ?>
             </li>
         </ul>
-
-
     <?php endif; ?>
 
     <!-- Watchers -->
