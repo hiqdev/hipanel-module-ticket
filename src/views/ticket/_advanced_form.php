@@ -122,7 +122,7 @@ use yii\helpers\Html;
                 <?= $model->getAttributeLabel('responsible_id') ?>
             </li>*/ ?>
             <li class="list-group-item">
-                <span class="badge"><?= Yii::t('app', '{0, duration}', (int)$model->spent_minute) ?></span>
+                <span class="badge"><?= Yii::t('app', '{0, duration}', (int)$model->spent) ?></span>
                 <?= Yii::t('app', 'Spent time') ?>
             </li>
         </ul>
