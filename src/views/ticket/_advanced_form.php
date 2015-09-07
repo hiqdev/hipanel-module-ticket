@@ -22,28 +22,24 @@ use yii\helpers\Html;
         'data' => $topic_data,
     ]); ?>
 <?php else : ?>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="form-group">
-                <label class="col-sm-4 control-label"><?= $model->getAttributeLabel('topics'); ?>:</label>
-
-                <div class="col-sm-8">
-                    <span class="form-control-static">
-                        <?= XEditable::widget([
-                            'model' => $model,
-                            'attribute' => 'topics',
-                            'pluginOptions' => [
-                                'disabled' => !Yii::$app->user->can('support'),
-                                'type' => 'checklist',
-                                'source' => $model->xFormater($topic_data),
-                                'placement' => 'bottom',
-                            ],
-                        ]); ?>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <ul class="list-group ticket-list-group">
+        <li class="list-group-item">
+                <span class="badge">
+                    <?= XEditable::widget([
+                        'model' => $model,
+                        'attribute' => 'topics',
+                        'pluginOptions' => [
+                            'disabled' => !Yii::$app->user->can('support'),
+                            'type' => 'checklist',
+                            'source' => $model->xFormater($topic_data),
+                            'placement' => 'bottom',
+                        ],
+                    ]); ?>
+                </span>
+            <?= $model->getAttributeLabel('topics'); ?>
+            <div class="clearfix"></div>
+        </li>
+    </ul>
 <?php endif; ?>
     <div class="clearfix"></div>
     <!-- Priority -->
