@@ -128,7 +128,6 @@ use yii\helpers\Html;
     <?php endif; ?>
 
     <!-- Watchers -->
-    <?php /*
     <?php if (Yii::$app->user->can('support')) : ?>
         <?php if ($model->isNewRecord) : ?>
             <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
@@ -140,6 +139,7 @@ use yii\helpers\Html;
                 ],
             ]); ?>
         <?php else : ?>
+            <?php /*
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
@@ -177,9 +177,9 @@ use yii\helpers\Html;
                     </div>
                 </div>
             </div>
+            */ ?>
         <?php endif; ?>
     <?php endif; ?>
-    */ ?>
     <?php if ($model->isNewRecord) {
         $model->recipient_id = \Yii::$app->user->identity->id;
         print $form->field($model, 'recipient_id')->widget(ClientCombo::classname());
