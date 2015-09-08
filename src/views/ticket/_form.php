@@ -2,6 +2,7 @@
 
 use hiqdev\assets\autosize\AutosizeAsset;
 use hiqdev\assets\icheck\iCheckAsset;
+use kartik\widgets\TimePicker;
 use yii\helpers\Html;
 
 iCheckAsset::register($this);
@@ -104,18 +105,32 @@ CSS
                     <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']); ?>
                 </div>
                 <div class="col-md-7">
-                    <?php if (!$model->isNewRecord) : ?>
-                    <div class="pull-right">
-                        <?= $form->field($model, 'answer_spent')->widget(kartik\widgets\TimePicker::className(), [
-                            'pluginOptions' => [
-                                'showSeconds' => false,
-                                'showMeridian' => false,
-                                'minuteStep' => 1,
-                                'hourStep' => 1,
-                                'defaultTime' => '00:00',
-                            ],
-                        ])->label(false); ?>
-                    </div>
+                    <?php if ($model->isNewRecord) : ?>
+                        <?php if (Yii::$app->user->can('support')) : ?>
+                            <div class="pull-right">
+                                <?= $form->field($model, 'spent')->widget(TimePicker::className(), [
+                                    'pluginOptions' => [
+                                        'showSeconds' => false,
+                                        'showMeridian' => false,
+                                        'minuteStep' => 1,
+                                        'hourStep' => 1,
+                                        'defaultTime' => '00:00',
+                                    ],
+                                ])->label(false); ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php else : ?>
+                        <div class="pull-right">
+                            <?= $form->field($model, 'answer_spent')->widget(TimePicker::className(), [
+                                'pluginOptions' => [
+                                    'showSeconds' => false,
+                                    'showMeridian' => false,
+                                    'minuteStep' => 1,
+                                    'hourStep' => 1,
+                                    'defaultTime' => '00:00',
+                                ],
+                            ])->label(false); ?>
+                        </div>
                     <?php endif; ?>
                 </div>
                 <div class="col-md-4">

@@ -6,7 +6,6 @@ use hiqdev\combo\StaticCombo;
 use hiqdev\xeditable\widgets\ComboXEditable;
 use hiqdev\xeditable\widgets\XEditable;
 use yii\helpers\Html;
-//\yii\helpers\VarDumper::dump($model, 10, true);
 ?>
     <!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
@@ -122,7 +121,7 @@ use yii\helpers\Html;
                 <?= $model->getAttributeLabel('responsible_id') ?>
             </li>*/ ?>
             <li class="list-group-item">
-                <span class="badge"><?= Yii::t('app', '{0, duration}', (int)$model->spent) ?></span>
+                <span class="badge"><?= Yii::t('app', '{0, time, HH:mm}', (int)$model->spent * 60) ?></span>
                 <?= Yii::t('app', 'Spent time') ?>
             </li>
         </ul>
