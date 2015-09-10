@@ -3,6 +3,25 @@ hiqdev/hipanel-module-ticket commits history
 
 ## Under development
 
+- Fixed ticket details page
+    - 3c20ad8 2015-09-09 Add autosize method (andreyklochok@gmail.com)
+    - dd6869b 2015-09-10 + conditional domains count (sol@hiqdev.com)
+    - c423552 2015-09-08 Minify time input (andreyklochok@gmail.com)
+    - 5367262 2015-09-08 Add watchers input in create ticket action (andreyklochok@gmail.com)
+    - 7c2c8b0 2015-09-08 Fix spent time display (andreyklochok@gmail.com)
+    - b2a2ab6 2015-09-07 Change attribute name from spent_mintue to spent in view file (andreyklochok@gmail.com)
+    - 6fe1530 2015-09-07 Fix spent time (andreyklochok@gmail.com)
+    - d8a14cf 2015-09-07 Change topic view (andreyklochok@gmail.com)
+    - e60da36 2015-09-07 Ticket detail view - added duration formatting (d.naumenko.a@gmail.com)
+    - bb7f974 2015-09-04 Responsible fix (andreyklochok@gmail.com)
+    - ff82588 2015-09-03 TicketView - implemented asignee xeditable (d.naumenko.a@gmail.com)
+    - 42162eb 2015-09-03 Add default value for responsible (andreyklochok@gmail.com)
+    - 6f305ac 2015-09-02 Disable watchers editable (andreyklochok@gmail.com)
+    - 4ab6354 2015-09-02 Add one more field (andreyklochok@gmail.com)
+    - 6430696 2015-09-02 Some fixes (andreyklochok@gmail.com)
+    - 9b291e8 2015-09-02 View pagee - ticket watchers implemented with ComboXeditable (d.naumenko.a@gmail.com)
+    - d0c8914 2015-09-02 Fix topics when ticket create, fix close/open button (andreyklochok@gmail.com)
+    - d989f8e 2015-09-01 State functionality (andreyklochok@gmail.com)
 - Added dependencies on related projects
     - 74f0e4d 2015-08-28 Added dependencies on related projects (d.naumenko.a@gmail.com)
 - Fixed: minor bugs

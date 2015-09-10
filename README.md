@@ -5,6 +5,7 @@ Ticket Plugin for HiPanel
 
 [![Latest Stable Version](https://poser.pugx.org/hiqdev/hipanel-module-ticket/v/stable.png)](https://packagist.org/packages/hiqdev/hipanel-module-ticket)
 [![Total Downloads](https://poser.pugx.org/hiqdev/hipanel-module-ticket/downloads.png)](https://packagist.org/packages/hiqdev/hipanel-module-ticket)
+[![Dependency Status](https://www.versioneye.com/php/hiqdev:hipanel-module-ticket/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:hipanel-module-ticket/dev-master)
 
 ## Installation
 

@@ -3,6 +3,7 @@ hiqdev/hipanel-module-ticket changelog
 
 ## Under development
 
+- Fixed ticket details page
 - Added dependencies on related projects
 - Fixed: minor bugs
 - Fixed PHP warnings
