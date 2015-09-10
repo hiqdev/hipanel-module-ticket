@@ -18,7 +18,7 @@ $('input.icheck').iCheck({
 $('.leave-comment-form textarea').one('focus', function(e) {
     $('.hidden-form-inputs').toggle();
     $(this).attr('rows', '5');
-//    autosize(this);
+    autosize(this);
 });
 // Fetch preview
 $(".js-get-preview").on('click', function (event) {
