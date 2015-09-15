@@ -18,9 +18,7 @@ class Plugin extends \hiqdev\pluginmanager\Plugin
             '@ticket' => '/ticket/ticket',
         ],
         'menus' => [
-            [
-                'class' => 'hipanel\modules\ticket\SidebarMenu',
-            ],
+            'hipanel\modules\ticket\SidebarMenu',
         ],
         'modules' => [
             'ticket' => [

@@ -11,6 +11,8 @@
 
 namespace hipanel\modules\ticket;
 
+use Yii;
+
 class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInterface
 {
     protected $_addTo = 'sidebar';
@@ -20,25 +22,28 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
         'before' => ['domains', 'servers', 'hosting'],
     ];
 
-    protected $_items = [
-        'tickets' => [
-            'label' => 'Tickets',
-            'url'   => ['/ticket/ticket/index'],
-            'icon'  => 'fa-ticket',
-            'items' => [
-                'tickets' => [
-                    'label' => 'Tickets',
-                    'url'   => ['/ticket/ticket/index'],
+    public function items()
+    {
+        return [
+            'tickets' => [
+                'label' => Yii::t('app', 'Tickets'),
+                'url'   => ['/ticket/ticket/index'],
+                'icon'  => 'fa-ticket',
+                'items' => [
+                    'tickets' => [
+                        'label' => Yii::t('app', 'Tickets'),
+                        'url'   => ['/ticket/ticket/index'],
+                    ],
+                    'settings' => [
+                        'label' => Yii::t('app', 'Tickets settings'),
+                        'url'   => ['/ticket/ticket/settings'],
+                    ],
+//                  'statistics' => [
+//                      'label' => Yii::t('app', 'Tickets statistics'),
+//                      'url'   => ['/ticket/ticket/statistics'],
+//                  ],
                 ],
-                'settings' => [
-                    'label' => 'Tickets settings',
-                    'url'   => ['/ticket/ticket/settings'],
-                ],
-//                'statistics' => [
-//                    'label' => 'Tickets statistic',
-//                    'url'   => ['/ticket/ticket/statistics'],
-//                ],
             ],
-        ],
-    ];
+        ];
+    }
 }
