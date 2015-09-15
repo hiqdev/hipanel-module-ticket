@@ -22,9 +22,9 @@ hiqdev/hipanel-module-ticket commits history
     - 9b291e8 2015-09-02 View pagee - ticket watchers implemented with ComboXeditable (d.naumenko.a@gmail.com)
     - d0c8914 2015-09-02 Fix topics when ticket create, fix close/open button (andreyklochok@gmail.com)
     - d989f8e 2015-09-01 State functionality (andreyklochok@gmail.com)
-- Added dependencies on related projects
+- Fixed: minor issues
+    - 5297f20 2015-09-15 localized menu (sol@hiqdev.com)
     - 74f0e4d 2015-08-28 Added dependencies on related projects (d.naumenko.a@gmail.com)
-- Fixed: minor bugs
     - b949ce6 2015-08-31 XEditble functionality (andreyklochok@gmail.com)
     - e753231 2015-08-31 fixed showing closed ticket details (sol@hiqdev.com)
     - 5025abe 2015-08-28 Watchers can change only support (andreyklochok@gmail.com)
