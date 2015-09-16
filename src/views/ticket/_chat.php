@@ -61,6 +61,10 @@ JS
                 <?php foreach ($model->answers as $answer_id => $answer) : ?>
                     <?php if (ArrayHelper::getValue($answer, 'message') !== null) : ?>
                         <?= Html::beginTag('li', ['class' => ($answer['is_answer']) ? 'out' : 'in', 'id' => 'answer-' . $answer['answer_id']]) ?>
+                        <? d($answer) ?>
+                        <?php if ($answer['author']=='anonym') {
+                            $answer['email'] = $model->anonym_email;
+                        } ?>
                         <?php if (isset($answer['email']) && filter_var($answer['email'], FILTER_VALIDATE_EMAIL)) : ?>
                             <?= Gravatar::widget([
                                 'email'        => $answer['email'],
@@ -82,9 +86,9 @@ JS
                                     'id' => $answer['author_id'],
                                 ], ['class' => 'name']); ?>&nbsp;
                                 <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer['create_time']), ['class' => 'datetime']) ?>&nbsp;
-                                <?php if ($answer['spent']) {
-    print Html::tag('span', Yii::t('app', 'Time spent: {n}', ['n' => $answer['spent']]), ['class' => 'spent-time']);
-} ?>&nbsp;
+                                <?php if ($answer['spent']) { ?>
+                                    <?= Html::tag('span', Yii::t('app', 'Time spent: {n}', ['n' => $answer['spent']]), ['class' => 'spent-time']) ?>
+                                <?php } ?>&nbsp;
                             </div>
 
                             <div class="buttons">

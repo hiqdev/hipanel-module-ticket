@@ -103,6 +103,8 @@ class Thread extends \hipanel\base\Model
             'message', // 'answer_message',
             'answers',
             'is_private',
+
+            'anonym_name',
             'anonym_email',
             'anonym_seller',
 

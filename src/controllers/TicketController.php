@@ -43,17 +43,21 @@ class TicketController extends \hipanel\base\CrudController
             ],
             'view'          => [
                 'class'       => 'hipanel\actions\ViewAction',
-                'findOptions' => ['with_answers' => 1, 'with_files' => 1, 'show_closed' => 1],
+                'findOptions' => ['with_anonym' => 1, 'with_answers' => 1, 'with_files' => 1, 'show_closed' => 1],
                 'data'        => function ($action) {
-                    return array_merge([
-                        'client' => Client::find()->where([
-                            'id'                 => $action->model->author_id,
-                            'with_contact'       => 1,
-                            'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
-                            'with_servers_count' => 1,
-                            'with_hosting_count' => 1,
-                        ])->one(),
-                    ], $this->prepareRefs());
+                    $client = Client::find()->where([
+                        'id'                 => $action->model->author_id,
+                        'with_contact'       => 1,
+                        'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
+                        'with_servers_count' => 1,
+                        'with_hosting_count' => 1,
+                    ])->one();
+                    if ($client->login == 'anonym') {
+                        $client->name   = $action->model->anonym_name;
+                        $client->email  = $action->model->anonym_email;
+                        $client->seller = $action->model->anonym_seller;
+                    }
+                    return array_merge(compact('client'), $this->prepareRefs());
                 },
             ],
             'validate-form' => [
