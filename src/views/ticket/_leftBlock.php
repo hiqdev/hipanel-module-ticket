@@ -82,7 +82,7 @@ FlagIconCssAsset::register($this);
             */ ?>
 
             <?php if (is_array($model->watchers)) : ?>
-                <?= Html::tag('p', 'Watchers', ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;s']); ?>
+                <?= Html::tag('p', Yii::t('app', 'Watchers'), ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;s']); ?>
                 <div class="margin-bottom">
                 <?php foreach ($model->watchers as $watcherId => $watcher) : ?>
                     <?php

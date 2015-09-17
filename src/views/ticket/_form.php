@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 iCheckAsset::register($this);
 AutosizeAsset::register($this);
-
+$translate = Yii::t('app', 'Nothing to preview');
 $dopScript = <<< JS
 // Init iCheck
 $('input.icheck').iCheck({
@@ -25,7 +25,7 @@ $(".js-get-preview").on('click', function (event) {
     event.preventDefault();
     var message = $('#thread-message').val();
     $.post("preview", {text: message}, function( data ) {
-        $('#preview .preview-container').html( data || 'Nothing to preview');
+        $('#preview .preview-container').html( data || '$translate');
     });
 });
 JS;
@@ -55,27 +55,27 @@ CSS
     <ul class="nav nav-tabs hidden-form-inputs margin-bottom" role="tablist">
         <div class="pull-right" style="padding-top:0.5em">
             <?= Html::a(
-                'Markdown supported',
+                Yii::t('app', 'Markdown supported'),
                 'https://guides.github.com/features/mastering-markdown/',
                 ['target' => '_blank', 'class' => 'label label-default markdown-supported']
             ) ?>
         </div>
         <li role="presentation" class="active">
-            <a href="#message" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold">Message</a>
+            <a href="#message" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('app', 'Message') ?></a>
         </li>
         <li role="presentation">
-            <a href="#preview" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview">Preview</a>
+            <a href="#preview" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview"><?= Yii::t('app', 'Preview') ?></a>
         </li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="message">
-            <?= $form->field($model, 'message')->textarea(['rows' => 1, 'placeholder' => 'Write a message here'])->label(false); ?>
+            <?= $form->field($model, 'message')->textarea(['rows' => 1, 'placeholder' => Yii::t('app', 'Write a message here')])->label(false); ?>
 
         </div>
         <div role="tabpanel" class="tab-pane" id="preview">
             <div class="well well-sm preview-container">
-                Nothing to preview
+                <?= Yii::t('app', 'Nothing to preview') ?>
             </div>
         </div>
     </div>
