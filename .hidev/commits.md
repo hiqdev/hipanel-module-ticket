@@ -4,6 +4,7 @@ hiqdev/hipanel-module-ticket commits history
 ## Under development
 
 - Fixed ticket details page
+    - 6534141 2015-09-16 fixed anonym displaying (sol@hiqdev.com)
     - 3c20ad8 2015-09-09 Add autosize method (andreyklochok@gmail.com)
     - dd6869b 2015-09-10 + conditional domains count (sol@hiqdev.com)
     - c423552 2015-09-08 Minify time input (andreyklochok@gmail.com)
