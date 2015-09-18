@@ -4,9 +4,7 @@ hiqdev/hipanel-module-ticket changelog
 ## Under development
 
 - Fixed ticket details page
-- Fixed: minor issues
-- Fixed PHP warnings
-- Added info color for VDS topic
+- Fixed minor issues
 - Added user specific index: hidden certain columns
 - Fixed markdown supported badge
 - Fixed: hidden subscribeButton on ticket create

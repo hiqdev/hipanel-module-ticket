@@ -23,7 +23,8 @@ hiqdev/hipanel-module-ticket commits history
     - 9b291e8 2015-09-02 View pagee - ticket watchers implemented with ComboXeditable (d.naumenko.a@gmail.com)
     - d0c8914 2015-09-02 Fix topics when ticket create, fix close/open button (andreyklochok@gmail.com)
     - d989f8e 2015-09-01 State functionality (andreyklochok@gmail.com)
-- Fixed: minor issues
+- Fixed minor issues
+    - a7ee615 2015-09-17 * improve language pack (bladeroot@gmail.com)
     - 5297f20 2015-09-15 localized menu (sol@hiqdev.com)
     - 74f0e4d 2015-08-28 Added dependencies on related projects (d.naumenko.a@gmail.com)
     - b949ce6 2015-08-31 XEditble functionality (andreyklochok@gmail.com)
@@ -37,9 +38,7 @@ hiqdev/hipanel-module-ticket commits history
     - a79acc0 2015-08-27 Fixed deprecated method calling syntax (d.naumenko.a@gmail.com)
     - b784b25 2015-08-26 Remove statistic from menu (andreyklochok@gmail.com)
     - 7bdaf68 2015-08-25 Modifications to implement ErrorResponseException (d.naumenko.a@gmail.com)
-- Fixed PHP warnings
     - 21bb09c 2015-08-25 Fix warnings (andreyklochok@gmail.com)
-- Added info color for VDS topic
     - 5a0a8ba 2015-08-22 + info color for VDS topic (sol@hiqdev.com)
 - Added user specific index: hidden certain columns
     - b826271 2015-08-21 Add conditional visibility to some column (andreyklochok@gmail.com)
