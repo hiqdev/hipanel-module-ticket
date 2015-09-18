@@ -6,6 +6,7 @@ use common\components\Lang;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\modules\client\grid\ClientColumn;
+use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Gravatar;
@@ -85,8 +86,19 @@ class TicketGridView extends BoxedGridView
             ],
             'actions' => [
                 'class' => ActionColumn::className(),
-                'template' => '{view}',
+                'template' => '{view} {state}',
                 'header' => Yii::t('app', 'Actions'),
+                'buttons' => [
+                    'state' => function ($url, $model, $key) {
+                        $out = '';
+                        if ($model->state === Thread::STATE_OPEN) {
+                            $out .= Html::a(Yii::t('app', 'Close'), ['close', 'id' => $model->id]);
+                        } elseif ($model->state === Thread::STATE_CLOSE) {
+                            $out .= Html::a(Yii::t('app', 'Open'), ['open', 'id' => $model->id]);
+                        }
+                        return $out;
+                    },
+                ]
             ],
 //            [
 //                'attribute' => 'responsible_id',
