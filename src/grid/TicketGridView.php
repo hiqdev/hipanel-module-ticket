@@ -2,7 +2,6 @@
 
 namespace hipanel\modules\ticket\grid;
 
-use common\components\Lang;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\modules\client\grid\ClientColumn;
@@ -35,7 +34,7 @@ class TicketGridView extends BoxedGridView
                         ? Html::tag('div', '<span class="fa fa-circle-o text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type'])
                         : Html::tag('div', '<span class="fa fa-check-circle text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type']);
                     $t = Html::tag('b', Html::a($data->subject, $data->threadUrl)) . Topic::widget(['topics' => $data->topics]) .
-                        Html::tag('div', sprintf('#%s %s %s', $data->id, Lang::t($data->state_label), Yii::$app->formatter->asDatetime($data->create_time)), ['class' => 'text-muted']);
+                        Html::tag('div', sprintf('#%s %s %s', $data->id, $data->state_label, Yii::$app->formatter->asDatetime($data->create_time)), ['class' => 'text-muted']);
 
                     return $ava . $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
                 },
