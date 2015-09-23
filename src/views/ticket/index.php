@@ -1,6 +1,5 @@
 <?php
 
-use common\components\Lang;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\modules\ticket\grid\TicketGridView;
