@@ -4,6 +4,7 @@ hiqdev/hipanel-module-ticket commits history
 ## Under development
 
 - Fixed ticket details page
+    - 89f228e 2015-09-18 Add close link on the index page (andreyklochok@gmail.com)
     - 6534141 2015-09-16 fixed anonym displaying (sol@hiqdev.com)
     - 3c20ad8 2015-09-09 Add autosize method (andreyklochok@gmail.com)
     - dd6869b 2015-09-10 + conditional domains count (sol@hiqdev.com)
@@ -23,7 +24,9 @@ hiqdev/hipanel-module-ticket commits history
     - 9b291e8 2015-09-02 View pagee - ticket watchers implemented with ComboXeditable (d.naumenko.a@gmail.com)
     - d0c8914 2015-09-02 Fix topics when ticket create, fix close/open button (andreyklochok@gmail.com)
     - d989f8e 2015-09-01 State functionality (andreyklochok@gmail.com)
-- Fixed minor issues
+- Fixed translation and minor issues
+    - 1d2610f 2015-09-23 got rid of old common\components\Lang (sol@hiqdev.com)
+    - c0f6e87 2015-09-21 got rid of Lang::t (sol@hiqdev.com)
     - a7ee615 2015-09-17 * improve language pack (bladeroot@gmail.com)
     - 5297f20 2015-09-15 localized menu (sol@hiqdev.com)
     - 74f0e4d 2015-08-28 Added dependencies on related projects (d.naumenko.a@gmail.com)
