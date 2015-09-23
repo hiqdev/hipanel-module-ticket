@@ -1,6 +1,5 @@
 <?php
 
-use cebe\gravatar\Gravatar;
 use hipanel\base\Re;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\ticket\models\Thread;
@@ -8,6 +7,7 @@ use hipanel\modules\ticket\widgets\Label;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
+use hipanel\widgets\Gravatar;
 use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
@@ -94,11 +94,10 @@ FlagIconCssAsset::register($this);
                         ]);
                         print Gravatar::widget([
                             'emailHash'    => $watcherEmailHash,
-                            'defaultImage' => 'identicon',
                             'options'      => [
-                                'alt'   => reset($piece),
-                                'class' => '',
+                                'class' => 'img-circle',
                                 'title' => reset($piece),
+                                'alt'   => reset($piece),
                             ],
                             'size' => 32,
                         ]);
@@ -161,9 +160,7 @@ FlagIconCssAsset::register($this);
                 if ($model->author_email) {
                     print Gravatar::widget([
                         'emailHash'    => $model->author_email,
-                        'defaultImage' => 'identicon',
                         'options'      => [
-                            'alt'   => '',
                             'class' => 'img-circle',
                         ],
                         'size' => 160,
