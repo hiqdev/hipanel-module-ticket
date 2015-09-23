@@ -26,17 +26,12 @@ class Topic extends Widget
            'vds'       => 'label-info',
            'domain'    => 'label-success',
            'financial' => 'label-warning',
-       ];
-        if (array_key_exists($item, $colors)) {
-            return $colors[$item];
-        } else {
-            return reset($colors);
-        }
+        ];
+        return $colors[$item] ?: reset($colors);
     }
 
-    public function init()
+    public function run()
     {
-        parent::init();
         if ($this->topics) {
             $html = '';
             $html .= '<ul class="list-inline">';
