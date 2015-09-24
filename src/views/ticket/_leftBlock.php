@@ -178,11 +178,7 @@ FlagIconCssAsset::register($this);
                 'boxed'   => false,
                 'columns' => $client->login == 'anonym' ? ['name', 'email'] : [
                     'name', 'email', 'country',
-                    'state', 'balance',
-                    [
-                        'class'     => 'hipanel\grid\CurrencyColumn',
-                        'attribute' => 'credit',
-                    ],
+                    'state', 'balance', 'credit',
                     'servers', 'domains', 'hosting',
                 ],
             ]); ?>
