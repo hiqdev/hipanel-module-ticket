@@ -172,19 +172,22 @@ FlagIconCssAsset::register($this);
             <div class="profile-user-role"><?= $client->type ?></div>
         </div>
         <?php $box->beginFooter(); ?>
-        <?= ClientGridView::detailView([
-            'model'   => $client,
-            'boxed'   => false,
-            'columns' => $client->login == 'anonym' ? ['name', 'email'] : [
-                'name', 'email', 'country',
-                'state', 'balance',
-                [
-                    'class'     => 'hipanel\grid\CurrencyColumn',
-                    'attribute' => 'credit',
+        <div class="table-responsive">
+            <?= ClientGridView::detailView([
+                'model'   => $client,
+                'boxed'   => false,
+                'columns' => $client->login == 'anonym' ? ['name', 'email'] : [
+                    'name', 'email', 'country',
+                    'state', 'balance',
+                    [
+                        'class'     => 'hipanel\grid\CurrencyColumn',
+                        'attribute' => 'credit',
+                    ],
+                    'servers', 'domains', 'hosting',
                 ],
-                'servers', 'domains', 'hosting',
-            ],
-        ]); ?>
+            ]); ?>
+        </div>
+        <!-- /.table-responsive -->
         <?php if ($client->login!='anonym') { ?>
             <?= Html::a('<i class="fa fa-info-circle" style="font-size:120%"></i>&nbsp;&nbsp;' . Yii::t('app', 'Client details'), ['@client/view', 'id' => $client->id], ['class' => 'btn  btn-default btn-block']) ?>
         <?php } ?>
