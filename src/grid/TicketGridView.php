@@ -20,6 +20,7 @@ class TicketGridView extends BoxedGridView
             'subject' => [
                 'attribute' => 'subject',
                 'format' => 'raw',
+                'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
                 'value' => function ($data) {
                     $ava = Html::tag('div', Gravatar::widget([
                         'emailHash' => $data->author_email,

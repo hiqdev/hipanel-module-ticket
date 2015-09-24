@@ -163,9 +163,12 @@ class Thread extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
+            'author'           => Yii::t('app', 'Author'),
+            'author_id'        => Yii::t('app', 'Author'),
+            'recepient'        => Yii::t('app', 'Recepient'),
             'is_private'       => Yii::t('app', 'Make private'),
             'responsible'      => Yii::t('app', 'Assignee'),
-            'responsible_id'   => Yii::t('app', 'Assignee ID'),
+            'responsible_id'   => Yii::t('app', 'Assignee'),
             'author_seller'    => Yii::t('app', 'Seller'),
             'spent'            => Yii::t('app', 'Spent time'),
             'create_time'      => Yii::t('app', 'Created'),
