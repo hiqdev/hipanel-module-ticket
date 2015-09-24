@@ -100,11 +100,11 @@ CSS
         </div>
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <?php // print '&nbsp;' . Html::submitButton(Yii::t('app', 'Submit and close'), ['class' => 'btn btn-default margin-bottom', 'name' => 'submit_close']); ?>
                     <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']); ?>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <?php if ($model->isNewRecord) : ?>
                         <?php if (Yii::$app->user->can('support')) : ?>
                             <div class="pull-right">
@@ -133,7 +133,7 @@ CSS
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-7">
                     <div class="pull-right">
                         <?php if (!$model->isNewRecord) : ?>
                             <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
