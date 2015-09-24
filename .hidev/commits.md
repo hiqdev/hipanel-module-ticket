@@ -4,6 +4,7 @@ hiqdev/hipanel-module-ticket commits history
 ## Under development
 
 - Fixed ticket details page
+    - fc14599 2015-09-23 improved usage of Gravatar (sol@hiqdev.com)
     - 89f228e 2015-09-18 Add close link on the index page (andreyklochok@gmail.com)
     - 6534141 2015-09-16 fixed anonym displaying (sol@hiqdev.com)
     - 3c20ad8 2015-09-09 Add autosize method (andreyklochok@gmail.com)
