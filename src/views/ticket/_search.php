@@ -9,7 +9,7 @@ use yii\helpers\Html;
     <?= $search->field('subject') ?>
 
     <div class="form-group">
-        <?= Html::tag('label', 'Date range', ['class' => 'control-label']); ?>
+        <?= Html::tag('label', Yii::t('app','Date range'), ['class' => 'control-label']); ?>
         <?= DatePicker::widget([
             'model'      => $search->model,
             'attribute'  => 'time_from',

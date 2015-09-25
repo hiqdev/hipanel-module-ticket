@@ -43,6 +43,7 @@ class TicketGridView extends BoxedGridView
             ],
             'author_id' => [
                 'class' => ClientColumn::className(),
+                'label' => Yii::t('app', 'Author'),
                 'idAttribute' => 'author_id',
                 'sortAttribute' => 'author',
                 'attribute' => 'author_id',
@@ -63,6 +64,7 @@ class TicketGridView extends BoxedGridView
             'recipient_id' => [
                 'class' => ClientColumn::className(),
                 'idAttribute' => 'recipient_id',
+                'label' => Yii::t('app', 'Recipient'),
                 'sortAttribute' => 'recipient',
                 'attribute' => 'recipient_id',
                 'value' => function ($model) {
