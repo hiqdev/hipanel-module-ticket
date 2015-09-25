@@ -3,8 +3,8 @@ hiqdev/hipanel-module-ticket changelog
 
 ## Under development
 
-- Fixed ticket details page
 - Fixed translation and minor issues
+- Fixed ticket details page
 - Added user specific index: hidden certain columns
 - Fixed markdown supported badge
 - Fixed: hidden subscribeButton on ticket create
