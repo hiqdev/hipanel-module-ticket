@@ -1,6 +1,6 @@
 <?php
 
-use cebe\gravatar\Gravatar;
+use hipanel\widgets\Gravatar;
 use hipanel\helpers\ArrayHelper;
 use hipanel\modules\ticket\models\Thread;
 use yii\helpers\Html;
@@ -50,18 +50,15 @@ JS
 , \yii\web\View::POS_READY);
 ?>
 <?= Html::beginTag('div', ['class' => ($answer['is_answer']) ? 'comment answer' : 'comment', 'id' => 'answer-' . $answer['answer_id']]); ?>
-    <!-- Avatar -->
-<?php if (isset($answer['email']) && filter_var($answer['email'], FILTER_VALIDATE_EMAIL)) : ?>
-    <?= Gravatar::widget([
-        'email'        => $answer['email'],
-        'defaultImage' => 'identicon',
-        'options'      => [
-            'alt'   => $answer['author'],
-            'class' => 'comment-avatar',
-        ],
-        'size' => 32,
-    ]); ?>
-<?php endif; ?>
+<!-- Avatar -->
+<?= Gravatar::widget([
+    'email'        => $answer['email'] ?: $answer['email_hash'],
+    'options'      => [
+        'alt'   => $answer['author'],
+        'class' => 'comment-avatar',
+    ],
+    'size' => 32,
+]); ?>
 
 <?= Html::beginTag('div', ['class' => 'comment-body']); ?>
 <?= Html::beginTag('div', ['class' => 'comment-text']); ?>
