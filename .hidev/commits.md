@@ -5,6 +5,7 @@ hiqdev/hipanel-module-ticket commits history
 
 - Fixed translation and minor issues
     - 4c84b67 2015-09-25 used gravatar properly (sol@hiqdev.com)
+    - 9e909ae 2015-09-24 + add language variants (bladeroot@gmail.com)
     - b578d04 2015-09-24 translation and minor issues (sol@hiqdev.com)
     - 90c8636 2015-09-24 used default Client credit column (sol@hiqdev.com)
     - de64750 2015-09-24 ClientGridView become responsive in _leftBlock (andreyklochok@gmail.com)
