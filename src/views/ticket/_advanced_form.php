@@ -1,11 +1,15 @@
 <?php
 use hipanel\modules\client\widgets\combo\ClientCombo;
-use hipanel\widgets\Gravatar;
+use hipanel\modules\ticket\models\Thread;
 use hiqdev\combo\ComboAsset;
 use hiqdev\combo\StaticCombo;
 use hiqdev\xeditable\widgets\ComboXEditable;
 use hiqdev\xeditable\widgets\XEditable;
-use yii\helpers\Html;
+
+/**
+ * @var $model Thread
+ */
+
 ?>
     <!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
@@ -82,10 +86,9 @@ use yii\helpers\Html;
                     <?= ComboXEditable::widget([
                         'model' => $model,
                         'attribute' => 'responsible',
-//                        'value' => [['id' => $model->responsible_id, 'text' => $model->responsible]],
                         'combo' => [
                             'class' => ClientCombo::className(),
-                            'clientType' => ['manager', 'admin', 'owner'],
+                            'clientType' => [$model->getResponsibleClientTypes()],
                             'inputOptions' => [
                                 'class' => 'hidden'
                             ],
@@ -131,7 +134,7 @@ use yii\helpers\Html;
     <?php if (Yii::$app->user->can('support')) : ?>
         <?php if ($model->isNewRecord) : ?>
             <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
-                'clientType' => ['manager', 'admin', 'owner'],
+                'clientType' => $model->getResponsibleClientTypes(),
                 'pluginOptions' => [
                     'select2Options' => [
                         'multiple' => true,
