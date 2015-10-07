@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\ticket\models;
 
+use hipanel\modules\client\models\Client;
 use stdClass;
 use Yii;
 use yii\helpers\Html as Html;
@@ -294,5 +295,14 @@ class Thread extends \hipanel\base\Model
             $result[] = $object;
         }
         return $result;
+    }
+
+    /**
+     * Returns array of client types, that can be set as responsible for the thread.
+     *
+     * @return array
+     */
+    public static function getResponsibleClientTypes () {
+        return [Client::TYPE_SELLER, Client::TYPE_ADMIN, Client::TYPE_MANAGER, Client::TYPE_OWNER];
     }
 }
