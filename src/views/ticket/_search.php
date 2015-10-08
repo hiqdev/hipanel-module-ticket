@@ -13,7 +13,7 @@ use yii\helpers\Html;
         'model' => $search->model,
         'attribute' => 'time_from',
         'attribute2' => 'time_till',
-        'separator' => Yii::t('app', '&larr; between &rarr;'),
+//        'separator' => Yii::t('app', '&larr; between &rarr;'),
         'type' => DatePicker::TYPE_RANGE,
         'pluginOptions' => [
             'autoclose' => true,
