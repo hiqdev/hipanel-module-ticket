@@ -3,26 +3,26 @@ use hipanel\modules\client\widgets\combo\ClientCombo;
 use hiqdev\combo\StaticCombo;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
+
 ?>
 
 <div class="col-md-4">
     <?= $search->field('subject') ?>
 
-    <div class="form-group">
-        <?= Html::tag('label', Yii::t('app','Date range'), ['class' => 'control-label']); ?>
-        <?= DatePicker::widget([
-            'model'      => $search->model,
-            'attribute'  => 'time_from',
-            'type'       => DatePicker::TYPE_RANGE,
-            'attribute2' => 'time_till',
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format'    => 'dd-mm-yyyy',
-            ],
-        ]) ?>
-    </div>
+    <?= $search->field('time_from')->widget(DatePicker::className(), [
+        'model' => $search->model,
+        'attribute' => 'time_from',
+        'attribute2' => 'time_till',
+        'label' => Yii::t('app', 'Date range'),
+        'separator' => Yii::t('app', '&larr; between &rarr;'),
+        'type' => DatePicker::TYPE_RANGE,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'dd.mm.yyyy',
+        ],
+    ]) ?>
     <?= $search->field('state')->widget(StaticCombo::classname(), [
-        'data'  => $state_data,
+        'data' => $state_data,
         'hasId' => true,
         'pluginOptions' => [
             'select2Options' => [
@@ -36,17 +36,17 @@ use yii\helpers\Html;
     <?= $search->field('author_id')->widget(ClientCombo::classname()); ?>
 
     <?= $search->field('responsible_id')->widget(ClientCombo::classname(), [
-            'clientType' => 'manager',
-            'pluginOptions' => [
-                'select2Options' => [
-                    'multiple' => true,
-                ],
+        'clientType' => 'manager',
+        'pluginOptions' => [
+            'select2Options' => [
+                'multiple' => true,
             ],
+        ],
     ]); ?>
 
     <?= $search->field('topics')->widget(StaticCombo::classname(), [
-        'data'          => $topic_data,
-        'hasId'         => true,
+        'data' => $topic_data,
+        'hasId' => true,
         'pluginOptions' => [
             'select2Options' => [
                 'multiple' => true,
