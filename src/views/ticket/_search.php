@@ -13,14 +13,13 @@ use yii\helpers\Html;
         'model' => $search->model,
         'attribute' => 'time_from',
         'attribute2' => 'time_till',
-        'label' => Yii::t('app', 'Date range'),
         'separator' => Yii::t('app', '&larr; between &rarr;'),
         'type' => DatePicker::TYPE_RANGE,
         'pluginOptions' => [
             'autoclose' => true,
             'format' => 'dd.mm.yyyy',
         ],
-    ]) ?>
+    ])->label(Yii::t('app', 'Date')) ?>
     <?= $search->field('state')->widget(StaticCombo::classname(), [
         'data' => $state_data,
         'hasId' => true,
