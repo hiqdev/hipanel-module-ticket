@@ -30,6 +30,11 @@ class TicketSettings extends \hipanel\base\Model
     public $send_message_text;
 
     /**
+     * @var boolean
+     */
+    public $new_messages_first;
+
+    /**
      * @return array
      */
     public function rules()
@@ -38,6 +43,7 @@ class TicketSettings extends \hipanel\base\Model
             ['ticket_emails', 'string', 'max' => 128],
             ['ticket_emails', 'email'],
             ['send_message_text', 'boolean'],
+            ['new_messages_first', 'boolean'],
         ];
     }
 
@@ -49,6 +55,7 @@ class TicketSettings extends \hipanel\base\Model
         return [
             'ticket_emails'     => Yii::t('app', 'Email for tickets'),
             'send_message_text' => Yii::t('app', 'Send message text'),
+            'new_messages_first' => Yii::t('app', 'New messages first'),
         ];
     }
 
@@ -60,6 +67,7 @@ class TicketSettings extends \hipanel\base\Model
         $data                    = Client::perform('GetClassValues', ['class' => 'client,ticket_settings'], false);
         $this->ticket_emails     = $data['ticket_emails'];
         $this->send_message_text = $data['send_message_text'];
+        $this->new_messages_first = $data['new_messages_first'];
     }
 
     /**
@@ -70,6 +78,7 @@ class TicketSettings extends \hipanel\base\Model
         Client::perform('SetClassValues', ['class' => 'client,ticket_settings', 'values' => [
             'ticket_emails'     => $this->ticket_emails,
             'send_message_text' => $this->send_message_text,
+            'new_messages_first' => $this->new_messages_first,
         ]]);
     }
 }

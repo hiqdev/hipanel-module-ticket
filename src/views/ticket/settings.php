@@ -1,52 +1,25 @@
 <?php
 
+use hipanel\widgets\Box;
 use hipanel\widgets\Pjax;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-// use hiqdev\assets\icheck\iCheckAsset;
-
-// iCheckAsset::register($this);
-//$this->registerJs(new \yii\web\JsExpression("
-//$('input.icheck').iCheck({
-//    checkboxClass: 'icheckbox_minimal-blue',
-//    radioClass: 'iradio_minimal-blue'
-//});
-//"), yii\web\View::POS_READY);
-
-$this->title                   = Yii::t('app', 'Ticket Settings');
+$this->title = Yii::t('app', 'Ticket Settings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(Yii::$app->params['pjax']); ?>
-    <div class="box">
-        <div class="box-header">
+    <?php Box::begin() ?>
+        <p><?= Yii::t('app', 'This section allows you to manage the settings on mail alerts'); ?></p>
+        <?php $form = ActiveForm::begin([
+            'options' => ['data-pjax' => '1'],
+        ]); ?>
 
-        </div>
-        <div class="box-body">
+        <?= $form->field($model, 'ticket_emails')->hint(Yii::t('app', 'In this field you can specify to receive email notifications of ticket. By default, the notification is used for editing the main e-mail')); ?>
+        <?= $form->field($model, 'send_message_text')->checkbox()->hint(Yii::t('app', 'When checked, mail notification includes the text of the new message. By default, the mail has only the acknowledgment of the response and a link to the ticket. Be careful, the text can include confidential information.')); ?>
+        <?= $form->field($model, 'new_messages_first')->checkbox()->hint(Yii::t('app', 'When checked, new answers in the ticket will be displayed first.')); ?>
 
-            <p><?= Yii::t('app', 'This section allows you to manage the settings on mail alerts'); ?></p>
-
-            <p><?= Yii::t('app', 'In this field you can specify to receive email notifications of ticket. By default, the notification is used for editing the main e-mail'); ?></p>
-
-            <?php $form = ActiveForm::begin([
-                'options' => ['data-pjax' => '1'],
-            ]); ?>
-
-            <?= $form->field($model, 'ticket_emails'); ?>
-
-            <p>
-                <?= Yii::t('app', 'If you check in the mail notification will include the text of the new message in the ticket.
-                By default, the mail comes only acknowledgment of receipt of the ticket and a link to the ticket.
-                WARNING! The text can include confidential information and data access'); ?>
-            </p>
-
-            <?= $form->field($model, 'send_message_text')->checkbox(); ?>
-
-            <?= Html::submitButton(Yii::t('app', 'Save {modelClass}', [
-                'modelClass' => 'Ticket Settings',
-            ]), ['class' => 'btn btn-success']) ?>
-
-            <?php $form::end(); ?>
-        </div>
-    </div>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?php $form->end(); ?>
+    <?php Box::end() ?>
 <?php Pjax::end() ?>
