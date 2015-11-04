@@ -4,6 +4,9 @@ hiqdev/hipanel-module-ticket commits history
 ## Under development
 
 - Fixed translation and minor issues
+    - 6e41d49 2015-10-12 Added new_messages_first setting (d.naumenko.a@gmail.com)
+    - 6094f65 2015-10-08 Ticket advanced serach - DatePicker call optimized (d.naumenko.a@gmail.com)
+    - d7413da 2015-10-07 Added getResponsibleClientTypes() to Thread model (d.naumenko.a@gmail.com)
     - 4c84b67 2015-09-25 used gravatar properly (sol@hiqdev.com)
     - 9e909ae 2015-09-24 + add language variants (bladeroot@gmail.com)
     - b578d04 2015-09-24 translation and minor issues (sol@hiqdev.com)
