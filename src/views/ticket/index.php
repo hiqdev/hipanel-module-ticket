@@ -1,13 +1,7 @@
 <?php
 
-use hipanel\grid\ActionColumn;
-use hipanel\grid\BoxedGridView;
 use hipanel\modules\ticket\grid\TicketGridView;
-use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ActionBox;
-use hipanel\widgets\ClientSellerLink;
-use hipanel\widgets\Gravatar;
-use yii\helpers\Html;
 
 $this->title                   = Yii::t('app', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
@@ -66,11 +60,9 @@ CSS
 
 <?php $box->beginBulkForm() ?>
     <?= TicketGridView::widget([
+        'id'           => 'ticket-grid',
         'dataProvider' => $dataProvider,
         'filterModel'  => $model,
-        'id'           => 'ticket-grid',
-        'striped'      => false,
-        'hover'        => false,
         'rowOptions'   => function ($model, $key, $index, $grid) {
             return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
         },
