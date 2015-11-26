@@ -102,7 +102,7 @@ CSS
             <div class="row">
                 <div class="col-md-2">
                     <?php // print '&nbsp;' . Html::submitButton(Yii::t('app', 'Submit and close'), ['class' => 'btn btn-default margin-bottom', 'name' => 'submit_close']); ?>
-                    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']); ?>
+                    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success']); ?>
                 </div>
                 <div class="col-md-3">
                     <?php if ($model->isNewRecord) : ?>

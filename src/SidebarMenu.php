@@ -34,10 +34,6 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
                         'label' => Yii::t('app', 'Tickets'),
                         'url'   => ['/ticket/ticket/index'],
                     ],
-                    'settings' => [
-                        'label' => Yii::t('app', 'Tickets settings'),
-                        'url'   => ['/ticket/ticket/settings'],
-                    ],
 //                  'statistics' => [
 //                      'label' => Yii::t('app', 'Tickets statistics'),
 //                      'url'   => ['/ticket/ticket/statistics'],
