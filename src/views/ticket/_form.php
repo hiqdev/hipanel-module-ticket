@@ -16,15 +16,10 @@ $('input.icheck').iCheck({
 });
 // Expand message textarea
 $('.leave-comment-form textarea').one('focus', function(event) {
-    activeLeaveCommentForm(event, this);
-});
-
-function activeLeaveCommentForm(event, elem) {
     $('.hidden-form-inputs').toggle();
     $(this).attr('rows', '5');
     autosize(this);
-}
-
+});
 // Fetch preview
 $(".js-get-preview").on('click', function (event) {
     event.preventDefault();
