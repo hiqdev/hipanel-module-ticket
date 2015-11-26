@@ -15,11 +15,16 @@ $('input.icheck').iCheck({
     radioClass: 'iradio_minimal-blue'
 });
 // Expand message textarea
-$('.leave-comment-form textarea').one('focus', function(e) {
+$('.leave-comment-form textarea').one('focus', function(event) {
+    activeLeaveCommentForm(event, this);
+});
+
+function activeLeaveCommentForm(event, elem) {
     $('.hidden-form-inputs').toggle();
     $(this).attr('rows', '5');
     autosize(this);
-});
+}
+
 // Fetch preview
 $(".js-get-preview").on('click', function (event) {
     event.preventDefault();
@@ -37,12 +42,15 @@ $this->registerCss(<<< CSS
 .checkbox div {
     margin-right: 5px;
 }
-
-.hidden-form-inputs {
-    display: none;
-}
+.hidden-form-inputs { display: none; }
 CSS
-); ?>
+);
+if ($model->isNewRecord) {
+    $this->registerJs("$('.leave-comment-form textarea').trigger('focus');");
+}
+
+
+?>
 
 <?php if ($model->isNewRecord) { ?>
     <?= $form->field($model, 'subject') ?>
