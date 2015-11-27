@@ -8,7 +8,7 @@ use yii\helpers\Html;
 if ($answer['author'] == 'anonym') {
     $answer['email'] = $model->anonym_email;
 }
-
+$answerId = 'answer-' . $answer['answer_id'];
 $this->registerJs(<<< JS
 // Reply button
 $('.comment-reply-button').on('click', function(event) {
@@ -49,7 +49,7 @@ $(".comment-quote-button").on("click", function(event) {
 JS
 , \yii\web\View::POS_READY);
 ?>
-<?= Html::beginTag('div', ['class' => ($answer['is_answer']) ? 'comment answer' : 'comment', 'id' => 'answer-' . $answer['answer_id']]); ?>
+<?= Html::beginTag('div', ['class' => ($answer['is_answer']) ? 'comment answer' : 'comment', 'id' => $answerId]); ?>
 <!-- Avatar -->
 <?= Gravatar::widget([
     'email'        => $answer['email'] ?: $answer['email_hash'],
@@ -71,8 +71,15 @@ JS
                 'id' => $answer['author_id'],
             ], ['class' => 'name']); ?>
         <?php } ?>
+        &nbsp;·&nbsp;
         <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer['create_time'])) ?>
+        &nbsp;·&nbsp;
+        <?= Html::a("<i class='fa fa-hashtag'></i>", ['@ticket/view', 'id' => $model->id, '#' => $answerId], ['class' => 'name']) ?>
+        <?php if ($answer['spent']) { ?>
+            <?= Html::tag('span', Yii::t('app', 'Time spent {0, time, HH:mm}', (int)$model->spent * 60), ['class' => 'spent-time pull-right label label-info']) ?>
+        <?php } ?>
     </div>
+    <div class="clearfix"></div>
 
 <?= Html::tag('span', Thread::parseMessage($answer['message']), ['class' => 'body']); ?>
 
