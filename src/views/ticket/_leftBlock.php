@@ -116,7 +116,7 @@ FlagIconCssAsset::register($this);
         <?php $box->end(); ?>
     </div>
 
-<? if ($client) { ?>
+<?php if ($client) { ?>
     <div class="col-md-12">
         <?php /*
         <?php if (is_array($model->watcher) && in_array(Yii::$app->user->identity->username, $model->watcher)) : ?>
@@ -190,5 +190,5 @@ FlagIconCssAsset::register($this);
         <?php $box->endFooter(); ?>
         <?php $box->end(); ?>
     </div>
-<? } ?>
+<?php } ?>
 </div>
