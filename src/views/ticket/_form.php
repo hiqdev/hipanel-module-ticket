@@ -59,10 +59,12 @@ if ($model->isNewRecord) {
     <!-- Nav tabs -->
     <ul class="nav nav-tabs hidden-form-inputs margin-bottom" role="tablist">
         <div class="pull-right" style="padding-top:0.5em">
+
             <?= Html::a(
+                '<span class="octicon octicon-markdown"></span> ' .
                 Yii::t('app', 'Markdown supported'),
                 'https://guides.github.com/features/mastering-markdown/',
-                ['target' => '_blank', 'class' => 'label label-default markdown-supported']
+                ['target' => '_blank', 'class' => '', 'style' => 'border-bottom: 1px solid; border-bottom-style: dashed;']
             ) ?>
         </div>
         <li role="presentation" class="active">
