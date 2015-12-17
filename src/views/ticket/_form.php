@@ -1,10 +1,12 @@
 <?php
 
+use hipanel\frontend\assets\OcticonsAsset;
 use hiqdev\assets\autosize\AutosizeAsset;
 use hiqdev\assets\icheck\iCheckAsset;
 use kartik\widgets\TimePicker;
 use yii\helpers\Html;
 
+OcticonsAsset::register($this);
 iCheckAsset::register($this);
 AutosizeAsset::register($this);
 $translate = Yii::t('app', 'Nothing to preview');
