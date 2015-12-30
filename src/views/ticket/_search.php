@@ -9,17 +9,20 @@ use yii\helpers\Html;
 <div class="col-md-4">
     <?= $search->field('subject') ?>
 
-    <?= $search->field('time_from')->widget(DatePicker::className(), [
-        'model' => $search->model,
-        'attribute' => 'time_from',
-        'attribute2' => 'time_till',
-//        'separator' => Yii::t('app', '&larr; between &rarr;'),
-        'type' => DatePicker::TYPE_RANGE,
-        'pluginOptions' => [
-            'autoclose' => true,
-            'format' => 'dd.mm.yyyy',
-        ],
-    ])->label(Yii::t('app', 'Date')) ?>
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', 'Date'))?>
+        <?= DatePicker::widget([
+            'model' => $search->model,
+            'attribute' => 'time_from',
+            'attribute2' => 'time_till',
+            'type' => DatePicker::TYPE_RANGE,
+            'pluginOptions' => [
+                'autoclose' => true,
+                'format' => 'dd.mm.yyyy',
+            ],
+        ]) ?>
+    </div>
+
     <?= $search->field('state')->widget(StaticCombo::classname(), [
         'data' => $state_data,
         'hasId' => true,
