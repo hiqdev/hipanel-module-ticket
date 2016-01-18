@@ -104,6 +104,7 @@ class Thread extends \hipanel\base\Model
             'message', // 'answer_message',
             'answers',
             'is_private',
+            'anytext_like',
 
             'anonym_name',
             'anonym_email',
@@ -175,6 +176,7 @@ class Thread extends \hipanel\base\Model
             'create_time'      => Yii::t('app', 'Created'),
             'a_reply_time'     => Yii::t('app', 'a_reply_time'),
             'file'             => Yii::t('app', 'Files'),
+            'anytext_like'          => Yii::t('app', 'Subject or message'),
         ]);
     }
 

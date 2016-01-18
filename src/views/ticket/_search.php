@@ -7,7 +7,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="col-md-4">
-    <?= $search->field('subject') ?>
+    <?= $search->field('anytext_like') ?>
 
     <div class="form-group">
         <?= Html::label(Yii::t('app', 'Date'))?>
