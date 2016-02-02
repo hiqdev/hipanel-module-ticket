@@ -112,23 +112,9 @@ if ($model->isNewRecord) {
                     <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success']); ?>
                 </div>
                 <div class="col-md-3">
-                    <?php if ($model->isNewRecord) : ?>
-                        <?php if (Yii::$app->user->can('support')) : ?>
-                            <div class="pull-right">
-                                <?= $form->field($model, 'spent')->widget(TimePicker::className(), [
-                                    'pluginOptions' => [
-                                        'showSeconds' => false,
-                                        'showMeridian' => false,
-                                        'minuteStep' => 1,
-                                        'hourStep' => 1,
-                                        'defaultTime' => '00:00',
-                                    ],
-                                ])->label(false); ?>
-                            </div>
-                        <?php endif; ?>
-                    <?php else : ?>
+                    <?php if (Yii::$app->user->can('support')) : ?>
                         <div class="pull-right">
-                            <?= $form->field($model, 'answer_spent')->widget(TimePicker::className(), [
+                            <?= $form->field($model, $model->isNewRecord ? 'spent' : 'answer_spent')->widget(TimePicker::className(), [
                                 'pluginOptions' => [
                                     'showSeconds' => false,
                                     'showMeridian' => false,
