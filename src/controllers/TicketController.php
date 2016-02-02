@@ -12,6 +12,7 @@
 namespace hipanel\modules\ticket\controllers;
 
 use common\models\File;
+use hipanel\actions\Action;
 use hipanel\actions\IndexAction;
 use hipanel\actions\ProxyAction;
 use hipanel\actions\SmartCreateAction;
@@ -24,6 +25,7 @@ use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\TicketSettings;
 use hiqdev\hiart\ErrorResponseException;
 use Yii;
+use yii\base\Event;
 
 /**
  * Class TicketController.
@@ -87,7 +89,9 @@ class TicketController extends \hipanel\base\CrudController
                 'class'      => SmartPerformAction::class,
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Subscribed'),
-                'beforeSave' => function ($action) {
+                'on beforeSave' => function (Event $event) {
+                    /** @var Action $action */
+                    $action = $event->sender;
                     foreach ($action->collection->models as $model) {
                         $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
                     }
@@ -105,7 +109,9 @@ class TicketController extends \hipanel\base\CrudController
                 'class'      => SmartPerformAction::class,
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Unsubscribed'),
-                'beforeSave' => function ($action) {
+                'on beforeSave' => function (Event $event) {
+                    /** @var Action $action */
+                    $action = $event->sender;
                     foreach ($action->collection->models as $model) {
                         $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
                     }
@@ -123,7 +129,9 @@ class TicketController extends \hipanel\base\CrudController
                 'class'      => SmartPerformAction::class,
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Ticket closed'),
-                'beforeSave' => function ($action) {
+                'on beforeSave' => function (Event $event) {
+                    /** @var Action $action */
+                    $action = $event->sender;
                     foreach ($action->collection->models as $model) {
                         $model->{'state'} = Thread::STATE_CLOSE;
                     }
@@ -132,7 +140,10 @@ class TicketController extends \hipanel\base\CrudController
                     'save' => true,
                     'success' => [
                         'class' => ProxyAction::class,
-                        'action' => 'view'
+                        'action' => 'view',
+                        'params' => function ($action, $model) {
+                            return ['id' => $model->id];
+                        }
                     ]
                 ]
             ],
@@ -140,7 +151,9 @@ class TicketController extends \hipanel\base\CrudController
                 'class'      => SmartPerformAction::class,
                 'scenario'   => 'answer',
                 'success'    => Yii::t('app', 'Ticket opened'),
-                'beforeSave' => function ($action) {
+                'on beforeSave' => function (Event $event) {
+                    /** @var Action $action */
+                    $action = $event->sender;
                     foreach ($action->collection->models as $model) {
                         $model->{'state'} = Thread::STATE_OPEN;
                     }
@@ -149,7 +162,10 @@ class TicketController extends \hipanel\base\CrudController
                     'save' => true,
                     'success' => [
                         'class' => ProxyAction::class,
-                        'action' => 'view'
+                        'action' => 'view',
+                        'params' => function ($action, $model) {
+                            return ['id' => $model->id];
+                        }
                     ]
                 ]
             ],
