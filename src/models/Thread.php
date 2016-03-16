@@ -126,7 +126,7 @@ class Thread extends \hipanel\base\Model
      */
     public function rules()
     {
-        return [
+        $rules = [
             [['author_id', 'responsible_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
             [['id'], 'required', 'on' => ['answer']],
@@ -160,8 +160,11 @@ class Thread extends \hipanel\base\Model
             [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 5],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
-            Yii::$app->user->can('support') ? [['author', 'author_seller'], 'safe'] : [],
+            [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('support')],
         ];
+
+
+        return $rules;
     }
 
     /**
