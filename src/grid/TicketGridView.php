@@ -43,7 +43,7 @@ class TicketGridView extends BoxedGridView
             ],
             'author_id' => [
                 'class' => ClientColumn::className(),
-                'label' => Yii::t('app', 'Author'),
+                'label' => Yii::t('hipanel/ticket', 'Author'),
                 'idAttribute' => 'author_id',
                 'sortAttribute' => 'author',
                 'attribute' => 'author_id',
@@ -64,7 +64,7 @@ class TicketGridView extends BoxedGridView
             'recipient_id' => [
                 'class' => ClientColumn::className(),
                 'idAttribute' => 'recipient_id',
-                'label' => Yii::t('app', 'Recipient'),
+                'label' => Yii::t('hipanel/ticket', 'Recipient'),
                 'sortAttribute' => 'recipient',
                 'attribute' => 'recipient_id',
                 'value' => function ($model) {
@@ -75,7 +75,7 @@ class TicketGridView extends BoxedGridView
             ],
             'answer_count' => [
                 'attribute' => 'answer_count',
-                'label' => Yii::t('app', 'Answers'),
+                'label' => Yii::t('hipanel/ticket', 'Answers'),
                 'format' => 'raw',
                 'filter' => false,
                 'enableSorting' => false,
@@ -89,14 +89,14 @@ class TicketGridView extends BoxedGridView
             'actions' => [
                 'class' => ActionColumn::className(),
                 'template' => '{view} {state}',
-                'header' => Yii::t('app', 'Actions'),
+                'header' => Yii::t('hipanel', 'Actions'),
                 'buttons' => [
                     'state' => function ($url, $model, $key) {
                         $out = '';
                         if ($model->state === Thread::STATE_OPEN) {
-                            $out .= Html::a(Yii::t('app', 'Close'), ['close', 'id' => $model->id]);
+                            $out .= Html::a(Yii::t('hipanel/ticket', 'Close'), ['close', 'id' => $model->id]);
                         } elseif ($model->state === Thread::STATE_CLOSE) {
-                            $out .= Html::a(Yii::t('app', 'Open'), ['open', 'id' => $model->id]);
+                            $out .= Html::a(Yii::t('hipanel/ticket', 'Open'), ['open', 'id' => $model->id]);
                         }
                         return $out;
                     },
@@ -121,7 +121,7 @@ class TicketGridView extends BoxedGridView
 //            [
 //                'attribute' => 'recipient_id',
 //                'format'    => 'html',
-//                'label'     => Yii::t('app', 'Recipient'),
+//                'label'     => Yii::t('hipanel/ticket', 'Recipient'),
 //                'value'     => function ($data) {
 //                    return Html::a($data->recipient, ['/client/client/view', 'id' => $data->recipient_id]);
 //
@@ -137,7 +137,7 @@ class TicketGridView extends BoxedGridView
 //            ],
 //            [
 //                'attribute'     => 'answer_count',
-//                'label'         => Yii::t('app', 'Answers'),
+//                'label'         => Yii::t('hipanel/ticket', 'Answers'),
 //                'format'        => 'raw',
 //                'filter'        => false,
 //                'enableSorting' => false,
@@ -151,18 +151,18 @@ class TicketGridView extends BoxedGridView
 //            [
 //                'class'    => ActionColumn::className(),
 //                'template' => '{view}',
-//                'header'   => Yii::t('app', 'Actions'),
+//                'header'   => Yii::t('hipanel/ticket', 'Actions'),
 //                'buttons'  => [
 //                    //                'view' => function ($url, $model, $key) {
 //                    //                    return GridActionButton::widget([
 //                    //                        'url' => $url,
 //                    //                        'icon' => '<i class="fa fa-eye"></i>',
-//                    //                        'label' => Yii::t('app', 'Details'),
+//                    //                        'label' => Yii::t('hipanel/ticket', 'Details'),
 //                    //                    ]);
 //                    //                },
 //                    'state' => function ($url, $model, $key) {
 //                        if ($model->state === 'opened') {
-//                            //                        $title = Yii::t('app', 'Close');
+//                            //                        $title = Yii::t('hipanel/ticket', 'Close');
 //                            //                        return Html::a('<i class="fa fa-times"></i>&nbsp;&nbsp;'.$title,
 //                            //                            ['close', 'id' => $model->id],
 //                            //                            ['title' => $title, 'class' => 'btn btn-default btn-xs', 'data-pjax' => 0]
@@ -171,7 +171,7 @@ class TicketGridView extends BoxedGridView
 //                            //                        GridActionButton::widget([
 //                            //                            'url' => ['close', 'id' => $model->id],
 //                            //                            'icon' => '<i class="fa fa-times"></i>',
-//                            //                            'label' => Yii::t('app', 'Close'),
+//                            //                            'label' => Yii::t('hipanel/ticket', 'Close'),
 //                            //                        ]);
 //                        }
 //                    },

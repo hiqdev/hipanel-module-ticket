@@ -3,7 +3,7 @@
 use hipanel\modules\ticket\grid\TicketGridView;
 use hipanel\widgets\ActionBox;
 
-$this->title                   = Yii::t('app', 'Tickets');
+$this->title                   = Yii::t('hipanel/ticket', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
 $this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 
@@ -38,7 +38,7 @@ CSS
 
 <?php $box = ActionBox::begin(compact('model', 'dataProvider')) ?>
     <?php $box->beginActions() ?>
-        <?= $box->renderCreateButton(Yii::t('app', 'Create ticket')) ?>
+        <?= $box->renderCreateButton(Yii::t('hipanel/ticket', 'Create ticket')) ?>
         <?= $box->renderSearchButton() ?>
         <?= $box->renderSorter([
             'attributes' => [
@@ -50,9 +50,9 @@ CSS
     <?php $box->endActions(); ?>
     <?php $box->renderBulkActions([
         'items' => [
-            $box->renderBulkButton(Yii::t('app', 'Subscribe'), 'subscribe'),
-            $box->renderBulkButton(Yii::t('app', 'Unsubscribe'), 'unsubscribe'),
-            $box->renderBulkButton(Yii::t('app', 'Close'), 'close', 'danger'),
+            $box->renderBulkButton(Yii::t('hipanel/ticket', 'Subscribe'), 'subscribe'),
+            $box->renderBulkButton(Yii::t('hipanel/ticket', 'Unsubscribe'), 'unsubscribe'),
+            $box->renderBulkButton(Yii::t('hipanel/ticket', 'Close'), 'close', 'danger'),
         ],
     ]) ?>
     <?= $box->renderSearchForm(compact('topic_data','state_data','priority_data')) ?>

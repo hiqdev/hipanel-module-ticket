@@ -24,6 +24,8 @@ class Thread extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
+    public static $i18nDictionary = 'hipanel/ticket';
+
     const STATE_OPEN = 'opened';
     const STATE_CLOSE = 'closed';
 
@@ -80,6 +82,7 @@ class Thread extends \hipanel\base\Model
             'recipient_id',
             'recipient',
             'recipient_seller',
+            'recipient_seller_id',
             'replier_id',
             'replier',
             'replier_seller',
@@ -104,7 +107,6 @@ class Thread extends \hipanel\base\Model
             'message', // 'answer_message',
             'answers',
             'is_private',
-            'anytext_like',
 
             'anonym_name',
             'anonym_email',
@@ -125,7 +127,7 @@ class Thread extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['author_id'], 'safe'],
+            [['author_id', 'responsible_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
             [['id'], 'required', 'on' => ['answer']],
             [
@@ -144,7 +146,7 @@ class Thread extends \hipanel\base\Model
             ],
             [
                 [
-                    'id', 'message',
+                    'message',
                     'topics', 'state', 'priority',
                     'responsible', 'recipient_id',
                     'watchers', 'add_watchers', 'del_watchers',
@@ -155,7 +157,10 @@ class Thread extends \hipanel\base\Model
                 'safe',
                 'on' => 'answer',
             ],
+            [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 5],
+            [['lastanswer', 'create_time', 'recipient'], 'safe'],
+            Yii::$app->user->can('support') ? [['author', 'author_seller'], 'safe'] : [],
         ];
     }
 
@@ -165,18 +170,18 @@ class Thread extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'author'           => Yii::t('app', 'Author'),
-            'author_id'        => Yii::t('app', 'Author'),
-            'recepient'        => Yii::t('app', 'Recepient'),
-            'is_private'       => Yii::t('app', 'Make private'),
-            'responsible'      => Yii::t('app', 'Assignee'),
-            'responsible_id'   => Yii::t('app', 'Assignee'),
-            'author_seller'    => Yii::t('app', 'Seller'),
-            'spent'            => Yii::t('app', 'Spent time'),
-            'create_time'      => Yii::t('app', 'Created'),
-            'a_reply_time'     => Yii::t('app', 'a_reply_time'),
-            'file'             => Yii::t('app', 'Files'),
-            'anytext_like'          => Yii::t('app', 'Subject or message'),
+            'author'           => Yii::t('hipanel/ticket', 'Author'),
+            'author_id'        => Yii::t('hipanel/ticket', 'Author'),
+            'recipient'        => Yii::t('hipanel/ticket', 'Recipient'),
+            'is_private'       => Yii::t('hipanel/ticket', 'Make private'),
+            'responsible'      => Yii::t('hipanel/ticket', 'Assignee'),
+            'responsible_id'   => Yii::t('hipanel/ticket', 'Assignee'),
+            'spent'            => Yii::t('hipanel/ticket', 'Spent time'),
+            'create_time'      => Yii::t('hipanel/ticket', 'Created'),
+            'a_reply_time'     => Yii::t('hipanel/ticket', 'a_reply_time'),
+            'file'             => Yii::t('hipanel/ticket', 'Files'),
+            'lastanswer'       => Yii::t('hipanel/ticket', 'Last answer'),
+            'author_seller'    => Yii::t('hipanel/ticket', 'Author\'s seller'),
         ]);
     }
 

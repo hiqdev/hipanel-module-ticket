@@ -25,5 +25,19 @@ class Plugin extends \hiqdev\pluginmanager\Plugin
                 'class' => 'hipanel\modules\ticket\Module',
             ],
         ],
+        'components' => [
+            'i18n' => [
+                'translations' => [
+                    'hipanel/ticket*' => [
+                        'class' => 'yii\i18n\PhpMessageSource',
+                        'basePath' => '@hipanel/modules/ticket/messages',
+                        'fileMap' => [
+                            'hipanel/ticket' => 'ticket.php',
+                        ],
+                    ],
+                ]
+            ]
+        ],
+
     ];
 }

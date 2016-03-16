@@ -122,17 +122,17 @@ use hiqdev\xeditable\widgets\XEditable;
                     <?= Html::a($model->responsible, ['/client/client/view', 'id' => $model->responsible_id]); ?>
                 </span>
                 <?= $model->getAttributeLabel('responsible_id') ?>
-            </li>*/ ?>
+            </li> */ ?>
             <li class="list-group-item">
-                <span class="badge"><?= Yii::t('app', '{0, time, HH:mm}', (int)$model->spent * 60) ?></span>
-                <?= Yii::t('app', 'Spent time') ?>
+                <span class="badge"><?= Yii::$app->formatter->asDuration($model->spent * 60) ?></span>
+                <?= Yii::t('hipanel/ticket', 'Spent time') ?>
             </li>
         </ul>
     <?php endif; ?>
 
     <!-- Watchers -->
-    <?php if (Yii::$app->user->can('support')) : ?>
-        <?php if ($model->isNewRecord) : ?>
+    <?php if (Yii::$app->user->can('support')) { ?>
+        <?php if ($model->isNewRecord) { ?>
             <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
                 'clientType' => $model->getResponsibleClientTypes(),
                 'pluginOptions' => [
@@ -141,7 +141,7 @@ use hiqdev\xeditable\widgets\XEditable;
                     ],
                 ],
             ]); ?>
-        <?php else : ?>
+        <?php } else { ?>
             <?php /*
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -181,8 +181,8 @@ use hiqdev\xeditable\widgets\XEditable;
                 </div>
             </div>
             */ ?>
-        <?php endif; ?>
-    <?php endif; ?>
+        <?php } ?>
+    <?php } ?>
     <?php if ($model->isNewRecord) {
         $model->recipient_id = \Yii::$app->user->identity->id;
         print $form->field($model, 'recipient_id')->widget(ClientCombo::classname());

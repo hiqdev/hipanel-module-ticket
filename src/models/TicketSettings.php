@@ -53,9 +53,9 @@ class TicketSettings extends \hipanel\base\Model
     public function attributeLabels()
     {
         return [
-            'ticket_emails'     => Yii::t('app', 'Email for tickets'),
-            'send_message_text' => Yii::t('app', 'Send message text'),
-            'new_messages_first' => Yii::t('app', 'New messages first'),
+            'ticket_emails'     => Yii::t('hipanel/ticket', 'Email for tickets'),
+            'send_message_text' => Yii::t('hipanel/ticket', 'Send message text'),
+            'new_messages_first' => Yii::t('hipanel/ticket', 'New messages first'),
         ];
     }
 

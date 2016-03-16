@@ -76,7 +76,7 @@ JS
         &nbsp;·&nbsp;
         <?= Html::a("<i class='fa fa-hashtag'></i>", ['@ticket/view', 'id' => $model->id, '#' => $answerId], ['class' => 'name']) ?>
         <?php if ($answer['spent']) { ?>
-            <?= Html::tag('span', Yii::t('app', 'Time spent {0, time, HH:mm}', (int)$model->spent * 60), ['class' => 'spent-time pull-right label label-info']) ?>
+            <?= Html::tag('span', Yii::t('hipanel/ticket', 'Time spent {n}', ['n' => Yii::$app->formatter->asDuration($model->spent * 60)]), ['class' => 'spent-time pull-right label label-info']) ?>
         <?php } ?>
     </div>
     <div class="clearfix"></div>
@@ -90,9 +90,9 @@ JS
 <?= Html::endTag('div'); ?>
 
 <?= Html::beginTag('div', ['class' => 'comment-footer']); ?>
-    <button class="link-button comment-reply-button"><?= Yii::t('app', 'Reply'); ?></button>
+    <button class="link-button comment-reply-button"><?= Yii::t('hipanel/ticket', 'Reply'); ?></button>
     &nbsp;&nbsp;·&nbsp;&nbsp;
-    <button class="link-button comment-quote-button" data-answer-id="<?= $answer_id; ?>"><?= Yii::t('app', 'Quote'); ?></button>
+    <button class="link-button comment-quote-button" data-answer-id="<?= $answer_id; ?>"><?= Yii::t('hipanel/ticket', 'Quote'); ?></button>
 <?= Html::endTag('div'); ?>
 
 <?= Html::endTag('div'); ?>

@@ -21,13 +21,13 @@ FlagIconCssAsset::register($this);
 ?>
 <div class="row page-ticket">
     <div class="col-md-12">
-        <?= Html::a(Yii::t('app', 'Back to index'),
+        <?= Html::a(Yii::t('hipanel/ticket', 'Back to index'),
             ['index'],
             ['class' => 'btn btn-primary btn-block', 'style' => $model->isNewRecord ? 'margin-bottom: 20px;' : 'margin-bottom: 5px;']); ?>
         <?php if (!$model->isNewRecord) : ?>
             <?php
-            $openTicketText = Yii::t('app', 'Open ticket');
-            $closeTicketText = Yii::t('app', 'Close ticket');
+            $openTicketText = Yii::t('hipanel/ticket', 'Open ticket');
+            $closeTicketText = Yii::t('hipanel/ticket', 'Close ticket');
             Pjax::begin(array_merge(Yii::$app->params['pjax'], [
                 'id' => 'stateTicketButton',
                 'enablePushState' => false,
@@ -56,25 +56,25 @@ FlagIconCssAsset::register($this);
 
             <?php /*
             <?php if ($model->priority == 'medium') : ?>
-                <?= Html::a('<span class="glyphicon glyphicon-arrow-up"></span>&nbsp;&nbsp;'.Yii::t('app', 'Increase'), ['priority-up', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-arrow-up"></span>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Increase'), ['priority-up', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
             <?php else : ?>
-                <?= Html::a('<span class="glyphicon glyphicon-arrow-down"></span>&nbsp;&nbsp;'.Yii::t('app', 'Lower'), ['priority-down', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-arrow-down"></span>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Lower'), ['priority-down', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
             <?php endif; ?>
             */ ?>
             <?php /*
             <?php if ($model->state=='opened') : ?>
-                <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('app', 'Close'), ['close', 'id' => $model->id], [
+                <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Close'), ['close', 'id' => $model->id], [
                     'class' => 'btn btn-danger btn-block',
                     'data' => [
-                        'confirm' => Yii::t('app', 'Are you sure you want to close this ticket?'),
+                        'confirm' => Yii::t('hipanel/ticket', 'Are you sure you want to close this ticket?'),
                         'method' => 'post',
                     ],
                 ]) ?>
             <?php else : ?>
-                <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('app', 'Open'), ['open', 'id' => $model->id], [
+                <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Open'), ['open', 'id' => $model->id], [
                     'class' => 'btn btn-danger btn-block',
                     'data' => [
-                        'confirm' => Yii::t('app', 'Are you sure you want to open this ticket?'),
+                        'confirm' => Yii::t('hipanel/ticket', 'Are you sure you want to open this ticket?'),
                         'method' => 'post',
                     ],
                 ]) ?>
@@ -82,7 +82,7 @@ FlagIconCssAsset::register($this);
             */ ?>
 
             <?php if (is_array($model->watchers)) : ?>
-                <?= Html::tag('p', Yii::t('app', 'Watchers'), ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;s']); ?>
+                <?= Html::tag('p', Yii::t('hipanel/ticket', 'Watchers'), ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;s']); ?>
                 <div class="margin-bottom">
                 <?php foreach ($model->watchers as $watcherId => $watcher) : ?>
                     <?php
@@ -120,30 +120,30 @@ FlagIconCssAsset::register($this);
     <div class="col-md-12">
         <?php /*
         <?php if (is_array($model->watcher) && in_array(Yii::$app->user->identity->username, $model->watcher)) : ?>
-            <?= Html::a('<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;'.Yii::t('app', 'Unsubscribe'), ['unsubscribe', 'id' => $model->id], ['class' => 'btn  btn-primary btn-block']) ?>
+            <?= Html::a('<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Unsubscribe'), ['unsubscribe', 'id' => $model->id], ['class' => 'btn  btn-primary btn-block']) ?>
         <?php else : ?>
-            <?= Html::a('<i class="fa fa-eye"></i>&nbsp;&nbsp;'.Yii::t('app', 'Subscribe'), ['subscribe', 'id' => $model->id], ['class' => 'btn  btn-primary btn-block']) ?>
+            <?= Html::a('<i class="fa fa-eye"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Subscribe'), ['subscribe', 'id' => $model->id], ['class' => 'btn  btn-primary btn-block']) ?>
         <?php endif; ?>
 
         <?php if ($model->priority == 'medium') : ?>
-            <?= Html::a('<span class="glyphicon glyphicon-arrow-up"></span>&nbsp;&nbsp;'.Yii::t('app', 'Increase'), ['priority-up', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
+            <?= Html::a('<span class="glyphicon glyphicon-arrow-up"></span>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Increase'), ['priority-up', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
         <?php else : ?>
-            <?= Html::a('<span class="glyphicon glyphicon-arrow-down"></span>&nbsp;&nbsp;'.Yii::t('app', 'Lower'), ['priority-down', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
+            <?= Html::a('<span class="glyphicon glyphicon-arrow-down"></span>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Lower'), ['priority-down', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
         <?php endif; ?>
 
         <?php if ($model->state=='opened') : ?>
-            <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('app', 'Close'), ['close', 'id' => $model->id], [
+            <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Close'), ['close', 'id' => $model->id], [
                 'class' => 'btn btn-danger btn-block margin-bottom',
                 'data' => [
-                    'confirm' => Yii::t('app', 'Are you sure you want to close this ticket?'),
+                    'confirm' => Yii::t('hipanel/ticket', 'Are you sure you want to close this ticket?'),
                     'method' => 'post',
                 ],
             ]) ?>
         <?php else : ?>
-            <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('app', 'Open'), ['open', 'id' => $model->id], [
+            <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Open'), ['open', 'id' => $model->id], [
                 'class' => 'btn btn-danger btn-block margin-bottom',
                 'data' => [
-                    'confirm' => Yii::t('app', 'Are you sure you want to open this ticket?'),
+                    'confirm' => Yii::t('hipanel/ticket', 'Are you sure you want to open this ticket?'),
                     'method' => 'post',
                 ],
             ]) ?>
@@ -156,19 +156,17 @@ FlagIconCssAsset::register($this);
         ]); ?>
         <div class="profile-block">
             <div class="profile-photo">
-                <?php
-                if ($model->author_email) {
-                    print Gravatar::widget([
-                        'emailHash'    => $model->author_email,
-                        'options'      => [
-                            'class' => 'img-circle',
-                        ],
-                        'size' => 160,
-                    ]);
-                }
-                ?>
+                <?php if ($client->email) {
+                    echo $this->render('//layouts/gravatar', ['email' => $client->email, 'size' => 120]);
+                } ?>
             </div>
-            <div class="profile-user-name"><?= ClientSellerLink::widget(compact('model')) ?></div>
+            <div class="profile-user-name">
+                <?= ClientSellerLink::widget([
+                    'model' => $client,
+                    'clientAttribute' => 'login',
+                    'clientIdAttribute' => 'id',
+                ]) ?>
+            </div>
             <div class="profile-user-role"><?= $client->type ?></div>
         </div>
         <?php $box->beginFooter(); ?>
@@ -185,7 +183,7 @@ FlagIconCssAsset::register($this);
         </div>
         <!-- /.table-responsive -->
         <?php if ($client->login!='anonym') { ?>
-            <?= Html::a('<i class="fa fa-info-circle" style="font-size:120%"></i>&nbsp;&nbsp;' . Yii::t('app', 'Client details'), ['@client/view', 'id' => $client->id], ['class' => 'btn  btn-default btn-block']) ?>
+            <?= Html::a('<i class="fa fa-info-circle" style="font-size:120%"></i>&nbsp;&nbsp;' . Yii::t('hipanel/ticket', 'Client details'), ['@client/view', 'id' => $client->id], ['class' => 'btn  btn-default btn-block']) ?>
         <?php } ?>
         <?php $box->endFooter(); ?>
         <?php $box->end(); ?>

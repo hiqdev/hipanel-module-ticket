@@ -11,10 +11,28 @@
 
 namespace hipanel\modules\ticket\models;
 
+use Yii;
+
 /**
  * Class TicketSearch.
  */
 class ThreadSearch extends Thread
 {
-    use \hipanel\base\SearchModelTrait;
+    use \hipanel\base\SearchModelTrait {
+        searchAttributes as defaultSearchAttributes;
+    }
+
+    protected function searchAttributes()
+    {
+        return array_merge($this->defaultSearchAttributes(), [
+            'anytext_like'
+        ]);
+    }
+
+    public function attributeLabels()
+    {
+        return array_merge(parent::attributeLabels(), [
+            'anytext_like' => Yii::t('hipanel/ticket', 'Subject or message'),
+        ]);
+    }
 }

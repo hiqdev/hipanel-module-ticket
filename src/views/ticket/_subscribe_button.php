@@ -16,10 +16,10 @@ Pjax::begin(array_merge(Yii::$app->params['pjax'], [
 $subscribed = array_key_exists(Yii::$app->user->identity->id, $model->watchers ? : []);
 if ($subscribed) {
     $action = ['unsubscribe', 'id' => $model->id];
-    $label  = '<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;' . Yii::t('app', 'Unsubscribe');
+    $label  = '<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;' . Yii::t('hipanel/ticket', 'Unsubscribe');
 } else {
     $action = ['subscribe', 'id' => $model->id];
-    $label  = '<i class="fa fa-eye"></i>&nbsp;&nbsp;' . Yii::t('app', 'Subscribe');
+    $label  = '<i class="fa fa-eye"></i>&nbsp;&nbsp;' . Yii::t('hipanel/ticket', 'Subscribe');
 }
 
 echo Html::a($label, $action, ['class' => 'btn btn-default btn-block', 'onClick' => new JsExpression("$(this).button('loading');")]);

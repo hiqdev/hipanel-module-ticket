@@ -10,7 +10,7 @@ use yii\helpers\Html;
     <?= $search->field('anytext_like') ?>
 
     <div class="form-group">
-        <?= Html::label(Yii::t('app', 'Date'))?>
+        <?= Html::label(Yii::t('hipanel', 'Date'))?>
         <?= DatePicker::widget([
             'model' => $search->model,
             'attribute' => 'time_from',

@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'send_message_text')->checkbox()->hint(Yii::t('app', 'When checked, mail notification includes the text of the new message. By default, the mail has only the acknowledgment of the response and a link to the ticket. Be careful, the text can include confidential information.')); ?>
         <?= $form->field($model, 'new_messages_first')->checkbox()->hint(Yii::t('app', 'When checked, new answers in the ticket will be displayed first.')); ?>
 
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?>
         <?php $form->end(); ?>
     <?php Box::end() ?>
 <?php Pjax::end() ?>

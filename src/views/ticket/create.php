@@ -3,8 +3,8 @@
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\ticket\models\Thread */
 
-$this->title                   = Yii::t('app', 'Create ticket');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tickets'), 'url' => ['index']];
+$this->title                   = Yii::t('hipanel/ticket', 'Create ticket');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/ticket', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $action = 'create';

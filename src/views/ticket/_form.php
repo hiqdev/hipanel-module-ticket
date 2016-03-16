@@ -9,7 +9,7 @@ use yii\helpers\Html;
 OcticonsAsset::register($this);
 iCheckAsset::register($this);
 AutosizeAsset::register($this);
-$translate = Yii::t('app', 'Nothing to preview');
+$translate = Yii::t('hipanel/ticket', 'Nothing to preview');
 $dopScript = <<< JS
 // Init iCheck
 $('input.icheck').iCheck({
@@ -62,27 +62,27 @@ if ($model->isNewRecord) {
 
             <?= Html::a(
                 '<span class="octicon octicon-markdown"></span> ' .
-                Yii::t('app', 'Markdown supported'),
+                Yii::t('hipanel/ticket', 'Markdown is supported'),
                 'https://guides.github.com/features/mastering-markdown/',
                 ['target' => '_blank', 'class' => '', 'style' => 'border-bottom: 1px solid; border-bottom-style: dashed;']
             ) ?>
         </div>
         <li role="presentation" class="active">
-            <a href="#message" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('app', 'Message') ?></a>
+            <a href="#message" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('hipanel/ticket', 'Message') ?></a>
         </li>
         <li role="presentation">
-            <a href="#preview" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview"><?= Yii::t('app', 'Preview') ?></a>
+            <a href="#preview" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview"><?= Yii::t('hipanel/ticket', 'Preview') ?></a>
         </li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="message">
-            <?= $form->field($model, 'message')->textarea(['rows' => 1, 'placeholder' => Yii::t('app', 'Write a message here')])->label(false); ?>
+            <?= $form->field($model, 'message')->textarea(['rows' => 1, 'placeholder' => Yii::t('hipanel/ticket', 'Compose your message here')])->label(false); ?>
 
         </div>
         <div role="tabpanel" class="tab-pane" id="preview">
             <div class="well well-sm preview-container">
-                <?= Yii::t('app', 'Nothing to preview') ?>
+                <?= Yii::t('hipanel/ticket', 'Nothing to preview') ?>
             </div>
         </div>
     </div>
@@ -92,7 +92,6 @@ if ($model->isNewRecord) {
         <div class="col-md-12">
             <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
                 'options' => [
-//                    'accept' => 'image/*',
                     'multiple' => true,
                 ],
                 'pluginOptions' => [
@@ -108,8 +107,7 @@ if ($model->isNewRecord) {
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-2">
-                    <?php // print '&nbsp;' . Html::submitButton(Yii::t('app', 'Submit and close'), ['class' => 'btn btn-default margin-bottom', 'name' => 'submit_close']); ?>
-                    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success']); ?>
+                    <?= Html::submitButton(Yii::t('hipanel', 'Submit'), ['class' => 'btn btn-success']); ?>
                 </div>
                 <div class="col-md-3">
                     <?php if (Yii::$app->user->can('support')) : ?>

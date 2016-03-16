@@ -26,16 +26,16 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
     {
         return [
             'tickets' => [
-                'label' => Yii::t('app', 'Tickets'),
+                'label' => Yii::t('hipanel/ticket', 'Tickets'),
                 'url'   => ['/ticket/ticket/index'],
                 'icon'  => 'fa-ticket',
                 'items' => [
                     'tickets' => [
-                        'label' => Yii::t('app', 'Tickets'),
+                        'label' => Yii::t('hipanel/ticket', 'Tickets'),
                         'url'   => ['/ticket/ticket/index'],
                     ],
 //                  'statistics' => [
-//                      'label' => Yii::t('app', 'Tickets statistics'),
+//                      'label' => Yii::t('hipanel/ticket', 'Tickets statistics'),
 //                      'url'   => ['/ticket/ticket/statistics'],
 //                  ],
                 ],
