@@ -5,7 +5,7 @@ use hipanel\widgets\ActionBox;
 
 $this->title                   = Yii::t('app', 'Tickets');
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['subtitle']      = array_filter(Yii::$app->request->get($model->formName(), [])) ? 'filtered list' : 'full list';
+$this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 
 $this->registerCss(<<<CSS
 .list-inline {
