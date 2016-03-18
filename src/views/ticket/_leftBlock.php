@@ -1,6 +1,7 @@
 <?php
 
 use hipanel\base\Re;
+use hipanel\helpers\HtmlHelper;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Label;
@@ -39,9 +40,9 @@ FlagIconCssAsset::register($this);
                 ],
             ])); ?>
             <?php if ($model->state == Thread::STATE_CLOSE) : ?>
-                <?= Html::a($openTicketText, ['open'], ['class' => 'btn btn-block margin-bottom btn-warning', 'onClick' => new JsExpression("$(this).button('loading');")]); ?>
+                <?= Html::a($openTicketText, ['open'], HtmlHelper::loadingButtonOptions(['class' => 'btn btn-block margin-bottom btn-warning'])); ?>
             <?php else : ?>
-                <?= Html::a($closeTicketText, ['close'], ['class' => 'btn btn-block margin-bottom btn-danger', 'onClick' => new JsExpression("$(this).button('loading');")]); ?>
+                <?= Html::a($closeTicketText, ['close'], HtmlHelper::loadingButtonOptions(['class' => 'btn btn-block margin-bottom btn-danger'])); ?>
             <?php endif; ?>
             <?php Pjax::end(); ?>
         <?php endif; ?>
@@ -81,32 +82,6 @@ FlagIconCssAsset::register($this);
             <?php endif; ?>
             */ ?>
 
-            <?php if (is_array($model->watchers)) : ?>
-                <?= Html::tag('p', Yii::t('hipanel/ticket', 'Watchers'), ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;s']); ?>
-                <div class="margin-bottom">
-                <?php foreach ($model->watchers as $watcherId => $watcher) : ?>
-                    <?php
-                    $piece            = explode(' ', $watcher);
-                    $watcherEmailHash = array_pop(explode(' ', $watcher));
-                    if ($watcherEmailHash) {
-                        print Html::beginTag('a', [
-                            'href' => Url::toRoute(['/client/client/view', 'id' => $watcherId]),
-                        ]);
-                        print Gravatar::widget([
-                            'emailHash'    => $watcherEmailHash,
-                            'options'      => [
-                                'class' => 'img-circle',
-                                'title' => reset($piece),
-                                'alt'   => reset($piece),
-                            ],
-                            'size' => 32,
-                        ]);
-                        print Html::endTag('a');
-                    }
-                    ?>
-                <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
             <?php $box->beginFooter() ?>
                 <?php if (!$model->isNewRecord) : ?>
                     <?= $this->render('_subscribe_button', compact('model')) ?>
