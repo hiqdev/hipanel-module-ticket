@@ -101,7 +101,7 @@ class TicketController extends \hipanel\base\CrudController
                     'success' => [
                         'class'       => ViewAction::class,
                         'view'        => '_subscribe_button',
-                        'findOptions' => ['with_answers' => 1],
+                        'findOptions' => ['with_answers' => 1, 'show_closed' => 1],
                     ],
                 ],
             ],
@@ -121,7 +121,7 @@ class TicketController extends \hipanel\base\CrudController
                     'success' => [
                         'class'       => ViewAction::class,
                         'view'        => '_subscribe_button',
-                        'findOptions' => ['with_answers' => 1],
+                        'findOptions' => ['with_answers' => 1, 'show_closed' => 1],
                     ],
                 ],
             ],

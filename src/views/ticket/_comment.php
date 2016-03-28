@@ -63,14 +63,7 @@ JS
 <?= Html::beginTag('div', ['class' => 'comment-body']); ?>
 <?= Html::beginTag('div', ['class' => 'comment-text']); ?>
     <div class="comment-heading" xmlns="http://www.w3.org/1999/html">
-        <?php if ($answer['author'] == 'anonym') { ?>
-            <?= Html::tag('b', $model->anonym_name ?: 'anonym') ?>
-        <?php } else { ?>
-            <?= Html::a($answer['author'], [
-                '/client/client/view',
-                'id' => $answer['author_id'],
-            ], ['class' => 'name']); ?>
-        <?php } ?>
+        <?= \hipanel\widgets\ClientSellerLink::widget(compact('model')) ?>
         &nbsp;·&nbsp;
         <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer['create_time'])) ?>
         &nbsp;·&nbsp;
