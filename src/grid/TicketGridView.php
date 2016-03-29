@@ -21,9 +21,9 @@ class TicketGridView extends BoxedGridView
                 'attribute' => 'subject',
                 'format' => 'raw',
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
-                'value' => function ($data) {
+                'value' => function ($model) {
                     $ava = Html::tag('div', Gravatar::widget([
-                        'emailHash' => $data->author_email,
+                        'emailHash' => $model->author_email,
                         'defaultImage' => 'identicon',
                         'options' => [
                             'alt' => '',
@@ -31,13 +31,17 @@ class TicketGridView extends BoxedGridView
                         ],
                         'size' => 40,
                     ]), ['class' => 'pull-right']);
-                    $state = $data->state === 'opened'
+                    $state = $model->state === 'opened'
                         ? Html::tag('div', '<span class="fa fa-circle-o text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type'])
                         : Html::tag('div', '<span class="fa fa-check-circle text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type']);
-                    $t = Html::tag('b', Html::a($data->subject, $data->threadUrl)) . Topic::widget(['topics' => $data->topics]) .
-                        Html::tag('div', sprintf('#%s %s %s', $data->id, $data->state_label, Yii::$app->formatter->asDatetime($data->create_time)), ['class' => 'text-muted']);
+                    $t = Html::tag('b', Html::a($model->subject, $model->threadUrl)) . Topic::widget(['topics' => $model->topics]) .
+                        Html::tag('div', sprintf('#%s %s %s', $model->id, $model->state_label, Yii::$app->formatter->asDatetime($model->create_time)), ['class' => 'text-muted']);
 
-                    return $ava . $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
+                    $lastAnswer = Html::a(
+                            Yii::t('hipanel/ticket', 'Last answer') . ': ' . $model->replier_name . ' ' . Yii::$app->formatter->asDatetime($model->reply_time),
+                            ['@client/view', 'id' => $model->replier_id],
+                            ['class' => 'label label-default', 'style' => 'font-size: x-small;']);
+                    return $ava . $state . Html::tag('div', $t . $lastAnswer, ['class' => 'table-list-cell table-list-title']);
                 },
 
             ],
@@ -80,7 +84,12 @@ class TicketGridView extends BoxedGridView
                 'filter' => false,
                 'enableSorting' => false,
                 'value' => function ($model) {
-                    return Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment text-muted']) . '&nbsp;&nbsp;' . $model->answer_count;
+                    $html = Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment text-muted']) . '&nbsp;&nbsp;' . $model->answer_count;
+//                    $html .= '<br>' . Html::a(
+//                            $model->replier_name . ' ' . Yii::$app->formatter->asDatetime($model->reply_time),
+//                            ['@client/view', 'id' => $model->replier_id],
+//                            ['class' => 'label label-default', 'style' => 'font-size: x-small;']);
+                    return $html;
                 },
                 'contentOptions' => [
                     'style' => 'font-size: larger;',
