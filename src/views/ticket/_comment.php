@@ -80,7 +80,7 @@ JS
         &nbsp;·&nbsp;
         <?= Html::a("<i class='fa fa-hashtag'></i>", ['@ticket/view', 'id' => $model->id, '#' => $answerId], ['class' => 'name']) ?>
         <?php if ($answer['spent']) { ?>
-            <?= Html::tag('span', Yii::t('hipanel/ticket', 'Time spent {n}', ['n' => Yii::$app->formatter->asDuration($model->spent * 60)]), ['class' => 'spent-time pull-right label label-info']) ?>
+            <?= Html::tag('span', Yii::t('hipanel/ticket', 'Time spent: {n}', ['n' => Yii::$app->formatter->asDuration($model->spent * 60)]), ['class' => 'spent-time pull-right label label-info']) ?>
         <?php } ?>
     </div>
     <div class="clearfix"></div>
