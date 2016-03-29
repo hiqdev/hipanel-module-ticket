@@ -63,4 +63,5 @@ return [
     'Author\'s seller' => 'Реселлер автора',
     'Create ticket' => 'Создать тикет',
     'Answers' => 'Ответы',
+    'Answer' => 'Ответить',
 ];

@@ -13,7 +13,7 @@ $this->registerJs(<<< JS
 // Reply button
 $('.comment-reply-button').on('click', function(event) {
     event.preventDefault();
-    scrollTo('.leave-comment-form');
+    scrollTo('.comment-tab');
     $('#thread-message').focus();
 });
 // Quote button
@@ -35,7 +35,7 @@ $(".comment-quote-button").on("click", function(event) {
         }
     }).done(function(data) {
         formBox.find('.overlay').remove(); // Remove ajax spiner
-        scrollTo('.leave-comment-form');
+        scrollTo('.comment-tab');
         $('.comment-tab a[href="#message"').tab('show'); // Open tab
         chatInput.focus(); // Scroll to form
         chatInput.val(data);
@@ -63,7 +63,18 @@ JS
 <?= Html::beginTag('div', ['class' => 'comment-body']); ?>
 <?= Html::beginTag('div', ['class' => 'comment-text']); ?>
     <div class="comment-heading" xmlns="http://www.w3.org/1999/html">
-        <?= \hipanel\widgets\ClientSellerLink::widget(compact('model')) ?>
+        <?= \hipanel\widgets\ClientSellerLink::widget([
+            'model' => new \yii\base\DynamicModel([
+                'client_id' => $answer['author_id'],
+                'client' => $answer['author'],
+                'seller_id' => $answer['seller_id'],
+                'seller' => $answer['author_seller'],
+            ]),
+            'clientAttribute' => 'client',
+            'clientIdAttribute' => 'client_id',
+            'sellerAttribute' => 'seller',
+            'sellerIdAttribute' => 'seller_id',
+        ]) ?>
         &nbsp;·&nbsp;
         <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer['create_time'])) ?>
         &nbsp;·&nbsp;
