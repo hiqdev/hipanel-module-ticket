@@ -55,87 +55,89 @@ if ($model->isNewRecord) {
     <?= Html::activeHiddenInput($model, 'id') ?>
 <?php } ?>
 
-<div role="tabpanel" class="comment-tab">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs hidden-form-inputs margin-bottom" role="tablist">
-        <div class="pull-right" style="padding-top:0.5em">
+<div class="comment-tab-wrapper">
+    <div role="tabpanel" class="comment-tab">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs hidden-form-inputs margin-bottom" role="tablist">
+            <div class="pull-right" style="padding-top:0.5em">
 
-            <?= Html::a(
-                '<span class="octicon octicon-markdown"></span> ' .
-                Yii::t('hipanel/ticket', 'Markdown is supported'),
-                'https://guides.github.com/features/mastering-markdown/',
-                ['target' => '_blank', 'class' => '', 'style' => 'border-bottom: 1px solid; border-bottom-style: dashed;']
-            ) ?>
-        </div>
-        <li role="presentation" class="active">
-            <a href="#message" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('hipanel/ticket', 'Message') ?></a>
-        </li>
-        <li role="presentation">
-            <a href="#preview" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview"><?= Yii::t('hipanel/ticket', 'Preview') ?></a>
-        </li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="message">
-            <?= $form->field($model, 'message')->textarea(['rows' => 1, 'placeholder' => Yii::t('hipanel/ticket', 'Compose your message here')])->label(false); ?>
+                <?= Html::a(
+                    '<span class="octicon octicon-markdown"></span> ' .
+                    Yii::t('hipanel/ticket', 'Markdown is supported'),
+                    'https://guides.github.com/features/mastering-markdown/',
+                    ['target' => '_blank', 'class' => '', 'style' => 'border-bottom: 1px solid; border-bottom-style: dashed;']
+                ) ?>
+            </div>
+            <li role="presentation" class="active">
+                <a href="#message" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('hipanel/ticket', 'Message') ?></a>
+            </li>
+            <li role="presentation">
+                <a href="#preview" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview"><?= Yii::t('hipanel/ticket', 'Preview') ?></a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="message">
+                <?= $form->field($model, 'message')->textarea(['rows' => 1, 'placeholder' => Yii::t('hipanel/ticket', 'Compose your message here')])->label(false); ?>
 
-        </div>
-        <div role="tabpanel" class="tab-pane" id="preview">
-            <div class="well well-sm preview-container">
-                <?= Yii::t('hipanel/ticket', 'Nothing to preview') ?>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="preview">
+                <div class="well well-sm preview-container">
+                    <?= Yii::t('hipanel/ticket', 'Nothing to preview') ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="hidden-form-inputs">
-    <div class="row">
-        <div class="col-md-12">
-            <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
-                'options' => [
-                    'multiple' => true,
-                ],
-                'pluginOptions' => [
-                    'previewFileType'          => 'any',
-                    'showRemove'               => true,
-                    'showUpload'               => false,
-                    'initialPreviewShowDelete' => true,
-                    'maxFileCount'             => 5,
-                    'msgFilesTooMany'          => 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}. Please retry your upload!',
-                ],
-            ]) ?>
-        </div>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-2">
-                    <?= Html::submitButton(Yii::t('hipanel', 'Submit'), ['class' => 'btn btn-success']); ?>
-                </div>
-                <div class="col-md-3">
-                    <?php if (Yii::$app->user->can('support')) : ?>
-                        <div class="pull-right">
-                            <?= $form->field($model, $model->isNewRecord ? 'spent' : 'answer_spent')->widget(TimePicker::className(), [
-                                'pluginOptions' => [
-                                    'showSeconds' => false,
-                                    'showMeridian' => false,
-                                    'minuteStep' => 1,
-                                    'hourStep' => 1,
-                                    'defaultTime' => '00:00',
-                                ],
-                            ])->label(false); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="col-md-7">
-                    <div class="pull-right">
-                        <?php if (!$model->isNewRecord) : ?>
-                            <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
+    <div class="hidden-form-inputs">
+        <div class="row">
+            <div class="col-md-12">
+                <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
+                    'options' => [
+                        'multiple' => true,
+                    ],
+                    'pluginOptions' => [
+                        'previewFileType'          => 'any',
+                        'showRemove'               => true,
+                        'showUpload'               => false,
+                        'initialPreviewShowDelete' => true,
+                        'maxFileCount'             => 5,
+                        'msgFilesTooMany'          => 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}. Please retry your upload!',
+                    ],
+                ]) ?>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <?= Html::submitButton(Yii::t('hipanel', 'Submit'), ['class' => 'btn btn-success']); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php if (Yii::$app->user->can('support')) : ?>
+                            <div class="pull-right">
+                                <?= $form->field($model, $model->isNewRecord ? 'spent' : 'answer_spent')->widget(TimePicker::className(), [
+                                    'pluginOptions' => [
+                                        'showSeconds' => false,
+                                        'showMeridian' => false,
+                                        'minuteStep' => 1,
+                                        'hourStep' => 1,
+                                        'defaultTime' => '00:00',
+                                    ],
+                                ])->label(false); ?>
+                            </div>
                         <?php endif; ?>
                     </div>
-                    <!-- /.pull-right -->
+                    <div class="col-md-7">
+                        <div class="pull-right">
+                            <?php if (!$model->isNewRecord) : ?>
+                                <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
+                            <?php endif; ?>
+                        </div>
+                        <!-- /.pull-right -->
+                    </div>
                 </div>
             </div>
+            <!-- /.col-md-12 -->
+            <!-- /.row -->
         </div>
-        <!-- /.col-md-12 -->
         <!-- /.row -->
     </div>
-    <!-- /.row -->
 </div>

@@ -13,7 +13,7 @@ $this->registerJs(<<< JS
 // Reply button
 $('.comment-reply-button').on('click', function(event) {
     event.preventDefault();
-    scrollTo('.leave-comment-form');
+    scrollTo('.comment-tab');
     $('#thread-message').focus();
 });
 // Quote button
@@ -35,7 +35,7 @@ $(".comment-quote-button").on("click", function(event) {
         }
     }).done(function(data) {
         formBox.find('.overlay').remove(); // Remove ajax spiner
-        scrollTo('.leave-comment-form');
+        scrollTo('.comment-tab');
         $('.comment-tab a[href="#message"').tab('show'); // Open tab
         chatInput.focus(); // Scroll to form
         chatInput.val(data);
@@ -63,20 +63,24 @@ JS
 <?= Html::beginTag('div', ['class' => 'comment-body']); ?>
 <?= Html::beginTag('div', ['class' => 'comment-text']); ?>
     <div class="comment-heading" xmlns="http://www.w3.org/1999/html">
-        <?php if ($answer['author'] == 'anonym') { ?>
-            <?= Html::tag('b', $model->anonym_name ?: 'anonym') ?>
-        <?php } else { ?>
-            <?= Html::a($answer['author'], [
-                '/client/client/view',
-                'id' => $answer['author_id'],
-            ], ['class' => 'name']); ?>
-        <?php } ?>
+        <?= \hipanel\widgets\ClientSellerLink::widget([
+            'model' => new \yii\base\DynamicModel([
+                'client_id' => $answer['author_id'],
+                'client' => $answer['author'],
+                'seller_id' => $answer['seller_id'],
+                'seller' => $answer['author_seller'],
+            ]),
+            'clientAttribute' => 'client',
+            'clientIdAttribute' => 'client_id',
+            'sellerAttribute' => 'seller',
+            'sellerIdAttribute' => 'seller_id',
+        ]) ?>
         &nbsp;·&nbsp;
         <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer['create_time'])) ?>
         &nbsp;·&nbsp;
         <?= Html::a("<i class='fa fa-hashtag'></i>", ['@ticket/view', 'id' => $model->id, '#' => $answerId], ['class' => 'name']) ?>
         <?php if ($answer['spent']) { ?>
-            <?= Html::tag('span', Yii::t('hipanel/ticket', 'Time spent {n}', ['n' => Yii::$app->formatter->asDuration($model->spent * 60)]), ['class' => 'spent-time pull-right label label-info']) ?>
+            <?= Html::tag('span', Yii::t('hipanel/ticket', 'Time spent: {n}', ['n' => Yii::$app->formatter->asDuration($model->spent * 60)]), ['class' => 'spent-time pull-right label label-info']) ?>
         <?php } ?>
     </div>
     <div class="clearfix"></div>

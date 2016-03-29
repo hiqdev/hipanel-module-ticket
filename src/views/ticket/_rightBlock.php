@@ -2,26 +2,26 @@
 
 use hipanel\widgets\Box;
 use yii\helpers\ArrayHelper;
-use yii\web\JsExpression;
+use yii\helpers\Html;
 use yii\web\View;
-/*
-$this->registerJs(new JsExpression(<<<'JS'
-// Handle Hide
-//$(".chats").on("click", ".hide-answer", function() {
-//    var answer_id = $(this).data('answer-id');
-//    console.log(answer_id);
-//    $(this).parents('.message').find('.body, .attachment, .hide-answer, .show-answer').toggle('slow');
-//});
-//// Handle Show
-//$(".chats").on("click", ".show-answer", function() {
-//    var answer_id = $(this).data('answer-id');
-//    console.log(answer_id);
-//    $(this).parents('.message').find('.body, .attachment, .hide-answer, .show-answer').toggle('slow');
-//});
-// TODO: Handle Split
+
+/**
+ * @var View $this
+ */
+
+$this->registerJs(<<<JS
+$('.message-block-move-btn').on('click', function () {
+    var button = $(this);
+    var comment_tab = $('.comment-tab-wrapper');
+    var comment_tab_sibling = comment_tab.prev();
+
+    button.after(comment_tab);
+    comment_tab_sibling.after(button);
+    comment_tab.find('textarea').focus().trigger('focus');
+});
 JS
-    , View::POS_READY));
-*/
+, View::POS_READY);
+
 ?>
 
 <!-- Chat box -->
@@ -41,6 +41,9 @@ JS
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
+        <hr class="no-panel-padding-h panel-wide padding-bottom">
+        <?= Html::button(Yii::t('hipanel/ticket', 'Answer'), ['class' => 'message-block-move-btn btn btn-default']); ?>
     <?php endif; ?>
+
 
 <?php $box->end() ?><!-- /.box (chat box) -->

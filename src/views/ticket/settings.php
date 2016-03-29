@@ -5,7 +5,7 @@ use hipanel\widgets\Pjax;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = Yii::t('app', 'Ticket Settings');
+$this->title = Yii::t('hipanel/ticket', 'Ticket Settings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(Yii::$app->params['pjax']); ?>

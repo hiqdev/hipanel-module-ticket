@@ -17,7 +17,7 @@ return [
     'Priority' => 'Приоритет',
     'Priority has been changed to high' => 'Приоритет был изменен на высокий',
     'Priority has been changed to medium' => 'Приоритет был изменен на средний',
-    'Topics' => 'Темы',
+    'Topics' => 'Типы',
     'Watcher' => 'Наблюдатель',
     'Watchers' => 'Наблюдатели',
     'Create Time' => 'Время создания',
@@ -63,4 +63,5 @@ return [
     'Author\'s seller' => 'Реселлер автора',
     'Create ticket' => 'Создать тикет',
     'Answers' => 'Ответы',
+    'Answer' => 'Ответить',
 ];

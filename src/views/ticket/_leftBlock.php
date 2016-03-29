@@ -1,24 +1,20 @@
 <?php
 
-use hipanel\base\Re;
 use hipanel\helpers\HtmlHelper;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\ticket\models\Thread;
-use hipanel\modules\ticket\widgets\Label;
-use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
-use hipanel\widgets\Gravatar;
 use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
-use hipanel\helpers\Url;
-//use hipanel\modules\ticket\widgets\Topic;
-//use hipanel\modules\ticket\widgets\Watcher;
-use hipanel\grid\DetailView;
-use yii\web\JsExpression;
 
 FlagIconCssAsset::register($this);
+
+/**
+ * @var Thread $model
+ */
+
 ?>
 <div class="row page-ticket">
     <div class="col-md-12">
