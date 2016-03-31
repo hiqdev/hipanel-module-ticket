@@ -1,12 +1,12 @@
 <?php
 
 /*
- * Ticket Plugin for HiPanel
+ * HiPanel tickets module
  *
  * @link      https://github.com/hiqdev/hipanel-module-ticket
  * @package   hipanel-module-ticket
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\ticket\models;
@@ -117,7 +117,7 @@ class Thread extends \hipanel\base\Model
             'add_watchers', 'del_watchers',
 
             'time_from',
-            'time_till'
+            'time_till',
         ];
     }
 
@@ -152,7 +152,7 @@ class Thread extends \hipanel\base\Model
                     'watchers', 'add_watchers', 'del_watchers',
                     'is_private',
                     'file_ids',
-                    'answer_spent', 'spent', 'spent_hours'
+                    'answer_spent', 'spent', 'spent_hours',
                 ],
                 'safe',
                 'on' => 'answer',
@@ -162,7 +162,6 @@ class Thread extends \hipanel\base\Model
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
             [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('support')],
         ];
-
 
         return $rules;
     }
@@ -273,7 +272,7 @@ class Thread extends \hipanel\base\Model
 
     public function afterFind()
     {
-//        if (is_array($this->topics)) $this->topics = array_keys($this->topics);
+        //        if (is_array($this->topics)) $this->topics = array_keys($this->topics);
 //        if (is_array($this->watchers)) $this->watchers = array_keys($this->watchers);
 
         parent::afterFind();
@@ -289,14 +288,15 @@ class Thread extends \hipanel\base\Model
     public function getWatchersLogin()
     {
         $results = [];
-        foreach ((array)$this->watchers as $id => $watcher) {
+        foreach ((array) $this->watchers as $id => $watcher) {
             list($login, $email) = explode(' ', $watcher);
             $results[$id] = $login;
         }
         return $results;
     }
 
-    public function xFormater(array $items) {
+    public function xFormater(array $items)
+    {
         $result = [];
         foreach ($items as $id => $label) {
             $object = new stdClass();
@@ -312,7 +312,8 @@ class Thread extends \hipanel\base\Model
      *
      * @return array
      */
-    public static function getResponsibleClientTypes () {
+    public static function getResponsibleClientTypes()
+    {
         return [Client::TYPE_SELLER, Client::TYPE_ADMIN, Client::TYPE_MANAGER, Client::TYPE_OWNER];
     }
 }

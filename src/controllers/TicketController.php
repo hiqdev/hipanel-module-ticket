@@ -1,12 +1,12 @@
 <?php
 
 /*
- * Ticket Plugin for HiPanel
+ * HiPanel tickets module
  *
  * @link      https://github.com/hiqdev/hipanel-module-ticket
  * @package   hipanel-module-ticket
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\ticket\controllers;
@@ -42,7 +42,6 @@ class TicketController extends \hipanel\base\CrudController
         return Thread::className();
     }
 
-
     public function actions()
     {
         return [
@@ -61,7 +60,7 @@ class TicketController extends \hipanel\base\CrudController
                         'with_servers_count' => 1,
                         'with_hosting_count' => 1,
                     ])->one();
-                    if ($client->login == 'anonym') {
+                    if ($client->login === 'anonym') {
                         $client->name   = $action->model->anonym_name;
                         $client->email  = $action->model->anonym_email;
                         $client->seller = $action->model->anonym_seller;
@@ -143,9 +142,9 @@ class TicketController extends \hipanel\base\CrudController
                         'action' => 'view',
                         'params' => function ($action, $model) {
                             return ['id' => $model->id];
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ],
             'open'          => [
                 'class'      => SmartPerformAction::class,
@@ -165,9 +164,9 @@ class TicketController extends \hipanel\base\CrudController
                         'action' => 'view',
                         'params' => function ($action, $model) {
                             return ['id' => $model->id];
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ],
         ];
     }
@@ -273,7 +272,8 @@ class TicketController extends \hipanel\base\CrudController
             if ($id !== null) {
                 try {
                     $answer = Thread::perform('GetAnswer', ['id' => $id]);
-                } catch (ErrorResponseException $e) {}
+                } catch (ErrorResponseException $e) {
+                }
                 if (isset($answer['message'])) {
                     return '> ' . str_replace("\n", "\n> ", $answer['message']);
                 }

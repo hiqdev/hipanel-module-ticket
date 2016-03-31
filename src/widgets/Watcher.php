@@ -1,12 +1,12 @@
 <?php
 
 /*
- * Ticket Plugin for HiPanel
+ * HiPanel tickets module
  *
  * @link      https://github.com/hiqdev/hipanel-module-ticket
  * @package   hipanel-module-ticket
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace frontend\modules\ticket\widgets;
@@ -24,13 +24,13 @@ class Watcher extends Widget
     {
         parent::init();
         if ($this->inView and is_array($this->watchers)) {
-            print Html::beginTag('ul', ['class' => 'list-unstyled']);
+            echo Html::beginTag('ul', ['class' => 'list-unstyled']);
             foreach ($this->watchers as $uid => $username) {
-                print Html::beginTag('li');
-                print Html::a($username, ['/client/client/view', 'id' => $uid]);
-                print Html::endTag('li');
+                echo Html::beginTag('li');
+                echo Html::a($username, ['/client/client/view', 'id' => $uid]);
+                echo Html::endTag('li');
             }
-            print Html::endTag('ul');
+            echo Html::endTag('ul');
         }
     }
 

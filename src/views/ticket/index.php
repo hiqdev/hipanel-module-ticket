@@ -55,7 +55,7 @@ CSS
             $box->renderBulkButton(Yii::t('hipanel/ticket', 'Close'), 'close', 'danger'),
         ],
     ]) ?>
-    <?= $box->renderSearchForm(compact('topic_data','state_data','priority_data')) ?>
+    <?= $box->renderSearchForm(compact('topic_data', 'state_data', 'priority_data')) ?>
 <?php $box->end() ?>
 
 <?php $box->beginBulkForm() ?>
