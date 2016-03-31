@@ -3,6 +3,7 @@ hiqdev/hipanel-module-ticket changelog
 
 ## Under development
 
+- Fixed Travis build
 - Fixed translation and minor issues
 - Fixed ticket details page
 - Added user specific index: hidden certain columns
