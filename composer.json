@@ -1,10 +1,11 @@
 {
     "name": "hiqdev/hipanel-module-ticket",
     "type": "yii2-extension",
-    "description": "Ticket Plugin for HiPanel",
+    "description": "HiPanel tickets module",
     "keywords": [
-        "ticket",
         "hipanel",
+        "tickets",
+        "module",
         "plugin"
     ],
     "homepage": "https://github.com/hiqdev/hipanel-module-ticket",
@@ -43,15 +44,17 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "~2.0",
-        "hiqdev/hipanel-core": "*",
         "hiqdev/hipanel-module-client": "*",
         "hiqdev/yii2-asset-icheck": "~1.0",
         "hiqdev/yii2-asset-autosize": "~3.0"
+    },
+    "require-dev": {
+        "hiqdev/composer-asset-plugin": "*@dev"
     },
     "autoload": {
         "psr-4": {
             "hipanel\\modules\\ticket\\": "src"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
