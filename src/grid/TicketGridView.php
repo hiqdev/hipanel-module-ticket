@@ -50,7 +50,7 @@ class TicketGridView extends BoxedGridView
                             Yii::t('hipanel/ticket', 'Last answer') . ': ' . $model->replier_name . ' ' . Yii::$app->formatter->asDatetime($model->reply_time),
                             ['@client/view', 'id' => $model->replier_id],
                             ['class' => 'label label-default', 'style' => 'font-size: x-small;']);
-                    return $ava . $state . Html::tag('div', $t . $lastAnswer, ['class' => 'table-list-cell table-list-title']);
+                    return $ava . $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
                 },
 
             ],
@@ -94,15 +94,19 @@ class TicketGridView extends BoxedGridView
                 'filter' => false,
                 'enableSorting' => false,
                 'value' => function ($model) {
-                    $html = Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment text-muted']) . '&nbsp;&nbsp;' . $model->answer_count;
-//                    $html .= '<br>' . Html::a(
-//                            $model->replier_name . ' ' . Yii::$app->formatter->asDatetime($model->reply_time),
-//                            ['@client/view', 'id' => $model->replier_id],
-//                            ['class' => 'label label-default', 'style' => 'font-size: x-small;']);
-                    return $html;
+//                    $html = Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment text-muted']) . '&nbsp;&nbsp;' . $model->answer_count;
+//                    $html = sprintf('<span class="fa-stack text-muted"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x" style="font-size: small">%d</i></span>', $model->answer_count);
+                    $answerCount = sprintf('<span class="label label-default">&nbsp;%d&nbsp;</span>', $model->answer_count);
+                    $lastAnswer = Html::a(
+                        $model->replier,
+                        ['@client/view', 'id' => $model->replier_id],
+                        ['class' => '']) . '<br>' .
+                        Html::tag('span', Yii::$app->formatter->asRelativeTime($model->reply_time), ['style' => 'font-size: smaller;', 'class' => 'text-muted']) .
+                        '&nbsp;&nbsp;' . $answerCount;
+                    return $lastAnswer;
                 },
                 'contentOptions' => [
-                    'style' => 'font-size: larger;',
+                    'class' => 'answer'
                 ],
             ],
             'actions' => [

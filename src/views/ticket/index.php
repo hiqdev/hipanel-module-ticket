@@ -32,6 +32,25 @@ $this->registerCss(<<<CSS
 .table-list-title {
   width: 740px;
 }
+
+/*#ticket-grid td.answer {*/
+    /*position: relative;*/
+    /*padding-top: 1.3em;*/
+/*}*/
+
+/*#ticket-grid td.answer i {*/
+    /*padding-right: .7em;*/
+/*}*/
+
+#ticket-grid td.answer .label {
+    /*position: absolute;*/
+    /*top: 7px;*/
+    /*right: 7px;*/
+    text-align: center;
+    font-size: 9px;
+    padding: 2px 3px;
+    line-height: .9;
+}
 CSS
 );
 ?>
