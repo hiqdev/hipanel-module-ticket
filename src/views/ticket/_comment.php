@@ -94,8 +94,6 @@ JS
 <?= Html::endTag('div'); ?>
 
 <?= Html::beginTag('div', ['class' => 'comment-footer']); ?>
-    <button class="link-button comment-reply-button"><?= Yii::t('hipanel/ticket', 'Reply'); ?></button>
-    &nbsp;&nbsp;·&nbsp;&nbsp;
     <button class="link-button comment-quote-button" data-answer-id="<?= $answer_id; ?>"><?= Yii::t('hipanel/ticket', 'Quote'); ?></button>
 <?= Html::endTag('div'); ?>
 

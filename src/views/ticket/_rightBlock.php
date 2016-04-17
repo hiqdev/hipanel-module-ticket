@@ -41,7 +41,7 @@ JS
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
-        <hr class="no-panel-padding-h panel-wide padding-bottom">
+        <hr class="no-panel-padding-h panel-wide padding-bottom md-mb-0">
         <?= Html::button(Yii::t('hipanel/ticket', 'Answer'), ['class' => 'message-block-move-btn btn btn-default']); ?>
     <?php endif; ?>
 
