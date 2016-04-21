@@ -148,7 +148,7 @@ FlagIconCssAsset::register($this);
                 'columns' => $client->login == 'anonym' ? ['name', 'email'] : [
                     'name', 'email', 'country',
                     'state', 'balance', 'credit',
-                    'servers', 'domains', 'hosting',
+                    'servers_spoiler', 'domains_spoiler', 'hosting',
                 ],
             ]); ?>
         </div>

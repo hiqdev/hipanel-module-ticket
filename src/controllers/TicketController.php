@@ -59,7 +59,12 @@ class TicketController extends \hipanel\base\CrudController
                         'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
                         'with_servers_count' => 1,
                         'with_hosting_count' => 1,
-                    ])->one();
+                    ])->with(['domains' => function ($query) {
+                        $query->limit(21);
+                    }, 'servers' => function ($query) {
+                        $query->limit(21);
+                    }])->one();
+
                     if ($client->login === 'anonym') {
                         $client->name   = $action->model->anonym_name;
                         $client->email  = $action->model->anonym_email;
