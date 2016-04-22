@@ -1,6 +1,8 @@
 <?php
 
 use hipanel\frontend\assets\OcticonsAsset;
+use hipanel\modules\ticket\models\Answer;
+use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hiqdev\assets\autosize\AutosizeAsset;
 use hiqdev\assets\icheck\iCheckAsset;
 use kartik\widgets\TimePicker;
@@ -9,8 +11,8 @@ use yii\helpers\Html;
 OcticonsAsset::register($this);
 iCheckAsset::register($this);
 AutosizeAsset::register($this);
-$translate = Yii::t('hipanel/ticket', 'Nothing to preview');
-$dopScript = <<< JS
+$emptyPreviewText = \yii\helpers\Json::encode(Yii::t('hipanel/ticket', 'Nothing to preview'));
+$this->registerJs(<<< JS
 // Init iCheck
 $('input.icheck').iCheck({
     checkboxClass: 'icheckbox_minimal-blue',
@@ -25,13 +27,15 @@ $('.leave-comment-form textarea').one('focus', function(event) {
 // Fetch preview
 $(".js-get-preview").on('click', function (event) {
     event.preventDefault();
-    var message = $('#thread-message').val();
-    $.post("preview", {text: message}, function( data ) {
-        $('#preview .preview-container').html( data || '$translate');
+    var form = $(this).closest('form');
+    var message = form.find('.message-text').val();
+    $.post('preview', {text: message}, function (data) {
+        form.find('.preview-container').html( data || $emptyPreviewText);
     });
 });
-JS;
-$this->registerJs($dopScript, \yii\web\View::POS_READY);
+JS
+, \yii\web\View::POS_READY);
+
 $this->registerCss(<<< CSS
 .checkbox label {
     padding-left: 0
@@ -42,18 +46,32 @@ $this->registerCss(<<< CSS
 .hidden-form-inputs { display: none; }
 CSS
 );
+
+/**
+ * @var Answer|\hipanel\modules\ticket\models\Thread $model
+ */
+
 if ($model->isNewRecord) {
     $this->registerJs("$('.leave-comment-form textarea').trigger('focus');");
 }
 
+$form = ConditionalFormWidget::begin([
+    'form' => isset($form) ? $form : null,
+    'options' => [
+        'action'  => $action,
+        'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
+    ]
+]);
 
-?>
+if ($model->isNewRecord) {
+    echo $form->field($model, 'subject');
+} else {
+    echo Html::activeHiddenInput($model, 'id');
 
-<?php if ($model->isNewRecord) { ?>
-    <?= $form->field($model, 'subject') ?>
-<?php } else { ?>
-    <?= Html::activeHiddenInput($model, 'id') ?>
-<?php } ?>
+    if ($model->isAttributeActive('answer_id')) {
+        echo Html::activeHiddenInput($model, 'answer_id');
+    }
+} ?>
 
 <div class="comment-tab-wrapper">
     <div role="tabpanel" class="comment-tab">
@@ -69,19 +87,25 @@ if ($model->isNewRecord) {
                 ) ?>
             </div>
             <li role="presentation" class="active">
-                <a href="#message" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('hipanel/ticket', 'Message') ?></a>
+                <a href="#message-<?= $form->getId() ?>" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('hipanel/ticket', 'Message') ?></a>
             </li>
             <li role="presentation">
-                <a href="#preview" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview"><?= Yii::t('hipanel/ticket', 'Preview') ?></a>
+                <a href="#preview-<?= $form->getId() ?>" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview">
+                    <?= Yii::t('hipanel/ticket', 'Preview') ?>
+                </a>
             </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="message">
-                <?= $form->field($model, 'message')->textarea(['rows' => 1, 'placeholder' => Yii::t('hipanel/ticket', 'Compose your message here')])->label(false); ?>
+            <div role="tabpanel" class="tab-pane active message-tab" id="message-<?= $form->getId() ?>">
+                <?= $form->field($model, 'message')->textarea([
+                    'rows' => 1,
+                    'placeholder' => Yii::t('hipanel/ticket', 'Compose your message here'),
+                    'class' => ['form-control message-text']
+                ])->label(false); ?>
 
             </div>
-            <div role="tabpanel" class="tab-pane" id="preview">
+            <div role="tabpanel" class="tab-pane preview-tab" id="preview-<?= $form->getId() ?>">
                 <div class="well well-sm preview-container">
                     <?= Yii::t('hipanel/ticket', 'Nothing to preview') ?>
                 </div>
@@ -90,30 +114,39 @@ if ($model->isNewRecord) {
     </div>
     <div class="hidden-form-inputs">
         <div class="row">
-            <div class="col-md-12">
-                <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
-                    'options' => [
-                        'multiple' => true,
-                    ],
-                    'pluginOptions' => [
-                        'previewFileType'          => 'any',
-                        'showRemove'               => true,
-                        'showUpload'               => false,
-                        'initialPreviewShowDelete' => true,
-                        'maxFileCount'             => 5,
-                        'msgFilesTooMany'          => 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}. Please retry your upload!',
-                    ],
-                ]) ?>
-            </div>
+            <?php if ($model->isAttributeActive('file')) : ?>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
+                        'options' => [
+                            'multiple' => true,
+                        ],
+                        'pluginOptions' => [
+                            'previewFileType'          => 'any',
+                            'showRemove'               => true,
+                            'showUpload'               => false,
+                            'initialPreviewShowDelete' => true,
+                            'maxFileCount'             => 5,
+                            'msgFilesTooMany'          => 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}. Please retry your upload!',
+                        ],
+                    ]) ?>
+                </div>
+            <?php endif; ?>
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-2">
                         <?= Html::submitButton(Yii::t('hipanel', 'Submit'), ['class' => 'btn btn-success']); ?>
                     </div>
                     <div class="col-md-3">
-                        <?php if (Yii::$app->user->can('support')) : ?>
+                        <?php
+                        $is = $model instanceof Answer;
+                        if (Yii::$app->user->can('support')) : ?>
                             <div class="pull-right">
-                                <?= $form->field($model, $model->isNewRecord ? 'spent' : 'answer_spent')->widget(TimePicker::className(), [
+                                <?= $form->field($model, 'spent')->widget(TimePicker::className(), [
+                                    'options' => [
+                                        'value' => $model instanceof Answer
+                                            ? (new DateTime('@' . (int)$model->spent * 60))->format('H:i')
+                                            : '00:00'
+                                    ],
                                     'pluginOptions' => [
                                         'showSeconds' => false,
                                         'showMeridian' => false,
@@ -127,7 +160,7 @@ if ($model->isNewRecord) {
                     </div>
                     <div class="col-md-7">
                         <div class="pull-right">
-                            <?php if (!$model->isNewRecord) : ?>
+                            <?php if (!$model->isNewRecord && $model->isAttributeActive('is_private')) : ?>
                                 <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
                             <?php endif; ?>
                         </div>
@@ -141,3 +174,6 @@ if ($model->isNewRecord) {
         <!-- /.row -->
     </div>
 </div>
+
+<?php
+ConditionalFormWidget::end();

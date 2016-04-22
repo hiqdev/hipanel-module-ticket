@@ -5,12 +5,19 @@ use hiqdev\combo\ComboAsset;
 use hiqdev\combo\StaticCombo;
 use hiqdev\xeditable\widgets\ComboXEditable;
 use hiqdev\xeditable\widgets\XEditable;
+use yii\widgets\ActiveForm;
 
 /**
  * @var $model Thread
  */
 
 ?>
+
+<?php $form = ActiveForm::begin([
+    'action'  => $action,
+    'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
+]) ?>
+
     <!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
     <?php
@@ -77,7 +84,7 @@ use hiqdev\xeditable\widgets\XEditable;
         <?php $model->responsible_id = Yii::$app->user->id; ?>
         <!-- Responsible -->
         <?= $form->field($model, 'responsible')->widget(ClientCombo::classname(), [
-            'clientType' => ['manager', 'admin', 'owner'],
+            'clientType' => $model->getResponsibleClientTypes(),
         ]); ?>
     <?php else : ?>
         <ul class="list-group ticket-list-group">
@@ -88,7 +95,7 @@ use hiqdev\xeditable\widgets\XEditable;
                         'attribute' => 'responsible',
                         'combo' => [
                             'class' => ClientCombo::className(),
-                            'clientType' => [$model->getResponsibleClientTypes()],
+                            'clientType' => $model->getResponsibleClientTypes(),
                             'inputOptions' => [
                                 'class' => 'hidden'
                             ],
@@ -188,3 +195,7 @@ use hiqdev\xeditable\widgets\XEditable;
         print $form->field($model, 'recipient_id')->widget(ClientCombo::classname());
     } ?>
 <?php endif; ?>
+
+<?php
+$form->end();
+

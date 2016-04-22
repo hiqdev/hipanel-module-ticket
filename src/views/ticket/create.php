@@ -1,7 +1,9 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model frontend\modules\ticket\models\Thread */
+use yii\widgets\ActiveForm;
+
+/* @var $model hipanel\modules\ticket\models\Thread */
 
 $this->title                   = Yii::t('hipanel/ticket', 'Create ticket');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/ticket', 'Tickets'), 'url' => ['index']];
@@ -11,4 +13,11 @@ $action = 'create';
 
 ?>
 
-<?= $this->render('_view', compact('action', 'model', 'client', 'topic_data', 'state_data', 'priority_data')) ?>
+<?php $form = ActiveForm::begin([
+    'action'  => $action,
+    'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
+]) ?>
+
+<?= $this->render('_view', compact('form', 'action', 'model', 'client', 'topic_data', 'state_data', 'priority_data')) ?>
+
+<?php $form->end();

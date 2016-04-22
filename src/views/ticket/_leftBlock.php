@@ -3,17 +3,27 @@
 use hipanel\helpers\HtmlHelper;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\ticket\models\Thread;
+use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 FlagIconCssAsset::register($this);
 
 /**
  * @var Thread $model
  */
+
+$form = ConditionalFormWidget::begin([
+    'form' => isset($form) ? $form : null,
+    'options' => [
+        'action'  => $action,
+        'options' => ['enctype' => 'multipart/form-data'],
+    ]
+]);
 
 ?>
 <div class="row page-ticket">
@@ -161,3 +171,7 @@ FlagIconCssAsset::register($this);
     </div>
 <?php } ?>
 </div>
+
+<?php
+ConditionalFormWidget::end();
+?>
