@@ -14,6 +14,7 @@ namespace hipanel\modules\ticket\controllers;
 use common\models\File;
 use hipanel\actions\Action;
 use hipanel\actions\IndexAction;
+use hipanel\actions\PrepareAjaxViewAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\ProxyAction;
 use hipanel\actions\SmartCreateAction;
@@ -183,7 +184,7 @@ class TicketController extends \hipanel\base\CrudController
                 ],
             ],
             'update-answer-modal' => [
-                'class' => PrepareBulkAction::class,
+                'class' => PrepareAjaxViewAction::class,
                 'on beforeSave' => function (Event $event) {
                     /** @var PrepareBulkAction $action */
                     $action = $event->sender;
