@@ -11,11 +11,13 @@
 
 namespace hipanel\modules\ticket\models;
 
+use hipanel\helpers\ArrayHelper;
 use hipanel\modules\client\models\Client;
 use stdClass;
 use Yii;
 use yii\helpers\Html as Html;
 use yii\helpers\Markdown as Markdown;
+use yii\web\NotFoundHttpException;
 
 /**
  * Class Ticket.
@@ -30,8 +32,6 @@ class Thread extends \hipanel\base\Model
     const STATE_CLOSE = 'closed';
 
     public $search_form;
-
-    public $answer_spent;
 
     public function init()
     {
@@ -90,7 +90,7 @@ class Thread extends \hipanel\base\Model
             'responsible',
             'priority',
             'priority_label',
-            'spent', 'answer_spent', 'spent_hours',
+            'spent', 'spent_hours',
             'answer_count',
             'status',
             'reply_time',
@@ -105,7 +105,6 @@ class Thread extends \hipanel\base\Model
             'file_ids',
             'file',
             'message', // 'answer_message',
-            'answers',
             'is_private',
 
             'anonym_name',
@@ -129,7 +128,7 @@ class Thread extends \hipanel\base\Model
         $rules = [
             [['author_id', 'responsible_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
-            [['id'], 'required', 'on' => ['answer']],
+            [['id'], 'required', 'on' => ['answer', 'update-answer']],
             [
                 [
                     'topics',
@@ -152,7 +151,7 @@ class Thread extends \hipanel\base\Model
                     'watchers', 'add_watchers', 'del_watchers',
                     'is_private',
                     'file_ids',
-                    'answer_spent', 'spent', 'spent_hours',
+                    'spent', 'spent_hours',
                 ],
                 'safe',
                 'on' => 'answer',
@@ -262,27 +261,12 @@ class Thread extends \hipanel\base\Model
 
     public function prepareSpentTime()
     {
-        list($this->spent_hours, $this->spent) = explode(':', $this->isNewRecord ? $this->spent : $this->answer_spent, 2);
+        list($this->spent_hours, $this->spent) = explode(':', $this->spent, 2);
     }
 
     public function prepareTopic()
     {
         $this->topics = is_array($this->topics) ? implode(',', $this->topics) : $this->topics;
-    }
-
-    public function afterFind()
-    {
-        //        if (is_array($this->topics)) $this->topics = array_keys($this->topics);
-//        if (is_array($this->watchers)) $this->watchers = array_keys($this->watchers);
-
-        parent::afterFind();
-    }
-
-    public function scenarioCommands()
-    {
-        return [
-            'create' => 'create',
-        ];
     }
 
     public function getWatchersLogin()
@@ -307,6 +291,12 @@ class Thread extends \hipanel\base\Model
         return $result;
     }
 
+    public function getAnswers()
+    {
+        // TODO: redo API in order to have different `Thread` and `ThreadMessage` models
+        return $this->hasMany(Answer::class, ['id' => 'id'])->indexBy('answer_id');
+    }
+
     /**
      * Returns array of client types, that can be set as responsible for the thread.
      *
@@ -315,5 +305,20 @@ class Thread extends \hipanel\base\Model
     public static function getResponsibleClientTypes()
     {
         return [Client::TYPE_SELLER, Client::TYPE_ADMIN, Client::TYPE_MANAGER, Client::TYPE_OWNER];
+    }
+
+    /**
+     * @param integer $id
+     * @param bool $throwOnError whether to throw an exception when answer is not found in thread
+     * @return Answer
+     * @throws NotFoundHttpException
+     */
+    public function getAnswer($id, $throwOnError = true)
+    {
+        if (!isset($this->answers[$id]) && $throwOnError) {
+            throw new NotFoundHttpException('Answer does not belong to this model');
+        }
+
+        return $this->answers[$id];
     }
 }
