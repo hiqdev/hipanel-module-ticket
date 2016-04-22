@@ -11,12 +11,12 @@
 
 namespace hipanel\modules\ticket\models;
 
-use hipanel\helpers\ArrayHelper;
+use common\behaviors\File;
 use hipanel\modules\client\models\Client;
 use stdClass;
 use Yii;
-use yii\helpers\Html as Html;
-use yii\helpers\Markdown as Markdown;
+use yii\helpers\Html;
+use yii\helpers\Markdown;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -54,7 +54,7 @@ class Thread extends \hipanel\base\Model
     {
         return [
             [
-                'class'          => 'common\behaviors\File',
+                'class'          => File::class,
                 'attribute'      => 'file',
                 'savedAttribute' => 'file_ids',
                 'scenarios'      => ['create', 'answer'],
@@ -208,7 +208,7 @@ class Thread extends \hipanel\base\Model
 
     public function getThreadUrl()
     {
-        return ['/ticket/ticket/view', 'id' => $this->id];
+        return ['@ticket/view', 'id' => $this->id];
     }
 
     public function getThreadViewTitle()
@@ -216,44 +216,9 @@ class Thread extends \hipanel\base\Model
         return '#' . $this->id . ' ' . Html::encode($this->subject);
     }
 
-    public static function regexConfig($target)
-    {
-        $config = [
-            'ticket' => ['/\#\d{6,9}(\#answer-\d{6,7})?\b/'],
-            'server' => ['/\b[A-Z]*DS\d{3,9}[A-Za-z0-9-]{0,6}\b/'],
-        ];
-
-        return $config[$target];
-    }
-
-    public static function prepareLinks($text)
-    {
-        $targets = ['ticket', 'server'];
-        $host    = getenv('HTTP_HOST');
-        foreach ($targets as $target) {
-            foreach (self::regexConfig($target) as $pattern) {
-                $matches = [];
-                $changed = [];
-                preg_match_all($pattern, $text, $matches);
-                foreach ($matches[0] as $match) {
-                    $number = $target === 'tickets' ? substr($match, 1) : $match;
-                    if ($changed[$number] && $changed[$number] === $match) {
-                        continue;
-                    }
-                    $changed[$number] = $match;
-                    $text             = str_replace($match, "[[https://{$host}/panel/{$target}/details/{$number}|{$match}]]", $text);
-                }
-            }
-        }
-
-        return $text;
-    }
-
     public static function parseMessage($message)
     {
-        //        $message = Html::encode($message); // prevent xss
         $message = str_replace(["\n\r", "\r\r", "\r\n"], "\n", $message); // "\n\n",
-        // $message = self::prepareLinks($message);
         $message = Markdown::process($message);
 
         return $message;
