@@ -14,6 +14,7 @@ namespace hipanel\modules\ticket\controllers;
 use common\models\File;
 use hipanel\actions\Action;
 use hipanel\actions\IndexAction;
+use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\ProxyAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartPerformAction;
@@ -26,6 +27,8 @@ use hipanel\modules\ticket\models\TicketSettings;
 use hiqdev\hiart\ErrorResponseException;
 use Yii;
 use yii\base\Event;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 /**
  * Class TicketController.
@@ -51,7 +54,13 @@ class TicketController extends \hipanel\base\CrudController
             ],
             'view'          => [
                 'class'       => ViewAction::class,
-                'findOptions' => ['with_anonym' => 1, 'with_answers' => 1, 'with_files' => 1, 'show_closed' => 1],
+                'findOptions' => $this->getSearchOptions(),
+                'on beforeSave' => function (Event $event) {
+                    /** @var PrepareBulkAction $action */
+                    $action = $event->sender;
+                    $dataProvider = $action->getDataProvider();
+                    $dataProvider->query->joinWith('answers');
+                },
                 'data'        => function ($action) {
                     $client = Client::find()->where([
                         'id'                 => $action->model->recipient_id,
@@ -172,6 +181,28 @@ class TicketController extends \hipanel\base\CrudController
                         },
                     ],
                 ],
+            ],
+            'update-answer-modal' => [
+                'class' => PrepareBulkAction::class,
+                'on beforeSave' => function (Event $event) {
+                    /** @var PrepareBulkAction $action */
+                    $action = $event->sender;
+                    $dataProvider = $action->getDataProvider();
+                    $dataProvider->query->joinWith('answers');
+                },
+                'data' => function ($action, $data) {
+                    $answer_id = Yii::$app->request->get('answer_id');
+                    if (!is_numeric($answer_id)) {
+                        throw new NotFoundHttpException('Invalid answer_id');
+                    }
+
+                    return ArrayHelper::merge($data, [
+                        'answer_id' => $answer_id
+                    ]);
+                },
+                'findOptions' => $this->getSearchOptions(),
+                'scenario' => 'answer-update',
+                'view' => '_updateAnswerModal',
             ],
         ];
     }
@@ -311,5 +342,10 @@ class TicketController extends \hipanel\base\CrudController
     public function actionFileView($id, $object_id)
     {
         return File::renderFile($id, $object_id, 'thread', true);
+    }
+
+    private function getSearchOptions()
+    {
+        return ['with_anonym' => 1, 'with_answers' => 1, 'with_files' => 1, 'show_closed' => 1];
     }
 }
