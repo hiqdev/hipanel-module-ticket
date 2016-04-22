@@ -16,6 +16,7 @@ class Plugin extends \hiqdev\pluginmanager\Plugin
     protected $_items = [
         'aliases' => [
             '@ticket' => '/ticket/ticket',
+            '@ticket/answer' => '/ticket/answer',
         ],
         'menus' => [
             'hipanel\modules\ticket\SidebarMenu',
