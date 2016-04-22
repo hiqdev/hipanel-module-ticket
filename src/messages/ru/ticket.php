@@ -64,7 +64,7 @@ return [
     'Markdown is supported' => 'Поддерживается Markdown',
     'Message' => 'Сообщение',
     'Compose your message here' => 'Напишите ваше сообщение здесь',
-    'Preview' => 'Предворительный просмотр',
+    'Preview' => 'Предварительный просмотр',
     'Back to index' => 'Вернуться к списку',
     'Client details' => 'Информация о клиенте',
     'Unsubscribe' => 'Отписаться',
@@ -73,4 +73,6 @@ return [
     'Create ticket' => 'Создать тикет',
     'Answers' => 'Ответы',
     'Answer' => 'Ответить',
+    'Edit' => 'Редактивроать',
+    'Message editing' => 'Редактирование сообщения'
 ];
