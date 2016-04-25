@@ -74,5 +74,6 @@ return [
     'Answers' => 'Ответы',
     'Answer' => 'Ответить',
     'Edit' => 'Редактивроать',
-    'Message editing' => 'Редактирование сообщения'
+    'Message editing' => 'Редактирование сообщения',
+    'Comment was updated' => 'Комментарий был изменен'
 ];

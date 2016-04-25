@@ -20,6 +20,7 @@ FlagIconCssAsset::register($this);
 $form = ConditionalFormWidget::begin([
     'form' => isset($form) ? $form : null,
     'options' => [
+        'id' => 'left-block-comment-form',
         'action'  => $action,
         'options' => ['enctype' => 'multipart/form-data'],
     ]

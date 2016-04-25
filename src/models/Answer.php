@@ -116,7 +116,8 @@ class Answer extends \hipanel\base\Model
         return [
             [
                 ['id', 'answer_id', 'spent', 'spent_hours'],
-                'integer'
+                'integer',
+                'enableClientValidation' => false
             ],
             [
                 ['message', 'id', 'answer_id'],
@@ -138,6 +139,7 @@ class Answer extends \hipanel\base\Model
             ]
         ];
     }
+
 
     /**
      * {@inheritdoc}

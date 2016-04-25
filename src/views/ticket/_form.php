@@ -18,12 +18,6 @@ $('input.icheck').iCheck({
     checkboxClass: 'icheckbox_minimal-blue',
     radioClass: 'iradio_minimal-blue'
 });
-// Expand message textarea
-$('.leave-comment-form textarea').one('focus', function(event) {
-    $('.hidden-form-inputs').toggle();
-    $(this).attr('rows', '5');
-    autosize(this);
-});
 // Fetch preview
 $(".js-get-preview").on('click', function (event) {
     event.preventDefault();
@@ -51,17 +45,28 @@ CSS
  * @var Answer|\hipanel\modules\ticket\models\Thread $model
  */
 
-if ($model->isNewRecord) {
-    $this->registerJs("$('.leave-comment-form textarea').trigger('focus');");
-}
 
 $form = ConditionalFormWidget::begin([
     'form' => isset($form) ? $form : null,
     'options' => [
+        'id' => 'leave-comment-form',
         'action'  => $action,
         'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
     ]
 ]);
+
+if ($model->isNewRecord) {
+    $this->registerJs("$('#{$form->getId()} textarea').trigger('focus');");
+}
+
+$this->registerJs("
+// Expand message textarea
+$('#{$form->getId()} textarea').one('focus', function(event) {
+    $(this).closest('form').find('.hidden-form-inputs').toggle();
+    $(this).attr('rows', '5');
+    autosize(this);
+});
+");
 
 if ($model->isNewRecord) {
     echo $form->field($model, 'subject');
@@ -78,7 +83,6 @@ if ($model->isNewRecord) {
         <!-- Nav tabs -->
         <ul class="nav nav-tabs hidden-form-inputs margin-bottom" role="tablist">
             <div class="pull-right" style="padding-top:0.5em">
-
                 <?= Html::a(
                     '<span class="octicon octicon-markdown"></span> ' .
                     Yii::t('hipanel/ticket', 'Markdown is supported'),

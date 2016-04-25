@@ -14,8 +14,9 @@ $action = 'create';
 ?>
 
 <?php $form = ActiveForm::begin([
+    'id' => 'create-thread-form',
     'action'  => $action,
-    'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
+    'options' => ['enctype' => 'multipart/form-data', 'class' => 'create-thread-form'],
 ]) ?>
 
 <?= $this->render('_view', compact('form', 'action', 'model', 'client', 'topic_data', 'state_data', 'priority_data')) ?>
