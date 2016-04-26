@@ -4,9 +4,6 @@ use hipanel\widgets\Gravatar;
 use hipanel\modules\ticket\models\Thread;
 use yii\helpers\Html;
 
-if ($answer->author == 'anonym') {
-    $answer->email = $model->anonym_email;
-}
 $answerId = 'answer-' . $answer->answer_id;
 $this->registerJs(<<< JS
 // Quote button
