@@ -128,7 +128,7 @@ class Thread extends \hipanel\base\Model
         $rules = [
             [['author_id', 'responsible_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
-            [['id'], 'required', 'on' => ['answer', 'update-answer']],
+            [['id'], 'required', 'on' => ['answer', 'update-answer', 'open', 'close']],
             [
                 [
                     'topics',
@@ -156,7 +156,10 @@ class Thread extends \hipanel\base\Model
                 'safe',
                 'on' => 'answer',
             ],
-            [['message'], 'required', 'on' => ['answer']],
+            [['state'], 'safe', 'on' => ['close', 'open']],
+            // only client-side validation. Answer is actually possible without a message,
+            // but does not make any sense.
+            [['message'], 'required', 'on' => ['answer'], 'when' => function () { return false; }],
             [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 5],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
@@ -286,5 +289,22 @@ class Thread extends \hipanel\base\Model
         }
 
         return $this->answers[$id];
+    }
+
+    public function getMaxAnswerId()
+    {
+        if ($this->isRelationPopulated('answers')) {
+            return max(array_keys($this->answers));
+        }
+
+        return $this->id;
+    }
+
+    public function scenarioCommands()
+    {
+        return [
+            'open' => 'answer',
+            'close' => 'answer',
+        ];
     }
 }

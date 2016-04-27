@@ -5,53 +5,19 @@ use hipanel\modules\ticket\models\Thread;
 use yii\helpers\Html;
 
 $answerId = 'answer-' . $answer->answer_id;
-$this->registerJs(<<< JS
-// Quote button
-$(".comment-quote-button").on("click", function(event) {
-    event.preventDefault();
-    var ta = document.querySelector('textarea');
-    var chatInput = $('#thread-message');
-    var answer_id = $(this).data('answer-id');
-    var overlay = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
-    var formBox = chatInput.parents('.box');
+echo Html::beginTag('div', ['class' => ($answer->is_answer) ? 'comment answer' : 'comment', 'id' => $answerId]);
 
-    $.ajax({
-        method: "POST",
-        url: "get-quoted-answer",
-        cache: false,
-        data: {id: answer_id},
-        beforeSend: function() {
-            formBox.append(overlay);
-        }
-    }).done(function(data) {
-        formBox.find('.overlay').remove(); // Remove ajax spiner
-        scrollTo('.comment-tab');
-        $('.comment-tab a[href="#message"').tab('show'); // Open tab
-        chatInput.focus(); // Scroll to form
-        chatInput.val(data);
-
-        // Dispatch a 'autosize:update' event to trigger a resize:
-        var evt = document.createEvent('Event');
-        evt.initEvent('autosize:update', true, false);
-        ta.dispatchEvent(evt);
-    });
-});
-JS
-, \yii\web\View::POS_READY);0
-?>
-<?= Html::beginTag('div', ['class' => ($answer->is_answer) ? 'comment answer' : 'comment', 'id' => $answerId]); ?>
-<!-- Avatar -->
-<?= Gravatar::widget([
+echo Gravatar::widget([
     'email'        => $answer->email_hash,
     'options'      => [
         'alt'   => $answer->author,
         'class' => 'comment-avatar',
     ],
     'size' => 32,
-]); ?>
+]);
 
-<?= Html::beginTag('div', ['class' => 'comment-body']); ?>
-<?= Html::beginTag('div', ['class' => 'comment-text']); ?>
+echo Html::beginTag('div', ['class' => 'comment-body']);
+echo Html::beginTag('div', ['class' => 'comment-text']); ?>
     <div class="comment-heading" xmlns="http://www.w3.org/1999/html">
         <?= \hipanel\widgets\ClientSellerLink::widget([
             'model' => new \yii\base\DynamicModel([
@@ -97,7 +63,5 @@ JS
     ]) ?>
 <?php endif; ?>
 <?= Html::endTag('div'); ?>
-
 <?= Html::endTag('div'); ?>
-
 <?= Html::endTag('div'); ?>

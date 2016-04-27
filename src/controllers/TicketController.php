@@ -24,12 +24,14 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
+use hipanel\modules\ticket\models\ThreadSearch;
 use hipanel\modules\ticket\models\TicketSettings;
 use hiqdev\hiart\ErrorResponseException;
 use Yii;
 use yii\base\Event;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Class TicketController.
@@ -141,7 +143,7 @@ class TicketController extends \hipanel\base\CrudController
             ],
             'close'         => [
                 'class'      => SmartPerformAction::class,
-                'scenario'   => 'answer',
+                'scenario'   => 'close',
                 'success'    => Yii::t('hipanel/ticket', 'Ticket closed'),
                 'on beforeSave' => function (Event $event) {
                     /** @var Action $action */
@@ -163,7 +165,7 @@ class TicketController extends \hipanel\base\CrudController
             ],
             'open'          => [
                 'class'      => SmartPerformAction::class,
-                'scenario'   => 'answer',
+                'scenario'   => 'open',
                 'success'    => Yii::t('hipanel/ticket', 'Ticket opened'),
                 'on beforeSave' => function (Event $event) {
                     /** @var Action $action */
@@ -332,6 +334,29 @@ class TicketController extends \hipanel\base\CrudController
             }
         }
         Yii::$app->end();
+    }
+
+    public function actionGetNewAnswers($id, $answer_id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $result = ['id' => $id, 'answer_id' => $answer_id];
+
+        try {
+            $data = Thread::perform('GetLastAnswerId', ['id' => $id, 'answer_id' => $answer_id]);
+            $result['answer_id'] = $data['answer_id'];
+            if ($data['answer_id'] > $answer_id) {
+                $dataProvider = (new ThreadSearch())->search([]);
+                $dataProvider->query->joinWith('answers');
+                $dataProvider->query->andWhere(['id' => $id]);
+                $dataProvider->query->andWhere($this->getSearchOptions());
+                $models = $dataProvider->getModels();
+
+                $result['html'] = $this->renderPartial('_comments', ['model' => reset($models)]);
+            }
+        } catch (ErrorResponseException $e) {}
+
+        return $result;
     }
 
     /**

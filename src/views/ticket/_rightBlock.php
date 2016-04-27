@@ -1,6 +1,7 @@
 <?php
 
 use hipanel\helpers\Url;
+use hipanel\modules\ticket\assets\ThreadCheckerAsset;
 use hipanel\widgets\AjaxModal;
 use hipanel\widgets\Box;
 use yii\bootstrap\Modal;
@@ -11,9 +12,19 @@ use yii\web\View;
 
 /**
  * @var View $this
+ * @var \hipanel\modules\ticket\models\Thread $model
  */
 
+ThreadCheckerAsset::register($this);
+
+$threadCheckerOptions = Json::encode([
+    'threadId' => $model->id,
+    'lastAnswerId' => $model->getMaxAnswerId(),
+    'ajax' => ['url' => Url::to('@ticket/get-new-answers')],
+]);
 $this->registerJs(<<<JS
+$('.widget-article-comments').threadChecker($threadCheckerOptions);
+
 $('.message-block-move-btn').on('click', function () {
     var button = $(this);
     var comments_form = $('.leave-comment-form');
@@ -23,9 +34,38 @@ $('.message-block-move-btn').on('click', function () {
     comment_tab_sibling.after(button);
     comments_form.find('textarea').focus().trigger('focus');
 });
-JS
-    , View::POS_READY);
 
+$(".comment-quote-button").on("click", function(event) {
+    event.preventDefault();
+    var ta = document.querySelector('textarea');
+    var chatInput = $('#thread-message');
+    var answer_id = $(this).data('answer-id');
+    var overlay = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+    var formBox = chatInput.parents('.box');
+
+    $.ajax({
+        method: "POST",
+        url: "get-quoted-answer",
+        cache: false,
+        data: {id: answer_id},
+        beforeSend: function() {
+            formBox.append(overlay);
+        }
+    }).done(function(data) {
+        formBox.find('.overlay').remove(); // Remove ajax spiner
+        scrollTo('.comment-tab');
+        $('.comment-tab a[href="#message"').tab('show'); // Open tab
+        chatInput.focus(); // Scroll to form
+        chatInput.val(data);
+
+        // Dispatch a 'autosize:update' event to trigger a resize:
+        var evt = document.createEvent('Event');
+        evt.initEvent('autosize:update', true, false);
+        ta.dispatchEvent(evt);
+    });
+});
+JS
+, View::POS_READY);
 ?>
 
 <!-- Chat box -->
@@ -40,11 +80,7 @@ JS
     <?php if ($model->isRelationPopulated('answers')) : ?>
         <hr class="no-panel-padding-h panel-wide padding-bottom">
         <div class="widget-article-comments tab-pane panel no-padding no-border fade in active">
-            <?php foreach ($model->answers as $answer_id => $answer) : ?>
-                <?php if (!empty($answer->message)) : ?>
-                    <?= $this->render('_comment', ['model' => $model, 'answer_id' => $answer_id, 'answer' => $answer]) ?>
-                <?php endif; ?>
-            <?php endforeach; ?>
+            <?= $this->render('_comments', ['model' => $model]) ?>
         </div>
         <?php if ($model->isRelationPopulated('answers')) : ?>
             <hr class="no-panel-padding-h panel-wide padding-bottom md-mb-0">

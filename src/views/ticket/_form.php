@@ -51,7 +51,10 @@ $form = ConditionalFormWidget::begin([
     'options' => [
         'id' => 'leave-comment-form',
         'action'  => $action,
-        'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
+        'options' => [
+            'enctype' => 'multipart/form-data',
+            'class' => 'leave-comment-form',
+        ],
     ]
 ]);
 
