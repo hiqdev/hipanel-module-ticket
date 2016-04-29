@@ -46,7 +46,8 @@
     "require": {
         "hiqdev/hipanel-module-client": "*",
         "hiqdev/yii2-asset-icheck": "~1.0",
-        "hiqdev/yii2-asset-autosize": "~3.0"
+        "hiqdev/yii2-asset-autosize": "~3.0",
+        "hiqdev/yii2-asset-visibilityjs": "*"
     },
     "require-dev": {
         "hiqdev/composer-asset-plugin": "*@dev"

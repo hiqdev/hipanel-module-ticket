@@ -23,5 +23,6 @@ class ThreadCheckerAsset extends AssetBundle
      */
     public $depends = [
         'yii\web\JqueryAsset',
+        'hiqdev\assets\visibilityjs\VisibilityjsAsset',
     ];
 }
