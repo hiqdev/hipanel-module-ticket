@@ -57,5 +57,11 @@
             "hipanel\\modules\\ticket\\": "src"
         }
     },
+    "extra": {
+        "config-plugin": {
+            "hidev": "src/config/hidev.php",
+            "hisite": "src/config/hisite.php"
+        }
+    },
     "minimum-stability": "dev"
 }
