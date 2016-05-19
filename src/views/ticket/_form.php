@@ -1,6 +1,6 @@
 <?php
 
-use hipanel\frontend\assets\OcticonsAsset;
+use hipanel\assets\OcticonsAsset;
 use hipanel\modules\ticket\models\Answer;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hiqdev\assets\autosize\AutosizeAsset;

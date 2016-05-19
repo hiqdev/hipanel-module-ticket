@@ -11,7 +11,7 @@
 
 namespace hipanel\modules\ticket\controllers;
 
-use common\models\File;
+use hipanel\models\File;
 use hipanel\actions\Action;
 use hipanel\actions\IndexAction;
 use hipanel\actions\PrepareAjaxViewAction;

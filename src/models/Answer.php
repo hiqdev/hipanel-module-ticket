@@ -72,7 +72,7 @@ class Answer extends \hipanel\base\Model
     {
         return [
             [
-                'class'          => 'common\behaviors\File',
+                'class'          => 'hipanel\behaviors\File',
                 'attribute'      => 'file',
                 'savedAttribute' => 'file_ids',
                 'scenarios'      => ['create', 'answer'],

@@ -11,7 +11,7 @@
 
 namespace hipanel\modules\ticket\models;
 
-use common\behaviors\File;
+use hipanel\behaviors\File;
 use hipanel\modules\client\models\Client;
 use stdClass;
 use Yii;
