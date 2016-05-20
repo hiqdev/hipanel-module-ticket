@@ -11,7 +11,6 @@
 
 namespace hipanel\modules\ticket\controllers;
 
-use hipanel\models\File;
 use hipanel\actions\Action;
 use hipanel\actions\IndexAction;
 use hipanel\actions\PrepareAjaxViewAction;
@@ -22,6 +21,7 @@ use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
+use hipanel\models\File;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
@@ -51,12 +51,12 @@ class TicketController extends \hipanel\base\CrudController
     public function actions()
     {
         return [
-            'index'         => [
+            'index' => [
                 'class' => IndexAction::class,
-                'data'  => $this->prepareRefs(),
+                'data' => $this->prepareRefs(),
             ],
-            'view'          => [
-                'class'       => ViewAction::class,
+            'view' => [
+                'class' => ViewAction::class,
                 'findOptions' => $this->getSearchOptions(),
                 'on beforeSave' => function (Event $event) {
                     /** @var PrepareBulkAction $action */
@@ -64,22 +64,19 @@ class TicketController extends \hipanel\base\CrudController
                     $dataProvider = $action->getDataProvider();
                     $dataProvider->query->joinWith('answers');
                 },
-                'data'        => function ($action) {
-                    $client = Client::find()->where([
-                        'id'                 => $action->model->recipient_id,
-                        'with_contact'       => 1,
-                        'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
-                        'with_servers_count' => 1,
-                        'with_hosting_count' => 1,
-                    ])->with(['domains' => function ($query) {
-                        $query->limit(21);
-                    }, 'servers' => function ($query) {
-                        $query->limit(21);
-                    }])->one();
+                'data' => function ($action) {
+                    $ip = Yii::$app->request->getUserIP();
+                    $client = Client::find()
+                        ->withDomains()
+                        ->withServers()
+                        ->where([
+                            'id' => $action->model->recipient_id,
+                            'with_contact' => 1,
+                        ])->one();
 
                     if ($client->login === 'anonym') {
-                        $client->name   = $action->model->anonym_name;
-                        $client->email  = $action->model->anonym_email;
+                        $client->name = $action->model->anonym_name;
+                        $client->email = $action->model->anonym_email;
                         $client->seller = $action->model->anonym_seller;
                     }
                     return array_merge(compact('client'), $this->prepareRefs());
@@ -88,23 +85,25 @@ class TicketController extends \hipanel\base\CrudController
             'validate-form' => [
                 'class' => ValidateFormAction::class,
             ],
-            'answer'        => [
-                'class'   => SmartUpdateAction::class,
+            'answer' => [
+                'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel/ticket', 'Ticket changed'),
             ],
-            'create'        => [
-                'class'   => SmartCreateAction::class,
+            'create' => [
+                'class' => SmartCreateAction::class,
                 'success' => Yii::t('hipanel/ticket', 'Ticket posted'),
-                'data'    => function () { return $this->prepareRefs(); },
+                'data' => function () {
+                    return $this->prepareRefs();
+                },
             ],
-            'delete'        => [
-                'class'   => SmartPerformAction::class,
+            'delete' => [
+                'class' => SmartPerformAction::class,
                 'success' => Yii::t('hipanel/ticket', 'Ticket deleted'),
             ],
-            'subscribe'     => [
-                'class'      => SmartPerformAction::class,
-                'scenario'   => 'answer',
-                'success'    => Yii::t('hipanel/ticket', 'Subscribed'),
+            'subscribe' => [
+                'class' => SmartPerformAction::class,
+                'scenario' => 'answer',
+                'success' => Yii::t('hipanel/ticket', 'Subscribed'),
                 'on beforeSave' => function (Event $event) {
                     /** @var Action $action */
                     $action = $event->sender;
@@ -112,19 +111,19 @@ class TicketController extends \hipanel\base\CrudController
                         $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
                     }
                 },
-                'POST pjax'  => [
-                    'save'    => true,
+                'POST pjax' => [
+                    'save' => true,
                     'success' => [
-                        'class'       => ViewAction::class,
-                        'view'        => '_subscribe_button',
+                        'class' => ViewAction::class,
+                        'view' => '_subscribe_button',
                         'findOptions' => ['with_answers' => 1, 'show_closed' => 1],
                     ],
                 ],
             ],
-            'unsubscribe'   => [
-                'class'      => SmartPerformAction::class,
-                'scenario'   => 'answer',
-                'success'    => Yii::t('hipanel/ticket', 'Unsubscribed'),
+            'unsubscribe' => [
+                'class' => SmartPerformAction::class,
+                'scenario' => 'answer',
+                'success' => Yii::t('hipanel/ticket', 'Unsubscribed'),
                 'on beforeSave' => function (Event $event) {
                     /** @var Action $action */
                     $action = $event->sender;
@@ -132,19 +131,19 @@ class TicketController extends \hipanel\base\CrudController
                         $model->{$this->_subscribeAction[$action->id]} = Yii::$app->user->identity->username;
                     }
                 },
-                'POST pjax'  => [
-                    'save'    => true,
+                'POST pjax' => [
+                    'save' => true,
                     'success' => [
-                        'class'       => ViewAction::class,
-                        'view'        => '_subscribe_button',
+                        'class' => ViewAction::class,
+                        'view' => '_subscribe_button',
                         'findOptions' => ['with_answers' => 1, 'show_closed' => 1],
                     ],
                 ],
             ],
-            'close'         => [
-                'class'      => SmartPerformAction::class,
-                'scenario'   => 'close',
-                'success'    => Yii::t('hipanel/ticket', 'Ticket closed'),
+            'close' => [
+                'class' => SmartPerformAction::class,
+                'scenario' => 'close',
+                'success' => Yii::t('hipanel/ticket', 'Ticket closed'),
                 'on beforeSave' => function (Event $event) {
                     /** @var Action $action */
                     $action = $event->sender;
@@ -163,10 +162,10 @@ class TicketController extends \hipanel\base\CrudController
                     ],
                 ],
             ],
-            'open'          => [
-                'class'      => SmartPerformAction::class,
-                'scenario'   => 'open',
-                'success'    => Yii::t('hipanel/ticket', 'Ticket opened'),
+            'open' => [
+                'class' => SmartPerformAction::class,
+                'scenario' => 'open',
+                'success' => Yii::t('hipanel/ticket', 'Ticket opened'),
                 'on beforeSave' => function (Event $event) {
                     /** @var Action $action */
                     $action = $event->sender;
@@ -221,8 +220,8 @@ class TicketController extends \hipanel\base\CrudController
     protected function prepareRefs()
     {
         return [
-            'topic_data'    => $this->getRefs('topic,ticket'),
-            'state_data'    => $this->GetClassRefs('state'),
+            'topic_data' => $this->getRefs('topic,ticket'),
+            'state_data' => $this->GetClassRefs('state'),
             'priority_data' => $this->getPriorities(),
         ];
     }
@@ -232,7 +231,7 @@ class TicketController extends \hipanel\base\CrudController
      */
     public function actionSettings()
     {
-        $model   = new TicketSettings();
+        $model = new TicketSettings();
         $request = Yii::$app->request;
         if ($request->isAjax && $model->load($request->post()) && $model->validate()) {
             $model->setFormData();
@@ -255,9 +254,11 @@ class TicketController extends \hipanel\base\CrudController
     {
         $options[$id] = ['id' => $id, 'priority' => 'high'];
         if ($this->_ticketChange($options)) {
-            \Yii::$app->getSession()->setFlash('success', \Yii::t('hipanel/ticket', 'Priority has been changed to high'));
+            \Yii::$app->getSession()->setFlash('success',
+                \Yii::t('hipanel/ticket', 'Priority has been changed to high'));
         } else {
-            \Yii::$app->getSession()->setFlash('error', \Yii::t('hipanel/ticket', 'Some error occurred! Priority has not been changed to high'));
+            \Yii::$app->getSession()->setFlash('error',
+                \Yii::t('hipanel/ticket', 'Some error occurred! Priority has not been changed to high'));
         }
 
         return $this->redirect(Yii::$app->request->referrer);
@@ -272,7 +273,8 @@ class TicketController extends \hipanel\base\CrudController
     {
         $options[$id] = ['id' => $id, 'priority' => 'medium'];
         if ($this->_ticketChange($options)) {
-            \Yii::$app->getSession()->setFlash('success', \Yii::t('hipanel/ticket', 'Priority has been changed to medium'));
+            \Yii::$app->getSession()->setFlash('success',
+                \Yii::t('hipanel/ticket', 'Priority has been changed to medium'));
         } else {
             \Yii::$app->getSession()->setFlash('error', \Yii::t('hipanel/ticket', 'Something goes wrong!'));
         }
