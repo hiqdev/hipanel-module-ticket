@@ -6,9 +6,20 @@ use yii\helpers\Html;
 
 ?>
 
-<div class="col-md-4">
+<div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('anytext_like') ?>
+</div>
 
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <?= $search->field('author_id')->widget(ClientCombo::classname()); ?>
+</div>
+
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <?= $search->field('recipient_id')->widget(ClientCombo::classname(), [
+        'clientType' => 'client',
+    ]) ?>
+</div>
+<div class="col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
         <?= Html::label(Yii::t('hipanel', 'Date'))?>
         <?= DatePicker::widget([
@@ -22,7 +33,8 @@ use yii\helpers\Html;
             ],
         ]) ?>
     </div>
-
+</div>
+<div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('state')->widget(StaticCombo::classname(), [
         'data' => $state_data,
         'hasId' => true,
@@ -33,10 +45,7 @@ use yii\helpers\Html;
         ],
     ]) ?>
 </div>
-
-<div class="col-md-4">
-    <?= $search->field('author_id')->widget(ClientCombo::classname()); ?>
-
+<div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('responsible_id')->widget(ClientCombo::classname(), [
         'clientType' => 'manager',
         'pluginOptions' => [
@@ -45,7 +54,8 @@ use yii\helpers\Html;
             ],
         ],
     ]); ?>
-
+</div>
+<div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('topics')->widget(StaticCombo::classname(), [
         'data' => $topic_data,
         'hasId' => true,
@@ -56,17 +66,13 @@ use yii\helpers\Html;
         ],
     ]); ?>
 </div>
-
-<div class="col-md-4">
-    <?= $search->field('recipient_id')->widget(ClientCombo::classname(), [
-        'clientType' => 'client',
-    ]) ?>
-
+<div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('priority')->widget(StaticCombo::classname(), [
         'data' => $priority_data,
         'hasId' => true,
     ]) ?>
-
+</div>
+<div class="col-md-4 col-sm-6 col-xs-12">
     <?php echo $search->field('watchers')->widget(ClientCombo::classname(), [
         'clientType' => ['manager', 'admin', 'owner'],
         'hasId' => true,
