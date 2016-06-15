@@ -58,10 +58,6 @@ $form = ConditionalFormWidget::begin([
     ]
 ]);
 
-if ($model->isNewRecord) {
-    $this->registerJs("$('#{$form->getId()} textarea').trigger('focus');");
-}
-
 $this->registerJs("
 // Expand message textarea
 $('#{$form->getId()} textarea').one('focus', function(event) {
@@ -72,6 +68,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
 ");
 
 if ($model->isNewRecord) {
+    $this->registerJs("$('#{$form->getId()} textarea').trigger('focus');");
     echo $form->field($model, 'subject');
 } else {
     echo Html::activeHiddenInput($model, 'id');
