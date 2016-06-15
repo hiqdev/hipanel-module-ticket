@@ -5,7 +5,8 @@ use hipanel\modules\ticket\models\Answer;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hiqdev\assets\autosize\AutosizeAsset;
 use hiqdev\assets\icheck\iCheckAsset;
-use kartik\widgets\TimePicker;
+use hipanel\widgets\TimePicker;
+use hipanel\widgets\FileInput;
 use yii\helpers\Html;
 
 OcticonsAsset::register($this);
@@ -44,7 +45,6 @@ CSS
 /**
  * @var Answer|\hipanel\modules\ticket\models\Thread $model
  */
-
 
 $form = ConditionalFormWidget::begin([
     'form' => isset($form) ? $form : null,
@@ -123,7 +123,7 @@ if ($model->isNewRecord) {
         <div class="row">
             <?php if ($model->isAttributeActive('file')) : ?>
                 <div class="col-md-12">
-                    <?= $form->field($model, 'file[]')->widget(\kartik\widgets\FileInput::className(), [
+                    <?= $form->field($model, 'file[]')->widget(FileInput::class, [
                         'options' => [
                             'multiple' => true,
                         ],
@@ -148,7 +148,7 @@ if ($model->isNewRecord) {
                         $is = $model instanceof Answer;
                         if (Yii::$app->user->can('support')) : ?>
                             <div class="pull-right">
-                                <?= $form->field($model, 'spent')->widget(TimePicker::className(), [
+                                <?= $form->field($model, 'spent')->widget(TimePicker::class, [
                                     'options' => [
                                         'value' => $model instanceof Answer
                                             ? (new DateTime('@' . (int)$model->spent * 60))->format('H:i')
@@ -182,5 +182,4 @@ if ($model->isNewRecord) {
     </div>
 </div>
 
-<?php
-ConditionalFormWidget::end();
+<?php ConditionalFormWidget::end() ?>

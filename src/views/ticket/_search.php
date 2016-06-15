@@ -1,8 +1,10 @@
 <?php
+
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
-use kartik\widgets\DatePicker;
 use yii\helpers\Html;
+
 /**
  * @var \hipanel\widgets\AdvancedSearch $search
  */
@@ -13,11 +15,11 @@ use yii\helpers\Html;
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('author_id')->widget(ClientCombo::classname()); ?>
+    <?= $search->field('author_id')->widget(ClientCombo::class); ?>
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('recipient_id')->widget(ClientCombo::classname(), [
+    <?= $search->field('recipient_id')->widget(ClientCombo::class, [
         'clientType' => 'client',
     ]) ?>
 </div>
@@ -37,7 +39,7 @@ use yii\helpers\Html;
     </div>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('state')->widget(StaticCombo::classname(), [
+    <?= $search->field('state')->widget(StaticCombo::class, [
         'data' => $state_data,
         'hasId' => true,
         'pluginOptions' => [
@@ -48,7 +50,7 @@ use yii\helpers\Html;
     ]) ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('responsible_id')->widget(ClientCombo::classname(), [
+    <?= $search->field('responsible_id')->widget(ClientCombo::class, [
         'clientType' => 'manager',
         'pluginOptions' => [
             'select2Options' => [
@@ -58,7 +60,7 @@ use yii\helpers\Html;
     ]); ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('topics')->widget(StaticCombo::classname(), [
+    <?= $search->field('topics')->widget(StaticCombo::class, [
         'data' => $topic_data,
         'hasId' => true,
         'pluginOptions' => [
@@ -69,13 +71,13 @@ use yii\helpers\Html;
     ]); ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('priority')->widget(StaticCombo::classname(), [
+    <?= $search->field('priority')->widget(StaticCombo::class, [
         'data' => $priority_data,
         'hasId' => true,
     ]) ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?php echo $search->field('watchers')->widget(ClientCombo::classname(), [
+    <?php echo $search->field('watchers')->widget(ClientCombo::class, [
         'clientType' => ['manager', 'admin', 'owner'],
         'hasId' => true,
         'pluginOptions' => [
