@@ -76,6 +76,10 @@ return [
     'Edit' => 'Редактивроать',
     'Message editing' => 'Редактирование сообщения',
     'Comment was updated' => 'Комментарий был изменен',
+    'Medium' => 'Средний',
+    'High' => 'Высокий',
+    'Opened' => 'Открыт',
+    'Closed' => 'Закрыт',
 
     /// AdvancedHosters ticket types
     'Technical' => 'Технический',
@@ -87,4 +91,12 @@ return [
     'Hardware ticket' => 'Железо',
     'Software ticket' => 'Софт',
     'Networking ticket' => 'Сетевой',
+
+    /// AHnames ticket types
+    'General question' => 'Общий вопрос',
+    'Financial question' => 'Финансовый',
+    'Technical question' => 'Технический',
+    'Administration' => 'Административный',
+    'Abuse' => 'Жалоба',
+    'Domain' => 'Домен',
 ];
