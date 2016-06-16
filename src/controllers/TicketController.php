@@ -23,6 +23,7 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\models\File;
+use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
@@ -228,8 +229,8 @@ class TicketController extends \hipanel\base\CrudController
     protected function prepareRefs()
     {
         return [
-            'topic_data' => $this->getRefs('topic,ticket'),
-            'state_data' => $this->GetClassRefs('state'),
+            'topic_data' => $this->getRefs('topic,ticket', 'hipanel/ticket'),
+            'state_data' => $this->getClassRefs('state', 'hipanel/ticket'),
             'priority_data' => $this->getPriorities(),
         ];
     }
@@ -384,5 +385,10 @@ class TicketController extends \hipanel\base\CrudController
     private function getSearchOptions()
     {
         return ['with_anonym' => 1, 'with_answers' => 1, 'with_files' => 1, 'show_closed' => 1];
+    }
+
+    public function getPriorities()
+    {
+        return $this->getRefs('type,priority', 'hipanel/ticket');
     }
 }

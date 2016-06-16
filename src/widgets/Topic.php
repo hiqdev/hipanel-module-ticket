@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\ticket\widgets;
 
+use Yii;
 use yii\helpers\Html;
 use yii\jui\Widget;
 
@@ -34,10 +35,10 @@ class Topic extends Widget
     public function run()
     {
         if ($this->topics) {
-            $html = '';
-            $html .= '<ul class="list-inline">';
+            $html = '<ul class="list-inline">';
             foreach ($this->topics as $item => $label) {
-                $html .= Html::tag('li', '<span class="label ' . $this->_getColor($item) . '">' . $label . '</span>');
+                $label = Yii::t('hipanel/ticket', $label);
+                $html .= Html::tag('li', Html::tag('span', $label, ['class' => 'label ' . $this->_getColor($item)]));
             }
             $html .= '</ul>';
             echo $html;

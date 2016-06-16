@@ -45,8 +45,8 @@ class AnswerController extends \hipanel\base\CrudController
     protected function prepareRefs()
     {
         return [
-            'topic_data'    => $this->getRefs('topic,ticket'),
-            'state_data'    => $this->GetClassRefs('state'),
+            'topic_data'    => $this->getRefs('topic,ticket', 'hipanel/ticket'),
+            'state_data'    => $this->getClassRefs('state', 'hipanel/ticket'),
             'priority_data' => $this->getPriorities(),
         ];
     }
