@@ -75,5 +75,17 @@ return [
     'Answer' => 'Ответить',
     'Edit' => 'Редактивроать',
     'Message editing' => 'Редактирование сообщения',
-    'Comment was updated' => 'Комментарий был изменен'
+    'Comment was updated' => 'Комментарий был изменен',
+
+
+    /// AdvancedHosters ticket types
+    'Technical' => 'Технический',
+    'Administrative' => 'Административный',
+    'Financial' => 'Финансовый',
+    'IP ticket' => 'IP тикет',
+    'Movement' => 'Перенос',
+    'Domain ticket' => 'Доменный',
+    'Hardware ticket' => 'Железо',
+    'Software ticket' => 'Софт',
+    'Networking ticket' => 'Сетевой',
 ];
