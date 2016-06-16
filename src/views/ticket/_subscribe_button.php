@@ -18,14 +18,15 @@ Pjax::begin(array_merge(Yii::$app->params['pjax'], [
 ]));
 
 if (is_array($model->watchers)) {
-    echo Html::tag('p', Yii::t('hipanel/ticket', 'Watchers'), ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;']); ?>
+    echo Html::tag('p', Yii::t('hipanel/ticket', 'Watchers'), ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;']);
+    ?>
     <div class="margin-bottom">
         <?php foreach ($model->watchers as $watcherId => $watcher) {
-            $piece            = explode(' ', $watcher);
-            $watcherEmailHash = array_pop(explode(' ', $watcher));
-            if ($watcherEmailHash) {
-                print Html::beginTag('a', ['href' => Url::toRoute(['@client/view', 'id' => $watcherId])]);
-                print Gravatar::widget([
+    $piece            = explode(' ', $watcher);
+    $watcherEmailHash = array_pop(explode(' ', $watcher));
+    if ($watcherEmailHash) {
+        echo Html::beginTag('a', ['href' => Url::toRoute(['@client/view', 'id' => $watcherId])]);
+        echo Gravatar::widget([
                     'emailHash'    => $watcherEmailHash,
                     'options'      => [
                         'class' => 'img-circle',
@@ -34,12 +35,13 @@ if (is_array($model->watchers)) {
                     ],
                     'size' => 32,
                 ]);
-                print Html::endTag('a');
-            }
-
-        } ?>
+        echo Html::endTag('a');
+    }
+}
+    ?>
     </div>
-<?php }
+<?php
+}
 
 $subscribed = array_key_exists(Yii::$app->user->identity->id, $model->watchers ?: []);
 if ($subscribed) {

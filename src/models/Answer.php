@@ -11,12 +11,8 @@
 
 namespace hipanel\modules\ticket\models;
 
-use hipanel\helpers\ArrayHelper;
-use hipanel\modules\client\models\Client;
-use stdClass;
 use Yii;
 use yii\helpers\Html as Html;
-use yii\helpers\Markdown as Markdown;
 
 /**
  * Class Ticket.
@@ -117,7 +113,7 @@ class Answer extends \hipanel\base\Model
             [
                 ['id', 'answer_id', 'spent', 'spent_hours'],
                 'integer',
-                'enableClientValidation' => false
+                'enableClientValidation' => false,
             ],
             [
                 ['message', 'id', 'answer_id'],
@@ -135,11 +131,10 @@ class Answer extends \hipanel\base\Model
                 'on' => 'update',
                 'when' => function () {
                     return Yii::$app->user->can('support');
-                }
-            ]
+                },
+            ],
         ];
     }
-
 
     /**
      * {@inheritdoc}

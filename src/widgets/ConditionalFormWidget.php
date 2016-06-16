@@ -1,8 +1,16 @@
 <?php
 
+/*
+ * HiPanel tickets module
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-ticket
+ * @package   hipanel-module-ticket
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ */
+
 namespace hipanel\modules\ticket\widgets;
 
-use Yii;
 use yii\base\InvalidCallException;
 use yii\base\Widget;
 use yii\widgets\ActiveForm;
@@ -36,7 +44,6 @@ use yii\widgets\ActiveForm;
  * This class must be used only with `::begin()` and `::end()` methods.
  *
  * @author Dmitry Naumenko <d.naumenko.a@gmail.com>
- * @package hipanel\modules\ticket\widgets
  */
 class ConditionalFormWidget extends Widget
 {
@@ -63,10 +70,11 @@ class ConditionalFormWidget extends Widget
     {
         /** @var $widget static */
         $widget = parent::begin($config);
+
         return $widget->form;
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function init()
     {
         if (!isset($this->form)) {
@@ -75,7 +83,7 @@ class ConditionalFormWidget extends Widget
         }
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function run()
     {
         if ($this->closeForm) {

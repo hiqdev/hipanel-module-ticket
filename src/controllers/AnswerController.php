@@ -11,7 +11,6 @@
 
 namespace hipanel\modules\ticket\controllers;
 
-
 use hipanel\actions\RedirectAction;
 use hipanel\actions\SmartPerformAction;
 use Yii;
@@ -31,6 +30,7 @@ class AnswerController extends \hipanel\base\CrudController
                         'class'       => RedirectAction::class,
                         'url'        => function () {
                             $answer = Yii::$app->request->post('Answer');
+
                             return ['@ticket/view', 'id' => $answer['id']];
                         },
                     ],

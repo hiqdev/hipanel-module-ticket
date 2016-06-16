@@ -77,7 +77,6 @@ return [
     'Message editing' => 'Редактирование сообщения',
     'Comment was updated' => 'Комментарий был изменен',
 
-
     /// AdvancedHosters ticket types
     'Technical' => 'Технический',
     'Administrative' => 'Административный',

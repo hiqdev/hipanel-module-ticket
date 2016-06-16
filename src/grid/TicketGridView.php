@@ -50,6 +50,7 @@ class TicketGridView extends BoxedGridView
                             Yii::t('hipanel/ticket', 'Last answer') . ': ' . $model->replier_name . ' ' . Yii::$app->formatter->asDatetime($model->reply_time),
                             ['@client/view', 'id' => $model->replier_id],
                             ['class' => 'label label-default', 'style' => 'font-size: x-small;']);
+
                     return $ava . $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
                 },
 
@@ -103,10 +104,11 @@ class TicketGridView extends BoxedGridView
                         ['class' => '']) . '<br>' .
                         Html::tag('span', Yii::$app->formatter->asRelativeTime($model->reply_time), ['style' => 'font-size: smaller;', 'class' => 'text-muted']) .
                         '&nbsp;&nbsp;' . $answerCount;
+
                     return $lastAnswer;
                 },
                 'contentOptions' => [
-                    'class' => 'answer'
+                    'class' => 'answer',
                 ],
             ],
             'actions' => [
@@ -121,6 +123,7 @@ class TicketGridView extends BoxedGridView
                         } elseif ($model->state === Thread::STATE_CLOSE) {
                             $out .= Html::a(Yii::t('hipanel/ticket', 'Open'), ['open', 'id' => $model->id]);
                         }
+
                         return $out;
                     },
                 ],

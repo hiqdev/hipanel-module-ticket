@@ -45,7 +45,7 @@ JS
 <div class="box box-success">
     <div class="box-header">
         <i class="fa fa-comments-o"></i>
-        <?= Html::tag('h3', Yii::t('hipanel/ticket', 'Chat'), ['class' => 'box-title']); ?>
+        <?= Html::tag('h3', Yii::t('hipanel/ticket', 'Chat'), ['class' => 'box-title']) ?>
         <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
             <!--div class="btn-group" data-toggle="btn-toggle" >
                 <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>
@@ -60,9 +60,9 @@ JS
                 <?php foreach ($model->answers as $answer_id => $answer) : ?>
                     <?php if (ArrayHelper::getValue($answer, 'message') !== null) : ?>
                         <?= Html::beginTag('li', ['class' => ($answer['is_answer']) ? 'out' : 'in', 'id' => 'answer-' . $answer['answer_id']]) ?>
-                        <?php if ($answer['author'] == 'anonym') {
-                            $answer['email'] = $model->anonym_email;
-                        } ?>
+                        <?php if ($answer['author'] == 'anonym') : ?>
+                            <?php $answer['email'] = $model->anonym_email ?>
+                        <?php endif ?>
                         <?php if (isset($answer['email']) && filter_var($answer['email'], FILTER_VALIDATE_EMAIL)) : ?>
                             <?= Gravatar::widget([
                                 'email'        => $answer['email'],
@@ -72,38 +72,38 @@ JS
                                     'class' => 'avatar',
                                 ],
                                 'size' => 45,
-                            ]); ?>
-                        <?php endif; ?>
+                            ]) ?>
+                        <?php endif ?>
 
                         <div class="message">
                             <span class="arrow"></span>
 
                             <div class="info">
-                                <?= Html::a($answer['author'], ['@client/view', 'id' => $answer['author_id']], ['class' => 'name']); ?>&nbsp;
+                                <?= Html::a($answer['author'], ['@client/view', 'id' => $answer['author_id']], ['class' => 'name']) ?>&nbsp;
                                 <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer['create_time']), ['class' => 'datetime']) ?>&nbsp;
-                                <?php if ($answer['spent']) { ?>
+                                <?php if ($answer['spent']) : ?>
                                     <?= Html::tag('span', Yii::t('hipanel/ticket', 'Time spent: {n}', ['n' => $answer['spent']]), ['class' => 'spent-time']) ?>
-                                <?php } ?>&nbsp;
+                                <?php endif ?>&nbsp;
                             </div>
 
                             <div class="buttons">
-                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Quote', ['i' => '<span class="fa fa-quote-left"></span>&nbsp;&nbsp;']), ['class' => 'quote-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); ?>
-                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Hide', ['i' => '<span class="fa fa-minus"></span>&nbsp;&nbsp;']), ['class' => 'hide-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); ?>
-                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Show', ['i' => '<span class="fa fa-plus"></span>&nbsp;&nbsp;']), ['class' => 'show-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']], 'style' => 'display: none;']); ?>
+                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Quote', ['i' => '<span class="fa fa-quote-left"></span>&nbsp;&nbsp;']), ['class' => 'quote-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]) ?>
+                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Hide', ['i' => '<span class="fa fa-minus"></span>&nbsp;&nbsp;']), ['class' => 'hide-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]) ?>
+                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Show', ['i' => '<span class="fa fa-plus"></span>&nbsp;&nbsp;']), ['class' => 'show-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']], 'style' => 'display: none;']) ?>
                                 <?php /* = Html::button(Yii::t('hipanel/ticket', '{i}Split', ['i' => '<span class="fa fa-scissors"></span>&nbsp;&nbsp;']), ['class' => 'split-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); */ ?>
                             </div>
 
                             <div class="clearfix"></div>
 
-                            <?= Html::tag('span', Thread::parseMessage($answer['message']), ['class' => 'body']); ?>
+                            <?= Html::tag('span', Thread::parseMessage($answer['message']), ['class' => 'body']) ?>
                             <?php if (ArrayHelper::getValue($answer, 'files') !== null) : ?>
-                                <?= $this->render('_attachment', ['attachment' => $answer['files'], 'object_id' => $model->id, 'object_name' => 'thread', 'answer_id' => $answer_id]); ?>
-                            <?php endif; ?>
+                                <?= $this->render('_attachment', ['attachment' => $answer['files'], 'object_id' => $model->id, 'object_name' => 'thread', 'answer_id' => $answer_id]) ?>
+                            <?php endif ?>
 
                         </div>
-                        <?= Html::endTag('li'); ?>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                        <?= Html::endTag('li') ?>
+                    <?php endif ?>
+                <?php endforeach ?>
             </ul>
         </div>
     </div><!-- /.chat -->

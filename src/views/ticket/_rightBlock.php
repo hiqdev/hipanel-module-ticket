@@ -11,10 +11,9 @@ use yii\web\JsExpression;
 use yii\web\View;
 
 /**
- * @var View $this
+ * @var View
  * @var \hipanel\modules\ticket\models\Thread $model
  */
-
 ThreadCheckerAsset::register($this);
 
 $threadCheckerOptions = Json::encode([
@@ -109,8 +108,8 @@ JS
                         $('#update-answer-modal .modal-body').html(data);
                     }
                 });
-            }")
-        ]
+            }"),
+        ],
     ]) ?>
 
 <?php $box->end() ?><!-- /.box (chat box) -->

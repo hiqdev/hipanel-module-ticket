@@ -43,9 +43,8 @@ CSS
 );
 
 /**
- * @var Answer|\hipanel\modules\ticket\models\Thread $model
+ * @var Answer|\hipanel\modules\ticket\models\Thread
  */
-
 $form = ConditionalFormWidget::begin([
     'form' => isset($form) ? $form : null,
     'options' => [
@@ -55,7 +54,7 @@ $form = ConditionalFormWidget::begin([
             'enctype' => 'multipart/form-data',
             'class' => 'leave-comment-form',
         ],
-    ]
+    ],
 ]);
 
 $this->registerJs("
@@ -105,7 +104,7 @@ if ($model->isNewRecord) {
                 <?= $form->field($model, 'message')->textarea([
                     'rows' => 1,
                     'placeholder' => Yii::t('hipanel/ticket', 'Compose your message here'),
-                    'class' => ['form-control message-text']
+                    'class' => ['form-control message-text'],
                 ])->label(false); ?>
 
             </div>
@@ -148,8 +147,8 @@ if ($model->isNewRecord) {
                                 <?= $form->field($model, 'spent')->widget(TimePicker::class, [
                                     'options' => [
                                         'value' => $model instanceof Answer
-                                            ? (new DateTime('@' . (int)$model->spent * 60))->format('H:i')
-                                            : '00:00'
+                                            ? (new DateTime('@' . (int) $model->spent * 60))->format('H:i')
+                                            : '00:00',
                                     ],
                                     'pluginOptions' => [
                                         'showSeconds' => false,

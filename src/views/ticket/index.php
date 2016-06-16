@@ -1,7 +1,6 @@
 <?php
 
 use hipanel\modules\ticket\grid\TicketGridView;
-use hipanel\widgets\ActionBox;
 use hipanel\widgets\IndexLayoutSwitcher;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;

@@ -27,6 +27,7 @@ class Topic extends Widget
            'domain'    => 'label-success',
            'financial' => 'label-warning',
         ];
+
         return $colors[$item] ?: reset($colors);
     }
 

@@ -245,6 +245,7 @@ class Thread extends \hipanel\base\Model
             list($login, $email) = explode(' ', $watcher);
             $results[$id] = $login;
         }
+
         return $results;
     }
 
@@ -257,6 +258,7 @@ class Thread extends \hipanel\base\Model
             $object->text = $label;
             $result[] = $object;
         }
+
         return $result;
     }
 
@@ -279,8 +281,8 @@ class Thread extends \hipanel\base\Model
     /**
      * @param integer $id
      * @param bool $throwOnError whether to throw an exception when answer is not found in thread
-     * @return Answer
      * @throws NotFoundHttpException
+     * @return Answer
      */
     public function getAnswer($id, $throwOnError = true)
     {

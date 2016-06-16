@@ -55,8 +55,8 @@ class TicketController extends \hipanel\base\CrudController
             'set-orientation' => [
                 'class' => OrientationAction::class,
                 'allowedRoutes' => [
-                    '@ticket/index'
-                ]
+                    '@ticket/index',
+                ],
             ],
             'index' => [
                 'class' => IndexAction::class,
@@ -86,6 +86,7 @@ class TicketController extends \hipanel\base\CrudController
                         $client->email = $action->model->anonym_email;
                         $client->seller = $action->model->anonym_seller;
                     }
+
                     return array_merge(compact('client'), $this->prepareRefs());
                 },
             ],
@@ -206,7 +207,7 @@ class TicketController extends \hipanel\base\CrudController
                     }
 
                     return ArrayHelper::merge($data, [
-                        'answer_id' => $answer_id
+                        'answer_id' => $answer_id,
                     ]);
                 },
                 'findOptions' => $this->getSearchOptions(),
@@ -363,7 +364,8 @@ class TicketController extends \hipanel\base\CrudController
 
                 $result['html'] = $this->renderPartial('_comments', ['model' => reset($models)]);
             }
-        } catch (ErrorResponseException $e) {}
+        } catch (ErrorResponseException $e) {
+        }
 
         return $result;
     }

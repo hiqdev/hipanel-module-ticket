@@ -1,16 +1,14 @@
 <?php
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\modules\ticket\models\Thread;
-use hiqdev\combo\ComboAsset;
 use hiqdev\combo\StaticCombo;
 use hiqdev\xeditable\widgets\ComboXEditable;
 use hiqdev\xeditable\widgets\XEditable;
 use yii\widgets\ActiveForm;
 
 /**
- * @var $model Thread
+ * @var Thread
  */
-
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -20,9 +18,8 @@ use yii\widgets\ActiveForm;
 
     <!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
-    <?php
-    $model->topics = 'general';
-    print $form->field($model, 'topics')->widget(StaticCombo::className(), [
+    <?php $model->topics = 'general' ?>
+    <?= $form->field($model, 'topics')->widget(StaticCombo::class, [
         'hasId' => true,
         'pluginOptions' => [
             'select2Options' => [
@@ -30,7 +27,7 @@ use yii\widgets\ActiveForm;
             ],
         ],
         'data' => $topic_data,
-    ]); ?>
+    ]) ?>
 <?php else : ?>
     <ul class="list-group ticket-list-group">
         <li class="list-group-item">
@@ -44,23 +41,21 @@ use yii\widgets\ActiveForm;
                             'source' => $model->xFormater($topic_data),
                             'placement' => 'bottom',
                         ],
-                    ]); ?>
+                    ]) ?>
                 </span>
-            <?= $model->getAttributeLabel('topics'); ?>
+            <?= $model->getAttributeLabel('topics') ?>
             <div class="clearfix"></div>
         </li>
     </ul>
-<?php endif; ?>
+<?php endif ?>
     <div class="clearfix"></div>
     <!-- Priority -->
 <?php if ($model->isNewRecord) : ?>
-    <?php
-    $model->priority = 'medium';
-    print $form->field($model, 'priority')->widget(StaticCombo::classname(), [
+    <?php $model->priority = 'medium' ?>
+    <?= $form->field($model, 'priority')->widget(StaticCombo::class, [
         'data' => $priority_data,
         'hasId' => true,
-    ]);
-    ?>
+    ]) ?>
 <?php else : ?>
     <ul class="list-group ticket-list-group">
         <li class="list-group-item">
@@ -73,19 +68,19 @@ use yii\widgets\ActiveForm;
                             'type' => 'select',
                             'source' => $priority_data,
                         ],
-                    ]); ?>
+                    ]) ?>
                 </span>
-            <?= $model->getAttributeLabel('priority'); ?>
+            <?= $model->getAttributeLabel('priority') ?>
         </li>
     </ul>
-<?php endif; ?>
+<?php endif ?>
 <?php if (Yii::$app->user->can('support')) : ?>
     <?php if ($model->isNewRecord) : ?>
-        <?php $model->responsible_id = Yii::$app->user->id; ?>
+        <?php $model->responsible_id = Yii::$app->user->id ?>
         <!-- Responsible -->
-        <?= $form->field($model, 'responsible')->widget(ClientCombo::classname(), [
+        <?= $form->field($model, 'responsible')->widget(ClientCombo::class, [
             'clientType' => $model->getResponsibleClientTypes(),
-        ]); ?>
+        ]) ?>
     <?php else : ?>
         <ul class="list-group ticket-list-group">
             <li class="list-group-item">
@@ -94,10 +89,10 @@ use yii\widgets\ActiveForm;
                         'model' => $model,
                         'attribute' => 'responsible',
                         'combo' => [
-                            'class' => ClientCombo::className(),
+                            'class' => ClientCombo::class,
                             'clientType' => $model->getResponsibleClientTypes(),
                             'inputOptions' => [
-                                'class' => 'hidden'
+                                'class' => 'hidden',
                             ],
                             'pluginOptions' => [
                                 'select2Options' => [
@@ -108,9 +103,9 @@ use yii\widgets\ActiveForm;
                         'pluginOptions' => [
                             'placement' => 'bottom',
                         ],
-                    ]); ?>
+                    ]) ?>
                 </span>
-                <?= $model->getAttributeLabel('responsible'); ?>
+                <?= $model->getAttributeLabel('responsible') ?>
             </li>
         </ul>
 
@@ -125,8 +120,8 @@ use yii\widgets\ActiveForm;
                             'alt' => '',
                             'class' => 'img-circle',
                         ],
-                    ]); ?>
-                    <?= Html::a($model->responsible, ['/client/client/view', 'id' => $model->responsible_id]); ?>
+                    ]) ?>
+                    <?= Html::a($model->responsible, ['/client/client/view', 'id' => $model->responsible_id]) ?>
                 </span>
                 <?= $model->getAttributeLabel('responsible_id') ?>
             </li> */ ?>
@@ -135,25 +130,25 @@ use yii\widgets\ActiveForm;
                 <?= Yii::t('hipanel/ticket', 'Spent time') ?>
             </li>
         </ul>
-    <?php endif; ?>
+    <?php endif ?>
 
     <!-- Watchers -->
-    <?php if (Yii::$app->user->can('support')) { ?>
-        <?php if ($model->isNewRecord) { ?>
-            <?= $form->field($model, 'watchers')->widget(ClientCombo::classname(), [
+    <?php if (Yii::$app->user->can('support')) : ?>
+        <?php if ($model->isNewRecord) : ?>
+            <?= $form->field($model, 'watchers')->widget(ClientCombo::class, [
                 'clientType' => $model->getResponsibleClientTypes(),
                 'pluginOptions' => [
                     'select2Options' => [
                         'multiple' => true,
                     ],
                 ],
-            ]); ?>
-        <?php } else { ?>
+            ]) ?>
+        <?php else: ?>
             <?php /*
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
-                        <div class="col-sm-4"><?= $model->getAttributeLabel('watchers'); ?>:</div>
+                        <div class="col-sm-4"><?= $model->getAttributeLabel('watchers') ?>:</div>
                         <div class="col-sm-8">
                             <span class="form-control-static">
                                 <?php
@@ -163,7 +158,7 @@ use yii\widgets\ActiveForm;
                                     'model' => $model,
                                     'attribute' => 'watchers',
                                     'combo' => [
-                                        'class' => ClientCombo::className(),
+                                        'class' => ClientCombo::class,
                                         'clientType' => ['manager', 'admin', 'owner'],
                                         'inputOptions' => [
                                             'class' => 'hidden'
@@ -188,14 +183,12 @@ use yii\widgets\ActiveForm;
                 </div>
             </div>
             */ ?>
-        <?php } ?>
-    <?php } ?>
-    <?php if ($model->isNewRecord) {
-        $model->recipient_id = \Yii::$app->user->identity->id;
-        print $form->field($model, 'recipient_id')->widget(ClientCombo::classname());
-    } ?>
-<?php endif; ?>
+        <?php endif ?>
+    <?php endif ?>
+    <?php if ($model->isNewRecord) : ?>
+        <?php $model->recipient_id = Yii::$app->user->identity->id ?>
+        <?= $form->field($model, 'recipient_id')->widget(ClientCombo::class) ?>
+    <?php endif ?>
+<?php endif ?>
 
-<?php
-$form->end();
-
+<?php $form->end() ?>
