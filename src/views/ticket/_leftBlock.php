@@ -58,7 +58,7 @@ $form = ConditionalFormWidget::begin([
             ],
         ]) ?>
 
-            <?= $this->render('_advanced_form', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>
+            <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>
 
             <?php /*
             <?php if ($model->priority == 'medium') : ?>
@@ -89,7 +89,7 @@ $form = ConditionalFormWidget::begin([
 
             <?php $box->beginFooter() ?>
                 <?php if (!$model->isNewRecord) : ?>
-                    <?= $this->render('_subscribe_button', compact('model')) ?>
+                    <?= $this->render('_subscribeButton', compact('model')) ?>
                 <?php endif ?>
             <?php $box->endFooter() ?>
 
