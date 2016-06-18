@@ -92,6 +92,12 @@ return [
     'Software ticket' => 'Софт',
     'Networking ticket' => 'Сетевой',
 
+    /// AdvandedHosters ticket priorities
+    'low priority' => 'низкий приоритет',
+    'Medium priority' => 'Средний приоритет',
+    'High Priority' => 'Высокий приоритет',
+    'ULTRAHIGH PRIORITY' => '',
+
     /// AHnames ticket types
     'General question' => 'Общий вопрос',
     'Financial question' => 'Финансовый',
