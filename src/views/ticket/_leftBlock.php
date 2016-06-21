@@ -98,37 +98,6 @@ $form = ConditionalFormWidget::begin([
 
 <?php if ($client) : ?>
     <div class="col-md-12">
-        <?php /*
-        <?php if (is_array($model->watcher) && in_array(Yii::$app->user->identity->username, $model->watcher)) : ?>
-            <?= Html::a('<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Unsubscribe'), ['unsubscribe', 'id' => $model->id], ['class' => 'btn  btn-primary btn-block']) ?>
-        <?php else : ?>
-            <?= Html::a('<i class="fa fa-eye"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Subscribe'), ['subscribe', 'id' => $model->id], ['class' => 'btn  btn-primary btn-block']) ?>
-        <?php endif ?>
-
-        <?php if ($model->priority == 'medium') : ?>
-            <?= Html::a('<span class="glyphicon glyphicon-arrow-up"></span>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Increase'), ['priority-up', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
-        <?php else : ?>
-            <?= Html::a('<span class="glyphicon glyphicon-arrow-down"></span>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Lower'), ['priority-down', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
-        <?php endif ?>
-
-        <?php if ($model->state=='opened') : ?>
-            <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Close'), ['close', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-block margin-bottom',
-                'data' => [
-                    'confirm' => Yii::t('hipanel/ticket', 'Are you sure you want to close this ticket?'),
-                    'method' => 'post',
-                ],
-            ]) ?>
-        <?php else : ?>
-            <?= Html::a('<i class="fa fa-close"></i>&nbsp;&nbsp;'.Yii::t('hipanel/ticket', 'Open'), ['open', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-block margin-bottom',
-                'data' => [
-                    'confirm' => Yii::t('hipanel/ticket', 'Are you sure you want to open this ticket?'),
-                    'method' => 'post',
-                ],
-            ]) ?>
-        <?php endif ?>
-        */ ?>
         <?php $box = Box::begin([
             'options' => [
                 'class' => 'box-solid',
@@ -147,7 +116,7 @@ $form = ConditionalFormWidget::begin([
                     'clientIdAttribute' => 'id',
                 ]) ?>
             </div>
-            <div class="profile-user-role"><?= $client->type ?></div>
+            <div class="profile-user-role"><?= Yii::t('hipanel/client', $client->type) ?></div>
         </div>
         <?php $box->beginFooter() ?>
         <div class="table-responsive">
