@@ -52,7 +52,7 @@ CSS
     <?= $page->setSearchFormData(compact(['state_data', 'topic_data', 'priority_data'])) ?>
 
     <?php $page->beginContent('main-actions') ?>
-        <?= Html::a(Yii::t('hipanel/ticket', 'Create ticket'), 'create', ['class' => 'btn btn-sm margin-bottom btn-success']) ?>
+        <?= Html::a(Yii::t('hipanel/ticket', 'Create ticket'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('show-actions') ?>
