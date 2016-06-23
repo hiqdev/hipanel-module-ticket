@@ -94,7 +94,7 @@ class TicketGridView extends BoxedGridView
                         $model->replier,
                         ['@client/view', 'id' => $model->replier_id],
                         ['class' => '']) . '<br>' .
-                        Html::tag('span', Yii::$app->formatter->asRelativeTime($model->reply_time), ['style' => 'font-size: smaller;', 'class' => 'text-muted']) .
+                        Html::tag('span', Yii::$app->formatter->asRelativeTime($model->reply_time), ['style' => 'font-size: smaller;white-space: nowrap;', 'class' => 'text-muted']) .
                         '&nbsp;&nbsp;' . $answerCount;
 
                     return $lastAnswer;
