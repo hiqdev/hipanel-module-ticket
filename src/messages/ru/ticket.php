@@ -80,6 +80,7 @@ return [
     'High' => 'Высокий',
     'Opened' => 'Открыт',
     'Closed' => 'Закрыт',
+    'Template' => 'Шаблон',
 
     /// AdvancedHosters ticket types
     'Technical' => 'Технический',
