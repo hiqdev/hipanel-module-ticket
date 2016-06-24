@@ -21,6 +21,7 @@ $threadCheckerOptions = Json::encode([
     'lastAnswerId' => $model->getMaxAnswerId(),
     'ajax' => ['url' => Url::to('@ticket/get-new-answers')],
 ]);
+
 $this->registerJs(<<<JS
 $('.widget-article-comments').threadChecker($threadCheckerOptions);
 
@@ -36,7 +37,6 @@ $('.message-block-move-btn').on('click', function () {
 
 $(".comment-quote-button").on("click", function(event) {
     event.preventDefault();
-    var ta = document.querySelector('textarea');
     var chatInput = $('#thread-message');
     var answer_id = $(this).data('answer-id');
     var overlay = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
@@ -54,13 +54,8 @@ $(".comment-quote-button").on("click", function(event) {
         formBox.find('.overlay').remove(); // Remove ajax spiner
         scrollTo('.comment-tab');
         $('.comment-tab a[href="#message"').tab('show'); // Open tab
+        chatInput.val(data).trigger('blur');
         chatInput.focus(); // Scroll to form
-        chatInput.val(data);
-
-        // Dispatch a 'autosize:update' event to trigger a resize:
-        var evt = document.createEvent('Event');
-        evt.initEvent('autosize:update', true, false);
-        ta.dispatchEvent(evt);
     });
 });
 JS
@@ -112,4 +107,4 @@ JS
         ],
     ]) ?>
 
-<?php $box->end() ?><!-- /.box (chat box) -->
+<?php $box->end() ?>

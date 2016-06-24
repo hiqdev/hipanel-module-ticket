@@ -1,13 +1,16 @@
 <?php
 
 use hipanel\assets\OcticonsAsset;
+use hipanel\helpers\Url;
 use hipanel\modules\ticket\models\Answer;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
+use hipanel\modules\ticket\widgets\TemplateCombo;
 use hiqdev\assets\autosize\AutosizeAsset;
 use hiqdev\assets\icheck\iCheckAsset;
 use hipanel\widgets\TimePicker;
 use hipanel\widgets\FileInput;
 use yii\helpers\Html;
+use yii\web\JsExpression;
 
 OcticonsAsset::register($this);
 iCheckAsset::register($this);
@@ -43,7 +46,8 @@ CSS
 );
 
 /**
- * @var Answer|\hipanel\modules\ticket\models\Thread
+ * @var Answer|\hipanel\modules\ticket\models\Thread $model
+ * @var \yii\web\View $this
  */
 $form = ConditionalFormWidget::begin([
     'form' => isset($form) ? $form : null,
@@ -63,6 +67,9 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
     $(this).closest('form').find('.hidden-form-inputs').toggle();
     $(this).attr('rows', '5');
     autosize(this);
+    $(this).on('blur', function () {
+        autosize.update(this);
+    });
 });
 ");
 
@@ -116,6 +123,9 @@ if ($model->isNewRecord) {
         </div>
     </div>
     <div class="hidden-form-inputs">
+        <div class="row">
+            <?= \hipanel\modules\ticket\widgets\TemplatesWidget::widget() ?>
+        </div>
         <div class="row">
             <?php if ($model->isAttributeActive('file')) : ?>
                 <div class="col-md-12">

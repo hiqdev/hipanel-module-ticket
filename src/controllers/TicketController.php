@@ -17,6 +17,7 @@ use hipanel\actions\OrientationAction;
 use hipanel\actions\PrepareAjaxViewAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\ProxyAction;
+use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
@@ -24,6 +25,8 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\models\File;
 use hipanel\models\Ref;
+use hipanel\modules\client\models\Article;
+use hipanel\modules\client\models\ArticleSearch;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
@@ -31,6 +34,7 @@ use hipanel\modules\ticket\models\TicketSettings;
 use hiqdev\hiart\ErrorResponseException;
 use Yii;
 use yii\base\Event;
+use yii\filters\PageCache;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -48,6 +52,20 @@ class TicketController extends \hipanel\base\CrudController
     public static function modelClassName()
     {
         return Thread::className();
+    }
+
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+            [
+                'class' => PageCache::class,
+                'only' => ['templates'],
+                'duration' => 7200, // 2h
+                'variations' => [
+                    Yii::$app->user->getId(),
+                ],
+            ]
+        ]);
     }
 
     public function actions()
@@ -73,7 +91,6 @@ class TicketController extends \hipanel\base\CrudController
                     $dataProvider->query->joinWith('answers');
                 },
                 'data' => function ($action) {
-                    $ip = Yii::$app->request->getUserIP();
                     $client = Client::find()
                         ->withDomains()
                         ->withServers()
@@ -215,6 +232,15 @@ class TicketController extends \hipanel\base\CrudController
                 'scenario' => 'answer-update',
                 'view' => '_updateAnswerModal',
             ],
+            'templates' => [
+                'class' => SearchAction::class,
+                'searchModel' => ArticleSearch::class,
+                'collection' => ['model' => Article::class],
+                'findOptions' => [
+                    'realm' => 'ticket_template',
+                    'with_data' => true,
+                ]
+            ],
         ];
     }
 
@@ -233,6 +259,25 @@ class TicketController extends \hipanel\base\CrudController
             'state_data' => $this->getClassRefs('state', 'hipanel/ticket'),
             'priority_data' => $this->getPriorities(),
         ];
+    }
+
+    public function actionTemplateText($id, $lang)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $result = [];
+
+        try {
+            $template = Article::find()->ticketTemplates()->andWhere(['id' => $id])->one();
+        } catch (ErrorResponseException $e) {
+            return [];
+        }
+
+        if (isset($template->data[$lang])) {
+            $result['text'] = $template->data[$lang]['text'];
+        }
+
+        return $result;
     }
 
     /**

@@ -4,7 +4,7 @@ use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
 
-$this->title                   = $model->threadViewTitle;
+$this->title = $model->threadViewTitle;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/ticket', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = StringHelper::truncateWords($model->threadViewTitle, 5);
 
