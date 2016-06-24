@@ -236,6 +236,7 @@ class TicketController extends \hipanel\base\CrudController
                 'class' => SearchAction::class,
                 'searchModel' => ArticleSearch::class,
                 'collection' => ['model' => Article::class],
+                'dataProviderOptions' => ['pagination' => false],
                 'findOptions' => [
                     'realm' => 'ticket_template',
                     'with_data' => true,
