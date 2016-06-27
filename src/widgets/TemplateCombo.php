@@ -23,13 +23,13 @@ class TemplateCombo extends Combo
     public $type = 'ticket/template';
 
     /** @inheritdoc */
-    public $url = '@ticket/templates';
+    public $url = '@ticket/template/search';
 
     /** @inheritdoc */
     public $_return = ['id'];
 
     /** @inheritdoc */
-    public $_rename = ['text' => 'article_name'];
+    public $_rename = ['text' => 'name'];
 
     public function getPluginOptions($options = [])
     {

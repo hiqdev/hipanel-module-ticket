@@ -11,8 +11,9 @@
 
 return [
     'aliases' => [
-        '@ticket'        => '/ticket/ticket',
+        '@ticket' => '/ticket/ticket',
         '@ticket/answer' => '/ticket/answer',
+        '@ticket/template' => '/ticket/template',
     ],
     'modules' => [
         'ticket' => [

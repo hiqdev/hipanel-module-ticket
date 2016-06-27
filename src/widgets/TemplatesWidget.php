@@ -2,7 +2,7 @@
 
 namespace hipanel\modules\ticket\widgets;
 
-use hipanel\modules\client\models\Article;
+use hipanel\modules\ticket\models\Template;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
@@ -47,27 +47,28 @@ class TemplatesWidget extends Widget
 
     protected function getLanguages()
     {
-        $result = [];
+        return Yii::$app->cache->getAuthTimeCached(86400, [], function () { // 1d
+            $result = [];
 
-        $templates = Article::find()->ticketTemplates()->all();
-        $data = ArrayHelper::getColumn($templates, 'data');
+            $templates = Template::find()->joinWith('texts')->all();
 
-        foreach ($data as $languages) {
-            foreach (array_keys($languages) as $code) {
-                $result[$code] = [
-                    'name' => Yii::t('hipanel', $code),
-                    'code' => $code,
-                ];
+            foreach (ArrayHelper::getColumn($templates, 'texts') as $texts) {
+                foreach ($texts as $text) {
+                    $result[$text->lang] = [
+                        'name' => Yii::t('hipanel', $text->lang),
+                        'code' => $text->lang,
+                    ];
+                }
             }
-        }
 
-        return $result;
+            return $result;
+        });
     }
 
     protected function registerClientScript()
     {
         $options = Json::encode([
-            'url' => Url::to('@ticket/template-text'),
+            'url' => Url::to('@ticket/template/text'),
             'data' => [
                 'id' => new JsExpression('id'),
                 'lang' => new JsExpression('language'),

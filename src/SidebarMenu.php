@@ -18,7 +18,7 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
     protected $_addTo = 'sidebar';
 
     protected $_where = [
-        'after'  => ['finance', 'clients', 'dashboard', 'header'],
+        'after' => ['finance', 'clients', 'dashboard', 'header'],
         'before' => ['domains', 'servers', 'hosting'],
     ];
 
@@ -27,12 +27,19 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
         return [
             'tickets' => [
                 'label' => Yii::t('hipanel/ticket', 'Tickets'),
-                'url'   => ['/ticket/ticket/index'],
-                'icon'  => 'fa-ticket',
+                'url' => ['/ticket/ticket/index'],
+                'icon' => 'fa-ticket',
                 'items' => [
                     'tickets' => [
                         'label' => Yii::t('hipanel/ticket', 'Tickets'),
-                        'url'   => ['/ticket/ticket/index'],
+                        'url' => ['/ticket/ticket/index'],
+                    ],
+                    'templates' => [
+                        'label' => Yii::t('hipanel/ticket', 'Templates'),
+                        'url' => ['/ticket/template/index'],
+                        'visible' => function () {
+                            return Yii::$app->user->can('support');
+                        },
                     ],
 //                  'statistics' => [
 //                      'label' => Yii::t('hipanel/ticket', 'Tickets statistics'),

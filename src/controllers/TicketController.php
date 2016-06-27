@@ -231,17 +231,7 @@ class TicketController extends \hipanel\base\CrudController
                 'findOptions' => $this->getSearchOptions(),
                 'scenario' => 'answer-update',
                 'view' => '_updateAnswerModal',
-            ],
-            'templates' => [
-                'class' => SearchAction::class,
-                'searchModel' => ArticleSearch::class,
-                'collection' => ['model' => Article::class],
-                'dataProviderOptions' => ['pagination' => false],
-                'findOptions' => [
-                    'realm' => 'ticket_template',
-                    'with_data' => true,
-                ]
-            ],
+            ]
         ];
     }
 
@@ -260,25 +250,6 @@ class TicketController extends \hipanel\base\CrudController
             'state_data' => $this->getClassRefs('state', 'hipanel/ticket'),
             'priority_data' => $this->getPriorities(),
         ];
-    }
-
-    public function actionTemplateText($id, $lang)
-    {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
-        $result = [];
-
-        try {
-            $template = Article::find()->ticketTemplates()->andWhere(['id' => $id])->one();
-        } catch (ErrorResponseException $e) {
-            return [];
-        }
-
-        if (isset($template->data[$lang])) {
-            $result['text'] = $template->data[$lang]['text'];
-        }
-
-        return $result;
     }
 
     /**
