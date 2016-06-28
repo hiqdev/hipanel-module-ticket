@@ -92,12 +92,13 @@ class TicketController extends \hipanel\base\CrudController
                 },
                 'data' => function ($action) {
                     $client = Client::find()
-                        ->withDomains()
-                        ->withServers()
                         ->where([
                             'id' => $action->model->recipient_id,
                             'with_contact' => 1,
-                        ])->one();
+                        ])
+                        ->withDomains()
+                        ->withServers()
+                        ->one();
 
                     if ($client->login === 'anonym') {
                         $client->name = $action->model->anonym_name;
