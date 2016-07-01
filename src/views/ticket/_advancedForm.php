@@ -1,4 +1,5 @@
 <?php
+
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\modules\ticket\models\Thread;
 use hiqdev\combo\StaticCombo;
@@ -18,7 +19,6 @@ use yii\widgets\ActiveForm;
 
     <!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
-    <?php $model->topics = 'general' ?>
     <?= $form->field($model, 'topics')->widget(StaticCombo::class, [
         'hasId' => true,
         'pluginOptions' => [
