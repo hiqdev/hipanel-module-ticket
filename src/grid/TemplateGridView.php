@@ -9,12 +9,6 @@
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
-/**
- * @link    http://hiqdev.com/hipanel-module-hosting
- * @license http://hiqdev.com/hipanel-module-hosting/license
- * @copyright Copyright (c) 2015 HiQDev
- */
-
 namespace hipanel\modules\ticket\grid;
 
 use hipanel\grid\ActionColumn;
@@ -40,7 +34,7 @@ class TemplateGridView extends \hipanel\grid\BoxedGridView
                 }
             ],
             'actions' => [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'template' => '{view}{delete}',
                 'header' => Yii::t('hipanel', 'Actions'),
             ],

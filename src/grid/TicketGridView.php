@@ -50,7 +50,7 @@ class TicketGridView extends BoxedGridView
                 },
             ],
             'author_id' => [
-                'class' => ClientColumn::className(),
+                'class' => ClientColumn::class,
                 'label' => Yii::t('hipanel/ticket', 'Author'),
                 'idAttribute' => 'author_id',
                 'sortAttribute' => 'author',
@@ -60,7 +60,7 @@ class TicketGridView extends BoxedGridView
                 },
             ],
             'responsible_id' => [
-                'class' => ClientColumn::className(),
+                'class' => ClientColumn::class,
                 'idAttribute' => 'responsible_id',
                 'sortAttribute' => 'responsible',
                 'attribute' => 'responsible_id',
@@ -71,7 +71,7 @@ class TicketGridView extends BoxedGridView
                 'visible' => Yii::$app->user->can('support'),
             ],
             'recipient_id' => [
-                'class' => ClientColumn::className(),
+                'class' => ClientColumn::class,
                 'idAttribute' => 'recipient_id',
                 'label' => Yii::t('hipanel/ticket', 'Recipient'),
                 'sortAttribute' => 'recipient',
@@ -104,7 +104,7 @@ class TicketGridView extends BoxedGridView
                 ],
             ],
             'actions' => [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'template' => '{view} {state}',
                 'header' => Yii::t('hipanel', 'Actions'),
                 'buttons' => [

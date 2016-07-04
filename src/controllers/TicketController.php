@@ -51,7 +51,7 @@ class TicketController extends \hipanel\base\CrudController
      */
     public static function modelClassName()
     {
-        return Thread::className();
+        return Thread::class;
     }
 
     public function behaviors()
