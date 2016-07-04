@@ -1,10 +1,10 @@
 <?php
 
 /*
- * Hosting Plugin for HiPanel
+ * HiPanel tickets module
  *
- * @link      https://github.com/hiqdev/hipanel-module-hosting
- * @package   hipanel-module-hosting
+ * @link      https://github.com/hiqdev/hipanel-module-ticket
+ * @package   hipanel-module-ticket
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
@@ -15,7 +15,6 @@ use hipanel\grid\ActionColumn;
 use hipanel\grid\SwitchColumn;
 use hipanel\modules\client\grid\ClientColumn;
 use Yii;
-use yii\helpers\Html;
 
 class TemplateGridView extends \hipanel\grid\BoxedGridView
 {
@@ -31,7 +30,7 @@ class TemplateGridView extends \hipanel\grid\BoxedGridView
             'post_date' => [
                 'value' => function ($model) {
                     return Yii::$app->formatter->asDatetime($model->post_date);
-                }
+                },
             ],
             'actions' => [
                 'class' => ActionColumn::class,
@@ -41,12 +40,12 @@ class TemplateGridView extends \hipanel\grid\BoxedGridView
             'is_published' => [
                 'class' => SwitchColumn::class,
                 'switchInputOptions' => [
-                    'disabled' => true
-                ]
+                    'disabled' => true,
+                ],
             ],
             'name' => [
                 'filterAttribute' => 'name_like',
-            ]
+            ],
         ];
     }
 }

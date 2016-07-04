@@ -1,16 +1,13 @@
 <?php
 
 use hipanel\assets\OcticonsAsset;
-use hipanel\helpers\Url;
 use hipanel\modules\ticket\models\Answer;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
-use hipanel\modules\ticket\widgets\TemplateCombo;
 use hiqdev\assets\autosize\AutosizeAsset;
 use hiqdev\assets\icheck\iCheckAsset;
 use hipanel\widgets\TimePicker;
 use hipanel\widgets\FileInput;
 use yii\helpers\Html;
-use yii\web\JsExpression;
 
 OcticonsAsset::register($this);
 iCheckAsset::register($this);
@@ -46,7 +43,7 @@ CSS
 );
 
 /**
- * @var Answer|\hipanel\modules\ticket\models\Thread $model
+ * @var Answer|\hipanel\modules\ticket\models\Thread
  * @var \yii\web\View $this
  */
 $form = ConditionalFormWidget::begin([

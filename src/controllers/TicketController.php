@@ -17,16 +17,12 @@ use hipanel\actions\OrientationAction;
 use hipanel\actions\PrepareAjaxViewAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\ProxyAction;
-use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\models\File;
-use hipanel\models\Ref;
-use hipanel\modules\client\models\Article;
-use hipanel\modules\client\models\ArticleSearch;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
@@ -64,7 +60,7 @@ class TicketController extends \hipanel\base\CrudController
                 'variations' => [
                     Yii::$app->user->getId(),
                 ],
-            ]
+            ],
         ]);
     }
 
@@ -232,7 +228,7 @@ class TicketController extends \hipanel\base\CrudController
                 'findOptions' => $this->getSearchOptions(),
                 'scenario' => 'answer-update',
                 'view' => '_updateAnswerModal',
-            ]
+            ],
         ];
     }
 

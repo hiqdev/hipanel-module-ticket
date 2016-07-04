@@ -36,22 +36,22 @@ class TemplateController extends \hipanel\base\CrudController
             'set-orientation' => [
                 'class' => OrientationAction::class,
                 'allowedRoutes' => [
-                    '/hosting/service/index'
-                ]
+                    '/hosting/service/index',
+                ],
             ],
             'index' => [
                 'class' => IndexAction::class,
                 'on beforePerform' => function (Event $event) {
                     $dataProvider = $event->sender->getDataProvider();
                     $dataProvider->query->showUnpublished();
-                }
+                },
             ],
             'search' => [
                 'class' => SearchAction::class,
                 'on beforePerform' => function (Event $event) {
                     $dataProvider = $event->sender->getDataProvider();
                     $dataProvider->query->joinWith('texts');
-                }
+                },
             ],
             'view' => [
                 'class' => ViewAction::class,
@@ -60,7 +60,7 @@ class TemplateController extends \hipanel\base\CrudController
                     $action = $event->sender;
                     $dataProvider = $action->getDataProvider();
                     $dataProvider->query->joinWith('texts')->showUnpublished();
-                }
+                },
             ],
             'create' => [
                 'class' => SmartCreateAction::class,
@@ -112,16 +112,16 @@ class TemplateController extends \hipanel\base\CrudController
                     $this->collectionLoader($action->scenario, $action->collection);
                 },
                 'success' => Yii::t('hipanel/hosting', 'Template was updated successfully'),
-                'error' => Yii::t('hipanel/hosting', 'An error occurred when trying to update a template')
+                'error' => Yii::t('hipanel/hosting', 'An error occurred when trying to update a template'),
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
                 'success' => Yii::t('hipanel/hosting', 'Template was deleted successfully'),
-                'error' => Yii::t('hipanel/hosting', 'An error occurred when trying to delete a template')
+                'error' => Yii::t('hipanel/hosting', 'An error occurred when trying to delete a template'),
             ],
             'validate-form' => [
                 'class' => ValidateFormAction::class,
-            ]
+            ],
         ];
     }
 

@@ -41,6 +41,7 @@ if (is_array($model->watchers)) {
     ?>
     </div>
 <?php
+
 }
 
 $subscribed = array_key_exists(Yii::$app->user->identity->id, $model->watchers ?: []);

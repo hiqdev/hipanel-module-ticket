@@ -1,10 +1,10 @@
 <?php
 
 /*
- * Hosting Plugin for HiPanel
+ * HiPanel tickets module
  *
- * @link      https://github.com/hiqdev/hipanel-module-hosting
- * @package   hipanel-module-hosting
+ * @link      https://github.com/hiqdev/hipanel-module-ticket
+ * @package   hipanel-module-ticket
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
@@ -12,23 +12,22 @@
 namespace hipanel\modules\ticket\widgets;
 
 use hiqdev\combo\Combo;
-use yii\helpers\ArrayHelper;
 
 class TemplateCombo extends Combo
 {
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $name = 'template';
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $type = 'ticket/template';
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $url = '@ticket/template/search';
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $_return = ['id'];
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $_rename = ['text' => 'name'];
 
     public function getPluginOptions($options = [])
@@ -36,7 +35,7 @@ class TemplateCombo extends Combo
         return parent::getPluginOptions([
             'select2Options' => [
                 'minimumResultsForSearch' => -1,
-            ]
+            ],
         ]);
     }
 }

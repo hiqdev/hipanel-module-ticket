@@ -8,7 +8,6 @@ use yii\helpers\Html;
  * @var array $languages
  * @var array $defaultLanguage
  */
-
 ?>
 
 <div class="col-lg-4 template-selector">
@@ -20,15 +19,15 @@ use yii\helpers\Html;
                 <span class="selected-language" data-language="<?= $defaultLanguage['code'] ?>"><?= $defaultLanguage['name'] ?></span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" id="template-language">
-                <?php foreach ($languages as $language) {
-                    echo Html::tag('li', Html::a($language['name'], '#', ['data-language' => $language['code']]));
-                } ?>
+                <?php foreach ($languages as $language) : ?>
+                    <?= Html::tag('li', Html::a($language['name'], '#', ['data-language' => $language['code']])) ?>
+                <?php endforeach ?>
             </ul>
         </div>
         <?= TemplateCombo::widget([
             'model' => new DynamicModel(['template']),
             'attribute' => 'template',
-            'inputOptions' => ['id' => 'template-combo']
+            'inputOptions' => ['id' => 'template-combo'],
         ]) ?>
     </div>
 </div>
