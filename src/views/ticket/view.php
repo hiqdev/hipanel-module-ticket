@@ -7,7 +7,7 @@ use yii\helpers\StringHelper;
 $this->title    = $model->subject;
 $this->subtitle = '#' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/ticket', 'Tickets'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = StringHelper::truncateWords($model->subject, 6);
+$this->params['breadcrumbs'][] = '#' . $model->id;
 
 $action = 'answer';
 $model->scenario = $action;
