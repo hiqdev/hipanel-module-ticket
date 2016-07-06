@@ -177,11 +177,6 @@ class Answer extends \hipanel\base\Model
         return $this->author_seller_id;
     }
 
-    public function getThreadViewTitle()
-    {
-        return '#' . $this->id . ' ' . Html::encode($this->subject);
-    }
-
     public function prepareSpentTime()
     {
         list($this->spent_hours, $this->spent) = explode(':', $this->spent, 2);

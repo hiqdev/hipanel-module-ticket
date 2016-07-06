@@ -215,11 +215,6 @@ class Thread extends \hipanel\base\Model
         return ['@ticket/view', 'id' => $this->id];
     }
 
-    public function getThreadViewTitle()
-    {
-        return '#' . $this->id . ' ' . Html::encode($this->subject);
-    }
-
     public static function parseMessage($message)
     {
         $message = str_replace(["\n\r", "\r\r", "\r\n"], "\n", $message); // "\n\n",
