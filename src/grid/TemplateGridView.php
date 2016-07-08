@@ -12,6 +12,7 @@
 namespace hipanel\modules\ticket\grid;
 
 use hipanel\grid\ActionColumn;
+use hipanel\grid\MainColumn;
 use hipanel\grid\SwitchColumn;
 use hipanel\modules\client\grid\ClientColumn;
 use Yii;
@@ -44,6 +45,7 @@ class TemplateGridView extends \hipanel\grid\BoxedGridView
                 ],
             ],
             'name' => [
+                'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
             ],
         ];
