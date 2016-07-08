@@ -1,10 +1,6 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-hosting
- * @license http://hiqdev.com/hipanel-module-hosting/license
- * @copyright Copyright (c) 2015 HiQDev
- */
 
+use hipanel\helpers\Markdown;
 use hipanel\modules\ticket\grid\TemplateGridView;
 use hipanel\modules\ticket\models\Template;
 use hipanel\widgets\Box;
@@ -79,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $box->endHeader();
                         $box->beginBody();
                             if (!empty($translation->text)) {
-                                echo \yii\helpers\Markdown::process($translation->text);
+                                echo Markdown::process($translation->text);
                             } else {
                                 echo Html::tag('span', Yii::t('hipanel/ticket', 'No translation'), [
                                     'class' => 'text-danger'
