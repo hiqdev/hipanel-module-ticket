@@ -13,10 +13,10 @@ namespace hipanel\modules\ticket\models;
 
 use hipanel\behaviors\File;
 use hipanel\modules\client\models\Client;
+use hipanel\helpers\Markdown;
 use stdClass;
 use Yii;
 use yii\helpers\Html;
-use yii\helpers\Markdown;
 use yii\web\NotFoundHttpException;
 
 /**
