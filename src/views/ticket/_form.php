@@ -136,7 +136,7 @@ if ($model->isNewRecord) {
                             'showUpload'               => false,
                             'initialPreviewShowDelete' => true,
                             'maxFileCount'             => 5,
-                            'msgFilesTooMany'          => 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}. Please retry your upload!',
+                            'msgFilesTooMany'          => Yii::t('hipanel', 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}'),
                         ],
                     ]) ?>
                 </div>
