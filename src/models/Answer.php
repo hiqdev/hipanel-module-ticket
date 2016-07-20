@@ -11,8 +11,8 @@
 
 namespace hipanel\modules\ticket\models;
 
+use hipanel\models\File;
 use Yii;
-use yii\helpers\Html as Html;
 
 /**
  * Class Ticket.
@@ -68,10 +68,10 @@ class Answer extends \hipanel\base\Model
     {
         return [
             [
-                'class'          => 'hipanel\behaviors\File',
-                'attribute'      => 'file',
-                'savedAttribute' => 'file_ids',
-                'scenarios'      => ['create', 'answer'],
+                'class' => 'hipanel\behaviors\File',
+                'attribute' => 'file',
+                'targetAttribute' => 'file_ids',
+                'scenarios' => ['create', 'answer'],
             ],
         ];
     }
@@ -99,7 +99,6 @@ class Answer extends \hipanel\base\Model
             'spent_hours',
             'is_moved',
             'ip',
-            'files',
             'file',
         ];
     }
@@ -142,18 +141,18 @@ class Answer extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'author'           => Yii::t('hipanel/ticket', 'Author'),
-            'author_id'        => Yii::t('hipanel/ticket', 'Author'),
-            'recipient'        => Yii::t('hipanel/ticket', 'Recipient'),
-            'is_private'       => Yii::t('hipanel/ticket', 'Make private'),
-            'responsible'      => Yii::t('hipanel/ticket', 'Assignee'),
-            'responsible_id'   => Yii::t('hipanel/ticket', 'Assignee'),
-            'spent'            => Yii::t('hipanel/ticket', 'Spent time'),
-            'create_time'      => Yii::t('hipanel/ticket', 'Created'),
-            'a_reply_time'     => Yii::t('hipanel/ticket', 'a_reply_time'),
-            'file'             => Yii::t('hipanel/ticket', 'Files'),
-            'lastanswer'       => Yii::t('hipanel/ticket', 'Last answer'),
-            'author_seller'    => Yii::t('hipanel/ticket', 'Author\'s seller'),
+            'author' => Yii::t('hipanel/ticket', 'Author'),
+            'author_id' => Yii::t('hipanel/ticket', 'Author'),
+            'recipient' => Yii::t('hipanel/ticket', 'Recipient'),
+            'is_private' => Yii::t('hipanel/ticket', 'Make private'),
+            'responsible' => Yii::t('hipanel/ticket', 'Assignee'),
+            'responsible_id' => Yii::t('hipanel/ticket', 'Assignee'),
+            'spent' => Yii::t('hipanel/ticket', 'Spent time'),
+            'create_time' => Yii::t('hipanel/ticket', 'Created'),
+            'a_reply_time' => Yii::t('hipanel/ticket', 'a_reply_time'),
+            'file' => Yii::t('hipanel/ticket', 'Files'),
+            'lastanswer' => Yii::t('hipanel/ticket', 'Last answer'),
+            'author_seller' => Yii::t('hipanel/ticket', 'Author\'s seller'),
         ]);
     }
 
@@ -185,6 +184,11 @@ class Answer extends \hipanel\base\Model
     public function getThread()
     {
         return $this->hasOne(Thread::class, ['id' => 'id']);
+    }
+
+    public function getFiles()
+    {
+        return $this->hasMany(File::class, ['object_id' => 'id']);
     }
 
     public function scenarioCommands()
