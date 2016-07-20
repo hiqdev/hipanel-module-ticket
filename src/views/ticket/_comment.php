@@ -44,9 +44,9 @@ echo Html::beginTag('div', ['class' => 'comment-text']) ?>
 
 <?= Html::tag('span', Thread::parseMessage($answer->message), ['class' => 'body']) ?>
 
-<?php if ($answer->files !== null) : ?>
-    <?= $this->render('_attachment', ['attachment' => $answer->files, 'object_id' => $model->id, 'object_name' => 'thread', 'answer_id' => $answer_id]) ?>
-<?php endif ?>
+<?php if (!empty($answer->files)) {
+    echo $this->render('_attachments', ['model' => $answer]);
+} ?>
 
 <?= Html::endTag('div') ?>
 
