@@ -385,17 +385,6 @@ class TicketController extends \hipanel\base\CrudController
         return $result;
     }
 
-    /**
-     * @param $id
-     * @param $object_id
-     *
-     * @return array|bool
-     */
-    public function actionFileView($id, $object_id)
-    {
-        return File::renderFile($id, $object_id, 'thread', true);
-    }
-
     private function getSearchOptions()
     {
         return ['with_anonym' => 1, 'with_answers' => 1, 'with_files' => 1, 'show_closed' => 1];
