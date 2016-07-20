@@ -12,11 +12,10 @@
 namespace hipanel\modules\ticket\models;
 
 use hipanel\behaviors\File;
-use hipanel\modules\client\models\Client;
 use hipanel\helpers\Markdown;
+use hipanel\modules\client\models\Client;
 use stdClass;
 use Yii;
-use yii\helpers\Html;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -54,10 +53,10 @@ class Thread extends \hipanel\base\Model
     {
         return [
             [
-                'class'          => File::class,
-                'attribute'      => 'file',
-                'savedAttribute' => 'file_ids',
-                'scenarios'      => ['create', 'answer'],
+                'class' => File::class,
+                'attribute' => 'file',
+                'targetAttribute' => 'file_ids',
+                'scenarios' => ['create', 'answer'],
             ],
         ];
     }
@@ -260,7 +259,7 @@ class Thread extends \hipanel\base\Model
     public function getAnswers()
     {
         // TODO: redo API in order to have different `Thread` and `ThreadMessage` models
-        return $this->hasMany(Answer::class, ['id' => 'id'])->indexBy('answer_id');
+        return $this->hasMany(Answer::class, ['id' => 'id'])->join('files')->indexBy('answer_id');
     }
 
     /**
