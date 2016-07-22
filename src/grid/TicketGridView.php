@@ -18,6 +18,7 @@ use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Gravatar;
+use hipanel\widgets\ReminderButton;
 use Yii;
 use yii\helpers\Html;
 
@@ -105,9 +106,12 @@ class TicketGridView extends BoxedGridView
             ],
             'actions' => [
                 'class' => ActionColumn::class,
-                'template' => '{view} {state}',
+                'template' => '{view} {reminder} {state}',
                 'header' => Yii::t('hipanel', 'Actions'),
                 'buttons' => [
+                    'reminder' => function ($url, $model, $key) {
+                        return ReminderButton::widget(['object_id' => $model->id]);
+                    },
                     'state' => function ($url, $model, $key) {
                         $out = '';
                         if ($model->state === Thread::STATE_OPEN) {
