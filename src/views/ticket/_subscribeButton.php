@@ -53,6 +53,6 @@ if ($subscribed) {
     $label = '<i class="fa fa-eye"></i>&nbsp;&nbsp;' . Yii::t('hipanel/ticket', 'Subscribe');
 }
 
-echo Html::a($label, $action, HtmlHelper::loadingButtonOptions(['class' => 'btn btn-default btn-block']));
+echo Html::a($label, $action, HtmlHelper::loadingButtonOptions(['class' => 'btn btn-default btn-sm btn-block']));
 
 Pjax::end();
