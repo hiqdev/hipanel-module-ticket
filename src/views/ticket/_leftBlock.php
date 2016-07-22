@@ -30,6 +30,7 @@ $form = ConditionalFormWidget::begin([
         <?= Html::a(Yii::t('hipanel/ticket', 'Back to index'),
             ['index'],
             ['class' => 'btn btn-primary btn-block', 'style' => $model->isNewRecord ? 'margin-bottom: 20px;' : 'margin-bottom: 5px;']) ?>
+        <?= \hipanel\widgets\ReminderButton::widget(['object_id' => $model->id]) ?>
         <?php if (!$model->isNewRecord) : ?>
             <?php
             $openTicketText = Yii::t('hipanel/ticket', 'Open ticket');
@@ -51,6 +52,7 @@ $form = ConditionalFormWidget::begin([
             <?php endif ?>
             <?php Pjax::end() ?>
         <?php endif ?>
+
 
         <?php $box = Box::begin([
             'options' => [
