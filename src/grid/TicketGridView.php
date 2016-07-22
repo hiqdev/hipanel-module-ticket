@@ -106,12 +106,9 @@ class TicketGridView extends BoxedGridView
             ],
             'actions' => [
                 'class' => ActionColumn::class,
-                'template' => '{view} {reminder} {state}',
+                'template' => '{view} {state}',
                 'header' => Yii::t('hipanel', 'Actions'),
                 'buttons' => [
-                    'reminder' => function ($url, $model, $key) {
-                        return ReminderButton::widget(['object_id' => $model->id]);
-                    },
                     'state' => function ($url, $model, $key) {
                         $out = '';
                         if ($model->state === Thread::STATE_OPEN) {
