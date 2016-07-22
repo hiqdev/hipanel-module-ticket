@@ -13,6 +13,6 @@ $action = 'answer';
 $model->scenario = $action;
 
 ?>
-
+<?= \hipanel\widgets\ReminderButton::widget(['object_id' => $model->id]) ?>
 <?= $this->render('_view', compact('action', 'model', 'client', 'topic_data', 'state_data', 'priority_data')) ?>
 
