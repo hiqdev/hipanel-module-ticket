@@ -116,6 +116,8 @@ class Thread extends \hipanel\base\Model
 
             'time_from',
             'time_till',
+
+            'contact',
         ];
     }
 

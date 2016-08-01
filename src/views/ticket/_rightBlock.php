@@ -74,7 +74,7 @@ JS
     <?php if ($model->isRelationPopulated('answers')) : ?>
         <hr class="no-panel-padding-h panel-wide padding-bottom">
         <div class="widget-article-comments tab-pane panel no-padding no-border fade in active">
-            <?= $this->render('_comments', ['model' => $model]) ?>
+            <?= $this->render('_comments', ['model' => $model, 'client' => $client]) ?>
         </div>
         <?php if ($model->isRelationPopulated('answers')) : ?>
             <hr class="no-panel-padding-h panel-wide padding-bottom md-mb-0">
