@@ -1,9 +1,11 @@
 <?php
+
 /* @var $this yii\web\View */
 
-$this->title                   = Yii::t('hipanel/ticket', 'Create template');
-$this->breadcrumbs->setItems([['label' => Yii::t('hipanel/ticket', 'Templates'), 'url' => ['index']]]);
-$this->breadcrumbs->setItems([$this->title]);
+$this->title = Yii::t('hipanel/ticket', 'Create template');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/ticket', 'Templates'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="template-create">
