@@ -1,14 +1,13 @@
 <?php
 
 use hipanel\modules\ticket\grid\TicketGridView;
-use hipanel\widgets\IndexLayoutSwitcher;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\helpers\Html;
 
 $this->title                   = Yii::t('hipanel/ticket', 'Tickets');
+$this->params['subtitle']      = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
-$this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 
 $this->registerCss(<<<CSS
 .list-inline {
@@ -56,14 +55,14 @@ CSS
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('show-actions') ?>
-    <?= IndexLayoutSwitcher::widget() ?>
-    <?= $page->renderSorter([
-        'attributes' => [
-            'create_time', 'lastanswer', 'spent',
-            'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
-        ],
-    ]) ?>
-    <?= $page->renderPerPage() ?>
+        <?= $page->renderLayoutSwitcher() ?>
+        <?= $page->renderSorter([
+            'attributes' => [
+                'create_time', 'lastanswer', 'spent',
+                'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
+            ],
+        ]) ?>
+        <?= $page->renderPerPage() ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
@@ -73,26 +72,23 @@ CSS
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('table') ?>
-    <?php $page->beginBulkForm() ?>
-        <?= TicketGridView::widget([
-            'boxed' => false,
-            'id'           => 'ticket-grid',
-            'dataProvider' => $dataProvider,
-            'filterModel'  => $model,
-            'rowOptions'   => function ($model, $key, $index, $grid) {
-                return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
-            },
-            'columns' => [
-                'checkbox',
-                'subject',
-                'author_id',
-                'responsible_id',
-                'recipient_id',
-                'answer_count',
-                'actions',
-            ],
-        ]); ?>
-    <?php $page->endBulkForm() ?>
+        <?php $page->beginBulkForm() ?>
+            <?= TicketGridView::widget([
+                'boxed' => false,
+                'id'           => 'ticket-grid',
+                'dataProvider' => $dataProvider,
+                'filterModel'  => $model,
+                'rowOptions'   => function ($model, $key, $index, $grid) {
+                    return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
+                },
+                'columns' => [
+                    'checkbox',
+                    'subject', 'author_id',
+                    'responsible_id', 'recipient_id',
+                    'answer_count', 'actions',
+                ],
+            ]); ?>
+        <?php $page->endBulkForm() ?>
     <?php $page->endContent() ?>
     <?php $page->end() ?>
 <?php Pjax::end() ?>
