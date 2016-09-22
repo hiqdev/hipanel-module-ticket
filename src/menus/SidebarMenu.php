@@ -9,19 +9,12 @@
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
-namespace hipanel\modules\ticket;
+namespace hipanel\modules\ticket\menus;
 
 use Yii;
 
-class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInterface
+class SidebarMenu extends \hiqdev\menumanager\Menu
 {
-    protected $_addTo = 'sidebar';
-
-    protected $_where = [
-        'after' => ['finance', 'clients', 'dashboard', 'header'],
-        'before' => ['domains', 'servers', 'hosting'],
-    ];
-
     public function items()
     {
         return [
@@ -37,9 +30,7 @@ class SidebarMenu extends \hipanel\base\Menu implements \yii\base\BootstrapInter
                     'templates' => [
                         'label' => Yii::t('hipanel/ticket', 'Templates'),
                         'url' => ['/ticket/template/index'],
-                        'visible' => function () {
-                            return Yii::$app->user->can('support');
-                        },
+                        'visible' => Yii::$app->user->can('support'),
                     ],
 //                  'statistics' => [
 //                      'label' => Yii::t('hipanel/ticket', 'Tickets statistics'),

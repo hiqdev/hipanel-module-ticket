@@ -33,8 +33,18 @@ return [
             ],
         ],
         'menuManager' => [
-            'menus' => [
-                'ticket' => \hipanel\modules\ticket\SidebarMenu::class,
+            'items' => [
+                'sidebar' => [
+                    'add' => [
+                        'ticket' => [
+                            'menu' => \hipanel\modules\ticket\menus\SidebarMenu::class,
+                            'where' => [
+                                'after' => ['finance', 'clients', 'dashboard', 'header'],
+                                'before' => ['domains', 'servers', 'hosting'],
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
     ],
