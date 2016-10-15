@@ -1,6 +1,6 @@
 <?php
 
-use hipanel\widgets\ReminderButton;
+use hiqdev\yii2\reminder\widgets\ReminderButton;
 
 /* @var $this yii\web\View */
 

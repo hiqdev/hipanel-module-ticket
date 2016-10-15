@@ -18,7 +18,6 @@ use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Gravatar;
-use hipanel\widgets\ReminderButton;
 use Yii;
 use yii\helpers\Html;
 
