@@ -5,11 +5,7 @@ use hiqdev\yii2\reminder\widgets\ReminderButton;
 /* @var $this yii\web\View */
 
 $reminder = ReminderButton::widget([
-    'object_id' => $model->id,
-    'toggleButton' => [
-        'label' => '<i class="fa fa-bell-o"></i>&nbsp;&nbsp;' . Yii::t('hipanel/reminder', 'Create reminder'),
-        'class' => 'btn margin-bottom btn-info pull-right btn-xs'
-    ]
+    'object_id' => $model->id
 ]);
 
 
