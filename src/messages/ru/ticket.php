@@ -96,6 +96,7 @@ return [
     'An error occurred when trying to update a template' => 'Ошибка при редактировании шаблона',
     'Template was deleted successfully' => 'Шаблон был удалён',
     'An error occurred when trying to delete a template' => 'Ошибка при удалении шаблона',
+    'Country' => 'Страна',
 
     /// Settings
     'This section allows you to manage the settings on mail alerts' => 'В этом разделе можно управлять настройками на предупреждений почты',
