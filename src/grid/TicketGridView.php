@@ -40,13 +40,14 @@ class TicketGridView extends BoxedGridView
                         ],
                         'size' => 40,
                     ]), ['class' => 'pull-right']);
-                    $state = $model->state === 'opened'
-                        ? Html::tag('div', '<span class="fa fa-circle-o text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type'])
-                        : Html::tag('div', '<span class="fa fa-check-circle text-muted"></span>', ['class' => 'table-list-cell table-list-cell-type']);
-                    $t = Html::tag('b', Html::a($model->subject, $model->threadUrl)) . Topic::widget(['topics' => $model->topics]) .
-                        Html::tag('div', sprintf('#%s %s %s', $model->id, Yii::t('hipanel/ticket', $model->state_label), Yii::$app->formatter->asDatetime($model->create_time)), ['class' => 'text-muted']);
+                    $isClosed = $model->state === Thread::STATE_CLOSE;
+                    $titleLink = Html::a($model->subject, $model->threadUrl, ['class' => 'text-bold', 'style' => (($isClosed) ? 'color: black!important;' : '')]) .
+                        Topic::widget(['topics' => $model->topics]) .
+                        Html::tag('div', sprintf('#%s %s %s', $model->id,
+                            Html::tag('span', Yii::t('hipanel/ticket', $model->state_label), ['class' => 'text-bold']),
+                            Yii::$app->formatter->asDatetime($model->create_time)), ['class' => 'text-muted']);
 
-                    return $ava . $state . Html::tag('div', $t, ['class' => 'table-list-cell table-list-title']);
+                    return $ava . Html::tag('div', $titleLink);
                 },
             ],
             'author_id' => [
@@ -91,9 +92,9 @@ class TicketGridView extends BoxedGridView
                 'value' => function ($model) {
                     $answerCount = sprintf('<span class="label label-default">&nbsp;%d&nbsp;</span>', $model->answer_count);
                     $lastAnswer = Html::a(
-                        $model->replier,
-                        ['@client/view', 'id' => $model->replier_id],
-                        ['class' => '']) . '<br>' .
+                            $model->replier,
+                            ['@client/view', 'id' => $model->replier_id],
+                            ['class' => '']) . '<br>' .
                         Html::tag('span', Yii::$app->formatter->asRelativeTime($model->reply_time), ['style' => 'font-size: smaller;white-space: nowrap;', 'class' => 'text-muted']) .
                         '&nbsp;&nbsp;' . $answerCount;
 
