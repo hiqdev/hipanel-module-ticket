@@ -85,7 +85,7 @@ CSS
                     'checkbox',
                     'subject', 'author_id',
                     'responsible_id', 'recipient_id',
-                    'answer_count', 'actions',
+                    'answer_count',
                 ],
             ]); ?>
         <?php $page->endBulkForm() ?>
