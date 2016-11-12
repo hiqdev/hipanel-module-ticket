@@ -19,21 +19,21 @@ class SidebarMenu extends \hiqdev\menumanager\Menu
     {
         return [
             'tickets' => [
-                'label' => Yii::t('hipanel/ticket', 'Tickets'),
+                'label' => Yii::t('hipanel:ticket', 'Tickets'),
                 'url' => ['/ticket/ticket/index'],
                 'icon' => 'fa-ticket',
                 'items' => [
                     'tickets' => [
-                        'label' => Yii::t('hipanel/ticket', 'Tickets'),
+                        'label' => Yii::t('hipanel:ticket', 'Tickets'),
                         'url' => ['/ticket/ticket/index'],
                     ],
                     'templates' => [
-                        'label' => Yii::t('hipanel/ticket', 'Templates'),
+                        'label' => Yii::t('hipanel:ticket', 'Templates'),
                         'url' => ['/ticket/template/index'],
                         'visible' => Yii::$app->user->can('support'),
                     ],
 //                  'statistics' => [
-//                      'label' => Yii::t('hipanel/ticket', 'Tickets statistics'),
+//                      'label' => Yii::t('hipanel:ticket', 'Tickets statistics'),
 //                      'url'   => ['/ticket/ticket/statistics'],
 //                  ],
                 ],

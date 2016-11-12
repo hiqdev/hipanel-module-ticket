@@ -5,8 +5,8 @@ use yii\widgets\ActiveForm;
 
 /* @var $model hipanel\modules\ticket\models\Thread */
 
-$this->title                   = Yii::t('hipanel/ticket', 'Create ticket');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/ticket', 'Tickets'), 'url' => ['index']];
+$this->title                   = Yii::t('hipanel:ticket', 'Create ticket');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:ticket', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $action = 'create';

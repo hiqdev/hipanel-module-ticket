@@ -44,7 +44,7 @@ class TicketGridView extends BoxedGridView
                     $titleLink = Html::a($model->subject, $model->threadUrl, ['class' => 'text-bold', 'style' => (($isClosed) ? 'color: black!important;' : '')]) .
                         Topic::widget(['topics' => $model->topics]) .
                         Html::tag('div', sprintf('#%s %s %s', $model->id,
-                            Html::tag('span', Yii::t('hipanel/ticket', $model->state_label), ['class' => 'text-bold']),
+                            Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
                             Yii::$app->formatter->asDatetime($model->create_time)), ['class' => 'text-muted']);
 
                     return $ava . Html::tag('div', $titleLink);
@@ -52,7 +52,7 @@ class TicketGridView extends BoxedGridView
             ],
             'author_id' => [
                 'class' => ClientColumn::class,
-                'label' => Yii::t('hipanel/ticket', 'Author'),
+                'label' => Yii::t('hipanel:ticket', 'Author'),
                 'idAttribute' => 'author_id',
                 'sortAttribute' => 'author',
                 'attribute' => 'author_id',
@@ -74,7 +74,7 @@ class TicketGridView extends BoxedGridView
             'recipient_id' => [
                 'class' => ClientColumn::class,
                 'idAttribute' => 'recipient_id',
-                'label' => Yii::t('hipanel/ticket', 'Recipient'),
+                'label' => Yii::t('hipanel:ticket', 'Recipient'),
                 'sortAttribute' => 'recipient',
                 'attribute' => 'recipient_id',
                 'value' => function ($model) {
@@ -85,7 +85,7 @@ class TicketGridView extends BoxedGridView
             ],
             'answer_count' => [
                 'attribute' => 'answer_count',
-                'label' => Yii::t('hipanel/ticket', 'Answers'),
+                'label' => Yii::t('hipanel:ticket', 'Answers'),
                 'format' => 'raw',
                 'filter' => false,
                 'enableSorting' => false,
@@ -112,9 +112,9 @@ class TicketGridView extends BoxedGridView
                     'state' => function ($url, $model, $key) {
                         $out = '';
                         if ($model->state === Thread::STATE_OPEN) {
-                            $out .= Html::a(Yii::t('hipanel/ticket', 'Close'), ['close', 'id' => $model->id]);
+                            $out .= Html::a(Yii::t('hipanel:ticket', 'Close'), ['close', 'id' => $model->id]);
                         } elseif ($model->state === Thread::STATE_CLOSE) {
-                            $out .= Html::a(Yii::t('hipanel/ticket', 'Open'), ['open', 'id' => $model->id]);
+                            $out .= Html::a(Yii::t('hipanel:ticket', 'Open'), ['open', 'id' => $model->id]);
                         }
 
                         return $out;

@@ -40,13 +40,13 @@ echo Html::beginTag('div', ['class' => 'comment-text']) ?>
     <?php
     $country_name = $client->contact['country_name'];
     if ($country_name) {
-        print "&nbsp;·&nbsp;" . Html::tag('span', Yii::t('hipanel/ticket', 'Country') . ': ' . $country_name);
+        print "&nbsp;·&nbsp;" . Html::tag('span', Yii::t('hipanel:ticket', 'Country') . ': ' . $country_name);
     }
     ?>
     &nbsp;·&nbsp;
     <?= Html::a("<i class='fa fa-hashtag'></i>", ['@ticket/view', 'id' => $model->id, '#' => $answerId], ['class' => 'name']) ?>
     <?php if ($answer->spent) : ?>
-        <?= Html::tag('span', Yii::t('hipanel/ticket', 'Time spent: {n}', ['n' => Yii::$app->formatter->asDuration($answer->spent * 60)]), ['class' => 'spent-time pull-right label label-info']) ?>
+        <?= Html::tag('span', Yii::t('hipanel:ticket', 'Time spent: {n}', ['n' => Yii::$app->formatter->asDuration($answer->spent * 60)]), ['class' => 'spent-time pull-right label label-info']) ?>
     <?php endif ?>
 </div>
 <div class="clearfix"></div>
@@ -61,10 +61,10 @@ echo Html::beginTag('div', ['class' => 'comment-text']) ?>
 
 <?= Html::beginTag('div', ['class' => 'comment-footer']) ?>
 <button class="link-button comment-quote-button"
-        data-answer-id="<?= $answer_id ?>"><?= Yii::t('hipanel/ticket', 'Quote') ?></button>
+        data-answer-id="<?= $answer_id ?>"><?= Yii::t('hipanel:ticket', 'Quote') ?></button>
 <?php if ((string)$answer->author_id === (string)Yii::$app->user->id) : ?>
     &nbsp;&nbsp;·&nbsp;&nbsp;
-    <?= Html::a(Yii::t('hipanel/ticket', 'Edit'), '#update-answer-modal', [
+    <?= Html::a(Yii::t('hipanel:ticket', 'Edit'), '#update-answer-modal', [
         'class' => 'link-button comment-edit-button',
         'data' => [
             'toggle' => 'modal',

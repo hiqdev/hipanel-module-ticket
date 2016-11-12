@@ -25,7 +25,7 @@ class Thread extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
-    public static $i18nDictionary = 'hipanel/ticket';
+    public static $i18nDictionary = 'hipanel:ticket';
 
     const STATE_OPEN = 'opened';
     const STATE_CLOSE = 'closed';
@@ -176,18 +176,18 @@ class Thread extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'author'           => Yii::t('hipanel/ticket', 'Author'),
-            'author_id'        => Yii::t('hipanel/ticket', 'Author'),
-            'recipient'        => Yii::t('hipanel/ticket', 'Recipient'),
-            'is_private'       => Yii::t('hipanel/ticket', 'Make private'),
-            'responsible'      => Yii::t('hipanel/ticket', 'Assignee'),
-            'responsible_id'   => Yii::t('hipanel/ticket', 'Assignee'),
-            'spent'            => Yii::t('hipanel/ticket', 'Spent time'),
-            'create_time'      => Yii::t('hipanel/ticket', 'Created'),
-            'a_reply_time'     => Yii::t('hipanel/ticket', 'a_reply_time'),
-            'file'             => Yii::t('hipanel/ticket', 'Files'),
-            'lastanswer'       => Yii::t('hipanel/ticket', 'Last answer'),
-            'author_seller'    => Yii::t('hipanel/ticket', 'Author\'s seller'),
+            'author'           => Yii::t('hipanel:ticket', 'Author'),
+            'author_id'        => Yii::t('hipanel:ticket', 'Author'),
+            'recipient'        => Yii::t('hipanel:ticket', 'Recipient'),
+            'is_private'       => Yii::t('hipanel:ticket', 'Make private'),
+            'responsible'      => Yii::t('hipanel:ticket', 'Assignee'),
+            'responsible_id'   => Yii::t('hipanel:ticket', 'Assignee'),
+            'spent'            => Yii::t('hipanel:ticket', 'Spent time'),
+            'create_time'      => Yii::t('hipanel:ticket', 'Created'),
+            'a_reply_time'     => Yii::t('hipanel:ticket', 'a_reply_time'),
+            'file'             => Yii::t('hipanel:ticket', 'Files'),
+            'lastanswer'       => Yii::t('hipanel:ticket', 'Last answer'),
+            'author_seller'    => Yii::t('hipanel:ticket', 'Seller'),
         ]);
     }
 

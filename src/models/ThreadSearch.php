@@ -32,7 +32,7 @@ class ThreadSearch extends Thread
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(), [
-            'anytext_like' => Yii::t('hipanel/ticket', 'Subject or message'),
+            'anytext_like' => Yii::t('hipanel:ticket', 'Subject or message'),
         ]);
     }
 }

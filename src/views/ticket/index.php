@@ -5,7 +5,7 @@ use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\helpers\Html;
 
-$this->title                   = Yii::t('hipanel/ticket', 'Tickets');
+$this->title                   = Yii::t('hipanel:ticket', 'Tickets');
 $this->params['subtitle']      = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -51,7 +51,7 @@ CSS
     <?= $page->setSearchFormData(compact(['state_data', 'topic_data', 'priority_data'])) ?>
 
     <?php $page->beginContent('main-actions') ?>
-        <?= Html::a(Yii::t('hipanel/ticket', 'Create ticket'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
+        <?= Html::a(Yii::t('hipanel:ticket', 'Create ticket'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('show-actions') ?>
@@ -66,9 +66,9 @@ CSS
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
-        <?= $page->renderBulkButton(Yii::t('hipanel/ticket', 'Subscribe'), 'subscribe') ?>
-        <?= $page->renderBulkButton(Yii::t('hipanel/ticket', 'Unsubscribe'), 'unsubscribe') ?>
-        <?= $page->renderBulkButton(Yii::t('hipanel/ticket', 'Close'), 'close', 'danger') ?>
+        <?= $page->renderBulkButton(Yii::t('hipanel:ticket', 'Subscribe'), 'subscribe') ?>
+        <?= $page->renderBulkButton(Yii::t('hipanel:ticket', 'Unsubscribe'), 'unsubscribe') ?>
+        <?= $page->renderBulkButton(Yii::t('hipanel:ticket', 'Close'), 'close', 'danger') ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('table') ?>

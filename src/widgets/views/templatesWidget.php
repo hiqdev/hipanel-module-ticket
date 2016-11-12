@@ -11,7 +11,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="col-lg-4 template-selector">
-    <label class="control-label" for="thread-file"><?= Yii::t('hipanel/ticket', 'Template') ?></label>
+    <label class="control-label" for="thread-file"><?= Yii::t('hipanel:ticket', 'Template') ?></label>
     <div class="input-group">
         <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

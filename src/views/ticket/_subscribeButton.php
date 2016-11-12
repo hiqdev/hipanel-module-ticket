@@ -18,7 +18,7 @@ Pjax::begin(array_merge(Yii::$app->params['pjax'], [
 ]));
 
 if (is_array($model->watchers)) {
-    echo Html::tag('p', Yii::t('hipanel/ticket', 'Watchers'), ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;']);
+    echo Html::tag('p', Yii::t('hipanel:ticket', 'Watchers'), ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;']);
     ?>
     <div class="margin-bottom">
         <?php foreach ($model->watchers as $watcherId => $watcher) {
@@ -47,10 +47,10 @@ if (is_array($model->watchers)) {
 $subscribed = array_key_exists(Yii::$app->user->identity->id, $model->watchers ?: []);
 if ($subscribed) {
     $action = ['unsubscribe', 'id' => $model->id];
-    $label = '<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;' . Yii::t('hipanel/ticket', 'Unsubscribe');
+    $label = '<i class="fa fa-eye-slash"></i>&nbsp;&nbsp;' . Yii::t('hipanel:ticket', 'Unsubscribe');
 } else {
     $action = ['subscribe', 'id' => $model->id];
-    $label = '<i class="fa fa-eye"></i>&nbsp;&nbsp;' . Yii::t('hipanel/ticket', 'Subscribe');
+    $label = '<i class="fa fa-eye"></i>&nbsp;&nbsp;' . Yii::t('hipanel:ticket', 'Subscribe');
 }
 
 echo Html::a($label, $action, HtmlHelper::loadingButtonOptions(['class' => 'btn btn-default btn-sm btn-block']));

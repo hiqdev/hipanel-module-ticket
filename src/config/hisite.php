@@ -23,12 +23,9 @@ return [
     'components' => [
         'i18n' => [
             'translations' => [
-                'hipanel/ticket*' => [
+                'hipanel:ticket' => [
                     'class' => \yii\i18n\PhpMessageSource::class,
                     'basePath' => '@hipanel/modules/ticket/messages',
-                    'fileMap' => [
-                        'hipanel/ticket' => 'ticket.php',
-                    ],
                 ],
             ],
         ],

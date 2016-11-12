@@ -127,7 +127,7 @@ use yii\widgets\ActiveForm;
             </li> */ ?>
             <li class="list-group-item">
                 <span class="badge"><?= Yii::$app->formatter->asDuration($model->spent * 60) ?></span>
-                <?= Yii::t('hipanel/ticket', 'Spent time') ?>
+                <?= Yii::t('hipanel:ticket', 'Spent time') ?>
             </li>
         </ul>
     <?php endif ?>

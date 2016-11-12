@@ -21,8 +21,8 @@ class TemplateSearch extends Template
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'name_like' => Yii::t('hipanel/ticket', 'Name'),
-            'author_id' => Yii::t('hipanel/ticket', 'Author'),
+            'name_like' => Yii::t('hipanel:ticket', 'Name'),
+            'author_id' => Yii::t('hipanel:ticket', 'Author'),
         ]);
     }
 }

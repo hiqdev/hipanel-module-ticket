@@ -23,7 +23,7 @@ class AnswerController extends \hipanel\base\CrudController
             'update'   => [
                 'class'      => SmartPerformAction::class,
                 'scenario'   => 'update',
-                'success'    => Yii::t('hipanel/ticket', 'Comment was updated'),
+                'success'    => Yii::t('hipanel:ticket', 'Comment was updated'),
                 'POST'  => [
                     'save'    => true,
                     'success' => [
@@ -45,8 +45,8 @@ class AnswerController extends \hipanel\base\CrudController
     protected function prepareRefs()
     {
         return [
-            'topic_data'    => $this->getRefs('topic,ticket', 'hipanel/ticket'),
-            'state_data'    => $this->getClassRefs('state', 'hipanel/ticket'),
+            'topic_data'    => $this->getRefs('topic,ticket', 'hipanel:ticket'),
+            'state_data'    => $this->getClassRefs('state', 'hipanel:ticket'),
             'priority_data' => $this->getPriorities(),
         ];
     }

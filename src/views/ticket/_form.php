@@ -12,7 +12,7 @@ use yii\helpers\Html;
 OcticonsAsset::register($this);
 iCheckAsset::register($this);
 AutosizeAsset::register($this);
-$emptyPreviewText = \yii\helpers\Json::encode(Yii::t('hipanel/ticket', 'Nothing to preview'));
+$emptyPreviewText = \yii\helpers\Json::encode(Yii::t('hipanel:ticket', 'Nothing to preview'));
 $this->registerJs(<<< JS
 // Init iCheck
 $('input.icheck').iCheck({
@@ -88,17 +88,17 @@ if ($model->isNewRecord) {
             <div class="pull-right" style="padding-top:0.5em">
                 <?= Html::a(
                     '<span class="octicon octicon-markdown"></span> ' .
-                    Yii::t('hipanel/ticket', 'Markdown is supported'),
+                    Yii::t('hipanel:ticket', 'Markdown is supported'),
                     'https://guides.github.com/features/mastering-markdown/',
                     ['target' => '_blank', 'class' => '', 'style' => 'border-bottom: 1px solid; border-bottom-style: dashed;']
                 ) ?>
             </div>
             <li role="presentation" class="active">
-                <a href="#message-<?= $form->getId() ?>" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('hipanel/ticket', 'Message') ?></a>
+                <a href="#message-<?= $form->getId() ?>" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('hipanel:ticket', 'Message') ?></a>
             </li>
             <li role="presentation">
                 <a href="#preview-<?= $form->getId() ?>" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview">
-                    <?= Yii::t('hipanel/ticket', 'Preview') ?>
+                    <?= Yii::t('hipanel:ticket', 'Preview') ?>
                 </a>
             </li>
         </ul>
@@ -107,14 +107,14 @@ if ($model->isNewRecord) {
             <div role="tabpanel" class="tab-pane active message-tab" id="message-<?= $form->getId() ?>">
                 <?= $form->field($model, 'message')->textarea([
                     'rows' => 1,
-                    'placeholder' => Yii::t('hipanel/ticket', 'Compose your message here'),
+                    'placeholder' => Yii::t('hipanel:ticket', 'Compose your message here'),
                     'class' => ['form-control message-text'],
                 ])->label(false); ?>
 
             </div>
             <div role="tabpanel" class="tab-pane preview-tab" id="preview-<?= $form->getId() ?>">
                 <div class="well well-sm preview-container">
-                    <?= Yii::t('hipanel/ticket', 'Nothing to preview') ?>
+                    <?= Yii::t('hipanel:ticket', 'Nothing to preview') ?>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ use yii\helpers\Html;
  */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/ticket', 'Answer templates'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:ticket', 'Answer templates'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         $box = Box::begin(['renderBody' => false]);
             $box->beginHeader();
-                echo $box->renderTitle(Yii::t('hipanel/ticket', 'Template details'));
+                echo $box->renderTitle(Yii::t('hipanel:ticket', 'Template details'));
             $box->endHeader();
             $box->beginBody();
                 echo TemplateGridView::detailView([
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php
                     $box = Box::begin(['renderBody' => false]);
                         $box->beginHeader();
-                            echo $box->renderTitle(Yii::t('hipanel/ticket', 'Translation: {language}', [
+                            echo $box->renderTitle(Yii::t('hipanel:ticket', 'Translation: {language}', [
                                 'language' => Yii::t('hipanel', $translation->lang)
                             ]));
                         $box->endHeader();
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             if (!empty($translation->text)) {
                                 echo Markdown::process($translation->text);
                             } else {
-                                echo Html::tag('span', Yii::t('hipanel/ticket', 'No translation'), [
+                                echo Html::tag('span', Yii::t('hipanel:ticket', 'No translation'), [
                                     'class' => 'text-danger'
                                 ]);
                             }

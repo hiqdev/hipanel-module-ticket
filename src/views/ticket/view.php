@@ -11,7 +11,7 @@ $reminder = ReminderButton::widget([
 
 $this->title                    = $model->subject;
 $this->params['subtitle']       = '#' . $model->id . '&nbsp;' . $reminder;
-$this->params['breadcrumbs'][]  = ['label' => Yii::t('hipanel/ticket', 'Tickets'), 'url' => ['index']];
+$this->params['breadcrumbs'][]  = ['label' => Yii::t('hipanel:ticket', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][]  = '#' . $model->id;
 
 $action = 'answer';

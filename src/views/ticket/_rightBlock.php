@@ -78,7 +78,7 @@ JS
         </div>
         <?php if ($model->isRelationPopulated('answers')) : ?>
             <hr class="no-panel-padding-h panel-wide padding-bottom md-mb-0">
-            <?= Html::button(Yii::t('hipanel/ticket', 'Answer'), ['class' => 'message-block-move-btn btn btn-default']); ?>
+            <?= Html::button(Yii::t('hipanel:ticket', 'Answer'), ['class' => 'message-block-move-btn btn btn-default']); ?>
         <?php endif; ?>
     <?php endif; ?>
 
@@ -86,7 +86,7 @@ JS
     $actionUrl = Json::encode(Url::to(['update-answer-modal']));
     echo AjaxModal::widget([
         'id' => 'update-answer-modal',
-        'header' => Html::tag('h4', Yii::t('hipanel/ticket', 'Message editing'), ['class' => 'modal-title']),
+        'header' => Html::tag('h4', Yii::t('hipanel:ticket', 'Message editing'), ['class' => 'modal-title']),
         'scenario' => 'update-answer',
         'actionUrl' => ['update-answer-modal'],
         'size' => Modal::SIZE_LARGE,

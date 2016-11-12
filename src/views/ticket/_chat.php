@@ -45,7 +45,7 @@ JS
 <div class="box box-success">
     <div class="box-header">
         <i class="fa fa-comments-o"></i>
-        <?= Html::tag('h3', Yii::t('hipanel/ticket', 'Chat'), ['class' => 'box-title']) ?>
+        <?= Html::tag('h3', Yii::t('hipanel:ticket', 'Chat'), ['class' => 'box-title']) ?>
         <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
             <!--div class="btn-group" data-toggle="btn-toggle" >
                 <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>
@@ -82,15 +82,15 @@ JS
                                 <?= Html::a($answer['author'], ['@client/view', 'id' => $answer['author_id']], ['class' => 'name']) ?>&nbsp;
                                 <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer['create_time']), ['class' => 'datetime']) ?>&nbsp;
                                 <?php if ($answer['spent']) : ?>
-                                    <?= Html::tag('span', Yii::t('hipanel/ticket', 'Time spent: {n}', ['n' => $answer['spent']]), ['class' => 'spent-time']) ?>
+                                    <?= Html::tag('span', Yii::t('hipanel:ticket', 'Time spent: {n}', ['n' => $answer['spent']]), ['class' => 'spent-time']) ?>
                                 <?php endif ?>&nbsp;
                             </div>
 
                             <div class="buttons">
-                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Quote', ['i' => '<span class="fa fa-quote-left"></span>&nbsp;&nbsp;']), ['class' => 'quote-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]) ?>
-                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Hide', ['i' => '<span class="fa fa-minus"></span>&nbsp;&nbsp;']), ['class' => 'hide-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]) ?>
-                                <?= Html::button(Yii::t('hipanel/ticket', '{i}Show', ['i' => '<span class="fa fa-plus"></span>&nbsp;&nbsp;']), ['class' => 'show-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']], 'style' => 'display: none;']) ?>
-                                <?php /* = Html::button(Yii::t('hipanel/ticket', '{i}Split', ['i' => '<span class="fa fa-scissors"></span>&nbsp;&nbsp;']), ['class' => 'split-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); */ ?>
+                                <?= Html::button(Yii::t('hipanel:ticket', '{i}Quote', ['i' => '<span class="fa fa-quote-left"></span>&nbsp;&nbsp;']), ['class' => 'quote-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]) ?>
+                                <?= Html::button(Yii::t('hipanel:ticket', '{i}Hide', ['i' => '<span class="fa fa-minus"></span>&nbsp;&nbsp;']), ['class' => 'hide-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]) ?>
+                                <?= Html::button(Yii::t('hipanel:ticket', '{i}Show', ['i' => '<span class="fa fa-plus"></span>&nbsp;&nbsp;']), ['class' => 'show-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']], 'style' => 'display: none;']) ?>
+                                <?php /* = Html::button(Yii::t('hipanel:ticket', '{i}Split', ['i' => '<span class="fa fa-scissors"></span>&nbsp;&nbsp;']), ['class' => 'split-answer btn btn-xs btn-default', 'data' => ['answer-id' => $answer['answer_id']]]); */ ?>
                             </div>
 
                             <div class="clearfix"></div>

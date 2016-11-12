@@ -5,7 +5,7 @@ use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\helpers\Html;
 
-$this->title = Yii::t('hipanel/ticket', 'Answer templates');
+$this->title = Yii::t('hipanel:ticket', 'Answer templates');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
         <?php $page->beginContent('main-actions') ?>
-            <?= Html::a(Yii::t('hipanel/ticket', 'Create template'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
+            <?= Html::a(Yii::t('hipanel:ticket', 'Create template'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('show-actions') ?>

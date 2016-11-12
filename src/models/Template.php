@@ -16,7 +16,7 @@ use Yii;
 
 class Template extends Article
 {
-    public static $i18nDictionary = 'hipanel/ticket';
+    public static $i18nDictionary = 'hipanel:ticket';
 
     public static function index()
     {
@@ -44,7 +44,7 @@ class Template extends Article
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'name' => Yii::t('hipanel/ticket', 'Name'),
+            'name' => Yii::t('hipanel:ticket', 'Name'),
         ]);
     }
 }

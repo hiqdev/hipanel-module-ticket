@@ -47,7 +47,7 @@ $form = ActiveForm::begin([
                         <?php
                         $box = Box::begin(['renderBody' => false]);
                             $box->beginHeader();
-                                echo $box->renderTitle(Yii::t('hipanel/ticket', 'Translation: {language}', [
+                                echo $box->renderTitle(Yii::t('hipanel:ticket', 'Translation: {language}', [
                                     'language' => Yii::t('hipanel', $translation->lang)
                                 ]));
                             $box->endHeader();
