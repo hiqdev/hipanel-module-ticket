@@ -117,7 +117,7 @@ $form = ConditionalFormWidget::begin([
                         'clientIdAttribute' => 'id',
                     ]) ?>
                 </div>
-                <div class="profile-user-role"><?= Yii::t('hipanel/client', $client->type) ?></div>
+                <div class="profile-user-role"><?= Yii::t('hipanel:client', $client->type) ?></div>
             </div>
             <?php $box->beginFooter() ?>
             <div class="table-responsive">
