@@ -90,7 +90,10 @@ class TicketGridView extends BoxedGridView
                 'filter' => false,
                 'enableSorting' => false,
                 'value' => function ($model) {
-                    $answerCount = sprintf('<span class="label label-default">&nbsp;%d&nbsp;</span>', $model->answer_count);
+                    $answerCount = Html::tag('span', $model->answer_count, [
+                        'class' => 'label label-default',
+                        'title' => Yii::t('hipanel:ticket', 'Ticket contains {n, plural, one{# answer} other{# answers}}', ['n' => $model->answer_count])
+                    ]);
                     $lastAnswer = Html::a(
                             $model->replier,
                             ['@client/view', 'id' => $model->replier_id],

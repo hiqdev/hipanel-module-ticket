@@ -38,7 +38,7 @@ $this->registerCss(<<<CSS
 #ticket-grid td.answer .label {
     text-align: center;
     font-size: 9px;
-    padding: 2px 3px;
+    padding: 2px 5px;
     line-height: .9;
 }
 CSS
