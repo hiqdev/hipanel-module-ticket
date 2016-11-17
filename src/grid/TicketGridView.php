@@ -35,7 +35,7 @@ class TicketGridView extends BoxedGridView
                         'emailHash' => $model->author_email,
                         'defaultImage' => 'identicon',
                         'options' => [
-                            'alt' => '',
+                            'alt' => Yii::t('hipanel:ticket', 'Avatar for {login}', ['login' => $model->author]),
                             'class' => 'img-circle',
                         ],
                         'size' => 40,

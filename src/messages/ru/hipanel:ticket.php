@@ -128,4 +128,6 @@ return [
     'Administration' => 'Административный',
     'Abuse' => 'Жалоба',
     'Domain' => 'Домен',
+
+    'Avatar for {login}' => 'Аватар пользователя {login}'
 ];
