@@ -36,8 +36,13 @@ echo Html::beginTag('div', ['class' => 'comment-text']) ?>
     ]) ?>
     &nbsp;·&nbsp;
     <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
-    <?= $answer->ip ? "&nbsp;·&nbsp;" . Html::tag('span', 'IP: ' . $answer->ip) : '' ?>
-    <?= $answer->ip ? "&nbsp;·&nbsp;" . Html::tag('span', Yii::t('hipanel:ticket', 'Country') . ': ' . Yii::$app->geoip->ip($answer->ip)->country) : '' ?>
+    <?= $answer->ip ? "&nbsp;·&nbsp;" . Html::tag('span', 'IP: ' . $answer->ip) : ''  ?>
+    <?php
+    $country_name =  Yii::$app->geoip->ip($answer->ip)->country;
+    if ($country_name) {
+        print "&nbsp;·&nbsp;" . Html::tag('span', Yii::t('hipanel:ticket', 'Country') . ': ' . $country_name);
+    }
+    ?>
     &nbsp;·&nbsp;
     <?= Html::a("<i class='fa fa-hashtag'></i>", ['@ticket/view', 'id' => $model->id, '#' => $answerId], ['class' => 'name']) ?>
     <?php if ($answer->spent) : ?>
