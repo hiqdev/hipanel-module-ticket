@@ -47,7 +47,8 @@
         "hiqdev/hipanel-module-client": "<2.0 || dev-master",
         "hiqdev/yii2-asset-icheck": "~1.0",
         "hiqdev/yii2-asset-autosize": "~3.0",
-        "hiqdev/yii2-asset-visibilityjs": "*"
+        "hiqdev/yii2-asset-visibilityjs": "*",
+        "lysenkobv/yii2-geoip": "~1.0"
     },
     "require-dev": {
         "hiqdev/hidev-php": "<2.0",
