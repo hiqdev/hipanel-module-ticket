@@ -29,6 +29,9 @@ return [
                 ],
             ],
         ],
+        'geoip' => [
+            'class' => 'lysenkobv\GeoIP\GeoIP'
+        ],
         'menuManager' => [
             'items' => [
                 'sidebar' => [
