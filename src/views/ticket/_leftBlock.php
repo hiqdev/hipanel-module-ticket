@@ -107,7 +107,7 @@ $form = ConditionalFormWidget::begin([
             <div class="profile-block">
                 <div class="profile-photo">
                     <?php if ($client->email) : ?>
-                        <?= $this->render('//layouts/gravatar', ['email' => $client->email, 'size' => 120]) ?>
+                        <?= $this->render('//layouts/gravatar', ['email' => $client->email, 'size' => 120, 'alt' => '']) ?>
                     <?php endif ?>
                 </div>
                 <div class="profile-user-name">
