@@ -2,9 +2,11 @@
 
 use hipanel\helpers\Markdown;
 use hipanel\modules\ticket\grid\TemplateGridView;
+use hipanel\modules\ticket\menus\TemplateDetailMenu;
 use hipanel\modules\ticket\models\Template;
 use hipanel\widgets\Box;
 use hipanel\widgets\Pjax;
+use hiqdev\menumanager\widgets\DetailMenu;
 use yii\helpers\Html;
 
 /**
@@ -37,9 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <div class="profile-usermenu">
-            <ul class="nav">
-                <li><?= Html::a('<i class="fa fa-pencil"></i>' . Yii::t('hipanel', 'Update'), ['update', 'id' => $model->id]) ?></li>
-            </ul>
+            <?= TemplateDetailMenu::create(['model' => $model])->render(DetailMenu::class) ?>
         </div>
         <?php Box::end(); ?>
         <?php

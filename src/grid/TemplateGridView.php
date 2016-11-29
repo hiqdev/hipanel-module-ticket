@@ -15,6 +15,8 @@ use hipanel\grid\ActionColumn;
 use hipanel\grid\MainColumn;
 use hipanel\grid\SwitchColumn;
 use hipanel\modules\client\grid\ClientColumn;
+use hipanel\modules\ticket\menus\TemplateActionsMenu;
+use hiqdev\menumanager\MenuColumn;
 use Yii;
 
 class TemplateGridView extends \hipanel\grid\BoxedGridView
@@ -34,9 +36,8 @@ class TemplateGridView extends \hipanel\grid\BoxedGridView
                 },
             ],
             'actions' => [
-                'class' => ActionColumn::class,
-                'template' => '{view}{delete}',
-                'header' => Yii::t('hipanel', 'Actions'),
+                'class' => MenuColumn::class,
+                'menuClass' => TemplateActionsMenu::class,
             ],
             'is_published' => [
                 'class' => SwitchColumn::class,

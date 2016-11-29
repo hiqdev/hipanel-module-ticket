@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel'  => $model,
                     'columns'      => [
                         'checkbox', 'author_id',
-                        'name', 'is_published', 'actions',
+                        'name', 'actions', 'is_published',
                     ],
                 ]) ?>
             <?php $page->endBulkForm() ?>
