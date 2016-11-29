@@ -14,10 +14,12 @@ namespace hipanel\modules\ticket\grid;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\modules\client\grid\ClientColumn;
+use hipanel\modules\ticket\menus\TicketActionsMenu;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Gravatar;
+use hiqdev\menumanager\MenuColumn;
 use Yii;
 use yii\helpers\Html;
 
@@ -108,21 +110,8 @@ class TicketGridView extends BoxedGridView
                 ],
             ],
             'actions' => [
-                'class' => ActionColumn::class,
-                'template' => '{view} {state}',
-                'header' => Yii::t('hipanel', 'Actions'),
-                'buttons' => [
-                    'state' => function ($url, $model, $key) {
-                        $out = '';
-                        if ($model->state === Thread::STATE_OPEN) {
-                            $out .= Html::a(Yii::t('hipanel:ticket', 'Close'), ['close', 'id' => $model->id]);
-                        } elseif ($model->state === Thread::STATE_CLOSE) {
-                            $out .= Html::a(Yii::t('hipanel:ticket', 'Open'), ['open', 'id' => $model->id]);
-                        }
-
-                        return $out;
-                    },
-                ],
+                'class' => MenuColumn::class,
+                'menuClass' => TicketActionsMenu::class,
             ],
         ];
     }
