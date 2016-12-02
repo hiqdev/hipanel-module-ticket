@@ -161,7 +161,7 @@ class Answer extends \hipanel\base\Model
         return $this->author;
     }
 
-    public function getClientId()
+    public function getClient_id()
     {
         return $this->author_id;
     }
@@ -171,7 +171,7 @@ class Answer extends \hipanel\base\Model
         return $this->author_seller;
     }
 
-    public function getSellerId()
+    public function getSeller_id()
     {
         return $this->author_seller_id;
     }

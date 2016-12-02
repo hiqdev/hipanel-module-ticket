@@ -111,11 +111,7 @@ $form = ConditionalFormWidget::begin([
                     <?php endif ?>
                 </div>
                 <div class="profile-user-name">
-                    <?= ClientSellerLink::widget([
-                        'model' => $client,
-                        'clientAttribute' => 'login',
-                        'clientIdAttribute' => 'id',
-                    ]) ?>
+                    <?= ClientSellerLink::widget(['model' => $client]) ?>
                 </div>
                 <div class="profile-user-role"><?= Yii::t('hipanel:client', $client->type) ?></div>
             </div>
