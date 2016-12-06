@@ -13,11 +13,11 @@ use yii\widgets\ActiveForm;
 ?>
 
 <?php $form = ActiveForm::begin([
-    'action'  => $action,
+    'action' => $action,
     'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
 ]) ?>
 
-    <!-- Topics -->
+<!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
     <?= $form->field($model, 'topics')->widget(StaticCombo::class, [
         'hasId' => true,
@@ -48,17 +48,18 @@ use yii\widgets\ActiveForm;
         </li>
     </ul>
 <?php endif ?>
-    <div class="clearfix"></div>
-    <!-- Priority -->
-<?php if ($model->isNewRecord) : ?>
-    <?php $model->priority = 'medium' ?>
-    <?= $form->field($model, 'priority')->widget(StaticCombo::class, [
-        'data' => $priority_data,
-        'hasId' => true,
-    ]) ?>
-<?php else : ?>
-    <ul class="list-group ticket-list-group">
-        <li class="list-group-item">
+<div class="clearfix"></div>
+<!-- Priority -->
+<?php if (Yii::$app->user->can('support')) : ?>
+    <?php if ($model->isNewRecord) : ?>
+        <?php $model->priority = 'medium' ?>
+        <?= $form->field($model, 'priority')->widget(StaticCombo::class, [
+            'data' => $priority_data,
+            'hasId' => true,
+        ]) ?>
+    <?php else : ?>
+        <ul class="list-group ticket-list-group">
+            <li class="list-group-item">
                 <span class="badge">
                     <?= XEditable::widget([
                         'model' => $model,
@@ -70,10 +71,11 @@ use yii\widgets\ActiveForm;
                         ],
                     ]) ?>
                 </span>
-            <?= $model->getAttributeLabel('priority') ?>
-        </li>
-    </ul>
-<?php endif ?>
+                <?= $model->getAttributeLabel('priority') ?>
+            </li>
+        </ul>
+    <?php endif ?>
+<?php endif; ?>
 <?php if (Yii::$app->user->can('support')) : ?>
     <?php if ($model->isNewRecord) : ?>
         <?php $model->responsible_id = Yii::$app->user->id ?>
