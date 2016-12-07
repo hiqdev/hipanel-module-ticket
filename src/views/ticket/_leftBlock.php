@@ -97,7 +97,7 @@ $form = ConditionalFormWidget::begin([
         <?php $box->end() ?>
     </div>
 
-    <?php if ($client) : ?>
+    <?php if ($client && Yii::$app->user->can('support') && Yii::$app->user->id !== $model->recipient_id) : ?>
         <div class="col-md-12">
             <?php $box = Box::begin([
                 'options' => [
@@ -127,7 +127,6 @@ $form = ConditionalFormWidget::begin([
                     ],
                 ]) ?>
             </div>
-            <!-- /.table-responsive -->
             <?php if ($client->login != 'anonym') : ?>
                 <?= Html::a('<i class="fa fa-info-circle" style="font-size:120%"></i>&nbsp;&nbsp;' . Yii::t('hipanel:ticket', 'Client details'), ['@client/view', 'id' => $client->id], ['class' => 'btn  btn-default btn-sm btn-block']) ?>
             <?php endif ?>
