@@ -36,7 +36,7 @@ echo Html::beginTag('div', ['class' => 'comment-text']) ?>
     ]) ?>
     &nbsp;·&nbsp;
     <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
-    <?= $answer->ip ? "&nbsp;·&nbsp;" . Html::tag('span', 'IP: ' . $answer->ip) : ''  ?>
+    <?= $answer->ip && Yii::$app->user->can('manage') ? "&nbsp;·&nbsp;" . Html::tag('span', 'IP: ' . $answer->ip) : ''  ?>
     <?php
     $country_name =  Yii::$app->geoip->ip($answer->ip)->country;
     if ($country_name) {
