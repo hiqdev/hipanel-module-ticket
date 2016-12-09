@@ -121,25 +121,9 @@ $form = ConditionalFormWidget::begin([
                     'model' => $client,
                     'boxed' => false,
                     'columns' => $client->login == 'anonym' ? ['name', 'email'] : [
-                        'name', 'email', 'country',
+                        'name', 'email', 'messengers', 'country',
                         'state', 'balance', 'credit',
                         'servers_spoiler', 'domains_spoiler', 'hosting',
-                        [
-                            'class' => \yii\grid\DataColumn::class,
-                            'label' => Yii::t('hipanel:client', 'Messengers'),
-                            'format' => 'html',
-                            'value' => function ($model) {
-                                $res = [];
-                                $contact = $model->contact;
-                                foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
-                                    if ($contact->{$k}) {
-                                        $res[] = "<b>$label:</b>&nbsp;" . $contact->{$k};
-                                    }
-                                }
-
-                                return implode('<br>', $res);
-                            },
-                        ]
                     ],
                 ]) ?>
             </div>
