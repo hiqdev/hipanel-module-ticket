@@ -38,9 +38,11 @@ echo Html::beginTag('div', ['class' => 'comment-text']) ?>
     <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
     <?= $answer->ip && Yii::$app->user->can('manage') ? "&nbsp;·&nbsp;" . Html::tag('span', 'IP: ' . $answer->ip) : ''  ?>
     <?php
-    $country_name =  Yii::$app->geoip->ip($answer->ip)->country;
-    if ($country_name) {
-        print "&nbsp;·&nbsp;" . Html::tag('span', Yii::t('hipanel:ticket', 'Country') . ': ' . $country_name);
+    if (Yii::$app->user->can('manage')) {
+        $country_name =  Yii::$app->geoip->ip($answer->ip)->country;
+        if ($country_name) {
+            print "&nbsp;·&nbsp;" . Html::tag('span', Yii::t('hipanel:ticket', 'Country') . ': ' . $country_name);
+        }
     }
     ?>
     &nbsp;·&nbsp;
