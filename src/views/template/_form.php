@@ -26,8 +26,7 @@ $form = ActiveForm::begin([
                 <div class="col-md-4">
                     <div class="box box-danger">
                         <div class="box-body">
-                            <div class="form-instance" xmlns="http://www.w3.org/1999/html"
-                                 xmlns="http://www.w3.org/1999/html">
+                            <div class="form-instance">
                                 <?php
                                 if ($model->isNewRecord) {
                                     $model->id = $i;

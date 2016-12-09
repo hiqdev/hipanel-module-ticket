@@ -22,7 +22,7 @@ $answerId = 'answer-' . $answer->answer_id;
     ]) ?>
     <?= Html::beginTag('div', ['class' => 'comment-body']) ?>
         <?= Html::beginTag('div', ['class' => 'comment-text']) ?>
-            <div class="comment-heading" xmlns="http://www.w3.org/1999/html">
+            <div class="comment-heading">
                 <?= ClientSellerLink::widget(['model' => $answer]) ?>
                 &nbsp;·&nbsp; <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
                 <?php if (Yii::$app->user->can('manage') && $answer->ip) : ?>
