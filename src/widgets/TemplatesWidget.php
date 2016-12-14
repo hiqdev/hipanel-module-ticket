@@ -23,17 +23,21 @@ class TemplatesWidget extends Widget
 {
     public $textareaSelector = '#thread-message';
 
+    protected $formId;
+
     public function run()
     {
         if (!Yii::$app->user->can('support')) {
             return null;
         }
+        $this->formId = mt_rand();
 
         $this->registerClientScript();
 
         return $this->render('templatesWidget', [
             'languages' => $this->getLanguages(),
             'defaultLanguage' => $this->getDefaultLanguage(),
+            'formId' => $this->formId,
         ]);
     }
 
@@ -94,7 +98,7 @@ class TemplatesWidget extends Widget
         ]);
 
         $this->view->registerJs("
-            $('#template-combo').on('select2-selecting', function (e) {
+            $('#{$this->formId}').on('select2-selecting', function (e) {
                 var id = e.val;
                 var language = $('.selected-language').attr('data-language');
                 $.ajax($options);
@@ -109,5 +113,13 @@ class TemplatesWidget extends Widget
                 event.preventDefault();
             });
         ");
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormId()
+    {
+        return $this->formId;
     }
 }
