@@ -27,8 +27,6 @@ $answerId = 'answer-' . $answer->answer_id;
                 &nbsp;·&nbsp; <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
                 <?php if (Yii::$app->user->can('manage') && $answer->ip) : ?>
                     &nbsp;·&nbsp; <?= Html::tag('span', 'IP: ' . $answer->ip) ?>
-                <?php endif ?>
-                <?php if (Yii::$app->user->can('manage')) : ?>
                     <?php $country_name = Yii::$app->geoip->ip($answer->ip)->country; ?>
                     <?php if ($country_name) : ?>
                         &nbsp;·&nbsp; <?= Html::tag('span', Yii::t('hipanel:ticket', 'Country') . ': ' . $country_name) ?>
