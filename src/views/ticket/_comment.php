@@ -25,7 +25,7 @@ $answerId = 'answer-' . $answer->answer_id;
             <div class="comment-heading">
                 <?= ClientSellerLink::widget(['model' => $answer]) ?>
                 &nbsp;·&nbsp; <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
-                <?php if (Yii::$app->user->can('manage') && $answer->ip) : ?>
+                <?php if (Yii::$app->user->can('support') && $answer->ip) : ?>
                     &nbsp;·&nbsp; <?= Html::tag('span', 'IP: ' . $answer->ip) ?>
                     <?php $country_name = Yii::$app->geoip->ip($answer->ip)->country; ?>
                     <?php if ($country_name) : ?>
