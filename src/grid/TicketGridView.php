@@ -42,14 +42,25 @@ class TicketGridView extends BoxedGridView
                         ],
                         'size' => 40,
                     ]), ['class' => 'pull-right']);
-                    $isClosed = $model->state === Thread::STATE_CLOSE;
-                    $titleLink = Html::a($model->subject, $model->threadUrl, ['class' => 'text-bold', 'style' => (($isClosed) ? 'color: black!important;' : '')]) .
-                        Topic::widget(['topics' => $model->topics]) .
-                        Html::tag('div', sprintf('#%s %s %s', $model->id,
-                            Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
-                            Yii::$app->formatter->asDatetime($model->create_time)), ['class' => 'text-muted']);
 
-                    return $ava . Html::tag('div', $titleLink);
+                    $titleLink = [
+                        Html::a($model->subject, $model->threadUrl, [
+                            'class' => 'text-bold',
+                            'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
+                        ]),
+                        Topic::widget(['topics' => $model->topics]),
+                        Html::tag(
+                            'div',
+                            sprintf('#%s %s %s',
+                                $model->id,
+                                Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
+                                Yii::$app->formatter->asDatetime($model->create_time)
+                            ),
+                            ['class' => 'text-muted']
+                        ),
+                    ];
+
+                    return $ava . Html::tag('div', implode('', $titleLink));
                 },
             ],
             'author_id' => [
@@ -92,18 +103,29 @@ class TicketGridView extends BoxedGridView
                 'filter' => false,
                 'enableSorting' => false,
                 'value' => function ($model) {
-                    $answerCount = Html::tag('span', $model->answer_count, [
-                        'class' => 'label label-default',
-                        'title' => Yii::t('hipanel:ticket', 'Ticket contains {n, plural, one{# answer} other{# answers}}', ['n' => $model->answer_count])
-                    ]);
-                    $lastAnswer = Html::a(
-                            $model->replier,
-                            ['@client/view', 'id' => $model->replier_id],
-                            ['class' => '']) . '<br>' .
-                        Html::tag('span', Yii::$app->formatter->asRelativeTime($model->reply_time), ['style' => 'font-size: smaller;white-space: nowrap;', 'class' => 'text-muted']) .
-                        '&nbsp;&nbsp;' . $answerCount;
+                    $lastAnswer = [
+                        ClientSellerLink::widget([
+                            'model' => $model,
+                            'clientAttribute' => 'replier',
+                            'clientIdAttribute' => 'replier_id',
+                            'sellerAttribute' => false,
+                        ]), '<br>',
 
-                    return $lastAnswer;
+                        Html::tag('span', Yii::$app->formatter->asRelativeTime($model->reply_time), [
+                            'style' => 'font-size: smaller;white-space: nowrap;',
+                            'class' => 'text-muted',
+                        ]), '&nbsp;&nbsp;',
+
+                        Html::tag('span', $model->answer_count, [
+                            'class' => 'label label-default',
+                            'title' => Yii::t('hipanel:ticket',
+                                'Ticket contains {n, plural, one{# answer} other{# answers}}',
+                                ['n' => $model->answer_count]
+                            ),
+                        ])
+                    ];
+
+                    return implode('', $lastAnswer);
                 },
                 'contentOptions' => [
                     'class' => 'answer',
