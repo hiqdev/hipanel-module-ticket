@@ -30,18 +30,18 @@ return [
             ],
         ],
         'geoip' => [
-            'class' => 'lysenkobv\GeoIP\GeoIP'
+            'class' => \lysenkobv\GeoIP\GeoIP::class,
         ],
-        'menuManager' => [
-            'items' => [
-                'sidebar' => [
-                    'add' => [
-                        'ticket' => [
-                            'menu' => \hipanel\modules\ticket\menus\SidebarMenu::class,
-                            'where' => [
-                                'after' => ['finance', 'clients', 'dashboard', 'header'],
-                                'before' => ['domains', 'servers', 'hosting'],
-                            ],
+    ],
+    'container' => [
+        'definitions' => [
+            \hiqdev\thememanager\menus\AbstractSidebarMenu::class => [
+                'add' => [
+                    'ticket' => [
+                        'menu' => \hipanel\modules\ticket\menus\SidebarMenu::class,
+                        'where' => [
+                            'after' => ['finance', 'clients', 'dashboard', 'header'],
+                            'before' => ['domains', 'servers', 'hosting'],
                         ],
                     ],
                 ],
