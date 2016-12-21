@@ -2,9 +2,7 @@
 
 namespace hipanel\modules\ticket\menus;
 
-use hiqdev\menumanager\Menu;
-
-class TicketDetailMenu extends Menu
+class TicketDetailMenu extends \hipanel\menus\AbstractDetailMenu
 {
     public $model;
 

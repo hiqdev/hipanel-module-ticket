@@ -6,7 +6,6 @@ use hipanel\modules\ticket\menus\TemplateDetailMenu;
 use hipanel\modules\ticket\models\Template;
 use hipanel\widgets\Box;
 use hipanel\widgets\Pjax;
-use hiqdev\menumanager\widgets\DetailMenu;
 use yii\helpers\Html;
 
 /**
@@ -39,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <div class="profile-usermenu">
-            <?= TemplateDetailMenu::create(['model' => $model])->render(DetailMenu::class) ?>
+            <?= TemplateDetailMenu::widget(['model' => $model]) ?>
         </div>
         <?php Box::end(); ?>
         <?php
