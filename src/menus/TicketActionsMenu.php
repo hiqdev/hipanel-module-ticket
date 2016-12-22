@@ -3,10 +3,9 @@
 namespace hipanel\modules\ticket\menus;
 
 use hipanel\modules\ticket\models\Thread;
-use hiqdev\menumanager\Menu;
 use Yii;
 
-class TicketActionsMenu extends Menu
+class TicketActionsMenu extends \hiqdev\yii2\menus\Menu
 {
     public $model;
 

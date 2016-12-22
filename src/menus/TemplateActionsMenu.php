@@ -2,10 +2,9 @@
 
 namespace hipanel\modules\ticket\menus;
 
-use hiqdev\menumanager\Menu;
 use Yii;
 
-class TemplateActionsMenu extends Menu
+class TemplateActionsMenu extends \hiqdev\yii2\menus\Menu
 {
     public $model;
 

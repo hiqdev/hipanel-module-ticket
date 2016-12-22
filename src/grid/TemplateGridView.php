@@ -16,7 +16,7 @@ use hipanel\grid\MainColumn;
 use hipanel\grid\SwitchColumn;
 use hipanel\modules\client\grid\ClientColumn;
 use hipanel\modules\ticket\menus\TemplateActionsMenu;
-use hiqdev\menumanager\MenuColumn;
+use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 
 class TemplateGridView extends \hipanel\grid\BoxedGridView

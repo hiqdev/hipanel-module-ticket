@@ -19,7 +19,7 @@ use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Gravatar;
-use hiqdev\menumanager\MenuColumn;
+use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
 
