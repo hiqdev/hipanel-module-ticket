@@ -48,7 +48,7 @@ CSS
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
     <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
-    <?= $page->setSearchFormData(compact(['state_data', 'topic_data', 'priority_data'])) ?>
+    <?php $page->setSearchFormData(compact(['state_data', 'topic_data', 'priority_data'])) ?>
 
     <?php $page->beginContent('main-actions') ?>
         <?= Html::a(Yii::t('hipanel:ticket', 'Create ticket'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
