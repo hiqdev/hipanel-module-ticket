@@ -36,7 +36,7 @@ class TemplateController extends \hipanel\base\CrudController
             'set-orientation' => [
                 'class' => OrientationAction::class,
                 'allowedRoutes' => [
-                    '/hosting/service/index',
+                    '@ticket/template/index',
                 ],
             ],
             'index' => [
