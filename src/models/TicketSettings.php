@@ -64,7 +64,7 @@ class TicketSettings extends \hipanel\base\Model
      */
     public function getFormData()
     {
-        $data                    = Client::perform('GetClassValues', ['class' => 'client,ticket_settings'], false);
+        $data                    = Client::perform('get-class-values', ['class' => 'client,ticket_settings']);
         $this->ticket_emails     = $data['ticket_emails'];
         $this->send_message_text = $data['send_message_text'];
         $this->new_messages_first = $data['new_messages_first'];
@@ -75,10 +75,13 @@ class TicketSettings extends \hipanel\base\Model
      */
     public function setFormData()
     {
-        Client::perform('SetClassValues', ['class' => 'client,ticket_settings', 'values' => [
-            'ticket_emails'     => $this->ticket_emails,
-            'send_message_text' => $this->send_message_text,
-            'new_messages_first' => $this->new_messages_first,
-        ]]);
+        Client::perform('set-class-values', [
+            'class' => 'client,ticket_settings',
+            'values' => [
+                'ticket_emails'     => $this->ticket_emails,
+                'send_message_text' => $this->send_message_text,
+                'new_messages_first' => $this->new_messages_first,
+            ],
+        ]);
     }
 }

@@ -261,7 +261,7 @@ class Thread extends \hipanel\base\Model
     public function getAnswers()
     {
         // TODO: redo API in order to have different `Thread` and `ThreadMessage` models
-        return $this->hasMany(Answer::class, ['id' => 'id'])->join('files')->indexBy('answer_id');
+        return $this->hasMany(Answer::class, ['id' => 'id'])->joinWith('files')->indexBy('answer_id');
     }
 
     /**

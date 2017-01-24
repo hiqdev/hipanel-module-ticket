@@ -302,14 +302,14 @@ class TicketController extends \hipanel\base\CrudController
     /**
      * Numerous ticket changes in one method, like BladeRoot did :).
      * @param array $options
-     * @param string $apiCall
-     * @param bool $bulk
+     * @param string $action
+     * @param bool $batch
      * @return bool
      */
-    private function _ticketChange($options = [], $apiCall = 'Answer', $bulk = true)
+    private function _ticketChange($options = [], $action = 'answer', $batch = true)
     {
         try {
-            Thread::perform($apiCall, $options, $bulk);
+            Thread::perform($action, $options, ['batch' => $batch]);
         } catch (ErrorResponseException $e) {
             return false;
         }
@@ -327,7 +327,7 @@ class TicketController extends \hipanel\base\CrudController
             $id = $request->post('id');
             if ($id !== null) {
                 try {
-                    $answer = Thread::perform('GetAnswer', ['id' => $id]);
+                    $answer = Thread::perform('get-answer', ['id' => $id]);
                 } catch (ErrorResponseException $e) {
                 }
                 if (isset($answer['message'])) {
@@ -360,7 +360,7 @@ class TicketController extends \hipanel\base\CrudController
         $result = ['id' => $id, 'answer_id' => $answer_id];
 
         try {
-            $data = Thread::perform('GetLastAnswerId', ['id' => $id, 'answer_id' => $answer_id]);
+            $data = Thread::perform('get-last-answer-id', ['id' => $id, 'answer_id' => $answer_id]);
             $result['answer_id'] = $data['answer_id'];
             if ($data['answer_id'] > $answer_id) {
                 $dataProvider = (new ThreadSearch())->search([]);
