@@ -40,6 +40,7 @@ use yii\widgets\ActiveForm;
                             'type' => 'checklist',
                             'source' => $model->xFormater($topic_data),
                             'placement' => 'bottom',
+                            'emptytext' => Yii::t('hipanel:ticket', 'Empty'),
                         ],
                     ]) ?>
                 </span>
