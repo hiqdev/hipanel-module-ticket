@@ -21,17 +21,12 @@ class Answer extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
-    public static function index()
-    {
-        return 'threads';
-    }
+    public static $i18nDictionary = 'hipanel:ticket';
 
-    public static function type()
+    public static function from()
     {
         return 'thread';
     }
-
-    public static $i18nDictionary = 'hipanel:ticket';
 
     public function init()
     {
