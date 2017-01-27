@@ -18,7 +18,7 @@ class Template extends Article
 {
     public static $i18nDictionary = 'hipanel:ticket';
 
-    public static function from()
+    public static function tableName()
     {
         return 'article';
     }
