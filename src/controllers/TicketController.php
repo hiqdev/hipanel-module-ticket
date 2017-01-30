@@ -27,7 +27,7 @@ use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
 use hipanel\modules\ticket\models\TicketSettings;
-use hiqdev\hiart\ErrorResponseException;
+use hiqdev\hiart\ResponseErrorException;
 use Yii;
 use yii\base\Event;
 use yii\filters\PageCache;
@@ -310,7 +310,7 @@ class TicketController extends \hipanel\base\CrudController
     {
         try {
             Thread::perform($action, $options, ['batch' => $batch]);
-        } catch (ErrorResponseException $e) {
+        } catch (ResponseErrorException $e) {
             return false;
         }
 
@@ -328,7 +328,7 @@ class TicketController extends \hipanel\base\CrudController
             if ($id !== null) {
                 try {
                     $answer = Thread::perform('get-answer', ['id' => $id]);
-                } catch (ErrorResponseException $e) {
+                } catch (ResponseErrorException $e) {
                 }
                 if (isset($answer['message'])) {
                     return '> ' . str_replace("\n", "\n> ", $answer['message']);
@@ -371,7 +371,7 @@ class TicketController extends \hipanel\base\CrudController
 
                 $result['html'] = $this->renderPartial('_comments', ['model' => reset($models)]);
             }
-        } catch (ErrorResponseException $e) {
+        } catch (ResponseErrorException $e) {
         }
 
         return $result;

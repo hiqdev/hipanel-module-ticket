@@ -21,7 +21,7 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\modules\ticket\models\Template;
 use hiqdev\hiart\Collection;
-use hiqdev\hiart\ErrorResponseException;
+use hiqdev\hiart\ResponseErrorException;
 use hisite\modules\news\models\ArticleData;
 use Yii;
 use yii\base\Event;
@@ -133,7 +133,7 @@ class TemplateController extends \hipanel\base\CrudController
 
         try {
             $template = Template::find()->joinWith('texts')->andWhere(['id' => $id])->one();
-        } catch (ErrorResponseException $e) {
+        } catch (ResponseErrorException $e) {
             return [];
         }
 
