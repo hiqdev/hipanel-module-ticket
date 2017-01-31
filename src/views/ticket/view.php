@@ -2,12 +2,12 @@
 
 use hiqdev\yii2\reminder\widgets\ReminderButton;
 
-/* @var $this yii\web\View */
-
+/**
+ * @var yii\web\View
+ */
 $reminder = ReminderButton::widget([
-    'object_id' => $model->id
+    'object_id' => $model->id,
 ]);
-
 
 $this->title                    = $model->subject;
 $this->params['subtitle']       = '#' . $model->id . '&nbsp;' . $reminder;

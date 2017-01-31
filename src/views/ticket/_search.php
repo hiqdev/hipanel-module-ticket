@@ -6,6 +6,7 @@ use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
 
 /**
+ * @var \yii\web\View
  * @var \hipanel\widgets\AdvancedSearch
  */
 ?>

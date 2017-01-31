@@ -77,6 +77,7 @@ use yii\widgets\ActiveForm;
         </ul>
     <?php endif ?>
 <?php endif; ?>
+
 <?php if (Yii::$app->user->can('support')) : ?>
     <?php if ($model->isNewRecord) : ?>
         <?php $model->responsible_id = Yii::$app->user->id ?>

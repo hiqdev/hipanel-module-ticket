@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiPanel tickets module
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-ticket
+ * @package   hipanel-module-ticket
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\ticket\menus;
 
@@ -25,7 +33,7 @@ class TemplateActionsMenu extends \hiqdev\yii2\menus\Menu
                         'confirm' => Yii::t('hipanel', 'Are you sure you want to delete this item?'),
                         'method' => 'post',
                         'pjax' => '0',
-                    ]
+                    ],
                 ],
             ],
         ];

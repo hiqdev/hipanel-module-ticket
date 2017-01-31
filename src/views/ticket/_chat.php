@@ -7,6 +7,9 @@ use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\web\View;
 
+/**
+ * @var View
+ */
 $this->registerJs(new JsExpression(<<<'JS'
 $("#chat-box").find(".scroller").slimScroll({
     height: "50rem",
@@ -60,7 +63,7 @@ JS
                 <?php foreach ($model->answers as $answer_id => $answer) : ?>
                     <?php if (ArrayHelper::getValue($answer, 'message') !== null) : ?>
                         <?= Html::beginTag('li', ['class' => ($answer['is_answer']) ? 'out' : 'in', 'id' => 'answer-' . $answer['answer_id']]) ?>
-                        <?php if ($answer['author'] == 'anonym') : ?>
+                        <?php if ($answer['author'] === 'anonym') : ?>
                             <?php $answer['email'] = $model->anonym_email ?>
                         <?php endif ?>
                         <?php if (isset($answer['email']) && filter_var($answer['email'], FILTER_VALIDATE_EMAIL)) : ?>

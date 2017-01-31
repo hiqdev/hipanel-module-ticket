@@ -9,7 +9,7 @@ $this->title                   = Yii::t('hipanel:ticket', 'Tickets');
 $this->params['subtitle']      = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCss(<<<CSS
+$this->registerCss(<<<'CSS'
 .list-inline {
     display: inline-block;
     padding-left: .5em;

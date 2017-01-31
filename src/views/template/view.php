@@ -9,9 +9,9 @@ use hipanel\widgets\Pjax;
 use yii\helpers\Html;
 
 /**
+ * @var \yii\web\View
  * @var Template $model
  */
-
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:ticket', 'Answer templates'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,8 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'box-solid',
             ],
             'bodyOptions' => [
-                'class' => 'no-padding'
-            ]
+                'class' => 'no-padding',
+            ],
         ]); ?>
         <div class="profile-user-img text-center">
             <i class="fa fa-file-text-o fa-5x"></i>
@@ -41,13 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= TemplateDetailMenu::widget(['model' => $model]) ?>
         </div>
         <?php Box::end(); ?>
-        <?php
-        $box = Box::begin(['renderBody' => false]);
-            $box->beginHeader();
-                echo $box->renderTitle(Yii::t('hipanel:ticket', 'Template details'));
-            $box->endHeader();
-            $box->beginBody();
-                echo TemplateGridView::detailView([
+            <?php $box = Box::begin(['renderBody' => false]); ?>
+            <?php $box->beginHeader(); ?>
+                <?= $box->renderTitle(Yii::t('hipanel:ticket', 'Template details')); ?>
+            <?php $box->endHeader(); ?>
+            <?php $box->beginBody(); ?>
+                <?= TemplateGridView::detailView([
                     'model' => $model,
                     'boxed' => false,
                     'columns' => [
@@ -55,36 +54,34 @@ $this->params['breadcrumbs'][] = $this->title;
                         'name',
                         'is_published',
                     ],
-                ]);
-            $box->endBody();
-        $box->end();
+                ]); ?>
+            <?php $box->endBody(); ?>
+        <?php $box->end(); ?>
         ?>
     </div>
 
     <div class="col-md-9">
         <div class="row">
-            <?php foreach ($model->texts as $translation) { ?>
+            <?php foreach ($model->texts as $translation) : ?>
                 <div class="col-md-12">
-                    <?php
-                    $box = Box::begin(['renderBody' => false]);
-                        $box->beginHeader();
-                            echo $box->renderTitle(Yii::t('hipanel:ticket', 'Translation: {language}', [
-                                'language' => Yii::t('hipanel', $translation->lang)
-                            ]));
-                        $box->endHeader();
-                        $box->beginBody();
-                            if (!empty($translation->text)) {
-                                echo Markdown::process($translation->text);
-                            } else {
-                                echo Html::tag('span', Yii::t('hipanel:ticket', 'No translation'), [
-                                    'class' => 'text-danger'
-                                ]);
-                            }
-                        $box->endBody();
-                    $box->end();
-                    ?>
+                    <?php $box = Box::begin(['renderBody' => false]); ?>
+                        <?php $box->beginHeader(); ?>
+                            <?= $box->renderTitle(Yii::t('hipanel:ticket', 'Translation: {language}', [
+                                'language' => Yii::t('hipanel', $translation->lang),
+                            ])); ?>
+                            <?php $box->endHeader(); ?>
+                            <?php $box->beginBody(); ?>
+                                <?php if (!empty($translation->text)) : ?>
+                                    <?= Markdown::process($translation->text); ?>
+                                <?php else: ?>
+                                    <?= Html::tag('span', Yii::t('hipanel:ticket', 'No translation'), [
+                                        'class' => 'text-danger',
+                                    ]); ?>
+                                <?php endif ?>
+                        <?php $box->endBody(); ?>
+                    <?php $box->end(); ?>
                 </div>
-            <?php } ?>
+            <?php endforeach ?>
         </div>
     </div>
 </div>

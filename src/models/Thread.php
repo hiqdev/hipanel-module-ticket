@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * HiPanel tickets module
  *
  * @link      https://github.com/hiqdev/hipanel-module-ticket
  * @package   hipanel-module-ticket
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\ticket\models;
@@ -160,7 +159,9 @@ class Thread extends \hipanel\base\Model
             [['state'], 'safe', 'on' => ['close', 'open']],
             // only client-side validation. Answer is actually possible without a message,
             // but does not make any sense.
-            [['message'], 'required', 'on' => ['answer'], 'when' => function () { return false; }],
+            [['message'], 'required', 'on' => ['answer'], 'when' => function () {
+                return false;
+            }],
             [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 5],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],

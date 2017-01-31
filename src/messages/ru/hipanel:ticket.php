@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * HiPanel tickets module
  *
  * @link      https://github.com/hiqdev/hipanel-module-ticket
  * @package   hipanel-module-ticket
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 return [
@@ -21,7 +20,7 @@ return [
     'Spent time' => 'Затраченное время',
     'Spent hours' => 'Затраченные часы',
     'Created' => 'Создан',
-    'a_reply_time' => 'a_reply_time', # Attention! MAY BE IT WOULD BE CHANGED
+    'a_reply_time' => 'a_reply_time', // Attention! MAY BE IT WOULD BE CHANGED
     'Files' => 'Файлы',
     'Priority' => 'Приоритет',
     'Priority has been changed to high' => 'Приоритет был изменен на высокий',

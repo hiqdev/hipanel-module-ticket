@@ -1,17 +1,15 @@
 <?php
-
-/*
+/**
  * HiPanel tickets module
  *
  * @link      https://github.com/hiqdev/hipanel-module-ticket
  * @package   hipanel-module-ticket
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\ticket\grid;
 
-use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\modules\client\grid\ClientColumn;
 use hipanel\modules\ticket\assets\ThreadListCheckerAsset;
@@ -24,7 +22,6 @@ use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\helpers\Url;
 
 class TicketGridView extends BoxedGridView
 {
@@ -97,7 +94,6 @@ class TicketGridView extends BoxedGridView
                 'attribute' => 'recipient_id',
                 'value' => function ($model) {
                     return Html::a($model->recipient, ['/client/client/view', 'id' => $model->recipient_id]);
-
                 },
                 'visible' => Yii::$app->user->can('support'),
             ],
@@ -127,7 +123,7 @@ class TicketGridView extends BoxedGridView
                                 'Ticket contains {n, plural, one{# answer} other{# answers}}',
                                 ['n' => $model->answer_count]
                             ),
-                        ])
+                        ]),
                     ];
 
                     return implode('', $lastAnswer);

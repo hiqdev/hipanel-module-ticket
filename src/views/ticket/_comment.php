@@ -5,8 +5,10 @@ use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Gravatar;
 use yii\helpers\Html;
 
-/* @var \hipanel\modules\client\models\Client $client */
-
+/**
+ * @var \yii\web\View
+ * @var \hipanel\modules\client\models\Client $client
+ */
 $answerId = 'answer-' . $answer->answer_id;
 
 ?>
@@ -52,7 +54,7 @@ $answerId = 'answer-' . $answer->answer_id;
             <button class="link-button comment-quote-button" data-answer-id="<?= $answer_id ?>">
                 <?= Yii::t('hipanel:ticket', 'Quote') ?>
             </button>
-            <?php if ((string)$answer->author_id === (string)Yii::$app->user->id) : ?>
+            <?php if ((string) $answer->author_id === (string) Yii::$app->user->id) : ?>
                 &nbsp;&nbsp;·&nbsp;&nbsp;
                 <?= Html::a(Yii::t('hipanel:ticket', 'Edit'), '#update-answer-modal', [
                     'class' => 'link-button comment-edit-button',

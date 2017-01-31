@@ -3,12 +3,16 @@
 use hipanel\assets\OcticonsAsset;
 use hipanel\modules\ticket\models\Answer;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
+use hipanel\widgets\FileInput;
+use hipanel\widgets\TimePicker;
 use hiqdev\assets\autosize\AutosizeAsset;
 use hiqdev\assets\icheck\iCheckAsset;
-use hipanel\widgets\TimePicker;
-use hipanel\widgets\FileInput;
 use yii\helpers\Html;
 
+/**
+ * @var \yii\web\View
+ * @var Answer|\hipanel\modules\ticket\models\Thread $model
+ */
 OcticonsAsset::register($this);
 iCheckAsset::register($this);
 AutosizeAsset::register($this);
@@ -29,9 +33,9 @@ $(".js-get-preview").on('click', function (event) {
     });
 });
 JS
-, \yii\web\View::POS_READY);
+    , \yii\web\View::POS_READY);
 
-$this->registerCss(<<< CSS
+$this->registerCss(<<< 'CSS'
 .checkbox label {
     padding-left: 0
 }
@@ -41,16 +45,14 @@ $this->registerCss(<<< CSS
 .hidden-form-inputs { display: none; }
 CSS
 );
+?>
 
-/**
- * @var Answer|\hipanel\modules\ticket\models\Thread
- * @var \yii\web\View $this
- */
+<?php
 $form = ConditionalFormWidget::begin([
     'form' => isset($form) ? $form : null,
     'options' => [
         'id' => 'leave-comment-form',
-        'action'  => $action,
+        'action' => $action,
         'options' => [
             'enctype' => 'multipart/form-data',
             'class' => 'leave-comment-form',
@@ -69,17 +71,18 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
     });
 });
 ");
+?>
 
-if ($model->isNewRecord) {
-    $this->registerJs("$('#{$form->getId()} textarea').trigger('focus');");
-    echo $form->field($model, 'subject');
-} else {
-    echo Html::activeHiddenInput($model, 'id');
+<?php if ($model->isNewRecord) : ?>
+    <?php $this->registerJs("$('#{$form->getId()} textarea').trigger('focus');"); ?>
+    <?php $form->field($model, 'subject'); ?>
+<?php else: ?>
+    <?= Html::activeHiddenInput($model, 'id'); ?>
 
-    if ($model->isAttributeActive('answer_id')) {
-        echo Html::activeHiddenInput($model, 'answer_id');
-    }
-} ?>
+    <?php if ($model->isAttributeActive('answer_id')) : ?>
+        <?= Html::activeHiddenInput($model, 'answer_id'); ?>
+    <?php endif ?>
+<?php endif ?>
 
 <div class="comment-tab-wrapper">
     <div role="tabpanel" class="comment-tab">
@@ -90,11 +93,17 @@ if ($model->isNewRecord) {
                     '<span class="octicon octicon-markdown"></span> ' .
                     Yii::t('hipanel:ticket', 'Markdown is supported'),
                     'https://guides.github.com/features/mastering-markdown/',
-                    ['target' => '_blank', 'class' => '', 'style' => 'border-bottom: 1px solid; border-bottom-style: dashed;']
+                    [
+                        'target' => '_blank',
+                        'class' => '',
+                        'style' => 'border-bottom: 1px solid; border-bottom-style: dashed;',
+                    ]
                 ) ?>
             </div>
             <li role="presentation" class="active">
-                <a href="#message-<?= $form->getId() ?>" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold"><?= Yii::t('hipanel:ticket', 'Message') ?></a>
+                <a href="#message-<?= $form->getId() ?>" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold">
+                    <?= Yii::t('hipanel:ticket', 'Message') ?>
+                </a>
             </li>
             <li role="presentation">
                 <a href="#preview-<?= $form->getId() ?>" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview">
@@ -131,12 +140,12 @@ if ($model->isNewRecord) {
                             'multiple' => true,
                         ],
                         'pluginOptions' => [
-                            'previewFileType'          => 'any',
-                            'showRemove'               => true,
-                            'showUpload'               => false,
+                            'previewFileType' => 'any',
+                            'showRemove' => true,
+                            'showUpload' => false,
                             'initialPreviewShowDelete' => true,
-                            'maxFileCount'             => 5,
-                            'msgFilesTooMany'          => Yii::t('hipanel', 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}'),
+                            'maxFileCount' => 5,
+                            'msgFilesTooMany' => Yii::t('hipanel', 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}'),
                         ],
                     ]) ?>
                 </div>
