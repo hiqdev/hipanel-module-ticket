@@ -298,7 +298,7 @@ class Thread extends \hipanel\base\Model
         return $this->id;
     }
 
-    public function scenarioCommands()
+    public function scenarioActions()
     {
         return [
             'open' => 'answer',

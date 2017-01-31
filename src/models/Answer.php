@@ -186,7 +186,7 @@ class Answer extends \hipanel\base\Model
         return $this->hasMany(File::class, ['object_id' => 'id']);
     }
 
-    public function scenarioCommands()
+    public function scenarioActions()
     {
         return [
             'update' => 'update-answer',
