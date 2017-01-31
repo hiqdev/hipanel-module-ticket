@@ -81,6 +81,7 @@ CSS
                 'rowOptions'   => function ($model, $key, $index, $grid) {
                     return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
                 },
+                'enableListChecker' => true,
                 'columns' => [
                     'checkbox',
                     'subject', 'author_id',

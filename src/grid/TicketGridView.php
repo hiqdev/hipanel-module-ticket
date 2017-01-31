@@ -14,6 +14,7 @@ namespace hipanel\modules\ticket\grid;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\modules\client\grid\ClientColumn;
+use hipanel\modules\ticket\assets\ThreadListCheckerAsset;
 use hipanel\modules\ticket\menus\TicketActionsMenu;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\Topic;
@@ -22,9 +23,13 @@ use hipanel\widgets\Gravatar;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
 class TicketGridView extends BoxedGridView
 {
+    public $enableListChecker = false;
+
     public static function defaultColumns()
     {
         return [
@@ -136,5 +141,16 @@ class TicketGridView extends BoxedGridView
                 'menuClass' => TicketActionsMenu::class,
             ],
         ];
+    }
+
+    public function run()
+    {
+        if ($this->enableListChecker) {
+            ThreadListCheckerAsset::register($this->view);
+            $options = Json::encode(['pjaxSelector' => '#' . Yii::$app->params['pjax']['id']]);
+            $this->view->registerJs("$('#{$this->id}').threadListChecker($options);");
+        }
+
+        parent::run();
     }
 }
