@@ -82,9 +82,8 @@ JS
         <?php endif; ?>
     <?php endif; ?>
 
-    <?php
-    $actionUrl = Json::encode(Url::to(['update-answer-modal']));
-    echo AjaxModal::widget([
+    <?php $actionUrl = Json::encode(Url::to(['update-answer-modal'])) ?>
+    <?= AjaxModal::widget([
         'id' => 'update-answer-modal',
         'header' => Html::tag('h4', Yii::t('hipanel:ticket', 'Message editing'), ['class' => 'modal-title']),
         'scenario' => 'update-answer',
