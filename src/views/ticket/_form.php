@@ -75,7 +75,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
 
 <?php if ($model->isNewRecord) : ?>
     <?php $this->registerJs("$('#{$form->getId()} textarea').trigger('focus');"); ?>
-    <?php $form->field($model, 'subject'); ?>
+    <?= $form->field($model, 'subject'); ?>
 <?php else: ?>
     <?= Html::activeHiddenInput($model, 'id'); ?>
 
