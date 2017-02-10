@@ -21,12 +21,8 @@ use yii\widgets\ActiveForm;
 <?php if ($model->isNewRecord) : ?>
     <?= $form->field($model, 'topics')->widget(StaticCombo::class, [
         'hasId' => true,
-        'pluginOptions' => [
-            'select2Options' => [
-                'multiple' => true,
-            ],
-        ],
         'data' => $topic_data,
+        'multiple' => true,
     ]) ?>
 <?php else : ?>
     <ul class="list-group ticket-list-group">

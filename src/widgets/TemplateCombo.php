@@ -11,6 +11,7 @@
 namespace hipanel\modules\ticket\widgets;
 
 use hiqdev\combo\Combo;
+use yii\web\JsExpression;
 
 class TemplateCombo extends Combo
 {
@@ -33,7 +34,7 @@ class TemplateCombo extends Combo
     {
         return parent::getPluginOptions([
             'select2Options' => [
-                'minimumResultsForSearch' => -1,
+                'minimumResultsForSearch' => new JsExpression('Infinity'),
             ],
         ]);
     }

@@ -46,11 +46,7 @@ use yii\helpers\Html;
     <?= $search->field('state')->widget(StaticCombo::class, [
         'data' => $state_data,
         'hasId' => true,
-        'pluginOptions' => [
-            'select2Options' => [
-                'multiple' => false,
-            ],
-        ],
+        'multiple' => false,
     ]) ?>
 </div>
 
@@ -88,10 +84,6 @@ use yii\helpers\Html;
     <?= $search->field('topics')->widget(StaticCombo::class, [
         'data' => $topic_data,
         'hasId' => true,
-        'pluginOptions' => [
-            'select2Options' => [
-                'multiple' => true,
-            ],
-        ],
+        'multiple' => true,
     ]); ?>
 </div>
