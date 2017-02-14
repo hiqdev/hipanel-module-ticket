@@ -59,7 +59,7 @@ class TemplatesWidget extends Widget
 
     protected function getLanguages()
     {
-        return Yii::$app->cache->getAuthTimeCached(86400, [], function () { // 1d
+        return Yii::$app->cache->getOrSet([__METHOD__, Yii::$app->user->getId()], function () {
             $result = [];
 
             $templates = Template::find()->joinWith('texts')->all();
@@ -74,7 +74,7 @@ class TemplatesWidget extends Widget
             }
 
             return $result;
-        });
+        }, 86400);
     }
 
     protected function registerClientScript()
