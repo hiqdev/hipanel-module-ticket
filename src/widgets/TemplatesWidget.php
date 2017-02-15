@@ -97,9 +97,10 @@ class TemplatesWidget extends Widget
         ]);
 
         $this->view->registerJs("
-            $('#{$this->formId}').on('select2-selecting', function (e) {
-                var id = e.val;
-                var language = $('.selected-language').attr('data-language');
+            $('#{$this->formId}').on('select2:select', function (e) {
+                var id = $(e.target).val(),
+                    language = $('.selected-language').attr('data-language');
+
                 $.ajax($options);
             });
             $('.template-selector ul li>a').on('click', function (event) {

@@ -10,9 +10,9 @@
 
 namespace hipanel\modules\ticket\controllers;
 
+use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
 use hipanel\actions\OrientationAction;
-use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartUpdateAction;
@@ -46,7 +46,7 @@ class TemplateController extends \hipanel\base\CrudController
                 },
             ],
             'search' => [
-                'class' => SearchAction::class,
+                'class' => ComboSearchAction::class,
                 'on beforePerform' => function (Event $event) {
                     $dataProvider = $event->sender->getDataProvider();
                     $dataProvider->query->joinWith('texts');

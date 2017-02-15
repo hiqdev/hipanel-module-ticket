@@ -31,6 +31,7 @@ use yii\helpers\Html;
                 'model' => new DynamicModel(['template']),
                 'attribute' => 'template',
                 'inputOptions' => ['id' => $formId],
+                'hasId' => true
             ]) ?>
         </div>
     </div>
