@@ -179,7 +179,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                     </div>
                     <div class="col-md-7">
                         <div class="pull-right">
-                            <?php if (!$model->isNewRecord && $model->isAttributeActive('is_private')) : ?>
+                            <?php if (!$model->isNewRecord && $model->isAttributeActive('is_private') && Yii::$app->user->can('manage')) : ?>
                                 <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
                             <?php endif; ?>
                         </div>
