@@ -39,8 +39,7 @@ return [
                     'ticket' => [
                         'menu' => \hipanel\modules\ticket\menus\SidebarMenu::class,
                         'where' => [
-                            'after' => ['finance', 'clients', 'dashboard', 'header'],
-                            'before' => ['domains', 'servers', 'hosting'],
+                            'after' => ['stock', 'server', 'hosting', 'domain', 'client'],
                         ],
                     ],
                 ],

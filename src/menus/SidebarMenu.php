@@ -18,9 +18,9 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
     {
         return [
             'tickets' => [
-                'label' => Yii::t('hipanel:ticket', 'Tickets'),
+                'label' => Yii::t('hipanel:ticket', 'Help'),
                 'url' => ['/ticket/ticket/index'],
-                'icon' => 'fa-ticket',
+                'icon' => 'fa-life-ring',
                 'items' => [
                     'tickets' => [
                         'label' => Yii::t('hipanel:ticket', 'Tickets'),

@@ -11,6 +11,7 @@
 return [
     'Subject or message' => 'Тема или сообщение',
     'Author' => 'Автор',
+    'Help' => 'Помощь',
     'Author ID' => 'ID автора',
     'Recipient' => 'Получатель',
     'Recipient ID' => 'Получатель',
