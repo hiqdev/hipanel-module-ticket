@@ -64,12 +64,6 @@ class TicketController extends \hipanel\base\CrudController
     public function actions()
     {
         return [
-            'set-orientation' => [
-                'class' => OrientationAction::class,
-                'allowedRoutes' => [
-                    '@ticket/index',
-                ],
-            ],
             'index' => [
                 'class' => IndexAction::class,
                 'data' => $this->prepareRefs(),

@@ -32,12 +32,6 @@ class TemplateController extends \hipanel\base\CrudController
     public function actions()
     {
         return [
-            'set-orientation' => [
-                'class' => OrientationAction::class,
-                'allowedRoutes' => [
-                    '@ticket/template/index',
-                ],
-            ],
             'index' => [
                 'class' => IndexAction::class,
                 'on beforePerform' => function (Event $event) {
