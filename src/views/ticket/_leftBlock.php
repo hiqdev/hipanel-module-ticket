@@ -70,42 +70,8 @@ $form = ConditionalFormWidget::begin([
         <?php $box->end() ?>
     </div>
 
-    <?php if ($client && Yii::$app->user->can('support') && Yii::$app->user->id !== $model->recipient_id) : ?>
-        <div class="col-md-12">
-            <?php $box = Box::begin([
-                'options' => [
-                    'class' => 'box-solid',
-                ],
-            ]) ?>
-            <div class="profile-block">
-                <div class="profile-photo">
-                    <?php if ($client->email) : ?>
-                        <?= $this->render('//layouts/gravatar', ['email' => $client->email, 'size' => 120, 'alt' => '']) ?>
-                    <?php endif ?>
-                </div>
-                <div class="profile-user-name">
-                    <?= ClientSellerLink::widget(['model' => $client]) ?>
-                </div>
-                <div class="profile-user-role"><?= Yii::t('hipanel:client', $client->type) ?></div>
-            </div>
-            <?php $box->beginFooter() ?>
-            <div class="table-responsive">
-                <?= ClientGridView::detailView([
-                    'model' => $client,
-                    'boxed' => false,
-                    'columns' => $client->login === 'anonym' ? ['name', 'email'] : [
-                        'name', 'email', 'messengers', 'country',
-                        'state', 'balance', 'credit',
-                        'servers_spoiler', 'domains_spoiler', 'hosting',
-                    ],
-                ]) ?>
-            </div>
-            <?php if ($client->login !== 'anonym') : ?>
-                <?= Html::a('<i class="fa fa-info-circle" style="font-size:120%"></i>&nbsp;&nbsp;' . Yii::t('hipanel:ticket', 'Client details'), ['@client/view', 'id' => $client->id], ['class' => 'btn  btn-default btn-sm btn-block']) ?>
-            <?php endif ?>
-            <?php $box->endFooter() ?>
-            <?php $box->end() ?>
-        </div>
+    <?php if ($client && Yii::$app->user->can('support') && Yii::$app->user->id != $client->id) : ?>
+        <?= $this->render('_clientInfo', compact('client')); ?>
     <?php endif ?>
 </div>
 
