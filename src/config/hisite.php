@@ -37,7 +37,9 @@ return [
             \hiqdev\thememanager\menus\AbstractSidebarMenu::class => [
                 'add' => [
                     'ticket' => [
-                        'menu' => \hipanel\modules\ticket\menus\SidebarMenu::class,
+                        'menu' => [
+                            'class' => \hipanel\modules\ticket\menus\SidebarMenu::class,
+                        ],
                         'where' => [
                             'after' => ['stock', 'server', 'hosting', 'domain', 'client'],
                         ],
