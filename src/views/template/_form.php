@@ -34,7 +34,7 @@ $form = ActiveForm::begin([
                                 <?php endif ?>
                                 <?= Html::activeHiddenInput($model, "[$i]id"); ?>
                                 <?= $form->field($model, "[$i]name"); ?>
-                                <?= $form->field($model, "[$i]is_published")->checkbox(); ?> ?>
+                                <?= $form->field($model, "[$i]is_published")->checkbox(); ?>
                             </div>
                         </div>
                     </div>
