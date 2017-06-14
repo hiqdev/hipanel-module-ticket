@@ -65,7 +65,7 @@ JS
 <!-- Chat box -->
 <?php $box = Box::begin([
     'options' => [
-        'class' => 'box-primary',
+        'class' => 'box-widget',
     ],
 ]) ?>
 

@@ -17,6 +17,24 @@ use yii\widgets\ActiveForm;
     'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
 ]) ?>
 
+<!-- Status -->
+
+<?php if (!$model->isNewRecord) : ?>
+    <ul class="list-group ticket-list-group">
+        <li class="list-group-item">
+                <span class="badge">
+                    <?php if ($model->state === Thread::STATE_CLOSE) : ?>
+                        <span class="label label-default"><?= Yii::t('hipanel:ticket', 'Closed') ?></span>
+                    <?php else : ?>
+                        <span class="label label-success"><?= Yii::t('hipanel:ticket', 'Opened') ?></span>
+                    <?php endif; ?>
+                </span>
+            <?= $model->getAttributeLabel('status') ?>
+            <div class="clearfix"></div>
+        </li>
+    </ul>
+<?php endif; ?>
+
 <!-- Topics -->
 <?php if ($model->isNewRecord) : ?>
     <?= $form->field($model, 'topics')->widget(StaticCombo::class, [
