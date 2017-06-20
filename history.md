@@ -1,8 +1,23 @@
-hiqdev/hipanel-module-ticket commits history
---------------------------------------------
+# hiqdev/hipanel-module-ticket
 
 ## [Under development]
 
+    - [cfb3b38] 2017-06-20 renamed `web` config <- hisite [@hiqsol]
+    - [15e696a] 2017-06-20 renamed `hidev.yml` [@hiqsol]
+    - [b272278] 2017-06-14 Added status display in tickets [@tafid]
+    - [b3e3e24] 2017-05-03 Merge pull request #1 from bladeroot/ticket-templates-form [@SilverFire]
+    - [16ebc98] 2017-05-03 fix form templates: delete unnecessary '?>' [@BladeRoot]
+    - [5c951db] 2017-04-19 Made a FAQ menu item is visible [@tafid]
+    - [1c04a51] 2017-04-13 Added hiqdev/hipanel-faq require to composer [@tafid]
+    - [cc71087] 2017-04-13 Ticket view - client info block load is asuncronous [@SilverFire]
+    - [ba9b56f] 2017-04-12 Renamed Tickets to Help. Moved it down, after all menu items [@tafid]
+    - [a87b394] 2017-04-12 Removed set-orientation action [@tafid]
+    - [a732b92] 2017-02-24 Hid is_private from users, other minor fixes [@SilverFire]
+    - [3e04111] 2017-02-15 Fixed TemplatesWidget to follow Combo API changes; [@SilverFire]
+    - [d7bec02] 2017-02-14 Updated TemplatesWidget to use cache->getOrSet instead of getAuthTimeCached [@SilverFire]
+    - [b7b5615] 2017-02-10 Updated TemplateCombo and views to follow yii2-combo API changes [@SilverFire]
+    - [740bfbe] 2017-02-02 fixed typo in 5cbd1d2d [@hiqsol]
+    - [1a86bae] 2017-01-31 chkipper inited [@SilverFire]
     - [5cbd1d2] 2017-01-31 csfixed [@SilverFire]
     - [27bc95b] 2017-01-31 Added tickets index page auto-updating [@SilverFire]
     - [6c0fb38] 2017-01-31 renamed scenarioActions <- scenarioCommands [@hiqsol]
@@ -28,7 +43,7 @@ hiqdev/hipanel-module-ticket commits history
     - [92290b1] 2016-12-07 Hid block Client if can not support and not recipient [@tafid]
     - [7ef3a3d] 2016-12-06 Hide `priority` attribute form client [@tafid]
     - [f7f941e] 2016-12-06 Hid serach fields from client [@tafid]
-    - [9c94d9b] 2016-12-02 + getClient/_id to Thread and Answer models [@hiqsol]
+    - [9c94d9b] 2016-12-02 + `getClient/_id` to Thread and Answer models [@hiqsol]
     - [0ab0a74] 2016-11-29 Added new menu to Tickets [@tafid]
     - [df86b28] 2016-11-29 Added new Menu to Templates [@tafid]
     - [93bb503] 2016-11-18 Transfered empty alt to user gravatar image [@tafid]
@@ -256,9 +271,7 @@ hiqdev/hipanel-module-ticket commits history
     - [263e914] 2015-05-13 Change select2 to combo2 [@tafid]
     - [f75846a] 2015-04-29 GitHub Markdown icon [@tafid]
     - [81f24b6] 2015-04-29 Add basic functionality [@tafid]
-- Added: inited
     - [a942e1f] 2015-04-21 inited [@hiqsol]
-## Development started 2015-04-21
 
 ## [Development started] - 2015-04-21
 
@@ -513,3 +526,19 @@ hiqdev/hipanel-module-ticket commits history
 [932ae2b]: https://github.com/hiqdev/hipanel-module-ticket/commit/932ae2b
 [eb9cbba]: https://github.com/hiqdev/hipanel-module-ticket/commit/eb9cbba
 [Under development]: https://github.com/hiqdev/hipanel-module-ticket/releases
+[cfb3b38]: https://github.com/hiqdev/hipanel-module-ticket/commit/cfb3b38
+[15e696a]: https://github.com/hiqdev/hipanel-module-ticket/commit/15e696a
+[b272278]: https://github.com/hiqdev/hipanel-module-ticket/commit/b272278
+[b3e3e24]: https://github.com/hiqdev/hipanel-module-ticket/commit/b3e3e24
+[16ebc98]: https://github.com/hiqdev/hipanel-module-ticket/commit/16ebc98
+[5c951db]: https://github.com/hiqdev/hipanel-module-ticket/commit/5c951db
+[1c04a51]: https://github.com/hiqdev/hipanel-module-ticket/commit/1c04a51
+[cc71087]: https://github.com/hiqdev/hipanel-module-ticket/commit/cc71087
+[ba9b56f]: https://github.com/hiqdev/hipanel-module-ticket/commit/ba9b56f
+[a87b394]: https://github.com/hiqdev/hipanel-module-ticket/commit/a87b394
+[a732b92]: https://github.com/hiqdev/hipanel-module-ticket/commit/a732b92
+[3e04111]: https://github.com/hiqdev/hipanel-module-ticket/commit/3e04111
+[d7bec02]: https://github.com/hiqdev/hipanel-module-ticket/commit/d7bec02
+[b7b5615]: https://github.com/hiqdev/hipanel-module-ticket/commit/b7b5615
+[740bfbe]: https://github.com/hiqdev/hipanel-module-ticket/commit/740bfbe
+[1a86bae]: https://github.com/hiqdev/hipanel-module-ticket/commit/1a86bae

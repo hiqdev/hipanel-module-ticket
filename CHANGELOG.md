@@ -1,5 +1,4 @@
-hiqdev/hipanel-module-ticket commits history
---------------------------------------------
+# hiqdev/hipanel-module-ticket
 
 ## [Under development]
 
@@ -15,7 +14,6 @@ hiqdev/hipanel-module-ticket commits history
 - Changed to all new features: ActionBox, higrid, smart actions ([@hiqsol], [@tafid])
 - Changed code style: hideved, moved to src and php-cs-fixed ([@hiqsol])
 - Added basic functionality ([@tafid], [@hiqsol], [@SilverFire])
-- Added: inited ([@hiqsol])
 
 ## [Development started] - 2015-04-21
 
