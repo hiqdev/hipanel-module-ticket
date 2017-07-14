@@ -6,9 +6,10 @@ use hipanel\widgets\Gravatar;
 use yii\helpers\Html;
 
 /**
- * @var \yii\web\View
+ * @var \yii\web\View $this
  * @var \hipanel\modules\client\models\Client $client
  */
+
 $answerId = 'answer-' . $answer->answer_id;
 
 ?>
@@ -26,6 +27,9 @@ $answerId = 'answer-' . $answer->answer_id;
         <?= Html::beginTag('div', ['class' => 'comment-text']) ?>
             <div class="comment-heading">
                 <?= ClientSellerLink::widget(['model' => $answer]) ?>
+                <?php if ($answer->account) : ?>
+                    &nbsp;·&nbsp; <b><?= $answer->account ?></b>
+                <?php endif ?>
                 &nbsp;·&nbsp; <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
                 <?php if (Yii::$app->user->can('support') && $answer->ip) : ?>
                     &nbsp;·&nbsp; <?= Html::tag('span', 'IP: ' . $answer->ip) ?>
@@ -51,7 +55,7 @@ $answerId = 'answer-' . $answer->answer_id;
         <?= Html::endTag('div') ?>
 
         <?= Html::beginTag('div', ['class' => 'comment-footer']) ?>
-            <button class="link-button comment-quote-button" data-answer-id="<?= $answer_id ?>">
+            <button class="link-button comment-quote-button" data-answer-id="<?= $answer->answer_id ?>">
                 <?= Yii::t('hipanel:ticket', 'Quote') ?>
             </button>
             <?php if ((string) $answer->author_id === (string) Yii::$app->user->id) : ?>
