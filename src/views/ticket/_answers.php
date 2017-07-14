@@ -7,6 +7,6 @@
 
 <?php foreach ($model->answers as $answer_id => $answer) : ?>
     <?php if (!empty($answer->message)) : ?>
-        <?= $this->render('_comment', ['model' => $model, 'answer' => $answer]) ?>
+        <?= $this->render('_answer', ['model' => $model, 'answer' => $answer]) ?>
     <?php endif ?>
 <?php endforeach ?>

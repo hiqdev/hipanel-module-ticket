@@ -364,7 +364,7 @@ class TicketController extends \hipanel\base\CrudController
                 $dataProvider->query->andWhere($this->getSearchOptions());
                 $models = $dataProvider->getModels();
 
-                $result['html'] = $this->renderPartial('_comments', ['model' => reset($models)]);
+                $result['html'] = $this->renderPartial('_answers', ['model' => reset($models)]);
             }
         } catch (ResponseErrorException $e) {
         }
