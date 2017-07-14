@@ -25,13 +25,13 @@ use yii\helpers\Html;
         <?= \hipanel\widgets\AsyncLoader::widget([
             'route' => ['@ticket/render-client-info', 'id' => $client->id],
             'containerSelector' => '.b-ticket-client-info'
-        ]); ?>
+        ]) ?>
     <?php endif ?>
 
-    <?php $box->beginBody(); ?>
+    <?php $box->beginBody() ?>
         <div class="profile-block">
             <div class="profile-photo">
-                <?php if ($client->email) : ?>
+                <?php if (!empty($client->email)) : ?>
                     <?= $this->render('//layouts/gravatar', ['email' => $client->email, 'size' => 120, 'alt' => '']) ?>
                 <?php endif ?>
             </div>
@@ -40,7 +40,7 @@ use yii\helpers\Html;
             </div>
             <?php if (!$client instanceof ClientRelationFreeStub) : ?>
                 <div class="profile-user-role"><?= Yii::t('hipanel:client', $client->type) ?></div>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
 
         <?php $box->beginFooter() ?>
@@ -49,16 +49,9 @@ use yii\helpers\Html;
                     'model' => $client,
                     'boxed' => false,
                     'columns' => $client->login === 'anonym' ? ['name', 'email'] : [
-                        'name',
-                        'email',
-                        'messengers',
-                        'country',
-                        'state',
-                        'balance',
-                        'credit',
-                        'servers_spoiler',
-                        'domains_spoiler',
-                        'hosting',
+                        'name', 'email', 'messengers', 'country',
+                        'state', 'balance', 'credit',
+                        'servers_spoiler', 'domains_spoiler', 'hosting',
                     ],
                 ]) ?>
             </div>
