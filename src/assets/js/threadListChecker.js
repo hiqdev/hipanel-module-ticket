@@ -22,8 +22,8 @@
         bindListeners: function () {
             this.registerTimer();
 
-            // Kartik widgets trigger `change` event on initialization.
-            // The entire page initialization takes up to 500 ms
+            // Kartik widgets triggers `change` event on initialization.
+            // The entire page initialization takes up to 500ms
             // Delay registerInputListeners by 1000 ms to be sure
             setTimeout(function () {
                 this.registerInputListeners();
@@ -85,10 +85,7 @@
                 return;
             }
 
-            var intervalId = this.intervalId;
-            $.pjax.reload(this.settings.pjaxSelector).done(function () {
-                Visibility.stop(intervalId);
-            });
+            $.pjax.reload(this.settings.pjaxSelector).done(this.deleteTimer);
         }
     };
 

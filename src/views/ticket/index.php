@@ -73,22 +73,24 @@ CSS
 
     <?php $page->beginContent('table') ?>
         <?php $page->beginBulkForm() ?>
-            <?= TicketGridView::widget([
-                'boxed' => false,
-                'id'           => 'ticket-grid',
-                'dataProvider' => $dataProvider,
-                'filterModel'  => $model,
-                'rowOptions'   => function ($model, $key, $index, $grid) {
-                    return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
-                },
-                'enableListChecker' => true,
-                'columns' => [
-                    'checkbox',
-                    'subject', 'author_id',
-                    'responsible_id', 'recipient_id',
-                    'answer_count',
-                ],
-            ]); ?>
+            <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true, 'id' => 'ticket-grid-pjax'])) ?>
+                <?= TicketGridView::widget([
+                    'boxed' => false,
+                    'id'           => 'ticket-grid',
+                    'dataProvider' => $dataProvider,
+                    'filterModel'  => $model,
+                    'rowOptions'   => function ($model, $key, $index, $grid) {
+                        return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
+                    },
+                    'enableListChecker' => true,
+                    'columns' => [
+                        'checkbox',
+                        'subject', 'author_id',
+                        'responsible_id', 'recipient_id',
+                        'answer_count',
+                    ],
+                ]); ?>
+            <?php Pjax::end() ?>
         <?php $page->endBulkForm() ?>
     <?php $page->endContent() ?>
     <?php $page->end() ?>

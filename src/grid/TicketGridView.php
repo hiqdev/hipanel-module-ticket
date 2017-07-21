@@ -143,7 +143,7 @@ class TicketGridView extends BoxedGridView
     {
         if ($this->enableListChecker) {
             ThreadListCheckerAsset::register($this->view);
-            $options = Json::encode(['pjaxSelector' => '#' . Yii::$app->params['pjax']['id']]);
+            $options = Json::encode(['pjaxSelector' => '#ticket-grid-pjax']);
             $this->view->registerJs("$('#{$this->id}').threadListChecker($options);");
         }
 
