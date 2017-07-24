@@ -15,6 +15,7 @@ use hipanel\modules\client\grid\ClientColumn;
 use hipanel\modules\ticket\assets\ThreadListCheckerAsset;
 use hipanel\modules\ticket\menus\TicketActionsMenu;
 use hipanel\modules\ticket\models\Thread;
+use hipanel\modules\ticket\widgets\ThreadDecorator;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Gravatar;
@@ -35,6 +36,8 @@ class TicketGridView extends BoxedGridView
                 'format' => 'raw',
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
                 'value' => function ($model) {
+                    $decorator = new ThreadDecorator($model);
+
                     $ava = Html::tag('div', Gravatar::widget([
                         'emailHash' => $model->author_email,
                         'defaultImage' => 'identicon',
@@ -46,7 +49,7 @@ class TicketGridView extends BoxedGridView
                     ]), ['class' => 'pull-right']);
 
                     $titleLink = [
-                        Html::a($model->subject, $model->threadUrl, [
+                        Html::a($decorator->subject, $model->threadUrl, [
                             'class' => 'text-bold',
                             'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
                         ]),
@@ -144,7 +147,7 @@ class TicketGridView extends BoxedGridView
         if ($this->enableListChecker) {
             ThreadListCheckerAsset::register($this->view);
             $options = Json::encode(['pjaxSelector' => '#ticket-grid-pjax']);
-            $this->view->registerJs("$('#{$this->id}').threadListChecker($options);");
+            $this->view->registerJs("$('#ticket-grid-pjax').closest('form').parent().threadListChecker($options);");
         }
 
         parent::run();

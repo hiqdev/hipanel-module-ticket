@@ -13,6 +13,7 @@ use yii\web\View;
 /**
  * @var View
  * @var \hipanel\modules\ticket\models\Thread $model
+ * @var \hipanel\modules\ticket\widgets\ThreadDecorator $decorator
  */
 ThreadCheckerAsset::register($this);
 
@@ -65,7 +66,7 @@ JS
 <div class="box box-widget">
     <?php if (!$model->isNewRecord) : ?>
         <div class="box-header with-border">
-            <h3 class="box-title"><?= sprintf('<b>#%s</b> - %s', $model->id, $model->subject) ?></h3>
+            <h3 class="box-title"><?= sprintf('<b>#%s</b> - %s', $model->id, $decorator->subject) ?></h3>
         </div>
     <?php endif; ?>
     <div class="box-body">

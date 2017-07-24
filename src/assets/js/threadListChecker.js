@@ -51,7 +51,11 @@
 
             var interval = this.settings.queryInterval;
 
-            this.intervalId = Visibility.every(interval, 3 * interval, function () {
+            this.intervalId = Visibility.every(interval, 3 * interval, function (e) {
+                if (this.isPaused) {
+                    return;
+                }
+
                 if (window.Pace !== undefined) {
                     Pace.ignore(this.query.bind(this));
                 } else {
@@ -81,11 +85,6 @@
             this.isPaused = false;
         },
         query: function () {
-            if (this.isPaused) {
-                return;
-            }
-
-            this.deleteTimer();
             $.pjax.reload(this.settings.pjaxSelector);
         }
     };
