@@ -4,7 +4,7 @@ use hipanel\helpers\HtmlHelper;
 use hipanel\helpers\Url;
 use hipanel\widgets\Gravatar;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
+use hipanel\widgets\Pjax;
 
 /**
  * @var \yii\web\View
