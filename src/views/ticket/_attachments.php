@@ -10,11 +10,18 @@ use hipanel\widgets\FileRender;
 
 <div class="attachment">
     <?php foreach ($model->files as $file) : ?>
-        <?= FileRender::widget([
-            'file' => $file,
-            'lightboxLinkOptions' => [
-                'data-lightbox' => 'answer-gal-' . $model->answer_id,
-            ],
-        ]); ?>
+        <div class="file-box">
+            <div class="file">
+                <div class="image">
+                    <?= FileRender::widget([
+                        'file' => $file,
+                        'lightboxLinkOptions' => [
+                            'data-lightbox' => 'answer-gal-' . $model->answer_id,
+                        ],
+                    ]); ?>
+                </div>
+            </div>
+        </div>
     <?php endforeach; ?>
+    <div class="clearfix"></div>
 </div>
