@@ -1,11 +1,9 @@
 <?php
 
 use hipanel\helpers\HtmlHelper;
-use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\Box;
-use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
@@ -62,7 +60,7 @@ $form = ConditionalFormWidget::begin([
         <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>
 
         <?php $box->beginFooter() ?>
-        <?php if (!$model->isNewRecord) : ?>
+        <?php if (!$model->isNewRecord && Yii::$app->user->can('support')) : ?>
             <?= $this->render('_subscribeButton', compact('model')) ?>
         <?php endif ?>
         <?php $box->endFooter() ?>
