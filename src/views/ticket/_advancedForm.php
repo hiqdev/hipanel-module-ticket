@@ -128,21 +128,6 @@ use yii\widgets\ActiveForm;
         </ul>
 
         <ul class="list-group ticket-list-group">
-            <?php /*<li class="list-group-item">
-                <span class="badge">
-                    <?= Gravatar::widget([
-                        'emailHash' => $model->responsible_email,
-                        'defaultImage' => 'identicon',
-                        'size' => 16,
-                        'options' => [
-                            'alt' => '',
-                            'class' => 'img-circle',
-                        ],
-                    ]) ?>
-                    <?= Html::a($model->responsible, ['/client/client/view', 'id' => $model->responsible_id]) ?>
-                </span>
-                <?= $model->getAttributeLabel('responsible_id') ?>
-            </li> */ ?>
             <li class="list-group-item">
                 <span class="badge"><?= Yii::$app->formatter->asDuration($model->spent * 60) ?></span>
                 <?= Yii::t('hipanel:ticket', 'Spent time') ?>
@@ -161,46 +146,6 @@ use yii\widgets\ActiveForm;
                     ],
                 ],
             ]) ?>
-        <?php else: ?>
-            <?php /*
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="form-group">
-                        <div class="col-sm-4"><?= $model->getAttributeLabel('watchers') ?>:</div>
-                        <div class="col-sm-8">
-                            <span class="form-control-static">
-                                <?php
-                                $watchers = $model->watchers;
-                                $model->watchers = $model->getWatchersLogin();
-                                echo ComboXEditable::widget([
-                                    'model' => $model,
-                                    'attribute' => 'watchers',
-                                    'combo' => [
-                                        'class' => ClientCombo::class,
-                                        'clientType' => ['manager', 'admin', 'owner'],
-                                        'inputOptions' => [
-                                            'class' => 'hidden'
-                                        ],
-                                        'pluginOptions' => [
-                                            'select2Options' => [
-                                                'multiple' => true,
-                                                'width' => '20rem',
-                                            ],
-                                        ],
-                                    ],
-                                    'pluginOptions' => [
-                                        'placement' => 'bottom',
-                                    ],
-                                ]);
-
-                                $model->watchers = $watchers;
-                                ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            */ ?>
         <?php endif ?>
     <?php endif ?>
     <?php if ($model->isNewRecord) : ?>
