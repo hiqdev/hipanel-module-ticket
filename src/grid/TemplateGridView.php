@@ -19,9 +19,9 @@ use Yii;
 
 class TemplateGridView extends \hipanel\grid\BoxedGridView
 {
-    public static function defaultColumns()
+    public function columns()
     {
-        return [
+        return array_merge(parent::columns(), [
             'author_id' => [
                 'class' => ClientColumn::class,
                 'idAttribute' => 'author_id',
@@ -47,6 +47,6 @@ class TemplateGridView extends \hipanel\grid\BoxedGridView
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
             ],
-        ];
+        ]);
     }
 }
