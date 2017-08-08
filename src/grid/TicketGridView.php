@@ -28,9 +28,9 @@ class TicketGridView extends BoxedGridView
 {
     public $enableListChecker = false;
 
-    public static function defaultColumns()
+    public function columns()
     {
-        return [
+        return array_merge(parent::columns(), [
             'subject' => [
                 'attribute' => 'subject',
                 'format' => 'raw',
@@ -139,7 +139,7 @@ class TicketGridView extends BoxedGridView
                 'class' => MenuColumn::class,
                 'menuClass' => TicketActionsMenu::class,
             ],
-        ];
+        ]);
     }
 
     public function run()
