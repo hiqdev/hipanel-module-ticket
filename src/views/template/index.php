@@ -21,11 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(Yii::t('hipanel:ticket', 'Create template'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
         <?php $page->endContent() ?>
 
-        <?php $page->beginContent('show-actions') ?>
-            <?= $page->renderLayoutSwitcher() ?>
-            <?= $page->renderPerPage() ?>
-        <?php $page->endContent() ?>
-
         <?php $page->beginContent('bulk-actions') ?>
             <?= $page->renderBulkButton(Yii::t('hipanel', 'Delete'), 'delete', 'danger')?>
         <?php $page->endContent() ?>
