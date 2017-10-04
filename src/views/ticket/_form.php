@@ -158,7 +158,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                     <div class="col-md-3">
                         <?php
                         $is = $model instanceof Answer;
-                        if (Yii::$app->user->can('support')) : ?>
+                        if (Yii::$app->user->can('support') && $model->canSetSpent() ) : ?>
                             <div class="pull-right">
                                 <?= $form->field($model, 'spent')->widget(TimePicker::class, [
                                     'options' => [

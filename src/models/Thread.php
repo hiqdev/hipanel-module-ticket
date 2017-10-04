@@ -13,6 +13,7 @@ namespace hipanel\modules\ticket\models;
 use hipanel\behaviors\File;
 use hipanel\helpers\Markdown;
 use hipanel\modules\client\models\Client;
+use phpDocumentor\Reflection\Types\Callable_;
 use stdClass;
 use Yii;
 use yii\web\NotFoundHttpException;
@@ -177,18 +178,18 @@ class Thread extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'author'           => Yii::t('hipanel:ticket', 'Author'),
-            'author_id'        => Yii::t('hipanel:ticket', 'Author'),
-            'recipient'        => Yii::t('hipanel:ticket', 'Recipient'),
-            'is_private'       => Yii::t('hipanel:ticket', 'Make private'),
-            'responsible'      => Yii::t('hipanel:ticket', 'Assignee'),
-            'responsible_id'   => Yii::t('hipanel:ticket', 'Assignee'),
-            'spent'            => Yii::t('hipanel:ticket', 'Spent time'),
-            'create_time'      => Yii::t('hipanel:ticket', 'Created'),
-            'a_reply_time'     => Yii::t('hipanel:ticket', 'a_reply_time'),
-            'file'             => Yii::t('hipanel:ticket', 'Files'),
-            'lastanswer'       => Yii::t('hipanel:ticket', 'Last answer'),
-            'author_seller'    => Yii::t('hipanel:ticket', 'Seller'),
+            'author' => Yii::t('hipanel:ticket', 'Author'),
+            'author_id' => Yii::t('hipanel:ticket', 'Author'),
+            'recipient' => Yii::t('hipanel:ticket', 'Recipient'),
+            'is_private' => Yii::t('hipanel:ticket', 'Make private'),
+            'responsible' => Yii::t('hipanel:ticket', 'Assignee'),
+            'responsible_id' => Yii::t('hipanel:ticket', 'Assignee'),
+            'spent' => Yii::t('hipanel:ticket', 'Spent time'),
+            'create_time' => Yii::t('hipanel:ticket', 'Created'),
+            'a_reply_time' => Yii::t('hipanel:ticket', 'a_reply_time'),
+            'file' => Yii::t('hipanel:ticket', 'Files'),
+            'lastanswer' => Yii::t('hipanel:ticket', 'Last answer'),
+            'author_seller' => Yii::t('hipanel:ticket', 'Seller'),
         ]);
     }
 
@@ -238,7 +239,7 @@ class Thread extends \hipanel\base\Model
     public function getWatchersLogin()
     {
         $results = [];
-        foreach ((array) $this->watchers as $id => $watcher) {
+        foreach ((array)$this->watchers as $id => $watcher) {
             list($login, $email) = explode(' ', $watcher);
             $results[$id] = $login;
         }
@@ -305,5 +306,14 @@ class Thread extends \hipanel\base\Model
             'open' => 'answer',
             'close' => 'answer',
         ];
+    }
+
+    public function canSetSpent()
+    {
+        if (isset(Yii::$app->params['ticket.canSetSpent']) && is_callable(Yii::$app->params['ticket.canSetSpent'])) {
+            return call_user_func(Yii::$app->params['ticket.canSetSpent'], $this);
+        }
+
+        return true;
     }
 }
