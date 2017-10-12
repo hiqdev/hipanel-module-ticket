@@ -52,6 +52,7 @@ use yii\helpers\Html;
                         'name', 'email', 'messengers', 'country',
                         'state', 'balance', 'credit',
                         'servers_spoiler', 'domains_spoiler', 'hosting',
+                        'language',
                     ],
                 ]) ?>
             </div>
