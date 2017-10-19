@@ -49,10 +49,9 @@ use yii\helpers\Html;
                     'model' => $client,
                     'boxed' => false,
                     'columns' => $client->login === 'anonym' ? ['name', 'email'] : [
-                        'name', 'email', 'messengers', 'country',
+                        'name', 'email', 'messengers', 'country', 'language',
                         'state', 'balance', 'credit',
                         'servers_spoiler', 'domains_spoiler', 'hosting',
-                        'language',
                     ],
                 ]) ?>
             </div>
