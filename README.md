@@ -1,5 +1,4 @@
-HiPanel Tickets
-===============
+# HiPanel Tickets
 
 **HiPanel tickets module**
 
@@ -12,9 +11,9 @@ HiPanel Tickets
 
 [![Logo](https://raw.githubusercontent.com/hiqdev/hipanel-core/master/docs/logo.png)](https://hipanel.com/)
 
-[HiPanel](http://hipanel.com) is next generation control panel for hosting, domains and more.
+[HiPanel](http://hipanel.com) is next generation billing and control panel for hosting, domains and more.
 
-This package provides tickets management.
+This package provides support tickets management.
 
 ## Installation
 
