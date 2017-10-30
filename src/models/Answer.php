@@ -192,4 +192,9 @@ class Answer extends \hipanel\base\Model
             'update' => 'update-answer',
         ];
     }
+
+    public function canSetSpent()
+    {
+        return $this->thread->canSetSpent();
+    }
 }
