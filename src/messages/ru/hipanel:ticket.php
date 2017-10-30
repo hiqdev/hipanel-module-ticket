@@ -73,7 +73,7 @@ return [
     'Create ticket' => 'Создать тикет',
     'Answers' => 'Ответы',
     'Answer' => 'Ответить',
-    'Edit' => 'Редактивроать',
+    'Edit' => 'Редактировать',
     'Message editing' => 'Редактирование сообщения',
     'Comment was updated' => 'Комментарий был изменен',
     'Medium' => 'Средний',
