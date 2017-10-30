@@ -1,18 +1,14 @@
 <?php
 
-use hiqdev\yii2\reminder\widgets\ReminderButton;
 use yii\helpers\StringHelper;
 
 /**
  * @var yii\web\View
  */
-$reminder = ReminderButton::widget([
-    'object_id' => $model->id,
-]);
 $decorator = new \hipanel\modules\ticket\widgets\ThreadDecorator($model);
 
 $this->title                    = '#' . $model->id;
-$this->params['subtitle']       = StringHelper::truncateWords($decorator->subject, 7) . '&nbsp;' . $reminder;
+$this->params['subtitle']       = StringHelper::truncateWords($decorator->subject, 7);
 $this->params['breadcrumbs'][]  = ['label' => Yii::t('hipanel:ticket', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][]  = '#' . $model->id;
 

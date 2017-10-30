@@ -6,6 +6,7 @@ use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\Box;
 use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use hiqdev\yii2\reminder\widgets\ReminderButton;
 use yii\helpers\Html;
 
 /**
@@ -29,8 +30,16 @@ $form = ConditionalFormWidget::begin([
     <div class="col-md-12">
         <?= Html::a(Yii::t('hipanel:ticket', 'Back to index'),
             ['index'],
-            ['class' => 'btn btn-primary btn-block btn-sm', 'style' => $model->isNewRecord ? 'margin-bottom: 20px;' : 'margin-bottom: 5px;']) ?>
+            [
+                'class' => 'btn btn-primary btn-block btn-sm',
+                'style' => $model->isNewRecord ? 'margin-bottom: 20px;' : 'margin-bottom: 5px;',
+            ]) ?>
         <?php if (!$model->isNewRecord) : ?>
+            <?= ReminderButton::widget([
+                'object_id' => $model->id,
+                'toggleButtonOptions' => ['class' => 'btn btn-info btn-block btn-sm lg-mb-5 md-mb-5 sm-mb-5 xs-mb-5'],
+            ]) ?>
+
             <?php $openTicketText = Yii::t('hipanel:ticket', 'Open ticket'); ?>
             <?php $closeTicketText = Yii::t('hipanel:ticket', 'Close ticket'); ?>
             <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], [
