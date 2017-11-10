@@ -63,7 +63,7 @@ class TicketController extends \hipanel\base\CrudController
 
     public function actions()
     {
-        return [
+        return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
                 'data' => $this->prepareRefs(),
@@ -220,7 +220,7 @@ class TicketController extends \hipanel\base\CrudController
                 'scenario' => 'answer-update',
                 'view' => '_updateAnswerModal',
             ],
-        ];
+        ]);
     }
 
     /**
