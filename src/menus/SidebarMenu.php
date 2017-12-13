@@ -25,6 +25,7 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                     'tickets' => [
                         'label' => Yii::t('hipanel:ticket', 'Tickets'),
                         'url' => ['/ticket/ticket/index'],
+                        'visible' => Yii::$app->user->can('ticket.read'),
                     ],
                     'templates' => [
                         'label' => Yii::t('hipanel:ticket', 'Templates'),
