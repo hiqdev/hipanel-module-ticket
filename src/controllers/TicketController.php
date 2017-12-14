@@ -28,6 +28,7 @@ use hipanel\modules\ticket\models\TicketSettings;
 use hiqdev\hiart\ResponseErrorException;
 use Yii;
 use yii\base\Event;
+use yii\filters\AccessControl;
 use yii\filters\PageCache;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
@@ -56,6 +57,15 @@ class TicketController extends \hipanel\base\CrudController
                 'duration' => 7200, // 2h
                 'variations' => [
                     Yii::$app->user->getId(),
+                ],
+            ],
+            [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['ticket.read'],
+                    ],
                 ],
             ],
         ]);
