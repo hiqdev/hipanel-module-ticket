@@ -34,6 +34,18 @@ return [
     ],
     'container' => [
         'definitions' => [
+            \hipanel\modules\dashboard\menus\DashboardMenu::class => [
+                'add' => [
+                    'ticket' => [
+                        'menu' => [
+                            'class' => \hipanel\modules\ticket\menus\DashboardItem::class,
+                        ],
+                        'where' => [
+                            'after' => ['stock', 'server', 'hosting', 'domain', 'client'],
+                        ],
+                    ],
+                ],
+            ],
             \hiqdev\thememanager\menus\AbstractSidebarMenu::class => [
                 'add' => [
                     'ticket' => [
