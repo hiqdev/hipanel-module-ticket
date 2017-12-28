@@ -316,4 +316,9 @@ class Thread extends \hipanel\base\Model
 
         return true;
     }
+
+    public function isOpen()
+    {
+        return $this->state === self::STATE_OPEN;
+    }
 }
