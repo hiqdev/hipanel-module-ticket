@@ -74,6 +74,8 @@ return [
     'Create ticket' => 'Создать тикет',
     'Answers' => 'Ответы',
     'Answer' => 'Ответить',
+    'Answer in closed ticket' => 'Ответить в закрытый тикет',
+    'Answer and open' => 'Ответить и открыть',
     'Edit' => 'Редактировать',
     'Message editing' => 'Редактирование сообщения',
     'Comment was updated' => 'Комментарий был изменен',

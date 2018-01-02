@@ -60,29 +60,13 @@ $(".comment-quote-button").on("click", function(event) {
 });
 JS
     , View::POS_READY);
-
-if ($model->isOpen() === false) {
-    $this->registerCss('
-    .box .box-body .widget-article-comments {
-        position: relative;
-    }
-    .box .box-body .widget-article-comments > .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-    .widget-article-comments:hover .overlay { display: none }
-    ');
-}
 ?>
 
 <div class="box box-widget">
     <?php if (!$model->isNewRecord) : ?>
         <div class="box-header with-border">
             <h3 class="box-title">
-                <?php if ($model->isOpen() === false) : ?>
+                <?php if (!$model->isOpen()) : ?>
                     <span class="label label-default" style="text-transform: uppercase"><?= Yii::t('hipanel:ticket', 'Closed') ?></span>&nbsp;
                 <?php endif ?>
                 <?= sprintf('<b>#%s</b> - %s', $model->id, $decorator->subject) ?>
@@ -96,13 +80,13 @@ if ($model->isOpen() === false) {
             <hr class="no-panel-padding-h panel-wide padding-bottom">
             <div class="widget-article-comments tab-pane panel no-padding no-border">
                 <?= $this->render('_answers', ['model' => $model, 'client' => $client]) ?>
-                <?php if ($model->isOpen() === false) : ?>
-                    <div class="overlay"></div>
-                <?php endif ?>
             </div>
             <?php if ($model->isRelationPopulated('answers')) : ?>
                 <hr class="no-panel-padding-h panel-wide padding-bottom md-mb-0">
-                <?= Html::button(Yii::t('hipanel:ticket', 'Answer'), ['class' => 'message-block-move-btn btn btn-default']); ?>
+                <?= Html::button(
+                    $model->isOpen() ? Yii::t('hipanel:ticket', 'Answer') : Yii::t('hipanel:ticket', 'Answer in closed ticket'),
+                    ['class' => 'message-block-move-btn btn btn-default']
+                ); ?>
             <?php endif; ?>
         <?php endif; ?>
 
