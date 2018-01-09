@@ -154,7 +154,11 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                 <div class="row">
                     <div class="col-md-2">
                         <?= Html::submitButton(
-                            $model->isOpen() ? Yii::t('hipanel:ticket', 'Answer') : Yii::t('hipanel:ticket', 'Answer and open'),
+                            $model->isOpen()
+                                ? Yii::t('hipanel:ticket', 'Answer')
+                                : $model->isNewRecord
+                                    ? Yii::t('hipanel:ticket', 'Create ticket')
+                                    : Yii::t('hipanel:ticket', 'Answer and open'),
                             ['class' => 'btn btn-success']
                         ); ?>
                     </div>
