@@ -14,7 +14,9 @@ use hipanel\models\File;
 use Yii;
 
 /**
- * Class Ticket.
+ * Class Answer.
+ *
+ * @property Thread $thread
  */
 class Answer extends \hipanel\base\Model
 {
@@ -196,5 +198,10 @@ class Answer extends \hipanel\base\Model
     public function canSetSpent()
     {
         return $this->thread->canSetSpent();
+    }
+
+    public function isOpen()
+    {
+        return $this->thread->isOpen();
     }
 }
