@@ -2,6 +2,7 @@
 
 use hipanel\assets\OcticonsAsset;
 use hipanel\modules\ticket\models\Answer;
+use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\FileInput;
 use hipanel\widgets\TimePicker;
@@ -11,7 +12,7 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\web\View
- * @var Answer|\hipanel\modules\ticket\models\Thread $model
+ * @var Answer|Thread $model
  */
 OcticonsAsset::register($this);
 iCheckAsset::register($this);
@@ -156,9 +157,9 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                         <?= Html::submitButton(
                             $model->isOpen()
                                 ? Yii::t('hipanel:ticket', 'Answer')
-                                : $model->isNewRecord
+                                : ($model->isNewRecord
                                     ? Yii::t('hipanel:ticket', 'Create ticket')
-                                    : Yii::t('hipanel:ticket', 'Answer and open'),
+                                    : Yii::t('hipanel:ticket', 'Answer and open')),
                             ['class' => 'btn btn-success']
                         ); ?>
                     </div>
