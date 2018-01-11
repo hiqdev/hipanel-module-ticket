@@ -48,6 +48,7 @@ CSS
 ?>
 
 <?php
+
 $form = ConditionalFormWidget::begin([
     'form' => isset($form) ? $form : null,
     'options' => [
@@ -156,9 +157,10 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                         <?= Html::submitButton(
                             $model->isOpen()
                                 ? Yii::t('hipanel:ticket', 'Answer')
-                                : $model->isNewRecord
+                                : ( $model->isNewRecord
                                     ? Yii::t('hipanel:ticket', 'Create ticket')
-                                    : Yii::t('hipanel:ticket', 'Answer and open'),
+                                    : Yii::t('hipanel:ticket', 'Answer and open')
+                                ),
                             ['class' => 'btn btn-success']
                         ); ?>
                     </div>
