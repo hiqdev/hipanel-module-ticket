@@ -32,10 +32,11 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                         'url' => ['/ticket/template/index'],
                         'visible' => Yii::$app->user->can('support'),
                     ],
-//                  'statistics' => [
-//                      'label' => Yii::t('hipanel:ticket', 'Tickets statistics'),
-//                      'url'   => ['/ticket/ticket/statistics'],
-//                  ],
+                    'statistics' => [
+                        'label' => Yii::t('hipanel:ticket', 'Tickets statistics'),
+                        'url'   => ['/ticket/statistic/index'],
+                        'visible' => Yii::$app->user->can('support'),
+                    ],
                 ],
             ],
         ];
