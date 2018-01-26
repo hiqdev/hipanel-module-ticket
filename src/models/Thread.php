@@ -164,7 +164,7 @@ class Thread extends \hipanel\base\Model
                 return false;
             }],
             [['id'], 'integer', 'on' => 'answer'],
-            [['file'], 'file', 'maxFiles' => 5],
+            [['file'], 'file', 'maxFiles' => 15],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
             [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('support')],
         ];
