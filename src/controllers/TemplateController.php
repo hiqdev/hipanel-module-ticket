@@ -30,7 +30,7 @@ class TemplateController extends \hipanel\base\CrudController
 {
     public function actions()
     {
-        return [
+        return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
                 'on beforePerform' => function (Event $event) {
@@ -114,7 +114,7 @@ class TemplateController extends \hipanel\base\CrudController
             'validate-form' => [
                 'class' => ValidateFormAction::class,
             ],
-        ];
+        ]);
     }
 
     public function actionText($id, $lang)
