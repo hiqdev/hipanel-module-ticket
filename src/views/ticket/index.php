@@ -81,12 +81,7 @@ CSS
                         return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
                     },
                     'enableListChecker' => true,
-                    'columns' => [
-                        'checkbox',
-                        'subject', 'author_id',
-                        'responsible_id', 'recipient_id',
-                        'answer_count',
-                    ],
+                    'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
                 ]); ?>
             <?php Pjax::end() ?>
         <?php $page->endBulkForm() ?>
