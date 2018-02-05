@@ -24,7 +24,7 @@ $answerId = 'answer-' . $answer->answer_id;
         'size' => 32,
     ]) ?>
     <?= Html::beginTag('div', ['class' => 'comment-body']) ?>
-        <?= Html::beginTag('div', ['class' => 'comment-text ' . ($answer->is_private ? '.ticket-answer-bg-grey' : '')]) ?>
+        <?= Html::beginTag('div', ['class' => 'comment-text ' . ($answer->is_private ? 'ticket-answer-bg-grey' : '')]) ?>
             <div class="comment-heading">
                 <?= ClientSellerLink::widget(['model' => $answer]) ?>
                 <?php if ($answer->account) : ?>
