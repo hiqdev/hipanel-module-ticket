@@ -12,8 +12,6 @@ use yii\helpers\Html;
 
 $answerId = 'answer-' . $answer->answer_id;
 
-$this->registerCss(".ticket-answer-bg-grey { background-color: #f7f7f9; }");
-
 ?>
 
 <?= Html::beginTag('div', ['class' => 'comment' . ($answer->is_answer ? ' answer' : ''), 'id' => $answerId]) ?>
