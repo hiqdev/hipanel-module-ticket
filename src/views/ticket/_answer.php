@@ -12,6 +12,8 @@ use yii\helpers\Html;
 
 $answerId = 'answer-' . $answer->answer_id;
 
+$this->registerCss(".ticket-answer-bg-grey { background-color: #f7f7f9; }");
+
 ?>
 
 <?= Html::beginTag('div', ['class' => 'comment' . ($answer->is_answer ? ' answer' : ''), 'id' => $answerId]) ?>
@@ -24,7 +26,7 @@ $answerId = 'answer-' . $answer->answer_id;
         'size' => 32,
     ]) ?>
     <?= Html::beginTag('div', ['class' => 'comment-body']) ?>
-        <?= Html::beginTag('div', ['class' => 'comment-text']) ?>
+        <?= Html::beginTag('div', ['class' => 'comment-text ' . ($answer->is_private ? '.ticket-answer-bg-grey' : '')]) ?>
             <div class="comment-heading">
                 <?= ClientSellerLink::widget(['model' => $answer]) ?>
                 <?php if ($answer->account) : ?>
