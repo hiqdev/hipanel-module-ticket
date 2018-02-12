@@ -11,6 +11,19 @@ use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use yii\helpers\Html;
 
+$this->registerCss('
+/* Fix table horizontal scroll */
+.b-ticket-client-info table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.b-ticket-client-info table td {
+    word-wrap: break-word; / All browsers since IE 5.5+ /
+    overflow-wrap: break-word; / Renamed property in CSS3 draft spec /
+}
+');
+
 ?>
 
 <div class="col-md-12 b-ticket-client-info">
@@ -44,17 +57,15 @@ use yii\helpers\Html;
         </div>
 
         <?php $box->beginFooter() ?>
-            <div class="table-responsive">
-                <?= ClientGridView::detailView([
-                    'model' => $client,
-                    'boxed' => false,
-                    'columns' => $client->login === 'anonym' ? ['name', 'email'] : [
-                        'name', 'email', 'messengers', 'country', 'language',
-                        'state', 'balance', 'credit',
-                        'servers_spoiler', 'domains_spoiler', 'hosting',
-                    ],
-                ]) ?>
-            </div>
+            <?= ClientGridView::detailView([
+                'model' => $client,
+                'boxed' => false,
+                'columns' => $client->login === 'anonym' ? ['name', 'email'] : [
+                    'name', 'email', 'messengers', 'country', 'language',
+                    'state', 'balance', 'credit',
+                    'servers_spoiler', 'domains_spoiler', 'hosting',
+                ],
+            ]) ?>
 
             <?php if ($client->login !== 'anonym') : ?>
                 <?= Html::a(
