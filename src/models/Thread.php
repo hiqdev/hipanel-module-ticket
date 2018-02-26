@@ -129,6 +129,7 @@ class Thread extends \hipanel\base\Model
         $rules = [
             [['author_id', 'responsible_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
+            [['subject'], 'string', 'min' => 3],
             [['id'], 'required', 'on' => ['answer', 'update-answer', 'open', 'close']],
             [
                 [
