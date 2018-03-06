@@ -60,11 +60,14 @@ $this->registerCss('
             <?= ClientGridView::detailView([
                 'model' => $client,
                 'boxed' => false,
-                'columns' => $client->login === 'anonym' ? ['name', 'email'] : [
-                    'name', 'email', 'messengers', 'country', 'language',
-                    'state', 'balance', 'credit',
-                    'servers_spoiler', 'domains_spoiler', 'hosting',
-                ],
+                'columns' => array_filter(
+                    $client->login === 'anonym' ? ['name', 'email'] : [
+                        'name', 'email', 'messengers', 'country', 'language', 'state',
+                        Yii::$app->user->can('bill.read') ? 'balance' : null,
+                        Yii::$app->user->can('bill.read') ? 'credit' : null,
+                        'servers_spoiler', 'domains_spoiler', 'hosting',
+                    ]
+                ),
             ]) ?>
 
             <?php if ($client->login !== 'anonym') : ?>
