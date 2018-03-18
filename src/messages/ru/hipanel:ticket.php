@@ -136,6 +136,6 @@ return [
     'Ticket contains {n, plural, one{# answer} other{# answers}}' => 'Тикет содержит {n, plural, one{# ответ} few{# ответа} many{# ответов} other{# ответов}}',
     'Empty' => 'Не заполнено',
     '[No subject]' => '[Без темы]',
-    'Customers' => 'Клиенты',
+    'Cunsumers' => 'Потребители',
     'Performers' => 'Исполнители',
 ];
