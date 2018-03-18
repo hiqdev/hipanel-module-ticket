@@ -145,7 +145,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                             'showRemove' => true,
                             'showUpload' => false,
                             'initialPreviewShowDelete' => true,
-                            'maxFileCount' => 5,
+                            'maxFileCount' => 15,
                             'msgFilesTooMany' => Yii::t('hipanel', 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}'),
                         ],
                     ]) ?>

@@ -31,10 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'boxed' => false,
                     'filterModel'  => $model,
-                    'columns'      => [
-                        'checkbox', 'author_id',
-                        'name', 'actions', 'is_published',
-                    ],
+                    'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
                 ]) ?>
             <?php $page->endBulkForm() ?>
         <?php $page->endContent() ?>

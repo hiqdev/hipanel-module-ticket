@@ -129,6 +129,7 @@ class Thread extends \hipanel\base\Model
         $rules = [
             [['author_id', 'responsible_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
+            [['subject'], 'string', 'min' => 3],
             [['id'], 'required', 'on' => ['answer', 'update-answer', 'open', 'close']],
             [
                 [
@@ -164,7 +165,7 @@ class Thread extends \hipanel\base\Model
                 return false;
             }],
             [['id'], 'integer', 'on' => 'answer'],
-            [['file'], 'file', 'maxFiles' => 5],
+            [['file'], 'file', 'maxFiles' => 15],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
             [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('support')],
         ];
