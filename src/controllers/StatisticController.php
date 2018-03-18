@@ -12,9 +12,6 @@ namespace hipanel\modules\ticket\controllers;
 
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
-use hipanel\actions\SmartCreateAction;
-use hipanel\actions\SmartDeleteAction;
-use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\modules\ticket\models\Statistic;
@@ -36,15 +33,9 @@ class StatisticController extends \hipanel\base\CrudController
         return [
             'topic_data' => $this->getRefs('topic,ticket', 'hipanel:ticket'),
             'state_data' => $this->getClassRefs('state', 'hipanel:ticket'),
-            'priority_data' => $this->getPriorities(),
+            'priority_data' => $this->getRefs('type,priority', 'hipanel:ticket'),
         ];
     }
-
-    public function getPriorities()
-    {
-        return $this->getRefs('type,priority', 'hipanel:ticket');
-    }
-
 
     public function actions()
     {
@@ -52,6 +43,16 @@ class StatisticController extends \hipanel\base\CrudController
             'index' => [
                 'class' => IndexAction::class,
                 'data' => $this->prepareRefs(),
+                'on beforePerform' => function (Event $event) {
+                    $action = $event->sender;
+                    $query = $action->getDataProvider()->query;
+                    $representation = $action->controller->indexPageUiOptionsModel->representation;
+                    if ($representation === 'consumers') {
+                        $query->andWhere(['type' => 'consumers']);
+                    } else {
+                        $query->andWhere(['type' => 'performers']);
+                    }
+                }
             ],
         ];
     }
