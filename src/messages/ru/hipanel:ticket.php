@@ -135,5 +135,7 @@ return [
     'Avatar for {login}' => 'Аватар пользователя {login}',
     'Ticket contains {n, plural, one{# answer} other{# answers}}' => 'Тикет содержит {n, plural, one{# ответ} few{# ответа} many{# ответов} other{# ответов}}',
     'Empty' => 'Не заполнено',
-    '[No subject]' => '[Без темы]'
+    '[No subject]' => '[Без темы]',
+    'Customers' => 'Клиенты',
+    'Performers' => 'Исполнители',
 ];
