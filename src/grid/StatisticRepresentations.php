@@ -13,13 +13,13 @@ class StatisticRepresentations extends RepresentationCollection
             'consumers' => [
                 'label' => Yii::t('hipanel:ticket', 'Consumers'),
                 'columns' => [
-                    'login', 'spend', 'tickets',
+                    'client_id', 'spent', 'tickets',
                 ],
             ],
             'Performers' => [
                  'label' => Yii::t('hipanel:ticket', 'Performers'),
                  'columns' => [
-                    'login', 'spend', 'tickets',
+                    'client_id', 'spent', 'tickets',
                  ],
             ],
         ]);
