@@ -30,12 +30,12 @@ class Statistic extends Thread
     public function rules()
     {
         return [
-            [['author_id', 'responsible_id', 'recipient_id', 'client_id', 'id', 'author_seller_id', 'replier_id'], 'integer'],
+            [['author_id', 'responsible_id', 'recipient_id', 'client_id', 'id', 'author_seller_id', 'replier_id', 'seller_id', 'client_seller_id'], 'integer'],
             [['topics', 'state', 'priority', 'watchers','author_seller', 'replier', 'state_label', 'login'], 'safe'],
             [['spent', 'spent_hours', 'spend'], 'safe'],
-            [['author','watchers','responsible','recipient', 'anytext_like'], 'safe'],
+            [['author','watchers','responsible','recipient', 'anytext_like', 'seller', 'client'], 'safe'],
             [['author_email'], 'email'],
-            [['create_time','lastanswer','subject', 'reply_time','time_from','time_till'], 'safe'],
+            [['create_time','lastanswer','subject', 'reply_time','time_from','time_till', 'thread_ids'], 'safe'],
             [['answer_count'], 'integer'],
         ];
     }
