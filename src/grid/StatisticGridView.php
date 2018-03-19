@@ -10,12 +10,8 @@
 
 namespace hipanel\modules\ticket\grid;
 
-use hipanel\grid\MainColumn;
-use hipanel\grid\SwitchColumn;
 use hipanel\modules\client\grid\ClientColumn;
 use hipanel\widgets\ClientSellerLink;
-use hipanel\modules\ticket\menus\TemplateActionsMenu;
-use hiqdev\yii2\menus\grid\MenuColumn;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use Yii;
@@ -44,6 +40,7 @@ class StatisticGridView extends \hipanel\grid\BoxedGridView
             ],
             'tickets' => [
                 'format' => 'html',
+                'label' => Yii::t('hipanel:ticket', 'Tickets'),
                 'value' => function($model) {
                     foreach (explode(",", $model->thread_ids) as $thread) {
                         $threads[$thread] = Html::a($thread, Url::to(['@ticket/view', 'id' => $thread]));

@@ -138,4 +138,6 @@ return [
     '[No subject]' => '[Без темы]',
     'Consumers' => 'Потребители',
     'Performers' => 'Исполнители',
+    'Spent' => 'Затрачено',
+    'Tickets statistics' => 'Статистика по тикетам',
 ];
