@@ -10,21 +10,26 @@
 
 namespace hipanel\modules\ticket\controllers;
 
-use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
-use hipanel\actions\ValidateFormAction;
-use hipanel\actions\ViewAction;
 use hipanel\modules\ticket\models\Statistic;
-use hiqdev\hiart\Collection;
-use hiqdev\hiart\ResponseErrorException;
-use hisite\modules\news\models\ArticleData;
-use Yii;
+use hipanel\filters\EasyAccessControl;
 use yii\base\Event;
-use yii\helpers\ArrayHelper;
-use yii\web\Response;
 
 class StatisticController extends \hipanel\base\CrudController
 {
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+            [
+                'class' => EasyAccessControl::class,
+                'actions' => [
+                    '*' => 'manage',
+                ],
+
+            ],
+        ]);
+    }
+
     /**
      * @return array
      */
