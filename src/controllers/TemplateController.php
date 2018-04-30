@@ -18,6 +18,7 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\modules\ticket\models\Template;
+use hipanel\filters\EasyAccessControl;
 use hiqdev\hiart\Collection;
 use hiqdev\hiart\ResponseErrorException;
 use hisite\modules\news\models\ArticleData;
@@ -28,6 +29,18 @@ use yii\web\Response;
 
 class TemplateController extends \hipanel\base\CrudController
 {
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+            [
+                'class' => EasyAccessControl::class,
+                'actions' => [
+                    '*' => 'support',
+                ],
+            ],
+        ]);
+    }
+
     public function actions()
     {
         return array_merge(parent::actions(), [
