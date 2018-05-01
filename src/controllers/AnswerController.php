@@ -12,10 +12,24 @@ namespace hipanel\modules\ticket\controllers;
 
 use hipanel\actions\RedirectAction;
 use hipanel\actions\SmartPerformAction;
+use hipanel\filters\EasyAccessControl;
 use Yii;
 
 class AnswerController extends \hipanel\base\CrudController
 {
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+            [
+                'class' => EasyAccessControl::class,
+                'actions' => [
+                    'update' => 'ticket.answer',
+                    '*' => 'ticket.read',
+                ],
+            ],
+        ]);
+    }
+
     public function actions()
     {
         return [
