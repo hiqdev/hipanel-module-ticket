@@ -57,7 +57,8 @@
     },
     "autoload": {
         "psr-4": {
-            "hipanel\\modules\\ticket\\": "src"
+            "hipanel\\modules\\ticket\\": "src",
+            "hipanel\\modules\\ticket\\tests\\": "tests"
         }
     },
     "extra": {
