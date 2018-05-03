@@ -3,9 +3,9 @@
 namespace hipanel\modules\ticket\tests\acceptance\client;
 
 use Codeception\Scenario;
-use hipanel\modules\ticket\tests\_support\ticket\Create;
-use hipanel\modules\ticket\tests\_support\ticket\Index;
-use hipanel\modules\ticket\tests\_support\ticket\View;
+use hipanel\modules\ticket\tests\_support\Page\ticket\Create;
+use hipanel\modules\ticket\tests\_support\Page\ticket\Index;
+use hipanel\modules\ticket\tests\_support\Page\ticket\View;
 use hipanel\tests\_support\Step\Acceptance\Client;
 
 /**

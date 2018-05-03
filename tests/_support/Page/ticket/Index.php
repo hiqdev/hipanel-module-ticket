@@ -1,6 +1,6 @@
 <?php
 
-namespace hipanel\modules\ticket\tests\_support\ticket;
+namespace hipanel\modules\ticket\tests\_support\Page\ticket;
 
 use hipanel\tests\_support\Page\Authenticated;
 use yii\helpers\Url;
