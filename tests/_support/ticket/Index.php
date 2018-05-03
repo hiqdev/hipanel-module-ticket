@@ -35,7 +35,7 @@ class Index extends Authenticated
         $I->waitForElement('#create-thread-form');
         $I->see('Topics');
         $I->see('Subject');
-        $I->see('Submit');
+        $I->see('Create ticket', 'button');
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace hipanel\modules\ticket\tests\_support\ticket;
 
+use hipanel\tests\_support\AcceptanceTester;
 use hipanel\tests\_support\Page\Authenticated;
 use hipanel\tests\_support\Page\Widget\Select2;
 use yii\helpers\Url;
@@ -18,7 +19,7 @@ class Create extends Authenticated
      */
     protected $select2;
 
-    public function __construct(\AcceptanceTester $I)
+    public function __construct(AcceptanceTester $I)
     {
         parent::__construct($I);
 
@@ -42,7 +43,7 @@ class Create extends Authenticated
         $I->fillField('#thread-message', $message);
         $this->seePreviewWorks($message);
 
-        $I->click('Submit');
+        $I->click('Create ticket', '#create-thread-form');
         $this->seeTicketWasCreated($message, $topic);
 
         return $I->grabValueFrom(View::THREAD_ID_SELECTOR);
@@ -53,10 +54,7 @@ class Create extends Authenticated
         $I = $this->tester;
 
         $I->click('a[href="#preview-create-thread-form"]');
-        $I->wait(1);
-        $I->performOn('#preview-create-thread-form', \Codeception\Util\ActionSequence::build()
-            ->see($message)
-        );
+        $I->waitForText($message, 10, '#preview-create-thread-form');
     }
 
     protected function seeTicketWasCreated($message, $topic)

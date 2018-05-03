@@ -6,3 +6,19 @@
 
 actor: AcceptanceTester
 namespace: hipanel\modules\ticket\tests\_support
+modules:
+    enabled:
+        - WebDriver:
+            url: '%URL%'
+            browser: '%BROWSER%'
+        - Yii2:
+            part: init
+            cleanup: false
+            configFile: '%YII2_CONFIG_LOCATION%'
+        - \hipanel\tests\_support\Helper\CredentialsProvider:
+            client.login: '%client.login%'
+            client.password: '%client.password%'
+            seller.login: '%seller.login%'
+            seller.password: '%seller.password%'
+            admin.login: '%admin.login%'
+            admin.password: '%admin.password%'

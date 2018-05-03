@@ -1,3 +1,4 @@
+actor: AcceptanceTester
 namespace: hipanel\modules\ticket\tests
 paths:
     tests: tests
@@ -5,7 +6,8 @@ paths:
     data: tests/_data
     support: tests/_support
     envs: tests/_envs
-actor_suffix: Tester
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
+params:
+    - '%PARAMS_LOCATION%'

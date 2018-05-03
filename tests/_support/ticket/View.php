@@ -2,6 +2,7 @@
 
 namespace hipanel\modules\ticket\tests\_support\ticket;
 
+use hipanel\tests\_support\AcceptanceTester;
 use hipanel\tests\_support\Page\Authenticated;
 use yii\helpers\Url;
 
@@ -24,7 +25,7 @@ class View extends Authenticated
      * @param \AcceptanceTester $I
      * @param string|int $ticketId
      */
-    public function __construct(\AcceptanceTester $I, $ticketId)
+    public function __construct(AcceptanceTester $I, $ticketId)
     {
         parent::__construct($I);
 
@@ -48,7 +49,7 @@ class View extends Authenticated
         $I->fillField('#thread-message', $message);
         $this->seePreviewWorks($message);
 
-        $I->click('Submit');
+        $I->click('Answer', '#leave-comment-form');
         $I->waitForText('Ticket changed');
         $this->seePageContainsComment($message);
     }
@@ -58,10 +59,7 @@ class View extends Authenticated
         $I = $this->tester;
 
         $I->click('a[href="#preview-leave-comment-form"]');
-        $I->wait(1);
-        $I->performOn('#preview-leave-comment-form', \Codeception\Util\ActionSequence::build()
-            ->see($message)
-        );
+        $I->waitForText($message, 10, '#preview-leave-comment-form');
     }
 
     protected function seePageContainsComment($message)
