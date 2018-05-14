@@ -1,7 +1,7 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
-use hipanel\widgets\DatePicker;
+use hiqdev\yii2\daterangepicker\DateRangePicker;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
 
@@ -30,15 +30,14 @@ use yii\helpers\Html;
 <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
         <?= Html::label(Yii::t('hipanel', 'Date')) ?>
-        <?= DatePicker::widget([
+        <?= DateRangePicker::widget([
             'model' => $search->model,
             'attribute' => 'time_from',
             'attribute2' => 'time_till',
-            'type' => DatePicker::TYPE_RANGE,
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'yyyy-mm-dd',
+            'options' => [
+                'class' => 'form-control',
             ],
+            'dateFormat' => 'yyyy-MM-dd',
         ]) ?>
     </div>
 </div>
