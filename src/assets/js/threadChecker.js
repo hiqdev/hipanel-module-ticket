@@ -33,11 +33,20 @@
             });
         },
         query: function () {
+            var _this = this;
+
             $.ajax($.extend({}, {
                 type: 'GET',
                 dataType: 'json',
                 data: this.prepareQueryData(),
-                success: this.processQuery.bind(this)
+                success: this.processQuery.bind(this),
+                statusCode: {
+                    403: function () {
+                        // Once '403 Forbidden' response received,
+                        // user is deauthenticated. Stop flooding server.
+                        clearInterval(_this.intervalId);
+                    }
+                }
             }, this.settings.ajax));
         },
         prepareQueryData: function () {
