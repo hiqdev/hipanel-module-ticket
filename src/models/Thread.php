@@ -99,7 +99,9 @@ class Thread extends \hipanel\base\Model
             'topics',
             'topic',
             'watchers',
+            'watcher_ids',
             'watcher',
+            'watcher_id',
             'add_tag_ids',
             'file_ids',
             'file',
@@ -150,7 +152,7 @@ class Thread extends \hipanel\base\Model
                     'message',
                     'topics', 'state', 'priority',
                     'responsible', 'recipient_id',
-                    'watchers', 'add_watchers', 'del_watchers',
+                    'watchers', 'add_watchers', 'del_watchers', 'watcher_ids',
                     'is_private',
                     'file_ids',
                     'spent', 'spent_hours',
@@ -191,6 +193,7 @@ class Thread extends \hipanel\base\Model
             'file' => Yii::t('hipanel:ticket', 'Files'),
             'lastanswer' => Yii::t('hipanel:ticket', 'Last answer'),
             'author_seller' => Yii::t('hipanel:ticket', 'Seller'),
+            'watcher_ids' => Yii::t('hipanel:ticket', 'Watchers'),
         ]);
     }
 
