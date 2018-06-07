@@ -34,8 +34,17 @@ class StatisticGridView extends \hipanel\grid\BoxedGridView
             'spent' => [
                 'label' => Yii::t('hipanel:ticket', 'Spent'),
                 'filter' => false,
+                'contentOptions' => ['nowrap' => true],
                 'value' => function($model) {
-                    return Yii::$app->formatter->asDuration($model->spent * 60);
+                    $seconds = $model->spent * 60;
+                    $dtF = new \DateTime('@0');
+                    $dtT = new \DateTime("@{$seconds}");
+                    $r = $dtF->diff($dtT);
+                    $d = $r->format('%a');
+                    $h = $r->format('%H');
+                    $m = $r->format('%I');
+
+                    return Yii::t('hipanel:ticket', '{d, plural, =0{ } one{# day} other{# days}} {h}:{m}', compact('d', 'h', 'm'));
                 },
             ],
             'tickets' => [
