@@ -3,9 +3,13 @@
 namespace hipanel\modules\ticket\tests\acceptance\client;
 
 use Codeception\Scenario;
+use hipanel\helpers\Url;
 use hipanel\modules\ticket\tests\_support\Page\ticket\Create;
 use hipanel\modules\ticket\tests\_support\Page\ticket\Index;
 use hipanel\modules\ticket\tests\_support\Page\ticket\View;
+use hipanel\tests\_support\Page\IndexPage;
+use hipanel\tests\_support\Page\Widget\Input\Input;
+use hipanel\tests\_support\Page\Widget\Input\Select2;
 use hipanel\tests\_support\Step\Acceptance\Client;
 
 /**
@@ -20,9 +24,47 @@ class TicketCest
      */
     protected $ticket_id;
 
+    /**
+     * @var IndexPage
+     */
+    private $index;
+
+    public function _before(Client $I)
+    {
+        $this->index = new IndexPage($I);
+    }
+
     public function ensureIndexPageWorks(Client $I)
     {
+        $I->login();
+        $I->needPage(Url::to('@ticket'));
+        $I->see('Tickets', 'h1');
+        $I->seeLink('Create ticket', Url::to('@ticket/create'));
+        $this->ensureICanSeeAdvancedSearchBox();
+        $this->ensureICanSeeBulkSearchBox();
         (new Index($I))->ensurePageWorks();
+    }
+
+    private function ensureICanSeeAdvancedSearchBox()
+    {
+        $this->index->containsFilters([
+            new Input('Subject or message'),
+            new Select2('Status'),
+            new Input('Topics'),
+        ]);
+    }
+
+    private function ensureICanSeeBulkSearchBox()
+    {
+        $this->index->containsBulkButtons([
+            'Subscribe',
+            'Unsubscribe',
+            'Close',
+        ]);
+        $this->index->containsColumns([
+            'Subject',
+            'Answers',
+        ]);
     }
 
     public function ensureICanNavigateToCreateTicketPage(Client $I)
