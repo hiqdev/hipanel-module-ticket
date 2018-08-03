@@ -25,6 +25,10 @@ use yii\helpers\Html;
             'clientType' => 'client',
         ]) ?>
     </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('seller_id')->widget(ClientCombo::class, ['clientType' => 'reseller']) ?>
+    </div>
 <?php endif; ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
