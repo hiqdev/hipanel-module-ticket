@@ -54,14 +54,14 @@ class Create extends Authenticated
         $I = $this->tester;
 
         $I->click('a[href="#preview-create-thread-form"]');
-        $I->waitForText($message, 10, '#preview-create-thread-form');
+        $I->waitForText($message, 30, '#preview-create-thread-form');
     }
 
     protected function seeTicketWasCreated($message, $topic)
     {
         $I = $this->tester;
 
-        $I->waitForText('Ticket posted');
+        $I->waitForText('Ticket posted', 30);
         $I->seeInCurrentUrl('/ticket/view?id=');
         $I->see($topic);
         $I->see('Close ticket', 'a');
