@@ -7,7 +7,7 @@ use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\FileInput;
 use hipanel\widgets\TimePicker;
 use hiqdev\assets\autosize\AutosizeAsset;
-use hipanel\assets\CheckboxStyleAsset;
+use hiqdev\themes\adminlte\CheckboxStyleAsset;
 use yii\helpers\Html;
 
 /**
