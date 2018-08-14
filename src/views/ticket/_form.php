@@ -7,7 +7,7 @@ use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\FileInput;
 use hipanel\widgets\TimePicker;
 use hiqdev\assets\autosize\AutosizeAsset;
-use hiqdev\assets\icheck\iCheckAsset;
+use hipanel\assets\CheckboxStyleAsset;
 use yii\helpers\Html;
 
 /**
@@ -15,15 +15,10 @@ use yii\helpers\Html;
  * @var Answer|Thread $model
  */
 OcticonsAsset::register($this);
-iCheckAsset::register($this);
+CheckboxStyleAsset::register($this);
 AutosizeAsset::register($this);
 $emptyPreviewText = \yii\helpers\Json::encode(Yii::t('hipanel:ticket', 'Nothing to preview'));
 $this->registerJs(<<< JS
-// Init iCheck
-$('input.icheck').iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-    radioClass: 'iradio_minimal-blue'
-});
 // Fetch preview
 $(".js-get-preview").on('click', function (event) {
     event.preventDefault();
@@ -188,7 +183,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                     <div class="col-md-7">
                         <div class="pull-right">
                             <?php if (!$model->isNewRecord && $model->isAttributeActive('is_private') && Yii::$app->user->can('manage')) : ?>
-                                <?= $form->field($model, 'is_private')->checkbox(['class' => 'icheck']) ?>
+                                <?= $form->field($model, 'is_private')->checkbox(['class' => 'option-input']) ?>
                             <?php endif; ?>
                         </div>
                         <!-- /.pull-right -->
