@@ -13,9 +13,9 @@ namespace hipanel\modules\ticket\models;
 use hipanel\behaviors\File;
 use hipanel\helpers\Markdown;
 use hipanel\modules\client\models\Client;
-use phpDocumentor\Reflection\Types\Callable_;
 use stdClass;
 use Yii;
+use yii\helpers\HtmlPurifier;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -226,6 +226,11 @@ class Thread extends \hipanel\base\Model
     {
         $message = str_replace(["\n\r", "\r\r", "\r\n"], "\n", $message); // "\n\n",
         $message = Markdown::process($message);
+        $message = HtmlPurifier::process($message, [
+            'HTML.SafeObject' => true, // Allow safe HTML entities
+            'Core.EscapeInvalidTags' => true, // Escape not allowed tags instead of stripping them
+            'Core.LexerImpl' => 'DirectLex', // Do not try to close unclosed tags
+        ]);
 
         return $message;
     }
