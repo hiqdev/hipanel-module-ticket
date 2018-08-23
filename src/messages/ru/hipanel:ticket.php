@@ -131,6 +131,7 @@ return [
     'Administration' => 'Административный',
     'Abuse' => 'Жалоба',
     'Domain' => 'Домен',
+    'Certificate' => 'Сертификат',
 
     'Avatar for {login}' => 'Аватар пользователя {login}',
     'Ticket contains {n, plural, one{# answer} other{# answers}}' => 'Тикет содержит {n, plural, one{# ответ} few{# ответа} many{# ответов} other{# ответов}}',
