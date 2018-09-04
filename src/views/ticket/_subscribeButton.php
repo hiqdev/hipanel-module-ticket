@@ -60,6 +60,6 @@ else:
 endif;
 ?>
 
-<?= Html::a($label, $action, HtmlHelper::loadingButtonOptions(['class' => 'btn btn-default btn-sm btn-block'])); ?>
+<?= Html::a($label, $action, HtmlHelper::loadingButtonOptions(['class' => 'btn bg-olive btn-sm btn-block btn-flat'])); ?>
 
 <?php Pjax::end(); ?>

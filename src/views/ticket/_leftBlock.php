@@ -62,8 +62,11 @@ $form = ConditionalFormWidget::begin([
 
         <?php $box = Box::begin([
             'options' => [
-                'class' => 'box-solid',
+                'class' => 'box-widget',
             ],
+            'bodyOptions' => [
+                'class' => 'no-padding'
+            ]
         ]) ?>
 
         <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>
