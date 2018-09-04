@@ -28,12 +28,6 @@ $form = ConditionalFormWidget::begin([
 ?>
 <div class="row page-ticket">
     <div class="col-md-12">
-        <?= Html::a(Yii::t('hipanel:ticket', 'Back to index'),
-            ['index'],
-            [
-                'class' => 'btn btn-primary btn-block btn-sm',
-                'style' => $model->isNewRecord ? 'margin-bottom: 20px;' : 'margin-bottom: 5px;',
-            ]) ?>
         <?php if (!$model->isNewRecord) : ?>
             <?= ReminderButton::widget([
                 'object_id' => $model->id,
