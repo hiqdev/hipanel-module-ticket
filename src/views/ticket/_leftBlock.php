@@ -65,11 +65,11 @@ $form = ConditionalFormWidget::begin([
 
         <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>
 
-        <?php $box->beginFooter() ?>
         <?php if (!$model->isNewRecord && Yii::$app->user->can('support')) : ?>
-            <?= $this->render('_subscribeButton', compact('model')) ?>
+            <?php $box->beginFooter() ?>
+                <?= $this->render('_subscribeButton', compact('model')) ?>
+            <?php $box->endFooter() ?>
         <?php endif ?>
-        <?php $box->endFooter() ?>
 
         <?php $box->end() ?>
     </div>
