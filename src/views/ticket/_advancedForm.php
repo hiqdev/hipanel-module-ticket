@@ -21,6 +21,11 @@ if ($isNewRecord) {
         $model->responsible = Yii::$app->user->identity->login;
     }
     $model->recipient_id = Yii::$app->user->identity->id;
+    $this->registerCss("
+    .table.detail-view { table-layout: fixed; }
+    .table.detail-view th { width: 30%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+    .table.detail-view td { width: 70%; }
+    ");
 }
 ?>
 
