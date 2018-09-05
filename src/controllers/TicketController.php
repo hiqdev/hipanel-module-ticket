@@ -115,6 +115,14 @@ class TicketController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel:ticket', 'Ticket changed'),
                 'POST html' => [
                     'save' => true,
+                    'success' => [
+                        'class' => RedirectAction::class,
+                        'url'   => function ($action) {
+                            return $action->collection->count() > 1
+                                ? $action->controller->getSearchUrl()
+                                : $action->controller->getActionUrl('view', ['id' => $action->collection->first->id]);
+                        },
+                    ],
                     'error' => [
                         'class' => RedirectAction::class,
                     ]
