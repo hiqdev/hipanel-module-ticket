@@ -28,12 +28,6 @@ $form = ConditionalFormWidget::begin([
 ?>
 <div class="row page-ticket">
     <div class="col-md-12">
-        <?= Html::a(Yii::t('hipanel:ticket', 'Back to index'),
-            ['index'],
-            [
-                'class' => 'btn btn-primary btn-block btn-sm',
-                'style' => $model->isNewRecord ? 'margin-bottom: 20px;' : 'margin-bottom: 5px;',
-            ]) ?>
         <?php if (!$model->isNewRecord) : ?>
             <?= ReminderButton::widget([
                 'object_id' => $model->id,
@@ -62,17 +56,20 @@ $form = ConditionalFormWidget::begin([
 
         <?php $box = Box::begin([
             'options' => [
-                'class' => 'box-solid',
+                'class' => 'box-widget',
             ],
+            'bodyOptions' => [
+                'class' => 'no-padding'
+            ]
         ]) ?>
 
         <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>
 
-        <?php $box->beginFooter() ?>
         <?php if (!$model->isNewRecord && Yii::$app->user->can('support')) : ?>
-            <?= $this->render('_subscribeButton', compact('model')) ?>
+            <?php $box->beginFooter() ?>
+                <?= $this->render('_subscribeButton', compact('model')) ?>
+            <?php $box->endFooter() ?>
         <?php endif ?>
-        <?php $box->endFooter() ?>
 
         <?php $box->end() ?>
     </div>

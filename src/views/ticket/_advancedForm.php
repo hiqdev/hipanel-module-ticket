@@ -6,152 +6,124 @@ use hiqdev\combo\StaticCombo;
 use hiqdev\xeditable\widgets\ComboXEditable;
 use hiqdev\xeditable\widgets\XEditable;
 use yii\widgets\ActiveForm;
+use yii\widgets\DetailView;
 
 /**
- * @var Thread
+ * @var Thread $model
  */
+
+$isSupport = Yii::$app->user->can('support');
+$isNewRecord = $model->isNewRecord;
+
+if ($isNewRecord) {
+    if ($isSupport) {
+        $model->priority = 'medium';
+        $model->responsible = Yii::$app->user->identity->login;
+    }
+    $model->recipient_id = Yii::$app->user->identity->id;
+    $this->registerCss("
+    .table.detail-view { table-layout: fixed; }
+    .table.detail-view th { width: 30%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+    .table.detail-view td { width: 70%; }
+    .table.detail-view { margin-bottom: 0px; }
+    ");
+}
 ?>
 
 <?php $form = ActiveForm::begin([
     'action' => $action,
     'options' => ['enctype' => 'multipart/form-data', 'class' => 'leave-comment-form'],
 ]) ?>
-
-<!-- Status -->
-
-<?php if (!$model->isNewRecord) : ?>
-    <ul class="list-group ticket-list-group">
-        <li class="list-group-item">
-                <span class="badge">
-                    <?php if ($model->state === Thread::STATE_CLOSE) : ?>
-                        <span class="label label-default"><?= Yii::t('hipanel:ticket', 'Closed') ?></span>
-                    <?php else : ?>
-                        <span class="label label-success"><?= Yii::t('hipanel:ticket', 'Opened') ?></span>
-                    <?php endif; ?>
-                </span>
-            <?= $model->getAttributeLabel('status') ?>
-            <div class="clearfix"></div>
-        </li>
-    </ul>
-<?php endif; ?>
-
-<!-- Topics -->
-<?php if ($model->isNewRecord) : ?>
-    <?= $form->field($model, 'topics')->widget(StaticCombo::class, [
-        'hasId' => true,
-        'data' => $topic_data,
-        'multiple' => true,
-    ]) ?>
-<?php else : ?>
-    <ul class="list-group ticket-list-group">
-        <li class="list-group-item">
-                <span class="badge">
-                    <?= XEditable::widget([
-                        'model' => $model,
-                        'attribute' => 'topics',
-                        'pluginOptions' => [
-                            'disabled' => !Yii::$app->user->can('support'),
-                            'type' => 'checklist',
-                            'source' => $model->xFormater($topic_data),
-                            'placement' => 'bottom',
-                            'emptytext' => Yii::t('hipanel:ticket', 'Empty'),
-                        ],
-                    ]) ?>
-                </span>
-            <?= $model->getAttributeLabel('topics') ?>
-            <div class="clearfix"></div>
-        </li>
-    </ul>
-<?php endif ?>
-<div class="clearfix"></div>
-<!-- Priority -->
-<?php if (Yii::$app->user->can('support')) : ?>
-    <?php if ($model->isNewRecord) : ?>
-        <?php $model->priority = 'medium' ?>
-        <?= $form->field($model, 'priority')->widget(StaticCombo::class, [
-            'data' => $priority_data,
-            'hasId' => true,
-        ]) ?>
-    <?php else : ?>
-        <ul class="list-group ticket-list-group">
-            <li class="list-group-item">
-                <span class="badge">
-                    <?= XEditable::widget([
-                        'model' => $model,
-                        'attribute' => 'priority',
-                        'pluginOptions' => [
-                            'disabled' => !Yii::$app->user->can('support'),
-                            'type' => 'select',
-                            'source' => $priority_data,
-                        ],
-                    ]) ?>
-                </span>
-                <?= $model->getAttributeLabel('priority') ?>
-            </li>
-        </ul>
-    <?php endif ?>
-<?php endif; ?>
-
-<?php if (Yii::$app->user->can('support')) : ?>
-    <?php if ($model->isNewRecord) : ?>
-        <?php $model->responsible_id = Yii::$app->user->id ?>
-        <!-- Responsible -->
-        <?= $form->field($model, 'responsible')->widget(ClientCombo::class, [
-            'clientType' => $model->getResponsibleClientTypes(),
-        ]) ?>
-    <?php else : ?>
-        <ul class="list-group ticket-list-group">
-            <li class="list-group-item">
-                <span class="badge">
-                    <?= ComboXEditable::widget([
-                        'model' => $model,
-                        'attribute' => 'responsible',
-                        'combo' => [
-                            'class' => ClientCombo::class,
-                            'clientType' => $model->getResponsibleClientTypes(),
-                            'inputOptions' => [
-                                'class' => 'hidden',
-                            ],
-                            'pluginOptions' => [
-                                'select2Options' => [
-                                    'width' => '20rem',
-                                ],
-                            ],
-                        ],
-                        'pluginOptions' => [
-                            'placement' => 'bottom',
-                        ],
-                    ]) ?>
-                </span>
-                <?= $model->getAttributeLabel('responsible') ?>
-            </li>
-        </ul>
-
-        <ul class="list-group ticket-list-group">
-            <li class="list-group-item">
-                <span class="badge"><?= Yii::$app->formatter->asDuration($model->spent * 60) ?></span>
-                <?= Yii::t('hipanel:ticket', 'Spent time') ?>
-            </li>
-        </ul>
-    <?php endif ?>
-
-    <!-- Watchers -->
-    <?php if (Yii::$app->user->can('support')) : ?>
-        <?php if ($model->isNewRecord) : ?>
-            <?= $form->field($model, 'watchers')->widget(ClientCombo::class, [
-                'clientType' => $model->getResponsibleClientTypes(),
-                'pluginOptions' => [
-                    'select2Options' => [
-                        'multiple' => true,
+<div class="table-responsive">
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => array_filter([
+            !$isNewRecord ? [
+                'attribute' => 'state',
+                'value' => $model->state === Thread::STATE_CLOSE ? Yii::t('hipanel:ticket', 'Closed') : Yii::t('hipanel:ticket', 'Opened'),
+            ] : null,
+            [
+                'attribute' => 'topics',
+                'format' => 'raw',
+                'value' => $isNewRecord ? $form->field($model, 'topics')->widget(StaticCombo::class, [
+                    'hasId' => true,
+                    'data' => $topic_data,
+                    'multiple' => true,
+                ])->label(false) : XEditable::widget([
+                    'model' => $model,
+                    'attribute' => 'topics',
+                    'pluginOptions' => [
+                        'disabled' => !$isSupport,
+                        'type' => 'checklist',
+                        'source' => $model->xFormater($topic_data),
+                        'placement' => 'bottom',
+                        'emptytext' => Yii::t('hipanel:ticket', 'Empty'),
                     ],
-                ],
-            ]) ?>
-        <?php endif ?>
-    <?php endif ?>
-    <?php if ($model->isNewRecord) : ?>
-        <?php $model->recipient_id = Yii::$app->user->identity->id ?>
-        <?= $form->field($model, 'recipient_id')->widget(ClientCombo::class) ?>
-    <?php endif ?>
-<?php endif ?>
-
+                ]),
+            ],
+            $isSupport ? [
+                'attribute' => 'priority',
+                'format' => 'raw',
+                'value' => $isNewRecord ? $form->field($model, 'priority')->widget(StaticCombo::class, [
+                    'data' => $priority_data,
+                    'hasId' => true,
+                ])->label(false) : XEditable::widget([
+                    'model' => $model,
+                    'attribute' => 'priority',
+                    'pluginOptions' => [
+                        'disabled' => !$isSupport,
+                        'type' => 'select',
+                        'source' => $priority_data,
+                    ],
+                ]),
+            ] : null,
+            $isSupport ? [
+                'attribute' => 'responsible',
+                'format' => 'raw',
+                'value' => $isNewRecord ? $form->field($model, 'responsible')->widget(ClientCombo::class, [
+                    'clientType' => $model->getResponsibleClientTypes(),
+                ])->label(false) : ComboXEditable::widget([
+                    'model' => $model,
+                    'attribute' => 'responsible',
+                    'combo' => [
+                        'class' => ClientCombo::class,
+                        'clientType' => $model->getResponsibleClientTypes(),
+                        'inputOptions' => [
+                            'class' => 'hidden',
+                        ],
+                        'pluginOptions' => [
+                            'select2Options' => [
+                                'width' => '20rem',
+                            ],
+                        ],
+                    ],
+                    'pluginOptions' => [
+                        'placement' => 'bottom',
+                    ],
+                ]),
+            ] : null,
+            $isSupport && !$isNewRecord ? [
+                'attribute' => 'spent',
+                'value' => Yii::$app->formatter->asDuration($model->spent * 60),
+            ] : null,
+            $isSupport && $isNewRecord ? [
+                'attribute' => 'watchers',
+                'format' => 'raw',
+                'value' => $form->field($model, 'watchers')->widget(ClientCombo::class, [
+                    'clientType' => $model->getResponsibleClientTypes(),
+                    'pluginOptions' => [
+                        'select2Options' => [
+                            'multiple' => true,
+                        ],
+                    ],
+                ])->label(false),
+            ] : null,
+            $isNewRecord && $isSupport ? [
+                'attribute' => 'recipient_id',
+                'format' => 'raw',
+                'value' => $form->field($model, 'recipient_id')->widget(ClientCombo::class)->label(false),
+            ] : null,
+        ]),
+    ]) ?>
+</div>
 <?php $form->end() ?>
