@@ -15,6 +15,7 @@ use hipanel\actions\IndexAction;
 use hipanel\actions\PrepareAjaxViewAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\ProxyAction;
+use hipanel\actions\RedirectAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
@@ -112,6 +113,12 @@ class TicketController extends \hipanel\base\CrudController
             'answer' => [
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel:ticket', 'Ticket changed'),
+                'POST html' => [
+                    'save' => true,
+                    'error' => [
+                        'class' => RedirectAction::class,
+                    ]
+                ],
             ],
             'create' => [
                 'class' => SmartCreateAction::class,
