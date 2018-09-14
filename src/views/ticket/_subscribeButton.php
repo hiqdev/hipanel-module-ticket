@@ -25,9 +25,8 @@ Pjax::begin(array_merge(Yii::$app->params['pjax'], [
 ?>
 
 <?php if (is_array($model->watchers)) : ?>
-    <?= Html::tag('p', Yii::t('hipanel:ticket', 'Watchers'),
-        ['class' => 'lead', 'style' => 'border-bottom: 1px solid #E1E1E1; margin-bottom: 0.5em;']); ?>
-    <div class="margin-bottom">
+    <?= Html::tag('span', Yii::t('hipanel:ticket', 'Watchers'), ['class' => 'box-header text-bold']); ?>
+    <div class="margin-bottom" style="padding: 0 1rem">
         <?php foreach ($model->watchers as $watcherId => $watcher) : ?>
             <?php
             $piece = explode(' ', $watcher);

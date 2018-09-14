@@ -59,8 +59,11 @@ $form = ConditionalFormWidget::begin([
                 'class' => 'box-widget',
             ],
             'bodyOptions' => [
-                'class' => 'no-padding'
-            ]
+                'class' => 'no-padding',
+            ],
+            'footerOptions' => [
+                'class' => 'no-padding',
+            ],
         ]) ?>
 
         <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>

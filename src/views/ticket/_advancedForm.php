@@ -25,9 +25,9 @@ if ($isNewRecord) {
     .table.detail-view { table-layout: fixed; }
     .table.detail-view th { width: 30%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
     .table.detail-view td { width: 70%; }
-    .table.detail-view { margin-bottom: 0px; }
     ");
 }
+$this->registerCss(".table.detail-view { margin-bottom: 0px; }");
 ?>
 
 <?php $form = ActiveForm::begin([
