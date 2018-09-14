@@ -26,15 +26,15 @@ class TemplateCest
         $I->needPage(Url::to('@ticket/template'));
         $I->see('Answer templates', 'h1');
         $I->seeLink('Create template', Url::to('create'));
-        $this->ensureICanSeeAdvancedSearchBox();
+        $this->ensureICanSeeAdvancedSearchBox($I);
         $this->ensureICanSeeBulkSearchBox();
     }
 
-    private function ensureICanSeeAdvancedSearchBox()
+    private function ensureICanSeeAdvancedSearchBox(Seller $I)
     {
         $this->index->containsFilters([
-            new Input('Name'),
-            new Select2('Author'),
+            Input::asAdvancedSearch($I, 'Name'),
+            Select2::asAdvancedSearch($I, 'Author'),
         ]);
     }
 

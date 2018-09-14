@@ -26,21 +26,21 @@ class TicketStatisticsCest
         $I->needPage(Url::to('/ticket/statistic'));
         $I->see('Tickets statistics', 'h1');
         $I->seeLink('Create ticket', Url::to('@ticket/create'));
-        $this->ensureICanSeeAdvancedSearchBox();
+        $this->ensureICanSeeAdvancedSearchBox($I);
         $this->ensureICanSeeBulkSearchBox();
     }
 
-    private function ensureICanSeeAdvancedSearchBox()
+    private function ensureICanSeeAdvancedSearchBox(Seller $I)
     {
         $this->index->containsFilters([
-            new Input('Anytext'),
-            new Select2('Author'),
-            new Select2('Recipient'),
-            new Select2('Status'),
-            new Select2('Assignee'),
-            new Select2('Priority'),
-            new Select2('Watchers'),
-            new Input('Topics'),
+            Input::asAdvancedSearch($I, 'Anytext'),
+            Select2::asAdvancedSearch($I, 'Author'),
+            Select2::asAdvancedSearch($I, 'Recipient'),
+            Select2::asAdvancedSearch($I, 'Status'),
+            Select2::asAdvancedSearch($I, 'Assignee'),
+            Select2::asAdvancedSearch($I, 'Priority'),
+            Select2::asAdvancedSearch($I, 'Watchers'),
+            Select2::asAdvancedSearch($I, 'Topics'),
         ]);
     }
 
