@@ -26,21 +26,21 @@ class TicketCest
         $I->needPage(Url::to('@ticket'));
         $I->see('Tickets', 'h1');
         $I->seeLink('Create ticket', Url::to('@ticket/create'));
-        $this->ensureICanSeeAdvancedSearchBox();
+        $this->ensureICanSeeAdvancedSearchBox($I);
         $this->ensureICanSeeBulkSearchBox();
     }
 
-    private function ensureICanSeeAdvancedSearchBox()
+    private function ensureICanSeeAdvancedSearchBox(Admin $I)
     {
         $this->index->containsFilters([
-            new Input('Subject or message'),
-            new Select2('Author'),
-            new Select2('Recipient'),
-            new Select2('Status'),
-            new Select2('Assignee'),
-            new Select2('Priority'),
-            new Select2('Watchers'),
-            new Input('Topics'),
+            Input::asAdvancedSearch($I, 'Subject or message'),
+            Select2::asAdvancedSearch($I, 'Author'),
+            Select2::asAdvancedSearch($I, 'Recipient'),
+            Select2::asAdvancedSearch($I, 'Status'),
+            Select2::asAdvancedSearch($I, 'Assignee'),
+            Select2::asAdvancedSearch($I, 'Priority'),
+            Select2::asAdvancedSearch($I, 'Watchers'),
+            Select2::asAdvancedSearch($I, 'Topics'),
         ]);
     }
 

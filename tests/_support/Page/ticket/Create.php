@@ -2,9 +2,9 @@
 
 namespace hipanel\modules\ticket\tests\_support\Page\ticket;
 
-use hipanel\tests\_support\AcceptanceTester;
 use hipanel\tests\_support\Page\Authenticated;
-use hipanel\tests\_support\Page\Widget\Select2;
+use hipanel\tests\_support\Page\Widget\Input\Input;
+use hipanel\tests\_support\Page\Widget\Input\Select2;
 use yii\helpers\Url;
 
 /**
@@ -14,33 +14,17 @@ use yii\helpers\Url;
  */
 class Create extends Authenticated
 {
-    /**
-     * @var Select2
-     */
-    protected $select2;
-
-    public function __construct(AcceptanceTester $I)
-    {
-        parent::__construct($I);
-
-        $this->select2 = new Select2($I);
-    }
-
     public function createTicket($subject, $message, $topic)
     {
         $I = $this->tester;
 
         $I->amOnPage(Url::to(['@ticket/create']));
 
-        $this->select2->open('#thread-topics');
-        $I->see('General question');
-        $I->see('Financial question');
-        $I->see('VDS');
+        (new Select2($I, '#thread-topics'))->setValue($topic);
 
-        $this->select2->chooseOption($topic);
+        (new Input($I, '#thread-subject'))->setValue($subject);
+        (new Input($I, '#thread-message'))->setValue($message);
 
-        $I->fillField('#thread-subject', $subject);
-        $I->fillField('#thread-message', $message);
         $this->seePreviewWorks($message);
 
         $I->click('Create ticket', '#create-thread-form');

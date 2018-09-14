@@ -40,17 +40,17 @@ class TicketCest
         $I->needPage(Url::to('@ticket'));
         $I->see('Tickets', 'h1');
         $I->seeLink('Create ticket', Url::to('@ticket/create'));
-        $this->ensureICanSeeAdvancedSearchBox();
+        $this->ensureICanSeeAdvancedSearchBox($I);
         $this->ensureICanSeeBulkSearchBox();
         (new Index($I))->ensurePageWorks();
     }
 
-    private function ensureICanSeeAdvancedSearchBox()
+    private function ensureICanSeeAdvancedSearchBox(Client $I)
     {
         $this->index->containsFilters([
-            new Input('Subject or message'),
-            new Select2('Status'),
-            new Input('Topics'),
+            Input::asAdvancedSearch($I, 'Subject or message'),
+            Select2::asAdvancedSearch($I, 'Status'),
+            Select2::asAdvancedSearch($I, 'Topics'),
         ]);
     }
 
@@ -77,7 +77,7 @@ class TicketCest
         $this->ticket_id = (new Create($I))->createTicket(
             'Test ticket (' . date('Y-m-d H:i') . ')',
             'This is a test ticket created by automated testing system. Ignore it, please.',
-            'General question'
+            'VDS'
         );
     }
 
