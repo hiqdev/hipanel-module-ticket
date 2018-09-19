@@ -144,4 +144,5 @@ return [
     '{d, plural, =0{ } one{# day} other{# days}} {h}:{m}' => '{d, plural, =0{ } one{# день} few{# день} other{# дней}} {h}:{m}',
 
     'Are you sure you want to close these tickets?' => 'Вы действительно хотите закрыть эти тикеты?',
+    'Ticket numbers separated by commas' => 'Номера тикитов, разделенные запятыми',
 ];
