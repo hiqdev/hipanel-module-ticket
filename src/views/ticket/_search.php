@@ -15,6 +15,10 @@ use yii\helpers\Html;
     <?= $search->field('anytext_like') ?>
 </div>
 
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <?= $search->field('numbers') ?>
+</div>
+
 <?php if (Yii::$app->user->can('support')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('author_id')->widget(ClientCombo::class); ?>
