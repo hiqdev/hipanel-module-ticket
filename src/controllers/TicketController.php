@@ -24,6 +24,7 @@ use hipanel\actions\ViewAction;
 use hipanel\filters\EasyAccessControl;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\stub\ClientRelationFreeStub;
+use hipanel\modules\server\models\Server;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
 use hipanel\modules\ticket\models\TicketSettings;
@@ -413,8 +414,11 @@ class TicketController extends \hipanel\base\CrudController
             ->where(['id' => $id])
             ->joinWith('contact')
             ->withDomains()
-            ->withServers()
             ->one();
+        $servers = Server::find()->where(['client_id' => $client->id, 'seller_ids' => [$client->seller_id]])->limit(21)->all();
+        if (!empty($servers)) {
+            $client->populateRelation('servers', $servers);
+        }
 
         return $this->renderAjax('_clientInfo', ['client' => $client]);
     }
