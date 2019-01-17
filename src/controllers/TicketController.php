@@ -413,6 +413,7 @@ class TicketController extends \hipanel\base\CrudController
         $client = Client::find()
             ->where(['id' => $id])
             ->joinWith('contact')
+            ->withServersCount()
             ->withDomains()
             ->one();
         $servers = Server::find()->where(['client_id' => $client->id, 'seller_ids' => [$client->seller_id]])->limit(21)->all();
