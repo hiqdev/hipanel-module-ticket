@@ -413,13 +413,9 @@ class TicketController extends \hipanel\base\CrudController
         $client = Client::find()
             ->where(['id' => $id])
             ->joinWith('contact')
-            ->withServersCount()
+            ->withServers()
             ->withDomains()
             ->one();
-        $servers = Server::find()->where(['client_id' => $client->id, 'seller_ids' => [$client->seller_id]])->limit(21)->all();
-        if (!empty($servers)) {
-            $client->populateRelation('servers', $servers);
-        }
 
         return $this->renderAjax('_clientInfo', ['client' => $client]);
     }
