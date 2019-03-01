@@ -17,6 +17,12 @@ $this->registerCss('
     word-wrap: break-word; / All browsers since IE 5.5+ /
     overflow-wrap: break-word; / Renamed property in CSS3 draft spec /
 }
+
+.b-ticket-client-info .widget-user-header h4.widget-user-username {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 ');
 if ($client instanceof ClientRelationFreeStub) {
     $loader = \hipanel\widgets\AsyncLoader::widget([
