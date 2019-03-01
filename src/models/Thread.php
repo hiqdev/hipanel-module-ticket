@@ -133,7 +133,9 @@ class Thread extends \hipanel\base\Model
             [['subject', 'message'], 'required', 'on' => ['create']],
             [['subject'], 'string', 'min' => 3],
             [['id'], 'required', 'on' => ['answer', 'update-answer', 'open', 'close']],
-            [['recipient_id'], 'required', 'on' => 'create'],
+            [['recipient_id'], 'required', 'when' => function () {
+                return Yii::$app->user->can('support');
+            }, 'on' => 'create'],
             [
                 [
                     'topics',
