@@ -64,8 +64,10 @@ CSS
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
-        <?= $page->renderBulkButton('subscribe', Yii::t('hipanel:ticket', 'Subscribe')) ?>
-        <?= $page->renderBulkButton('unsubscribe', Yii::t('hipanel:ticket', 'Unsubscribe')) ?>
+        <?php if (Yii::$app->user->can('support')) : ?>
+            <?= $page->renderBulkButton('subscribe', Yii::t('hipanel:ticket', 'Subscribe')) ?>
+            <?= $page->renderBulkButton('unsubscribe', Yii::t('hipanel:ticket', 'Unsubscribe')) ?>
+        <?php endif ?>
         <?= $page->renderBulkButton('close', Yii::t('hipanel:ticket', 'Close'), [
             'color' => 'danger',
             'confirm' => Yii::t('hipanel:ticket', 'Are you sure you want to close these tickets?')
