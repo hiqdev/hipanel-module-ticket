@@ -56,10 +56,10 @@ CSS
 
     <?php $page->beginContent('sorter-actions') ?>
         <?= $page->renderSorter([
-            'attributes' => [
+            'attributes' => Yii::$app->user->can('support') ?  [
                 'create_time', 'lastanswer', 'spent',
                 'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
-            ],
+            ] : ['subject'],
         ]) ?>
     <?php $page->endContent() ?>
 
