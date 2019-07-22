@@ -24,20 +24,27 @@ $this->registerCss('
     overflow: hidden;
 }
 ');
-if ($client instanceof ClientRelationFreeStub) {
-    $loader = \hipanel\widgets\AsyncLoader::widget([
-        'route' => ['@ticket/render-client-info', 'id' => $client->id],
-        'containerSelector' => '.b-ticket-client-info',
-    ]);
-}
+
+
 if ($client->login !== 'anonym') {
+    if ($client instanceof ClientRelationFreeStub) {
+        $loader = \hipanel\widgets\AsyncLoader::widget([
+            'route' => ['@ticket/render-client-info', 'id' => $client->id],
+            'containerSelector' => '.b-ticket-client-info',
+        ]);
+    }
+
     $linkToClient = Html::a(
         '<i class="fa fa-info-circle" style="font-size: 120%"></i> &nbsp;&nbsp;' . Yii::t('hipanel:ticket', 'Client details'),
         ['@client/view', 'id' => $client->id],
         ['class' => 'btn bg-olive btn-sm btn-block btn-flat']
     );
+} else {
+    $loader = '';
+    $linkToClient = '';
 }
 ?>
+
 <div class="col-md-12 b-ticket-client-info">
     <?= MainDetails::widget([
         'image' => $this->render('//layouts/gravatar', ['email' => $client->email, 'size' => 60, 'alt' => '']),
