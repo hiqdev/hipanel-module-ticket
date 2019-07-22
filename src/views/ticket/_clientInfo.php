@@ -40,7 +40,8 @@ if ($client->login !== 'anonym') {
         ['class' => 'btn bg-olive btn-sm btn-block btn-flat']
     );
 } else {
-    $loader = $linkToClient = '';
+    $loader = '';
+    $linkToClient = '';
 }
 ?>
 
