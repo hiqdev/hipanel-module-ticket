@@ -99,11 +99,17 @@ class TicketController extends \hipanel\base\CrudController
                         'seller_id' => $ticket->recipient_seller_id,
                     ];
 
-                    if ($ticket->recipient === 'anonym') {
+                    $isAnonymTicket = $ticket->recipient === 'anonym';
+                    if ($isAnonymTicket) {
                         $attributes['seller'] = $ticket->anonym_seller;
                     }
 
                     $client = new ClientRelationFreeStub($attributes);
+
+                    if ($isAnonymTicket) {
+                        $client->email = $ticket->anonym_email;
+                        $client->name = $ticket->anonym_name;
+                    }
 
                     return array_merge(compact('client'), $this->prepareRefs());
                 },

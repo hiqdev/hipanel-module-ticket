@@ -24,11 +24,14 @@ $this->registerCss('
     overflow: hidden;
 }
 ');
+
 if ($client instanceof ClientRelationFreeStub) {
-    $loader = \hipanel\widgets\AsyncLoader::widget([
-        'route' => ['@ticket/render-client-info', 'id' => $client->id],
-        'containerSelector' => '.b-ticket-client-info',
-    ]);
+    $loader = $client->login !== 'anonym'
+        ? \hipanel\widgets\AsyncLoader::widget([
+            'route' => ['@ticket/render-client-info', 'id' => $client->id],
+            'containerSelector' => '.b-ticket-client-info',
+        ])
+        : '';
 }
 if ($client->login !== 'anonym') {
     $linkToClient = Html::a(
@@ -38,6 +41,7 @@ if ($client->login !== 'anonym') {
     );
 }
 ?>
+
 <div class="col-md-12 b-ticket-client-info">
     <?= MainDetails::widget([
         'image' => $this->render('//layouts/gravatar', ['email' => $client->email, 'size' => 60, 'alt' => '']),
