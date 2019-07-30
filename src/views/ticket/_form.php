@@ -93,16 +93,17 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                         'target' => '_blank',
                         'class' => '',
                         'style' => 'border-bottom: 1px solid; border-bottom-style: dashed;',
+                        'tabindex' => '-1',
                     ]
                 ) ?>
             </div>
             <li role="presentation" class="active">
-                <a href="#message-<?= $form->getId() ?>" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold">
+                <a href="#message-<?= $form->getId() ?>" aria-controls="home" role="tab" data-toggle="tab" style="font-weight:bold" tabindex="-1">
                     <?= Yii::t('hipanel:ticket', 'Message') ?>
                 </a>
             </li>
             <li role="presentation">
-                <a href="#preview-<?= $form->getId() ?>" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview">
+                <a href="#preview-<?= $form->getId() ?>" aria-controls="profile" role="tab" data-toggle="tab" class="js-get-preview" tabindex="-1">
                     <?= Yii::t('hipanel:ticket', 'Preview') ?>
                 </a>
             </li>
