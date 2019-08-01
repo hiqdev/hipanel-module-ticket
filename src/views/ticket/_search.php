@@ -55,13 +55,9 @@ use yii\helpers\Html;
 
 <?php if (Yii::$app->user->can('support')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('responsible_id')->widget(ClientCombo::class, [
+        <?= $search->field('responsible')->widget(ClientCombo::class, [
             'clientType' => 'manager',
-            'pluginOptions' => [
-                'select2Options' => [
-                    'multiple' => true,
-                ],
-            ],
+            'multiple' => true,
         ]); ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">

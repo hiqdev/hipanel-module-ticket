@@ -80,9 +80,9 @@ class TicketGridView extends BoxedGridView
             ],
             'responsible_id' => [
                 'class' => ClientColumn::class,
-                'idAttribute' => 'responsible_id',
+                'idAttribute' => 'responsibles',
                 'sortAttribute' => 'responsible',
-                'attribute' => 'responsible_id',
+                'attribute' => 'responsible',
                 'clientType' => ['admin', 'reseller', 'manager'],
                 'value' => function ($model) {
                     return Html::a($model['responsible'], ['/client/client/view', 'id' => $model->responsible_id]);
