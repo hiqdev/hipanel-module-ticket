@@ -24,13 +24,14 @@ class ThreadSearch extends Thread
     protected function searchAttributes()
     {
         return array_merge($this->defaultSearchAttributes(), [
-            'anytext_like', 'numbers'
+            'anytext_like', 'numbers', 'message_like',
         ]);
     }
 
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(), [
+            'message_like' => Yii::t('hipanel:ticket', 'Message'),
             'anytext_like' => Yii::t('hipanel:ticket', 'Subject or message'),
             'numbers' => Yii::t('hipanel:ticket', 'Ticket numbers separated by commas'),
         ]);
