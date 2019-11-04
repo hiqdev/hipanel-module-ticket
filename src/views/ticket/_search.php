@@ -1,13 +1,18 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use hipanel\widgets\AdvancedSearch;
 use hiqdev\yii2\daterangepicker\DateRangePicker;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\web\View
- * @var \hipanel\widgets\AdvancedSearch
+ * @var View
+ * @var AdvancedSearch $search
+ * @var array $state_data
+ * @var array $priority_data
+ * @var array $topic_data
  */
 ?>
 
