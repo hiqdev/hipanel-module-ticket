@@ -419,7 +419,10 @@ class TicketController extends \hipanel\base\CrudController
         $client = Client::find()
             ->where(['id' => $id])
             ->joinWith('contact')
-            ->withServers()
+            ->andWhere([
+                'with_servers_count' => 1,
+                'with_hosting_count' => 1
+            ])
             ->withDomains()
             ->one();
 
