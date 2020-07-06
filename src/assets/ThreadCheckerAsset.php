@@ -17,7 +17,7 @@ class ThreadCheckerAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = '@hipanel/modules/ticket/assets';
+    public $sourcePath = __DIR__ . '/../src/assets';
 
     /**
      * @var array
