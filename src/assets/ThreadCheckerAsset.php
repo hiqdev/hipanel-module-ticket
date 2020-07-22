@@ -17,7 +17,7 @@ class ThreadCheckerAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = __DIR__ . '/../src/assets';
+    public $sourcePath = __DIR__;
 
     /**
      * @var array
