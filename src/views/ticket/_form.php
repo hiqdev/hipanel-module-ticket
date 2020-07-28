@@ -126,9 +126,11 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
         </div>
     </div>
     <div class="hidden-form-inputs">
-        <div class="row">
-            <?= \hipanel\modules\ticket\widgets\TemplatesWidget::widget() ?>
-        </div>
+        <?php if (class_exists(\hisite\modules\news\models\Article::class)): ?>
+            <div class="row">
+                <?= \hipanel\modules\ticket\widgets\TemplatesWidget::widget() ?>
+            </div>
+        <?php endif ?>
         <div class="row">
             <?php if ($model->isAttributeActive('file')) : ?>
                 <div class="col-md-12">
