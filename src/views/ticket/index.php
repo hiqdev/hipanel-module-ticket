@@ -1,9 +1,18 @@
 <?php
 
 use hipanel\modules\ticket\grid\TicketGridView;
+use hipanel\modules\ticket\grid\TicketGridLegend;
+use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\helpers\Html;
+
+/**
+ * @var \hipanel\modules\ticket\models\Thread $model
+ * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \hiqdev\higrid\representations\RepresentationCollection $representationCollection
+ * @var \hipanel\models\IndexPageUiOptions $uiModel
+ */
 
 $this->title                   = Yii::t('hipanel:ticket', 'Tickets');
 $this->params['subtitle']      = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
@@ -54,6 +63,10 @@ CSS
         <?= Html::a(Yii::t('hipanel:ticket', 'Create ticket'), ['@ticket/create'], ['class' => 'btn btn-sm btn-success']) ?>
     <?php $page->endContent() ?>
 
+    <?php $page->beginContent('legend') ?>
+        <?= GridLegend::widget(['legendItem' => new TicketGridLegend($model)]) ?>
+    <?php $page->endContent() ?>
+
     <?php $page->beginContent('sorter-actions') ?>
         <?= $page->renderSorter([
             'attributes' => Yii::$app->user->can('support') ?  [
@@ -82,8 +95,8 @@ CSS
                     'id'           => 'ticket-grid',
                     'dataProvider' => $dataProvider,
                     'filterModel'  => $model,
-                    'rowOptions'   => function ($model, $key, $index, $grid) {
-                        return ['class' => ($model['priority'] === 'high') ? 'bg-danger' : ''];
+                    'rowOptions' => static function ($model) {
+                        return GridLegend::create(new TicketGridLegend($model))->gridRowOptions();
                     },
                     'enableListChecker' => true,
                     'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
