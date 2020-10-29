@@ -20,6 +20,9 @@ use yii\web\NotFoundHttpException;
 
 /**
  * Class Ticket.
+ *
+ * @property string $priority
+ * @property string $responsible_id
  */
 class Thread extends \hipanel\base\Model
 {
@@ -29,6 +32,8 @@ class Thread extends \hipanel\base\Model
 
     const STATE_OPEN = 'opened';
     const STATE_CLOSE = 'closed';
+
+    const PRIORITY_HIGH = 'high';
 
     public $search_form;
 
@@ -332,5 +337,15 @@ class Thread extends \hipanel\base\Model
     public function isOpen()
     {
         return $this->state === self::STATE_OPEN;
+    }
+
+    public function isHighPriority(): bool
+    {
+        return $this->priority === self::PRIORITY_HIGH;
+    }
+
+    public function isUserAssigned(): bool
+    {
+        return $this->responsible_id === Yii::$app->getUser()->getId();
     }
 }

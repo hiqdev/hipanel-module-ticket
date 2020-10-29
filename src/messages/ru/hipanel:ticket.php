@@ -19,6 +19,7 @@ return [
     'Make private' => 'Сделать личным',
     'Assignee' => 'Исполнитель',
     'Assignee ID' => 'ID исполнителя',
+    'You assigned' => 'Вы исполнитель',
     'Spent time' => 'Затраченное время',
     'Spent hours' => 'Затраченные часы',
     'Created' => 'Создан',
