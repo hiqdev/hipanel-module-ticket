@@ -69,8 +69,8 @@ class TemplateController extends \hipanel\base\CrudController
             ],
             'create' => [
                 'class' => SmartCreateAction::class,
-                'success' => Yii::t('hipanel:hosting', 'Template was created successfully'),
-                'error' => Yii::t('hipanel:hosting', 'An error occurred when trying to create a template'),
+                'success' => Yii::t('hipanel.ticket.template', 'Template was created successfully'),
+                'error' => Yii::t('hipanel.ticket.template', 'An error occurred when trying to create a template'),
                 'data' => function ($action, $data = []) {
                     /** @var Template $model */
                     foreach ($data['models'] as $model) {
@@ -116,13 +116,13 @@ class TemplateController extends \hipanel\base\CrudController
                 'collectionLoader' => function ($action, $data) {
                     $this->collectionLoader($action->scenario, $action->collection);
                 },
-                'success' => Yii::t('hipanel:hosting', 'Template was updated successfully'),
-                'error' => Yii::t('hipanel:hosting', 'An error occurred when trying to update a template'),
+                'success' => Yii::t('hipanel.ticket.template', 'Template was updated successfully'),
+                'error' => Yii::t('hipanel.ticket.template', 'An error occurred when trying to update a template'),
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
-                'success' => Yii::t('hipanel:hosting', 'Template was deleted successfully'),
-                'error' => Yii::t('hipanel:hosting', 'An error occurred when trying to delete a template'),
+                'success' => Yii::t('hipanel.ticket.template', 'Template was deleted successfully'),
+                'error' => Yii::t('hipanel.ticket.template', 'An error occurred when trying to delete a template'),
             ],
             'validate-form' => [
                 'class' => ValidateFormAction::class,
