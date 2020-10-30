@@ -26,6 +26,10 @@ return [
                     'class' => \yii\i18n\PhpMessageSource::class,
                     'basePath' => dirname(__DIR__) . '/src/messages',
                 ],
+                'hipanel.ticket.template' => [
+                    'class' => \yii\i18n\PhpMessageSource::class,
+                    'basePath' => dirname(__DIR__) . '/src/messages',
+                ],
             ],
         ],
         'geoip' => [
