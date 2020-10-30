@@ -265,9 +265,10 @@ class TicketController extends \hipanel\base\CrudController
      */
     protected function prepareRefs()
     {
+        $state_data = array_merge(['all' => 'All'], $this->getClassRefs('state', 'hipanel:ticket'));
         return [
             'topic_data' => $this->getRefs('topic,ticket', 'hipanel:ticket'),
-            'state_data' => $this->getClassRefs('state', 'hipanel:ticket'),
+            'state_data' => $state_data,
             'priority_data' => $this->getPriorities(),
         ];
     }
