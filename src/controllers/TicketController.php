@@ -265,7 +265,7 @@ class TicketController extends \hipanel\base\CrudController
      */
     protected function prepareRefs()
     {
-        $state_data = array_merge(['all' => 'All'], $this->getClassRefs('state', 'hipanel:ticket'));
+        $state_data = array_merge(['all' => Yii::t('hipanel', 'Show all')], $this->getClassRefs('state', 'hipanel:ticket'));
         return [
             'topic_data' => $this->getRefs('topic,ticket', 'hipanel:ticket'),
             'state_data' => $state_data,
