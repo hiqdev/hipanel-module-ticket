@@ -13,7 +13,6 @@ class TicketSidebarMenuCest
 
         $menu->ensureContains('Support', [
             'Tickets' => '@ticket/index',
-            'FAQ' => '/faq/faq/index',
         ]);
 
         $menu->ensureDoesNotContain('Support', [

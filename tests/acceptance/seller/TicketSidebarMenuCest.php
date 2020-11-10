@@ -13,7 +13,6 @@ class TicketSidebarMenuCest
             'Tickets' => '@ticket/index',
             'Templates' => '@ticket/template/index',
             'Tickets statistics' => '/ticket/statistic/index',
-            'FAQ' => '/faq/faq/index',
         ]);
     }
 }

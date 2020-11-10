@@ -57,8 +57,6 @@ class TicketCest
     private function ensureICanSeeBulkSearchBox()
     {
         $this->index->containsBulkButtons([
-            'Subscribe',
-            'Unsubscribe',
             'Close',
         ]);
         $this->index->containsColumns([
