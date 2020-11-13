@@ -16,12 +16,7 @@ use yii\helpers\Url;
         'boxColor' => SmallBox::COLOR_ORANGE,
     ]) ?>
         <?php $box->beginBody() ?>
-            <?= ObjectsCountWidget::widget([
-                'totalCount' => $totalCount['tickets'],
-                'ownCount' => $model->count['tickets'],
-            ]) ?>
-            <br>
-            <br>
+            <?= ObjectsCountWidget::widget(compact('route', 'ownCount', 'entityName')) ?>
             <?= SearchForm::widget([
                 'formOptions' => [
                     'id' => 'ticket-search',

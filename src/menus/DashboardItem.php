@@ -10,27 +10,30 @@
 
 namespace hipanel\modules\ticket\menus;
 
-use hipanel\modules\dashboard\DashboardInterface;
+use hipanel\helpers\Url;
+use hipanel\modules\client\ClientWithCounters;
+use hiqdev\yii2\menus\Menu;
 use Yii;
 
-class DashboardItem extends \hiqdev\yii2\menus\Menu
+class DashboardItem extends Menu
 {
-    protected $dashboard;
+    protected ClientWithCounters $clientWithCounters;
 
-    public function __construct(DashboardInterface $dashboard, $config = [])
+    public function __construct(ClientWithCounters $clientWithCounters, $config = [])
     {
-        $this->dashboard = $dashboard;
+        $this->clientWithCounters = $clientWithCounters;
         parent::__construct($config);
     }
 
     public function items()
     {
-        return [
-            'tickets' => [
-                'label' => $this->render('dashboardItem', $this->dashboard->mget(['totalCount','model'])),
+        return Yii::$app->user->can('ticket.read') ? [
+            'ticket' => [
+                'label' => $this->render('dashboardItem', array_merge($this->clientWithCounters->getWidgetData('ticket'), [
+                    'route' => Url::toRoute('@ticket/index'),
+                ])),
                 'encode' => false,
-                'visible' => Yii::$app->user->can('ticket.read'),
             ],
-        ];
+        ] : [];
     }
 }

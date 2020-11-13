@@ -20,6 +20,7 @@ use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
+use hipanel\actions\VariantsAction;
 use hipanel\actions\ViewAction;
 use hipanel\filters\EasyAccessControl;
 use hipanel\modules\client\models\Client;
@@ -79,6 +80,9 @@ class TicketController extends \hipanel\base\CrudController
             'index' => [
                 'class' => IndexAction::class,
                 'data' => $this->prepareRefs(),
+                'responseVariants' => [
+                    'get-total-count' => fn(VariantsAction $action): int => Thread::find()->count(),
+                ],
             ],
             'view' => [
                 'class' => ViewAction::class,
