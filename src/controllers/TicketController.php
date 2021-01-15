@@ -131,7 +131,7 @@ class TicketController extends \hipanel\base\CrudController
                         'url'   => function ($action) {
                             return $action->collection->count() > 1
                                 ? $action->controller->getSearchUrl()
-                                : $action->controller->getActionUrl('view', ['id' => $action->collection->first->id]);
+                                : $action->controller->getActionUrl('view', ['id' => $action->collection->first->getOldAttribute('id')]);
                         },
                     ],
                     'error' => [
