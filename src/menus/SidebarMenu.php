@@ -35,7 +35,7 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                     'statistics' => [
                         'label' => Yii::t('hipanel:ticket', 'Tickets statistics'),
                         'url'   => ['/ticket/statistic/index'],
-                        'visible' => Yii::$app->user->can('support'),
+                        'visible' => Yii::$app->user->can('manage'),
                     ],
                 ],
             ],
