@@ -58,7 +58,8 @@ if ($client->login !== 'anonym') {
                         'name', 'email', 'messengers', 'country', 'language', 'state',
                         Yii::$app->user->can('bill.read') ? 'balance' : null,
                         Yii::$app->user->can('bill.read') ? 'credit' : null,
-                        'servers_spoiler', 'domains_spoiler', 'hosting',
+                        'servers_spoiler', 'domains_spoiler',
+                        class_exists(\hipanel\modules\hosting\Module::class) ? 'hosting' : null,
                     ]
                 ),
             ]) . '</div>' . $linkToClient . '</div>',
