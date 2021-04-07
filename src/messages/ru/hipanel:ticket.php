@@ -9,7 +9,7 @@
  */
 
 return [
-    'Subject or message' => 'Тема или сообщение',
+    'Subject or 1st message' => 'Тема или первое сообщение',
     'Author' => 'Автор',
     'Help' => 'Помощь',
     'Support' => 'Поддержка',
