@@ -9,10 +9,13 @@ class TicketSidebarMenuCest
 {
     public function ensureMenuIsOk(Admin $I)
     {
-        (new SidebarMenu($I))->ensureContains('Support', [
+        $menu = new SidebarMenu($I);
+        $menu->ensureContains('Support', [
             'Tickets' => '@ticket/index',
             'Templates' => '@ticket/template/index',
-            'Tickets statistics' => '/ticket/statistic/index',
+        ]);
+        $menu->ensureDoesNotContain('Support', [
+            'Tickets statistics',
         ]);
     }
 }
