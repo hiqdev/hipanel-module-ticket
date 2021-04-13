@@ -33,7 +33,7 @@ class TicketGridView extends BoxedGridView
         return array_merge(parent::columns(), [
             'subject' => [
                 'attribute' => 'subject',
-                'format' => 'raw',
+                'format' => 'html',
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
                 'value' => function ($model) {
                     $decorator = new ThreadDecorator($model);
@@ -103,7 +103,7 @@ class TicketGridView extends BoxedGridView
             'answer_count' => [
                 'attribute' => 'answer_count',
                 'label' => Yii::t('hipanel:ticket', 'Answers'),
-                'format' => 'raw',
+                'format' => 'html',
                 'filter' => false,
                 'enableSorting' => false,
                 'value' => function ($model) {
