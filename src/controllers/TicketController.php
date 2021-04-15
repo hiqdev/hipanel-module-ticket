@@ -393,7 +393,7 @@ class TicketController extends \hipanel\base\CrudController
 
         try {
             $data = Thread::perform('get-last-answer-id', ['id' => $id, 'answer_id' => $answer_id]);
-            $result['answer_id'] = $data['answer_id'];
+            $result['answer_id'] = $data['answer_id'] ?? null;
             if ($data['answer_id'] > $answer_id) {
                 $dataProvider = (new ThreadSearch())->search([]);
                 $dataProvider->query->joinWith('answers');
