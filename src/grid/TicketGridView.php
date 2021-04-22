@@ -18,7 +18,6 @@ use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ThreadDecorator;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ClientSellerLink;
-use hipanel\widgets\Gravatar;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
@@ -28,6 +27,8 @@ class TicketGridView extends BoxedGridView
 {
     public $enableListChecker = false;
 
+    public $resizableColumns = false;
+
     public function columns()
     {
         return array_merge(parent::columns(), [
@@ -35,18 +36,11 @@ class TicketGridView extends BoxedGridView
                 'attribute' => 'subject',
                 'format' => 'raw',
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
+                'contentOptions' => [
+                    'style' => 'white-space: nowrap;',
+                ],
                 'value' => function ($model) {
                     $decorator = new ThreadDecorator($model);
-
-                    $ava = Html::tag('div', Gravatar::widget([
-                        'emailHash' => $model->author_email,
-                        'defaultImage' => 'identicon',
-                        'options' => [
-                            'alt' => Yii::t('hipanel:ticket', 'Avatar for {login}', ['login' => $model->author]),
-                            'class' => 'img-circle',
-                        ],
-                        'size' => 40,
-                    ]), ['class' => 'pull-right']);
 
                     $titleLink = [
                         Html::a($decorator->subject, $model->threadUrl, [
@@ -61,11 +55,11 @@ class TicketGridView extends BoxedGridView
                                 Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
                                 Yii::$app->formatter->asDatetime($model->create_time)
                             ),
-                            ['class' => 'text-muted']
+                            ['class' => 'text-muted', 'style' => 'font-size: smaller;']
                         ),
                     ];
 
-                    return $ava . Html::tag('div', implode('', $titleLink));
+                    return Html::tag('div', implode('', $titleLink));
                 },
             ],
             'author_id' => [
@@ -74,6 +68,9 @@ class TicketGridView extends BoxedGridView
                 'idAttribute' => 'author_id',
                 'sortAttribute' => 'author',
                 'attribute' => 'author_id',
+                'contentOptions' => [
+                    'style' => 'width: 1%; white-space: nowrap;',
+                ],
                 'value' => function ($model) {
                     return ClientSellerLink::widget(compact('model'));
                 },
@@ -84,6 +81,9 @@ class TicketGridView extends BoxedGridView
                 'sortAttribute' => 'responsible',
                 'attribute' => 'responsible',
                 'clientType' => ['admin', 'reseller', 'manager'],
+                'contentOptions' => [
+                    'style' => 'width: 1%; white-space: nowrap;',
+                ],
                 'value' => function ($model) {
                     return Html::a($model['responsible'], ['/client/client/view', 'id' => $model->responsible_id]);
                 },
@@ -95,6 +95,9 @@ class TicketGridView extends BoxedGridView
                 'label' => Yii::t('hipanel:ticket', 'Recipient'),
                 'sortAttribute' => 'recipient',
                 'attribute' => 'recipient_id',
+                'contentOptions' => [
+                    'style' => 'width: 1%; white-space: nowrap;',
+                ],
                 'value' => function ($model) {
                     return Html::a($model->recipient, ['/client/client/view', 'id' => $model->recipient_id]);
                 },
@@ -133,6 +136,7 @@ class TicketGridView extends BoxedGridView
                 },
                 'contentOptions' => [
                     'class' => 'answer',
+                    'style' => 'width: 1%; white-space: nowrap;',
                 ],
             ],
             'actions' => [
