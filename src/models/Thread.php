@@ -174,6 +174,7 @@ class Thread extends \hipanel\base\Model
             [['message'], 'required', 'on' => ['answer'], 'when' => function () {
                 return false;
             }],
+            [['state'], 'default', 'value' => 'all', 'on' => ['default']],
             [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 15],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
