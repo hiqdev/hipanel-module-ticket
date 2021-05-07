@@ -36,7 +36,7 @@ class Topic extends Widget
         if ($this->topics) {
             $html = '<ul class="list-inline">';
             foreach ($this->topics as $item => $label) {
-                $label = Yii::t('hipanel:ticket', $label);
+                $label = Yii::t('hipanel:ticket', Html::encode($label));
                 $html .= Html::tag('li', Html::tag('span', $label, ['class' => 'label ' . $this->_getColor($item)]));
             }
             $html .= '</ul>';

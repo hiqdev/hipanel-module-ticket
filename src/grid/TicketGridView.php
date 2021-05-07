@@ -33,23 +33,23 @@ class TicketGridView extends BoxedGridView
         return array_merge(parent::columns(), [
             'subject' => [
                 'attribute' => 'subject',
-                'format' => 'html',
+                'format' => 'raw',
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
                 'value' => function ($model) {
                     $decorator = new ThreadDecorator($model);
 
                     $ava = Html::tag('div', Gravatar::widget([
-                        'emailHash' => $model->author_email,
+                        'emailHash' => Html::encode($model->author_email),
                         'defaultImage' => 'identicon',
                         'options' => [
-                            'alt' => Yii::t('hipanel:ticket', 'Avatar for {login}', ['login' => $model->author]),
+                            'alt' => Yii::t('hipanel:ticket', 'Avatar for {login}', ['login' => Html::encode($model->author)]),
                             'class' => 'img-circle',
                         ],
                         'size' => 40,
                     ]), ['class' => 'pull-right']);
 
                     $titleLink = [
-                        Html::a($decorator->subject, $model->threadUrl, [
+                        Html::a(Html::encode($decorator->subject), Html::encode($model->threadUrl), [
                             'class' => 'text-bold',
                             'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
                         ]),
@@ -58,7 +58,7 @@ class TicketGridView extends BoxedGridView
                             'div',
                             sprintf('#%s %s %s',
                                 $model->id,
-                                Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
+                                Html::tag('span', Yii::t('hipanel:ticket', Html::encode($model->state_label)), ['class' => 'text-bold']),
                                 Yii::$app->formatter->asDatetime($model->create_time)
                             ),
                             ['class' => 'text-muted']
@@ -74,6 +74,7 @@ class TicketGridView extends BoxedGridView
                 'idAttribute' => 'author_id',
                 'sortAttribute' => 'author',
                 'attribute' => 'author_id',
+                'format' => 'raw',
                 'value' => function ($model) {
                     return ClientSellerLink::widget(compact('model'));
                 },
@@ -84,8 +85,9 @@ class TicketGridView extends BoxedGridView
                 'sortAttribute' => 'responsible',
                 'attribute' => 'responsible',
                 'clientType' => ['admin', 'reseller', 'manager'],
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::a($model['responsible'], ['/client/client/view', 'id' => $model->responsible_id]);
+                    return Html::a(Html::encode($model['responsible']), ['/client/client/view', 'id' => $model->responsible_id]);
                 },
                 'visible' => Yii::$app->user->can('support'),
             ],
@@ -95,15 +97,16 @@ class TicketGridView extends BoxedGridView
                 'label' => Yii::t('hipanel:ticket', 'Recipient'),
                 'sortAttribute' => 'recipient',
                 'attribute' => 'recipient_id',
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::a($model->recipient, ['/client/client/view', 'id' => $model->recipient_id]);
+                    return Html::a(Html::encode($model->recipient), ['/client/client/view', 'id' => $model->recipient_id]);
                 },
                 'visible' => Yii::$app->user->can('support'),
             ],
             'answer_count' => [
                 'attribute' => 'answer_count',
                 'label' => Yii::t('hipanel:ticket', 'Answers'),
-                'format' => 'html',
+                'format' => 'raw',
                 'filter' => false,
                 'enableSorting' => false,
                 'value' => function ($model) {
