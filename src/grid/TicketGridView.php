@@ -49,7 +49,7 @@ class TicketGridView extends BoxedGridView
                     ]), ['class' => 'pull-right']);
 
                     $titleLink = [
-                        Html::a(Html::encode($decorator->subject), Html::encode($model->threadUrl), [
+                        Html::a(Html::encode($decorator->subject), $model->threadUrlArray, [
                             'class' => 'text-bold',
                             'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
                         ]),
