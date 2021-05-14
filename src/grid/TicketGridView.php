@@ -36,9 +36,6 @@ class TicketGridView extends BoxedGridView
                 'attribute' => 'subject',
                 'format' => 'raw',
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
-                'contentOptions' => [
-                    'style' => 'white-space: nowrap;',
-                ],
                 'value' => function ($model) {
                     $decorator = new ThreadDecorator($model);
 
