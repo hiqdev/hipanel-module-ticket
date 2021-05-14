@@ -38,25 +38,25 @@ class TicketGridView extends BoxedGridView
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
                 'value' => function ($model) {
                     $decorator = new ThreadDecorator($model);
-
-                    $titleLink = [
-                        Html::a($decorator->subject, $model->threadUrl, [
-                            'class' => 'text-bold',
-                            'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
-                        ]),
-                        Topic::widget(['topics' => $model->topics]),
-                        Html::tag(
-                            'div',
-                            sprintf('#%s %s %s',
-                                $model->id,
-                                Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
-                                Yii::$app->formatter->asDatetime($model->create_time)
-                            ),
-                            ['class' => 'text-muted', 'style' => 'font-size: smaller;']
+                    $title = Html::a($decorator->subject, $model->threadUrl, [
+                        'class' => 'text-bold',
+                        'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
+                    ]);
+                    $topics = Topic::widget(['topics' => $model->topics]);
+                    $info = Html::tag(
+                        'span',
+                        sprintf('#%s %s %s',
+                            $model->id,
+                            Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
+                            Yii::$app->formatter->asDatetime($model->create_time)
                         ),
-                    ];
+                        ['class' => 'text-muted', 'style' => 'font-size: smaller;']
+                    );
 
-                    return Html::tag('div', implode('', $titleLink));
+                    return implode('', [
+                        Html::tag('span', $title . $topics, ['style' => 'display: flex; justify-content: space-between;']),
+                        $info,
+                    ]);
                 },
             ],
             'author_id' => [
