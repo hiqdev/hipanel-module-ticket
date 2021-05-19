@@ -18,7 +18,6 @@ use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ThreadDecorator;
 use hipanel\modules\ticket\widgets\Topic;
 use hipanel\widgets\ClientSellerLink;
-use hipanel\widgets\Gravatar;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
@@ -27,6 +26,8 @@ use yii\helpers\Json;
 class TicketGridView extends BoxedGridView
 {
     public $enableListChecker = false;
+
+    public $resizableColumns = false;
 
     public function columns()
     {
@@ -37,35 +38,25 @@ class TicketGridView extends BoxedGridView
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
                 'value' => function ($model) {
                     $decorator = new ThreadDecorator($model);
-
-                    $ava = Html::tag('div', Gravatar::widget([
-                        'emailHash' => Html::encode($model->author_email),
-                        'defaultImage' => 'identicon',
-                        'options' => [
-                            'alt' => Yii::t('hipanel:ticket', 'Avatar for {login}', ['login' => Html::encode($model->author)]),
-                            'class' => 'img-circle',
-                        ],
-                        'size' => 40,
-                    ]), ['class' => 'pull-right']);
-
-                    $titleLink = [
-                        Html::a(Html::encode($decorator->subject), $model->threadUrlArray, [
-                            'class' => 'text-bold',
-                            'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
-                        ]),
-                        Topic::widget(['topics' => $model->topics]),
-                        Html::tag(
-                            'div',
-                            sprintf('#%s %s %s',
-                                $model->id,
-                                Html::tag('span', Yii::t('hipanel:ticket', Html::encode($model->state_label)), ['class' => 'text-bold']),
-                                Yii::$app->formatter->asDatetime($model->create_time)
-                            ),
-                            ['class' => 'text-muted']
+                    $title = Html::a($decorator->subject, $model->threadUrl, [
+                        'class' => 'text-bold',
+                        'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
+                    ]);
+                    $topics = Topic::widget(['topics' => $model->topics]);
+                    $info = Html::tag(
+                        'span',
+                        sprintf('#%s %s %s',
+                            $model->id,
+                            Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
+                            Yii::$app->formatter->asDatetime($model->create_time)
                         ),
-                    ];
+                        ['class' => 'text-muted', 'style' => 'font-size: smaller;']
+                    );
 
-                    return $ava . Html::tag('div', implode('', $titleLink));
+                    return implode('', [
+                        Html::tag('span', $title . $topics, ['style' => 'display: flex; justify-content: space-between;']),
+                        $info,
+                    ]);
                 },
             ],
             'author_id' => [
@@ -75,6 +66,9 @@ class TicketGridView extends BoxedGridView
                 'sortAttribute' => 'author',
                 'attribute' => 'author_id',
                 'format' => 'raw',
+                'contentOptions' => [
+                    'style' => 'width: 1%; white-space: nowrap;',
+                ],
                 'value' => function ($model) {
                     return ClientSellerLink::widget(compact('model'));
                 },
@@ -86,6 +80,9 @@ class TicketGridView extends BoxedGridView
                 'attribute' => 'responsible',
                 'clientType' => ['admin', 'reseller', 'manager'],
                 'format' => 'raw',
+                'contentOptions' => [
+                    'style' => 'width: 1%; white-space: nowrap;',
+                ],
                 'value' => function ($model) {
                     return Html::a(Html::encode($model['responsible']), ['/client/client/view', 'id' => $model->responsible_id]);
                 },
@@ -98,6 +95,9 @@ class TicketGridView extends BoxedGridView
                 'sortAttribute' => 'recipient',
                 'attribute' => 'recipient_id',
                 'format' => 'raw',
+                'contentOptions' => [
+                    'style' => 'width: 1%; white-space: nowrap;',
+                ],
                 'value' => function ($model) {
                     return Html::a(Html::encode($model->recipient), ['/client/client/view', 'id' => $model->recipient_id]);
                 },
@@ -136,6 +136,7 @@ class TicketGridView extends BoxedGridView
                 },
                 'contentOptions' => [
                     'class' => 'answer',
+                    'style' => 'width: 1%; white-space: nowrap;',
                 ],
             ],
             'actions' => [

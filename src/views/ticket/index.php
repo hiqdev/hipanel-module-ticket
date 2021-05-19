@@ -93,6 +93,7 @@ CSS
                 <?= TicketGridView::widget([
                     'boxed' => false,
                     'id'           => 'ticket-grid',
+                    'tableOptions' => ['class' => 'table table-striped table-bordered table-condensed'],
                     'dataProvider' => $dataProvider,
                     'filterModel'  => $model,
                     'rowOptions' => static function ($model) {

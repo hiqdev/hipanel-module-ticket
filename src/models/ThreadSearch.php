@@ -21,19 +21,19 @@ class ThreadSearch extends Thread
         searchAttributes as defaultSearchAttributes;
     }
 
-    protected function searchAttributes()
-    {
-        return array_merge($this->defaultSearchAttributes(), [
-            'anytext_like', 'numbers', 'message_like',
-        ]);
-    }
-
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(), [
             'message_like' => Yii::t('hipanel:ticket', 'Message'),
             'anytext_like' => Yii::t('hipanel:ticket', 'Subject or 1st message'),
             'numbers' => Yii::t('hipanel:ticket', 'Ticket numbers separated by commas'),
+        ]);
+    }
+
+    protected function searchAttributes()
+    {
+        return array_merge($this->defaultSearchAttributes(), [
+            'anytext_like', 'numbers', 'message_like',
         ]);
     }
 }

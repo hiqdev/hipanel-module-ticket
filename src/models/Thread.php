@@ -28,6 +28,8 @@ class Thread extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
+    const DEFAULT_SHOW_ALL = 'all';
+
     public static $i18nDictionary = 'hipanel:ticket';
 
     const STATE_OPEN = 'opened';
@@ -174,6 +176,7 @@ class Thread extends \hipanel\base\Model
             [['message'], 'required', 'on' => ['answer'], 'when' => function () {
                 return false;
             }],
+            [['state'], 'default', 'value' => self::DEFAULT_SHOW_ALL, 'on' => ['default']],
             [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 15],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],

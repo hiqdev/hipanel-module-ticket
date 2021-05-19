@@ -269,7 +269,7 @@ class TicketController extends \hipanel\base\CrudController
      */
     protected function prepareRefs()
     {
-        $state_data = array_merge(['all' => Yii::t('hipanel', 'Show all')], $this->getClassRefs('state', 'hipanel:ticket'));
+        $state_data = array_merge([Thread::DEFAULT_SHOW_ALL => Yii::t('hipanel', 'Show all')], $this->getClassRefs('state', 'hipanel:ticket'));
         return [
             'topic_data' => $this->getRefs('topic,ticket', 'hipanel:ticket'),
             'state_data' => $state_data,
@@ -393,7 +393,7 @@ class TicketController extends \hipanel\base\CrudController
 
         try {
             $data = Thread::perform('get-last-answer-id', ['id' => $id, 'answer_id' => $answer_id]);
-            $result['answer_id'] = $data['answer_id'];
+            $result['answer_id'] = $data['answer_id'] ?? null;
             if ($data['answer_id'] > $answer_id) {
                 $dataProvider = (new ThreadSearch())->search([]);
                 $dataProvider->query->joinWith('answers');
