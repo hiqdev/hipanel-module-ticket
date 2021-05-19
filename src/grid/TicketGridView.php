@@ -38,7 +38,7 @@ class TicketGridView extends BoxedGridView
                 'filterInputOptions' => ['style' => 'width:100%', 'class' => 'form-control'],
                 'value' => function ($model) {
                     $decorator = new ThreadDecorator($model);
-                    $title = Html::a($decorator->subject, $model->threadUrl, [
+                    $title = Html::a(Html::encode($decorator->subject), $model->getThreadUrlArray(), [
                         'class' => 'text-bold',
                         'style' => $model->state === Thread::STATE_CLOSE ? 'color: black !important;' : '',
                     ]);
@@ -47,7 +47,7 @@ class TicketGridView extends BoxedGridView
                         'span',
                         sprintf('#%s %s %s',
                             $model->id,
-                            Html::tag('span', Yii::t('hipanel:ticket', $model->state_label), ['class' => 'text-bold']),
+                            Html::tag('span', Yii::t('hipanel:ticket', Html::encode($model->state_label)), ['class' => 'text-bold']),
                             Yii::$app->formatter->asDatetime($model->create_time)
                         ),
                         ['class' => 'text-muted', 'style' => 'font-size: smaller;']
