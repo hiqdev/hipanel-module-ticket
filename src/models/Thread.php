@@ -228,7 +228,7 @@ class Thread extends \hipanel\base\Model
         return $this->author_seller_id;
     }
 
-    public function getThreadUrl()
+    public function getThreadUrlArray()
     {
         return ['@ticket/view', 'id' => $this->id];
     }
