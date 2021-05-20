@@ -146,5 +146,5 @@ return [
 
     'Are you sure you want to close these tickets?' => 'Вы действительно хотите закрыть эти тикеты?',
     'Ticket numbers separated by commas' => 'Номера тикитов, разделенные запятыми',
-    'Hide payment ticket' => 'Скрыть напоминание о оплате',
+    'Hide payment tickets' => 'Скрыть напоминания о оплате',
 ];
