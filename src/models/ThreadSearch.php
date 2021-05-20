@@ -27,7 +27,7 @@ class ThreadSearch extends Thread
             'message_like' => Yii::t('hipanel:ticket', 'Message'),
             'anytext_like' => Yii::t('hipanel:ticket', 'Subject or 1st message'),
             'numbers' => Yii::t('hipanel:ticket', 'Ticket numbers separated by commas'),
-            'hide_payment' => Yii::t('hipanel:ticket','Hide payment ticket'),
+            'hide_payment' => Yii::t('hipanel:ticket','Hide payment tickets'),
         ]);
     }
 
