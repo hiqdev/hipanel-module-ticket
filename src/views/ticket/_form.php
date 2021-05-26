@@ -6,7 +6,6 @@ use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\FileInput;
 use hipanel\widgets\TimePicker;
-use hiqdev\assets\autosize\AutosizeAsset;
 use hipanel\assets\CheckboxStyleAsset;
 use yii\helpers\Html;
 
@@ -16,7 +15,6 @@ use yii\helpers\Html;
  */
 OcticonsAsset::register($this);
 CheckboxStyleAsset::register($this);
-AutosizeAsset::register($this);
 $emptyPreviewText = \yii\helpers\Json::encode(Yii::t('hipanel:ticket', 'Nothing to preview'));
 $this->registerJs(<<< JS
 // Fetch preview
@@ -61,10 +59,6 @@ $this->registerJs("
 $('#{$form->getId()} textarea').one('focus', function(event) {
     $(this).closest('form').find('.hidden-form-inputs').toggle();
     $(this).attr('rows', '5');
-    autosize(this);
-    $(this).on('blur', function () {
-        autosize.update(this);
-    });
 });
 ");
 ?>
