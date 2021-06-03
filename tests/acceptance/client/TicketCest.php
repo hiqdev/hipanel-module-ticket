@@ -37,7 +37,7 @@ class TicketCest
     public function ensureIndexPageWorks(Client $I)
     {
         $I->login();
-        $I->needPage(Url::to('@ticket'));
+        $I->needPage(Url::to('@ticket/index'));
         $I->see('Tickets', 'h1');
         $I->seeLink('Create ticket', Url::to('@ticket/create'));
         $this->ensureICanSeeAdvancedSearchBox($I);
@@ -48,7 +48,7 @@ class TicketCest
     private function ensureICanSeeAdvancedSearchBox(Client $I)
     {
         $this->index->containsFilters([
-            Input::asAdvancedSearch($I, 'Subject or message'),
+            Input::asAdvancedSearch($I, 'Subject or 1st message'),
             Select2::asAdvancedSearch($I, 'Status'),
             Select2::asAdvancedSearch($I, 'Topics'),
         ]);
