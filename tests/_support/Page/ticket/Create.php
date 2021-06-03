@@ -14,21 +14,24 @@ use yii\helpers\Url;
  */
 class Create extends Authenticated
 {
-    public function createTicket($subject, $message, $topic)
+    public function createTicket($ticketData)
     {
         $I = $this->tester;
 
         $I->amOnPage(Url::to(['@ticket/create']));
 
-        (new Select2($I, '#thread-topics'))->setValue($topic);
+        $topic = $ticketData['topic']['topics'];
+        (new Select2($I, '#thread-topics'))->setValue($ticketData['topic']['topics']);
+        (new Select2($I, '#thread-recipient_id'))->setValue($ticketData['topic']['reciever']);
 
-        (new Input($I, '#thread-subject'))->setValue($subject);
-        (new Input($I, '#thread-message'))->setValue($message);
 
-        $this->seePreviewWorks($message);
+        (new Input($I, '#thread-subject'))->setValue($ticketData['subject']);
+        (new Input($I, '#thread-message'))->setValue($ticketData['message']);
+
+        $this->seePreviewWorks($ticketData['message']);
 
         $I->click('Create ticket', '#create-thread-form');
-        $this->seeTicketWasCreated($message, $topic);
+        $this->seeTicketWasCreated($ticketData['message'], $topic);
 
         return $I->grabValueFrom(View::THREAD_ID_SELECTOR);
     }
