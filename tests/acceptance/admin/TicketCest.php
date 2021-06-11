@@ -33,7 +33,9 @@ class TicketCest
     private function ensureICanSeeAdvancedSearchBox(Admin $I)
     {
         $this->index->containsFilters([
-            Input::asAdvancedSearch($I, 'Subject or message'),
+            Input::asAdvancedSearch($I, 'Subject or 1st message'),
+            Input::asAdvancedSearch($I, 'Message'),
+            Input::asAdvancedSearch($I, 'Ticket numbers separated by commas'),
             Select2::asAdvancedSearch($I, 'Author'),
             Select2::asAdvancedSearch($I, 'Recipient'),
             Select2::asAdvancedSearch($I, 'Status'),

@@ -48,7 +48,7 @@ class TicketCest
     private function ensureICanSeeAdvancedSearchBox(Client $I)
     {
         $this->index->containsFilters([
-            Input::asAdvancedSearch($I, 'Subject or message'),
+            Input::asAdvancedSearch($I, 'Subject or 1st message'),
             Select2::asAdvancedSearch($I, 'Status'),
             Select2::asAdvancedSearch($I, 'Topics'),
         ]);
@@ -112,7 +112,7 @@ class TicketCest
 
         $I->openNewTab();
         $index = new Index($I);
-        $index->hasntLinkToTicket($this->ticket_id);
+        $index->ensureTicketClosed($this->ticket_id);
         $I->closeTab();
 
         $view->openTicket();
