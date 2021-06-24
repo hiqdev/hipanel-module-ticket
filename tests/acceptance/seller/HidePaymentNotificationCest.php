@@ -34,6 +34,6 @@ class HidePaymentNotificationCest
 
     private function ensureICantSeePaymentTickets(Seller $I): void
     {
-        $I->see('Payment', "//span[@class='label label-default']");
+        $I->dontSee('Payment', "//span[@class='label label-default']");
     }
 }
