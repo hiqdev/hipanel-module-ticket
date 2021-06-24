@@ -7,18 +7,18 @@ use Codeception\Example;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\modules\ticket\tests\_support\Page\ticket\Create;
 
-class TicketStatisticsCest
+class TicketCreationCest
 {
     /**
      * @dataProvider provideTicketData
      */
-    public function ensureICanCreateTicket(Admin $I, Example $example)
+    public function ensureICanCreateTicket(Admin $I, Example $example): void
     {
         $I->login();
-        $this->fillMainTicketFields($I, $example);
+        $this->createTicket($I, $example);
     }
 
-    private function fillMainTicketFields(Admin $I,Example $exampleTicket)
+    private function createTicket(Admin $I,Example $exampleTicket): void 
     {
         $createPage = new Create($I);
         $exampleArray = iterator_to_array($exampleTicket->getIterator());
