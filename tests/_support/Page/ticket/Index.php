@@ -2,7 +2,7 @@
 
 namespace hipanel\modules\ticket\tests\_support\Page\ticket;
 
-use hipanel\tests\_support\Page\Authenticated;
+use hipanel\tests\_support\Page\IndexPage;
 use yii\helpers\Url;
 
 /**
@@ -10,7 +10,7 @@ use yii\helpers\Url;
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
-class Index extends Authenticated
+class Index extends IndexPage
 {
     public function ensurePageWorks()
     {
@@ -50,12 +50,12 @@ class Index extends Authenticated
         return $this;
     }
 
-    public function hasntLinkToTicket($id)
+    public function ensureTicketClosed($id)
     {
         $I = $this->tester;
 
         $I->amOnPage(Url::to(['@ticket']));
-        $I->dontSeeElement('tr', ['data-key' => $id]);
+        $I->seeElement("//tr[@data-key='$id']/td/span/span[contains(text(), 'Closed')]");
 
         return $this;
     }

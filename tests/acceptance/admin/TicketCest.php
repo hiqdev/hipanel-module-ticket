@@ -10,17 +10,14 @@ use hipanel\tests\_support\Step\Acceptance\Admin;
 
 class TicketCest
 {
-    /**
-     * @var IndexPage
-     */
-    private $index;
+    private IndexPage $index;
 
-    public function _before(Admin $I)
+    public function _before(Admin $I): void
     {
         $this->index = new IndexPage($I);
     }
 
-    public function ensureIndexPageWorks(Admin $I)
+    public function ensureIndexPageWorks(Admin $I): void
     {
         $I->login();
         $I->needPage(Url::to('@ticket/index'));
@@ -30,7 +27,7 @@ class TicketCest
         $this->ensureICanSeeBulkSearchBox();
     }
 
-    private function ensureICanSeeAdvancedSearchBox(Admin $I)
+    private function ensureICanSeeAdvancedSearchBox(Admin $I): void
     {
         $this->index->containsFilters([
             Input::asAdvancedSearch($I, 'Subject or 1st message'),
@@ -44,7 +41,7 @@ class TicketCest
         ]);
     }
 
-    private function ensureICanSeeBulkSearchBox()
+    private function ensureICanSeeBulkSearchBox(): void
     {
         $this->index->containsBulkButtons([
             'Subscribe',
