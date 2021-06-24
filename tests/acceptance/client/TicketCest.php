@@ -34,7 +34,7 @@ class TicketCest
     public function ensureIndexPageWorks(Client $I): void
     {
         $I->login();
-        $I->needPage(Url::to('@ticket/index'));
+        $I->needPage(Url::to('@ticket'));
         $I->see('Tickets', 'h1');
         $I->seeLink('Create ticket', Url::to('@ticket/create'));
         $this->ensureICanSeeAdvancedSearchBox($I);
