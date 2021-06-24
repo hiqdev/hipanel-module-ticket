@@ -10,7 +10,7 @@ use hipanel\tests\_support\Step\Acceptance\Admin;
 
 class TicketDefaultSortingCest
 {
-    public function ensureDefaultStatusIsCorrect(Admin $I)
+    public function ensureDefaultStatusIsCorrect(Admin $I): void
     {
         $I->login();
         $I->needPage(Url::to('@ticket/index'));
