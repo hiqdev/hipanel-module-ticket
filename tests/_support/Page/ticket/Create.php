@@ -14,29 +14,30 @@ use yii\helpers\Url;
  */
 class Create extends Authenticated
 {
-    public function createTicket($ticketData)
+    public function createTicket(array $ticket): string
     {
         $I = $this->tester;
 
         $I->amOnPage(Url::to(['@ticket/create']));
 
-        $topic = $ticketData['topic']['topics'];
-        (new Select2($I, '#thread-topics'))->setValue($ticketData['topic']['topics']);
-        (new Select2($I, '#thread-recipient_id'))->setValue($ticketData['topic']['reciever']);
+        (new Select2($I, '#thread-topics'))->setValue($ticket['topic']);
 
+        (new Input($I, '#thread-subject'))->setValue($ticket['subject']);
+        (new Input($I, '#thread-message'))->setValue($ticket['message']);
 
-        (new Input($I, '#thread-subject'))->setValue($ticketData['subject']);
-        (new Input($I, '#thread-message'))->setValue($ticketData['message']);
+        if (isset($ticket['recipient'])) {
+            (new Select2($I, '#thread-recipient_id'))->setValue($ticket['recipient']);
+        }
 
-        $this->seePreviewWorks($ticketData['message']);
+        $this->seePreviewWorks($ticket['message']);
 
         $I->click('Create ticket', '#create-thread-form');
-        $this->seeTicketWasCreated($ticketData['message'], $topic);
+        $this->seeTicketWasCreated($ticket['message'], $ticket['topic']);
 
         return $I->grabValueFrom(View::THREAD_ID_SELECTOR);
     }
 
-    protected function seePreviewWorks($message)
+    protected function seePreviewWorks($message): void
     {
         $I = $this->tester;
 
@@ -44,7 +45,7 @@ class Create extends Authenticated
         $I->waitForText($message, 30, '#preview-create-thread-form');
     }
 
-    protected function seeTicketWasCreated($message, $topic)
+    protected function seeTicketWasCreated($message, $topic): void
     {
         $I = $this->tester;
 
