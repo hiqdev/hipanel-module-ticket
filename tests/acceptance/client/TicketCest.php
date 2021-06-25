@@ -24,17 +24,14 @@ class TicketCest
      */
     protected $ticket_id;
 
-    /**
-     * @var IndexPage
-     */
-    private $index;
+    private IndexPage $index;
 
-    public function _before(Client $I)
+    public function _before(Client $I): void
     {
         $this->index = new IndexPage($I);
     }
 
-    public function ensureIndexPageWorks(Client $I)
+    public function ensureIndexPageWorks(Client $I): void
     {
         $I->login();
         $I->needPage(Url::to('@ticket'));
@@ -45,16 +42,16 @@ class TicketCest
         (new Index($I))->ensurePageWorks();
     }
 
-    private function ensureICanSeeAdvancedSearchBox(Client $I)
+    private function ensureICanSeeAdvancedSearchBox(Client $I): void
     {
         $this->index->containsFilters([
-            Input::asAdvancedSearch($I, 'Subject or message'),
+            Input::asAdvancedSearch($I, 'Subject or 1st message'),
             Select2::asAdvancedSearch($I, 'Status'),
             Select2::asAdvancedSearch($I, 'Topics'),
         ]);
     }
 
-    private function ensureICanSeeBulkSearchBox()
+    private function ensureICanSeeBulkSearchBox(): void
     {
         $this->index->containsBulkButtons([
             'Close',
@@ -65,12 +62,12 @@ class TicketCest
         ]);
     }
 
-    public function ensureICanNavigateToCreateTicketPage(Client $I)
+    public function ensureICanNavigateToCreateTicketPage(Client $I): void
     {
         (new Index($I))->ensureThatICanNavigateToCreateTicketPage();
     }
 
-    public function ensureICanCreateTicket(Client $I)
+    public function ensureICanCreateTicket(Client $I): void
     {
         $this->ticket_id = (new Create($I))->createTicket(
             'Test ticket (' . date('Y-m-d H:i') . ')',
@@ -79,7 +76,7 @@ class TicketCest
         );
     }
 
-    public function ensureISeeCreatedTicketOnIndexPage(Client $I, Scenario $scenario)
+    public function ensureISeeCreatedTicketOnIndexPage(Client $I, Scenario $scenario): void
     {
         if (!isset($this->ticket_id)) {
             $scenario->incomplete('Ticket ID must be filled to run this test');
@@ -100,7 +97,7 @@ class TicketCest
         $view->postComment('This is a test comment. Ignore it, please.');
     }
 
-    public function ensureICanChangeTicketState(Client $I, Scenario $scenario)
+    public function ensureICanChangeTicketState(Client $I, Scenario $scenario): void
     {
         if (!isset($this->ticket_id)) {
             $scenario->incomplete('Ticket ID must be filled to run this test');
@@ -112,7 +109,7 @@ class TicketCest
 
         $I->openNewTab();
         $index = new Index($I);
-        $index->hasntLinkToTicket($this->ticket_id);
+        $index->ensureTicketClosed($this->ticket_id);
         $I->closeTab();
 
         $view->openTicket();
