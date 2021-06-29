@@ -124,7 +124,6 @@ class TicketCest
                 'subject'   => 'Test ticket (' . date('Y-m-d H:i') . ')',
                 'message'   => 'This is a test ticket created by automated testing system. Ignore it, please.',
                 'topic'     => 'VDS',
-                'recipient' => null,
             ],
         ];
     }
