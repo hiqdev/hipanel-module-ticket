@@ -19,7 +19,7 @@ class StatisticRepresentations extends RepresentationCollection
             'performers' => [
                  'label' => Yii::t('hipanel:ticket', 'Performers'),
                  'columns' => [
-                    'client_id', 'spent', 'tickets',
+                    'client_id', 'spent', 'threads_num', 'answers_num', 'tickets',
                  ],
             ],
         ]);

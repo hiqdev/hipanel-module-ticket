@@ -31,6 +31,7 @@ class Statistic extends Thread
     {
         return [
             [['author_id', 'responsible_id', 'recipient_id', 'client_id', 'id', 'author_seller_id', 'replier_id', 'seller_id', 'client_seller_id'], 'integer'],
+            [['answers_num', 'threads_num'], 'integer'],
             [['topics', 'state', 'priority', 'watchers','author_seller', 'replier', 'state_label', 'login'], 'safe'],
             [['spent', 'spent_hours', 'spend'], 'safe'],
             [['author','watchers','responsible','recipient', 'anytext_like', 'seller', 'client'], 'safe'],
