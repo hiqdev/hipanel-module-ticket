@@ -61,7 +61,7 @@ if ($client->login !== 'anonym') {
                         class_exists(\hipanel\modules\server\Module::class) ? 'servers_spoiler' : null,
                         class_exists(\hipanel\modules\domain\Module::class) ? 'domains_spoiler' : null,
                         class_exists(\hipanel\modules\hosting\Module::class) ? 'hosting' : null,
-                        class_exists(\hipanel\modules\finance\Module::class) ? 'targets_spoiler' : null,
+                        class_exists(\hipanel\modules\finance\Module::class) && Yii::$app->user->can('plan.read') ? 'targets_spoiler' : null,
                     ]
                 ),
             ]) . '</div>' . $linkToClient . '</div>',
