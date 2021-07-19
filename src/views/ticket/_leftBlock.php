@@ -1,6 +1,7 @@
 <?php
 
 use hipanel\helpers\HtmlHelper;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\Box;
@@ -13,6 +14,7 @@ use yii\helpers\Html;
  * @var \yii\web\View
  * @var Thread $model
  * @var string $action
+ * @var Client $client
  */
 FlagIconCssAsset::register($this);
 
@@ -77,7 +79,7 @@ $form = ConditionalFormWidget::begin([
         <?php $box->end() ?>
     </div>
 
-    <?php if ($client && Yii::$app->user->can('support') && Yii::$app->user->id != $client->id) : ?>
+    <?php if ($client && Yii::$app->user->can('access-subclients') && Yii::$app->user->id != $client->id) : ?>
         <?= $this->render('_clientInfo', compact('client')); ?>
     <?php endif ?>
 </div>
