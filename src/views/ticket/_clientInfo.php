@@ -49,8 +49,8 @@ if ($client->login !== 'anonym') {
     <?= MainDetails::widget([
         'image' => $this->render('//layouts/gravatar', ['email' => $client->email, 'size' => 60, 'alt' => '']),
         'title' => ClientSellerLink::widget(['model' => $client]),
-        'subTitle' => Yii::t('hipanel:client', ucfirst($client->type)),
-        'menu' => '<div class="overlay-wrapper">' . $loader . '<div class="table-responsive ">' . ClientGridView::detailView([
+        'subTitle' => Yii::t('hipanel:client', ucfirst((string)$client->type)),
+        'menu' => (isset($loader) ? '<div class="overlay-wrapper">' . $loader . '<div class="table-responsive ">' : '') . ClientGridView::detailView([
                 'model' => $client,
                 'boxed' => false,
                 'columns' => array_filter(

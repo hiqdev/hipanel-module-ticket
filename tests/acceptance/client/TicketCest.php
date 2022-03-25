@@ -116,14 +116,14 @@ class TicketCest
         $view->openTicket();
         $view->closeTicket();
     }
-    
+
     protected function provideDataTicket(): array
     {
         return [
             'ticket' => [
-                'subject'   => 'Test ticket (' . date('Y-m-d H:i') . ')',
-                'message'   => 'This is a test ticket created by automated testing system. Ignore it, please.',
-                'topic'     => 'VDS',
+                'subject' => 'Test ticket (' . date('Y-m-d H:i') . ')',
+                'message' => 'This is a test ticket created by automated testing system. Ignore it, please.',
+                'topic' => 'VDS',
             ],
         ];
     }

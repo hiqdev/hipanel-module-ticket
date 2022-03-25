@@ -248,7 +248,9 @@ class Thread extends \hipanel\base\Model
 
     public function prepareSpentTime()
     {
-        list($this->spent_hours, $this->spent) = explode(':', $this->spent, 2);
+        if (!empty($this->spent)) {
+            [$this->spent_hours, $this->spent] = explode(':', $this->spent, 2);
+        }
     }
 
     public function prepareTopic()
@@ -260,7 +262,7 @@ class Thread extends \hipanel\base\Model
     {
         $results = [];
         foreach ((array)$this->watchers as $id => $watcher) {
-            list($login, $email) = explode(' ', $watcher);
+            [$login, $email] = explode(' ', $watcher);
             $results[$id] = $login;
         }
 

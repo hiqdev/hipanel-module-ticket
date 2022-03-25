@@ -127,4 +127,5 @@ $this->registerCss(".table.detail-view { margin-bottom: 0px; }");
         ]),
     ]) ?>
 </div>
-<?php $form->end() ?>
+
+<?php ActiveForm::end() ?>

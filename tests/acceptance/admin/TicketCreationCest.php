@@ -1,8 +1,7 @@
 <?php
 
-namespace hipanel\modules\ticket\tests\acceptance\Seller;
+namespace hipanel\modules\ticket\tests\acceptance\admin;
 
-use hipanel\helpers\Url;
 use Codeception\Example;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\modules\ticket\tests\_support\Page\ticket\Create;

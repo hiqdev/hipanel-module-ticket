@@ -18,7 +18,7 @@ use yii\helpers\Html;
         <div class="input-group">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="selected-language" data-language="<?= $defaultLanguage['code'] ?>"><?= $defaultLanguage['name'] ?></span>
+                    <span class="selected-language" data-language="<?= $defaultLanguage['code'] ?? '' ?>"><?= $defaultLanguage['name'] ?? '' ?></span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" id="template-language">

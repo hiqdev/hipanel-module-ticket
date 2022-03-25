@@ -25,7 +25,6 @@ use hipanel\actions\ViewAction;
 use hipanel\filters\EasyAccessControl;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\stub\ClientRelationFreeStub;
-use hipanel\modules\server\models\Server;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
 use hipanel\modules\ticket\models\TicketSettings;

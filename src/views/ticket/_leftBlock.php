@@ -19,7 +19,7 @@ use yii\helpers\Html;
 FlagIconCssAsset::register($this);
 
 $form = ConditionalFormWidget::begin([
-    'form' => isset($form) ? $form : null,
+    'form' => $form ?? null,
     'options' => [
         'id' => 'left-block-comment-form',
         'action' => $action,
@@ -68,19 +68,19 @@ $form = ConditionalFormWidget::begin([
             ],
         ]) ?>
 
-        <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data')) ?>
+        <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data', 'action')) ?>
 
         <?php if (!$model->isNewRecord && Yii::$app->user->can('support')) : ?>
             <?php $box->beginFooter() ?>
-                <?= $this->render('_subscribeButton', compact('model')) ?>
+            <?= $this->render('_subscribeButton', compact('model')) ?>
             <?php $box->endFooter() ?>
         <?php endif ?>
 
         <?php $box->end() ?>
     </div>
 
-    <?php if ($client && Yii::$app->user->can('access-subclients') && Yii::$app->user->id != $client->id) : ?>
-        <?= $this->render('_clientInfo', compact('client')); ?>
+    <?php if (isset($client) && Yii::$app->user->can('access-subclients') && Yii::$app->user->id != $client->id) : ?>
+        <?= $this->render('_clientInfo', compact('client')) ?>
     <?php endif ?>
 </div>
 
