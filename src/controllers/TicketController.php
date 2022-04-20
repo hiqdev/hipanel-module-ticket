@@ -97,10 +97,10 @@ class TicketController extends \hipanel\base\CrudController
                     $ticket = $action->model;
 
                     $attributes = [
-                        'id' => $ticket->recipient_id,
-                        'login' => $ticket->recipient,
-                        'seller' => $ticket->recipient_seller,
-                        'seller_id' => $ticket->recipient_seller_id,
+                        'id' => $ticket->recipient_id ?? $ticket->author_id,
+                        'login' => $ticket->recipient ?? $ticket->author,
+                        'seller' => $ticket->recipient_seller ?? $ticket->author_seller,
+                        'seller_id' => $ticket->recipient_seller_id ?? $ticket->author_seller_id,
                     ];
 
                     $isAnonymTicket = $ticket->recipient === 'anonym';
@@ -115,7 +115,7 @@ class TicketController extends \hipanel\base\CrudController
                         $client->name = $ticket->anonym_name;
                     }
 
-                    return array_merge(compact('client'), $this->prepareRefs());
+                    return array_merge(['client' => $client], $this->prepareRefs());
                 },
             ],
             'validate-form' => [
