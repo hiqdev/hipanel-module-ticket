@@ -82,6 +82,9 @@ class Thread extends \hipanel\base\Model
             'author',
             'author_id',
             'responsible_id',
+            'executor',
+            'executor_id',
+            'executor_email',
             'responsible_email',
             'author_seller',
             'author_seller_id',
@@ -136,7 +139,7 @@ class Thread extends \hipanel\base\Model
     public function rules()
     {
         $rules = [
-            [['author_id', 'responsible_id'], 'integer'],
+            [['author_id', 'responsible_id', 'executor_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
             [['subject'], 'string', 'min' => 3],
             [['id'], 'required', 'on' => ['answer', 'update-answer', 'open', 'close']],
@@ -180,7 +183,7 @@ class Thread extends \hipanel\base\Model
             [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 15],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
-            [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('support')],
+            [['author', 'author_seller', 'executor'], 'safe', 'when' => Yii::$app->user->can('support')],
         ];
 
         return $rules;
@@ -196,8 +199,10 @@ class Thread extends \hipanel\base\Model
             'author_id' => Yii::t('hipanel:ticket', 'Author'),
             'recipient' => Yii::t('hipanel:ticket', 'Recipient'),
             'is_private' => Yii::t('hipanel:ticket', 'Make private'),
-            'responsible' => Yii::t('hipanel:ticket', 'Assignee'),
-            'responsible_id' => Yii::t('hipanel:ticket', 'Assignee'),
+            'responsible' => Yii::t('hipanel:ticket', 'Responsible'),
+            'responsible_id' => Yii::t('hipanel:ticket', 'Responsible'),
+            'executor' => Yii::t('hipanel:ticket', 'Executor'),
+            'executor_id' => Yii::t('hipanel:ticket', 'Executor'),
             'spent' => Yii::t('hipanel:ticket', 'Spent time'),
             'create_time' => Yii::t('hipanel:ticket', 'Created'),
             'a_reply_time' => Yii::t('hipanel:ticket', 'a_reply_time'),
