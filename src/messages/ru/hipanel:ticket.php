@@ -20,6 +20,7 @@ return [
     'Assignee' => 'Исполнитель',
     'Assignee ID' => 'ID исполнителя',
     'Responsible' => 'Ответственный',
+    'Executor' => 'Исполнитель',
     'You assigned' => 'Вы исполнитель',
     'Spent time' => 'Затраченное время',
     'Spent hours' => 'Затраченные часы',
