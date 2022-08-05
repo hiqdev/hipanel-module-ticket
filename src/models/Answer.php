@@ -175,7 +175,12 @@ class Answer extends \hipanel\base\Model
 
     public function prepareSpentTime()
     {
-        list($this->spent_hours, $this->spent) = explode(':', $this->spent, 2);
+        if (strpos($this->spent ?? '', ':') !== false) {
+            list($this->spent_hours, $this->spent) = explode(':', $this->spent ?? '' , 2);
+        } else {
+            $this->spent_hours = 0;
+            $this->spent = 0;
+        }
     }
 
     public function getThread()

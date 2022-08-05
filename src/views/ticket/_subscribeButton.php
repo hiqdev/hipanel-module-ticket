@@ -29,8 +29,9 @@ Pjax::begin(array_merge(Yii::$app->params['pjax'], [
     <div class="margin-bottom" style="padding: 0 1rem">
         <?php foreach ($model->watchers as $watcherId => $watcher) : ?>
             <?php
-            $piece = explode(' ', $watcher);
-            $watcherEmailHash = array_pop(explode(' ', $watcher));
+            $piece = explode(' ', $watcher ?? '');
+            $watcherEmail = explode(' ', $watcher ?? '');
+            $watcherEmailHash = array_pop($watcherEmail);
             if ($watcherEmailHash) :
                 echo Html::beginTag('a', ['href' => Url::toRoute(['@client/view', 'id' => $watcherId])]);
                 echo Gravatar::widget([
