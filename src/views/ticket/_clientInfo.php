@@ -25,7 +25,7 @@ $this->registerCss('
 }
 ');
 
-if (!is_null($client) {
+if (!is_null($client)) {
     if ($client->login !== 'anonym') {
         if ($client instanceof ClientRelationFreeStub) {
             $loader = \hipanel\widgets\AsyncLoader::widget([
