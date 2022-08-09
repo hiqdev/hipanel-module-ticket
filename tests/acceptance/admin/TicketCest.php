@@ -36,7 +36,7 @@ class TicketCest
             Select2::asAdvancedSearch($I, 'Author'),
             Select2::asAdvancedSearch($I, 'Recipient'),
             Select2::asAdvancedSearch($I, 'Status'),
-            Select2::asAdvancedSearch($I, 'Assignee'),
+            Select2::asAdvancedSearch($I, 'Executor'),
             Select2::asAdvancedSearch($I, 'Priority'),
             Select2::asAdvancedSearch($I, 'Watchers'),
             Select2::asAdvancedSearch($I, 'Topics'),
@@ -53,7 +53,7 @@ class TicketCest
         $this->index->containsColumns([
             'Subject',
             'Author',
-            'Assignee',
+            'Responsible',
             'Recipient',
             'Answers',
         ]);
