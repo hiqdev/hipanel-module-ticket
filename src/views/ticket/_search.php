@@ -70,12 +70,6 @@ use yii\web\View;
         ]); ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('executor')->widget(ClientCombo::class, [
-            'clientType' => ['manager', 'admin', 'owner', 'reseller'],
-            'multiple' => true,
-        ]); ?>
-    </div>
-    <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('priority')->widget(StaticCombo::class, [
             'data' => $priority_data,
             'hasId' => true,
