@@ -37,7 +37,6 @@ class TicketCest
             Select2::asAdvancedSearch($I, 'Recipient'),
             Select2::asAdvancedSearch($I, 'Status'),
             Select2::asAdvancedSearch($I, 'Responsible'),
-            Select2::asAdvancedSearch($I, 'Executor'),
             Select2::asAdvancedSearch($I, 'Priority'),
             Select2::asAdvancedSearch($I, 'Watchers'),
             Select2::asAdvancedSearch($I, 'Topics'),
