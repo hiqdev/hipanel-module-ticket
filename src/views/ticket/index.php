@@ -1,17 +1,25 @@
 <?php
 
+use hipanel\models\IndexPageUiOptions;
 use hipanel\modules\ticket\grid\TicketGridView;
 use hipanel\modules\ticket\grid\TicketGridLegend;
+use hipanel\modules\ticket\grid\TicketRepresentations;
+use hipanel\modules\ticket\models\ThreadSearch;
 use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
-use hipanel\widgets\Pjax;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \hipanel\modules\ticket\models\Thread $model
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \hiqdev\higrid\representations\RepresentationCollection $representationCollection
- * @var \hipanel\models\IndexPageUiOptions $uiModel
+ * @var View $this
+ * @var ThreadSearch $model
+ * @var ActiveDataProvider $dataProvider
+ * @var TicketRepresentations $representationCollection
+ * @var IndexPageUiOptions $uiModel
+ * @var array $state_data
+ * @var array $topic_data
+ * @var array $priority_data
  */
 
 $this->title                   = Yii::t('hipanel:ticket', 'Tickets');
@@ -54,56 +62,52 @@ CSS
 );
 ?>
 
-<?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
-    <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
+<?php $page = IndexPage::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
 
-    <?php $page->setSearchFormData(compact(['state_data', 'topic_data', 'priority_data'])) ?>
+<?php $page->setSearchFormData(['state_data' => $state_data, 'topic_data' => $topic_data, 'priority_data' => $priority_data]) ?>
 
-    <?php $page->beginContent('main-actions') ?>
-        <?= Html::a(Yii::t('hipanel:ticket', 'Create ticket'), ['@ticket/create'], ['class' => 'btn btn-sm btn-success']) ?>
-    <?php $page->endContent() ?>
+<?php $page->beginContent('main-actions') ?>
+    <?= Html::a(Yii::t('hipanel:ticket', 'Create ticket'), ['@ticket/create'], ['class' => 'btn btn-sm btn-success']) ?>
+<?php $page->endContent() ?>
 
-    <?php $page->beginContent('legend') ?>
-        <?= GridLegend::widget(['legendItem' => new TicketGridLegend($model)]) ?>
-    <?php $page->endContent() ?>
+<?php $page->beginContent('legend') ?>
+    <?= GridLegend::widget(['legendItem' => new TicketGridLegend($model)]) ?>
+<?php $page->endContent() ?>
 
-    <?php $page->beginContent('sorter-actions') ?>
-        <?= $page->renderSorter([
-            'attributes' => Yii::$app->user->can('support') ?  [
-                'create_time', 'lastanswer', 'spent',
-                'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
-            ] : ['subject'],
-        ]) ?>
-    <?php $page->endContent() ?>
+<?php $page->beginContent('sorter-actions') ?>
+    <?= $page->renderSorter([
+        'attributes' => Yii::$app->user->can('support') ?  [
+            'create_time', 'lastanswer', 'spent',
+            'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
+        ] : ['subject'],
+    ]) ?>
+<?php $page->endContent() ?>
 
-    <?php $page->beginContent('bulk-actions') ?>
-        <?php if (Yii::$app->user->can('support')) : ?>
-            <?= $page->renderBulkButton('subscribe', Yii::t('hipanel:ticket', 'Subscribe')) ?>
-            <?= $page->renderBulkButton('unsubscribe', Yii::t('hipanel:ticket', 'Unsubscribe')) ?>
-        <?php endif ?>
-        <?= $page->renderBulkButton('close', Yii::t('hipanel:ticket', 'Close'), [
-            'color' => 'danger',
-            'confirm' => Yii::t('hipanel:ticket', 'Are you sure you want to close these tickets?')
-        ]) ?>
-    <?php $page->endContent() ?>
+<?php $page->beginContent('bulk-actions') ?>
+    <?php if (Yii::$app->user->can('support')) : ?>
+        <?= $page->renderBulkButton('subscribe', Yii::t('hipanel:ticket', 'Subscribe')) ?>
+        <?= $page->renderBulkButton('unsubscribe', Yii::t('hipanel:ticket', 'Unsubscribe')) ?>
+    <?php endif ?>
+    <?= $page->renderBulkButton('close', Yii::t('hipanel:ticket', 'Close'), [
+        'color' => 'danger',
+        'confirm' => Yii::t('hipanel:ticket', 'Are you sure you want to close these tickets?')
+    ]) ?>
+<?php $page->endContent() ?>
 
-    <?php $page->beginContent('table') ?>
-        <?php $page->beginBulkForm() ?>
-            <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true, 'id' => 'ticket-grid-pjax'])) ?>
-                <?= TicketGridView::widget([
-                    'boxed' => false,
-                    'id'           => 'ticket-grid',
-                    'tableOptions' => ['class' => 'table table-striped table-bordered table-condensed'],
-                    'dataProvider' => $dataProvider,
-                    'filterModel'  => $model,
-                    'rowOptions' => static function ($model) {
-                        return GridLegend::create(new TicketGridLegend($model))->gridRowOptions();
-                    },
-                    'enableListChecker' => true,
-                    'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
-                ]); ?>
-            <?php Pjax::end() ?>
-        <?php $page->endBulkForm() ?>
-    <?php $page->endContent() ?>
-    <?php $page->end() ?>
-<?php Pjax::end() ?>
+<?php $page->beginContent('table') ?>
+    <?php $page->beginBulkForm() ?>
+        <?= TicketGridView::widget([
+            'boxed' => false,
+            'id'           => 'ticket-grid',
+            'tableOptions' => ['class' => 'table table-striped table-bordered table-condensed'],
+            'dataProvider' => $dataProvider,
+            'filterModel'  => $model,
+            'rowOptions' => static function ($model) {
+                return GridLegend::create(new TicketGridLegend($model))->gridRowOptions();
+            },
+            'enableListChecker' => true,
+            'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
+        ]); ?>
+    <?php $page->endBulkForm() ?>
+<?php $page->endContent() ?>
+<?php $page->end() ?>

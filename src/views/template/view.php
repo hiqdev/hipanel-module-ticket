@@ -5,20 +5,19 @@ use hipanel\modules\ticket\grid\TemplateGridView;
 use hipanel\modules\ticket\menus\TemplateDetailMenu;
 use hipanel\modules\ticket\models\Template;
 use hipanel\widgets\Box;
-use hipanel\widgets\Pjax;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\web\View
+ * @var View $this
  * @var Template $model
  */
+
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:ticket', 'Answer templates'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-
-<?php Pjax::begin(Yii::$app->params['pjax']) ?>
 
 <div class="row">
     <div class="col-md-3">
@@ -84,5 +83,3 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-
-<?php Pjax::end() ?>
