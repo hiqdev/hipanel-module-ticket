@@ -9,13 +9,15 @@ use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use hiqdev\yii2\reminder\widgets\ReminderButton;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\web\View
+ * @var View $this
  * @var Thread $model
  * @var string $action
  * @var Client $client
  */
+
 FlagIconCssAsset::register($this);
 
 $form = ConditionalFormWidget::begin([
