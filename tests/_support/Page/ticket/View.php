@@ -50,7 +50,7 @@ class View extends Authenticated
         $this->seePreviewWorks($message);
 
         $I->click('Answer', '#leave-comment-form');
-        $I->waitForText('Ticket changed');
+        $I->waitForText('Ticket changed', 60);
         $this->seePageContainsComment($message);
     }
 
