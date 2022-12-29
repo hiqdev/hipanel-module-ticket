@@ -12,10 +12,11 @@ use hipanel\widgets\ClientSellerLink;
 use yii\helpers\Html;
 use hipanel\widgets\MainDetails;
 
-$this->registerCss('
+$this->registerCss(/** @lang css */ '
 .b-ticket-client-info table td {
-    word-wrap: break-word; / All browsers since IE 5.5+ /
-    overflow-wrap: break-word; / Renamed property in CSS3 draft spec /
+    word-wrap: break-word; /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word; /* Renamed property in CSS3 draft spec */
+    word-break: break-all;
 }
 
 .b-ticket-client-info .widget-user-header h4.widget-user-username {
