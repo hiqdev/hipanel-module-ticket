@@ -110,7 +110,7 @@ return [
     'When checked, mail notification includes the text of the new message. By default, the mail has only the acknowledgment of the response and a link to the ticket. Be careful, the text can include confidential information.' => 'Когда отмечено, почтовые уведомления об ответах будут включать в себя текст сообщения. По умолчанию, в письме приходит только упоминание о новом ответе и ссылка на тикет. Будьте внимательны, текст сообщения может содержать конфиденциальную информацию.',
     'In this field you can specify to receive email notifications of ticket. By default, the notification is used for editing the main e-mail' => 'В этом поле вы можете указать получить уведомления по электронной почте о тикете. По умолчанию, уведомление используется для редактирования основной электронной почты',
 
-    /// AdvancedHosters ticket types
+    /// Ticket types
     'Technical' => 'Технический',
     'Administrative' => 'Административный',
     'Financial' => 'Финансовый',
@@ -121,13 +121,13 @@ return [
     'Software ticket' => 'Софт',
     'Networking ticket' => 'Сетевой',
 
-    /// AdvandedHosters ticket priorities
+    /// Ticket priorities
     'low priority' => 'низкий приоритет',
     'Medium priority' => 'Средний приоритет',
     'High Priority' => 'Высокий приоритет',
     'ULTRAHIGH PRIORITY' => '',
 
-    /// AHnames ticket types
+    /// Ticket types
     'General question' => 'Общий вопрос',
     'Financial question' => 'Финансовый',
     'Technical question' => 'Технический',
