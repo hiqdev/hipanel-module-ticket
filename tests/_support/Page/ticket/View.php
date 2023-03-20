@@ -76,7 +76,7 @@ class View extends Authenticated
         $I->see('Close ticket');
         $I->click('Close ticket');
         $I->waitForText('Ticket closed');
-        $I->waitForText('Open ticket', 3);
+        $I->waitForText('Open ticket', 5, '#stateTicketButton');
     }
 
     public function openTicket()
@@ -86,6 +86,6 @@ class View extends Authenticated
         $I->see('Open ticket');
         $I->click('Open ticket');
         $I->waitForText('Ticket opened');
-        $I->waitForText('Close ticket', 3);
+        $I->waitForText('Close ticket', 5, '#stateTicketButton');
     }
 }
