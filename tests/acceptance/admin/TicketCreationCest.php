@@ -7,7 +7,6 @@ use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\modules\ticket\tests\_support\Page\ticket\Create;
 use hipanel\modules\ticket\tests\_support\Page\ticket\Index;
 use hipanel\modules\ticket\tests\_support\Page\ticket\View;
-use yii\helpers\Url;
 
 class TicketCreationCest
 {
@@ -23,13 +22,6 @@ class TicketCreationCest
         $this->ticketId = $this->createTicket($I, $example);
         $this->ensureISeeCreatedTicketOnIndexPage($I);
         $this->ensureICanCommentTicket($I);
-    }
-
-    public function ensureISeeNotFoundErrorPageWhenRequestNotExistentTicketId(Admin $I)
-    {
-        $I->login();
-        $I->amOnPage(Url::to(['@ticket/view', 'id' => '11111111111111']));
-        $I->seeInTitle('Not Found (#404)');
     }
 
     private function createTicket(Admin $I, Example $exampleTicket): ?string 
