@@ -33,7 +33,8 @@ return [
             ],
         ],
         'geoip' => [
-            'class' => \lysenkobv\GeoIP\GeoIP::class,
+            'class' => \dpodium\yii2\geoip\components\CGeoIP::class,
+            'support_ipv6' => false,
         ],
     ],
     'container' => [
