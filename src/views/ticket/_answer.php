@@ -34,7 +34,7 @@ $separator = '&nbsp;·&nbsp;';
                 <?= $separator ?> <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
                 <?php if (Yii::$app->user->can('support') && $answer->ip) : ?>
                     <?= $separator ?> <?= Html::tag('span', 'IP: ' . $answer->ip) ?>
-                    <?php $country_name = Yii::$app->geoip->ip($answer->ip)->country; ?>
+                    <?php $country_name = Yii::$app->geoip->lookupCountryName($answer->ip); ?>
                     <?php if ($country_name) : ?>
                         <?= $separator ?> <?= Html::tag('span', Yii::t('hipanel:ticket', 'Country') . ': ' . $country_name) ?>
                     <?php endif ?>
