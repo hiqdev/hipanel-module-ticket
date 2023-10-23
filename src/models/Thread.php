@@ -341,7 +341,7 @@ class Thread extends \hipanel\base\Model
 
     public function isOpen()
     {
-        return $this->state === self::STATE_OPEN;
+        return $this->state !== self::STATE_CLOSE;
     }
 
     public function isHighPriority(): bool
