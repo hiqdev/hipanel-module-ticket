@@ -46,7 +46,7 @@ class TicketCest
     private function ensureICanSeeAdvancedSearchBox(Client $I): void
     {
         $this->index->containsFilters([
-            Input::asAdvancedSearch($I, 'Subject or 1st message'),
+            Input::asAdvancedSearch($I, 'Subject or 1st message or ticket number'),
             Select2::asAdvancedSearch($I, 'Status'),
             Select2::asAdvancedSearch($I, 'Topics'),
         ]);
