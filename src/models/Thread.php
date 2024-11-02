@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * HiPanel tickets module
  *
@@ -96,7 +96,8 @@ class Thread extends \hipanel\base\Model
             'responsible',
             'priority',
             'priority_label',
-            'spent', 'spent_hours',
+            'spent',
+            'spent_hours',
             'answer_count',
             'status',
             'reply_time',
@@ -121,7 +122,8 @@ class Thread extends \hipanel\base\Model
 
             'lastanswer',
             'time',
-            'add_watchers', 'del_watchers',
+            'add_watchers',
+            'del_watchers',
 
             'time_from',
             'time_till',
@@ -135,14 +137,20 @@ class Thread extends \hipanel\base\Model
      */
     public function rules()
     {
-        $rules = [
+        return [
             [['author_id', 'responsible_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
             [['subject'], 'string', 'min' => 3],
             [['id'], 'required', 'on' => ['answer', 'update-answer', 'open', 'close']],
-            [['recipient_id'], 'required', 'when' => function () {
-                return Yii::$app->user->can('support');
-            }, 'on' => 'create'],
+            [['id', 'message', 'state'], 'required', 'on' => ['answer-and-close']],
+            [
+                ['recipient_id'],
+                'required',
+                'when' => function () {
+                    return Yii::$app->user->can('support');
+                },
+                'on' => 'create',
+            ],
             [
                 [
                     'topics',
@@ -151,7 +159,8 @@ class Thread extends \hipanel\base\Model
                     'responsible',
                     'recipient_id',
                     'watchers',
-                    'spent', 'spent_hours',
+                    'spent',
+                    'spent_hours',
                     'file_ids',
                 ],
                 'safe',
@@ -160,12 +169,19 @@ class Thread extends \hipanel\base\Model
             [
                 [
                     'message',
-                    'topics', 'state', 'priority',
-                    'responsible', 'recipient_id',
-                    'watchers', 'add_watchers', 'del_watchers', 'watcher_ids',
+                    'topics',
+                    'state',
+                    'priority',
+                    'responsible',
+                    'recipient_id',
+                    'watchers',
+                    'add_watchers',
+                    'del_watchers',
+                    'watcher_ids',
                     'is_private',
                     'file_ids',
-                    'spent', 'spent_hours',
+                    'spent',
+                    'spent_hours',
                 ],
                 'safe',
                 'on' => 'answer',
@@ -173,17 +189,20 @@ class Thread extends \hipanel\base\Model
             [['state'], 'safe', 'on' => ['close', 'open']],
             // only client-side validation. Answer is actually possible without a message,
             // but does not make any sense.
-            [['message'], 'required', 'on' => ['answer'], 'when' => function () {
-                return false;
-            }],
+            [
+                ['message'],
+                'required',
+                'on' => ['answer'],
+                'when' => function () {
+                    return false;
+                },
+            ],
             [['state'], 'default', 'value' => self::DEFAULT_SHOW_ALL, 'on' => ['default']],
             [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 15],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
             [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('support')],
         ];
-
-        return $rules;
     }
 
     /**
@@ -301,8 +320,8 @@ class Thread extends \hipanel\base\Model
     /**
      * @param integer $id
      * @param bool $throwOnError whether to throw an exception when answer is not found in thread
-     * @throws NotFoundHttpException
      * @return Answer
+     * @throws NotFoundHttpException
      */
     public function getAnswer($id, $throwOnError = true)
     {
