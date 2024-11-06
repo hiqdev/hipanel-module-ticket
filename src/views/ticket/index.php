@@ -5,8 +5,10 @@ use hipanel\modules\ticket\grid\TicketGridView;
 use hipanel\modules\ticket\grid\TicketGridLegend;
 use hipanel\modules\ticket\grid\TicketRepresentations;
 use hipanel\modules\ticket\models\ThreadSearch;
+use hipanel\widgets\AjaxModal;
 use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
+use yii\bootstrap\Modal;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\web\View;
@@ -88,6 +90,14 @@ CSS
         <?= $page->renderBulkButton('subscribe', Yii::t('hipanel:ticket', 'Subscribe')) ?>
         <?= $page->renderBulkButton('unsubscribe', Yii::t('hipanel:ticket', 'Unsubscribe')) ?>
     <?php endif ?>
+    <?= AjaxModal::widget([
+        'id' => 'answer-and-close-modal',
+        'bulkPage' => true,
+        'header' => Html::tag('h4', Yii::t('hipanel:ticket', 'Answer and close'), ['class' => 'modal-title']),
+        'scenario' => 'answer-and-close',
+        'size' => Modal::SIZE_LARGE,
+        'toggleButton' => ['label' => Yii::t('hipanel:ticket', 'Answer and close'), 'class' => 'btn btn-sm btn-danger'],
+    ]) ?>
     <?= $page->renderBulkButton('close', Yii::t('hipanel:ticket', 'Close'), [
         'color' => 'danger',
         'confirm' => Yii::t('hipanel:ticket', 'Are you sure you want to close these tickets?')
