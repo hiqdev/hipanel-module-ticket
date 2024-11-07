@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * HiPanel tickets module
  *
@@ -17,6 +17,7 @@ use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
+use hipanel\base\CrudController;
 use hipanel\modules\ticket\models\Template;
 use hipanel\filters\EasyAccessControl;
 use hiqdev\hiart\Collection;
@@ -27,7 +28,7 @@ use yii\base\Event;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
-class TemplateController extends \hipanel\base\CrudController
+class TemplateController extends CrudController
 {
     public function behaviors()
     {
@@ -132,7 +133,7 @@ class TemplateController extends \hipanel\base\CrudController
 
     public function actionText($id, $lang)
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
+        $this->response->format = Response::FORMAT_JSON;
 
         $result = [];
 
@@ -147,33 +148,35 @@ class TemplateController extends \hipanel\base\CrudController
                 if ($text->lang === $lang) {
                     $result['text'] = $text->text;
                 }
+                $result['responsible'] = $template->responsible;
+                $result['topics'] = $template->topics;
+                $result['priority'] = $template->priority;
             }
         }
 
         return $result;
     }
 
-    public function collectionLoader($scenario, Collection $collection)
+    public function collectionLoader($scenario, Collection $collection): void
     {
         $templateModel = $this->newModel(['scenario' => $scenario]);
         $articleDataModel = new ArticleData(['scenario' => $scenario]);
 
         $templateModels = [$templateModel];
-        for ($i = 1; $i < count(Yii::$app->request->post($templateModel->formName(), [])); ++$i) {
+        for ($i = 1; $i < count($this->request->post($templateModel->formName(), [])); ++$i) {
             $templateModels[] = clone $templateModel;
         }
 
-        if (Template::loadMultiple($templateModels, Yii::$app->request->post())) {
+        if (Template::loadMultiple($templateModels, $this->request->post())) {
             /** @var Template $template */
             foreach ($templateModels as $i => $template) {
                 $articleDataModels = [$articleDataModel];
-                $texts = ArrayHelper::getValue(Yii::$app->request->post($articleDataModel->formName(), []), $i, []);
+                $texts = ArrayHelper::getValue($this->request->post($articleDataModel->formName(), []), $i, []);
                 for ($i = 1; $i < count($texts); ++$i) {
                     $articleDataModels[] = clone $articleDataModel;
                 }
                 ArticleData::loadMultiple($articleDataModels, [$articleDataModel->formName() => $texts]);
 
-                /** @var ArticleData $text */
                 foreach ($articleDataModels as $text) {
                     if ($text->article_id === $template->id && $text->validate()) {
                         $template->addText($text);
