@@ -52,6 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'author_id',
                         'name',
                         'is_published',
+                        'priority',
+                        'responsible',
+                        [
+                            'attribute' => 'topics',
+                            'value' => fn($model) => implode(', ', $model->topics ?? []),
+                        ],
                     ],
                 ]) ?>
             <?php $box->endBody() ?>

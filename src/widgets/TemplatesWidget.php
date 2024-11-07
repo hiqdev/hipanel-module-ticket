@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * HiPanel tickets module
  *
@@ -86,20 +86,29 @@ class TemplatesWidget extends Widget
                 'lang' => new JsExpression('language'),
             ],
             'success' => new JsExpression("function (data) {
-                if (data.text) {
+                if ('text' in data && data.text) {
                     var messageText = $('#thread-message').val();
                     if (messageText.length > 0) {
                         messageText = messageText + ' ';
                     }
                     $('$this->textareaSelector').val(messageText + data.text).trigger('blur').focus();
                 }
+                if('responsible' in data && data.responsible.length > 0) {
+                    $('#thread-responsible').append(new Option(data.responsible, data.responsible, true, true)).trigger('change');
+                }
+                if('priority' in data && data.priority.length > 0) {
+                    $('#thread-priority').val(data.priority).trigger('change');
+                }
+                if('topics' in data && data.topics.length > 0) {
+                    $('#thread-topics').val(data.topics).trigger('change');
+                }
             }"),
         ]);
 
         $this->view->registerJs("
-            $('#{$this->formId}').on('select2:select', function (e) {
-                var id = $(e.target).val(),
-                    language = $('.selected-language').attr('data-language');
+            $('#$this->formId').on('select2:select', function (e) {
+                var id = $(e.target).val();
+                var language = $('.selected-language').attr('data-language');
 
                 $.ajax($options);
             });

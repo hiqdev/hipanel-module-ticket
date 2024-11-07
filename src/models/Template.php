@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * HiPanel tickets module
  *
@@ -10,9 +10,16 @@
 
 namespace hipanel\modules\ticket\models;
 
+use hipanel\models\Ref;
 use hisite\modules\news\models\Article;
 use Yii;
+use yii\helpers\Json;
 
+/**
+ *
+ * @property-read array $topicOptions
+ * @property-read array $priorityOptions
+ */
 class Template extends Article
 {
     public static $i18nDictionary = 'hipanel:ticket';
@@ -22,10 +29,26 @@ class Template extends Article
         return 'article';
     }
 
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['responsible', 'priority', 'topics']);
+    }
+
+    public function rules()
+    {
+        return array_merge(parent::rules(), [
+            [['responsible', 'priority', 'topics'], 'safe'],
+        ]);
+    }
+
     public function init()
     {
         $this->realm = 'ticket_template';
         $this->type = 'default';
+        parent::init();
+        $this->on(self::EVENT_BEFORE_INSERT, [$this, 'prepareData']);
+        $this->on(self::EVENT_BEFORE_UPDATE, [$this, 'prepareData']);
+        $this->on(self::EVENT_AFTER_FIND, [$this, 'prepareData']);
     }
 
     public static function find($options = [])
@@ -39,6 +62,36 @@ class Template extends Article
     {
         return $this->mergeAttributeLabels([
             'name' => Yii::t('hipanel:ticket', 'Name'),
+            'responsible' => Yii::t('hipanel:ticket', 'Responsible'),
+            'priority' => Yii::t('hipanel:ticket', 'Priority'),
+            'topics' => Yii::t('hipanel:ticket', 'Topic'),
         ]);
+    }
+
+    public function getTopicOptions(): array
+    {
+        return Ref::getList('topic,ticket', self::$i18nDictionary);
+    }
+
+    public function getPriorityOptions(): array
+    {
+        return Ref::getList('type,priority', self::$i18nDictionary);
+    }
+
+    public function prepareData($event): void
+    {
+        $sender = $event->sender;
+        if ($event->name === 'afterFind') {
+            $data = Json::decode($sender->data);
+            foreach ($data as $key => $value) {
+                $sender->$key = $value;
+            }
+        } else {
+            $sender->data = Json::encode(array_filter([
+                'responsible' => $sender->responsible,
+                'priority' => $sender->priority,
+                'topics' => $sender->topics,
+            ]));
+        }
     }
 }
