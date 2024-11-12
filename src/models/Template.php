@@ -13,6 +13,7 @@ namespace hipanel\modules\ticket\models;
 use hipanel\models\Ref;
 use hisite\modules\news\models\Article;
 use Yii;
+use yii\base\Event;
 use yii\helpers\Json;
 
 /**
@@ -78,11 +79,11 @@ class Template extends Article
         return Ref::getList('type,priority', self::$i18nDictionary);
     }
 
-    public function prepareData($event): void
+    public function prepareData(Event $event): void
     {
         $sender = $event->sender;
-        if ($event->name === 'afterFind') {
-            $data = Json::decode($sender->data);
+        if ($event->name === self::EVENT_AFTER_FIND) {
+            $data = Json::decode($sender->data) ?? [];
             foreach ($data as $key => $value) {
                 $sender->$key = $value;
             }
