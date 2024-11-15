@@ -126,7 +126,7 @@ class Answer extends \hipanel\base\Model
                 'boolean',
                 'on' => 'update',
                 'when' => function () {
-                    return Yii::$app->user->can('support');
+                    return Yii::$app->user->can('ticket.set-private');
                 },
             ],
         ];

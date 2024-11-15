@@ -26,7 +26,7 @@ class TemplatesWidget extends Widget
 
     public function run()
     {
-        if (!Yii::$app->user->can('support')) {
+        if (!Yii::$app->user->can('ticket.read-templates')) {
             return null;
         }
         $this->formId = mt_rand();

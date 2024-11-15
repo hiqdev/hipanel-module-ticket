@@ -86,7 +86,7 @@ class TicketGridView extends BoxedGridView
                 'value' => function ($model) {
                     return Html::a(Html::encode($model['responsible']), ['/client/client/view', 'id' => $model->responsible_id]);
                 },
-                'visible' => Yii::$app->user->can('support'),
+                'visible' => Yii::$app->user->can('access-subclients'),
             ],
             'recipient_id' => [
                 'class' => ClientColumn::class,
@@ -101,7 +101,7 @@ class TicketGridView extends BoxedGridView
                 'value' => function ($model) {
                     return Html::a(Html::encode($model->recipient), ['/client/client/view', 'id' => $model->recipient_id]);
                 },
-                'visible' => Yii::$app->user->can('support'),
+                'visible' => Yii::$app->user->can('access-subclients'),
             ],
             'answer_count' => [
                 'attribute' => 'answer_count',

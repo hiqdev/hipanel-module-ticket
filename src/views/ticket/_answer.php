@@ -32,7 +32,7 @@ $separator = '&nbsp;·&nbsp;';
                     <?= $separator ?> <b><?= $answer->account ?></b>
                 <?php endif ?>
                 <?= $separator ?> <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
-                <?php if (Yii::$app->user->can('support') && $answer->ip) : ?>
+                <?php if (Yii::$app->user->can('client.read-ip') && $answer->ip) : ?>
                     <?= $separator ?> <?= Html::tag('span', 'IP: ' . $answer->ip) ?>
                     <?php $country_name = Yii::$app->geoip->lookupCountryName($answer->ip); ?>
                     <?php if ($country_name) : ?>

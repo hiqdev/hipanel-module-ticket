@@ -147,7 +147,7 @@ class Thread extends \hipanel\base\Model
                 ['recipient_id'],
                 'required',
                 'when' => function () {
-                    return Yii::$app->user->can('support');
+                    return Yii::$app->user->can('ticket.set-recipient');
                 },
                 'on' => 'create',
             ],
@@ -201,7 +201,7 @@ class Thread extends \hipanel\base\Model
             [['id'], 'integer', 'on' => 'answer'],
             [['file'], 'file', 'maxFiles' => 15],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
-            [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('support')],
+            [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('access-subclients')],
         ];
     }
 

@@ -38,7 +38,7 @@ class Template extends Article
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['responsible', 'priority', 'topics'], 'safe'],
+            [['responsible', 'priority', 'topics', 'data'], 'safe'],
         ]);
     }
 
@@ -83,7 +83,8 @@ class Template extends Article
     {
         $sender = $event->sender;
         if ($event->name === self::EVENT_AFTER_FIND) {
-            $data = Json::decode($sender->data) ?? [];
+            //$data = Json::decode($sender->data) ?? [];
+            $data = [];
             foreach ($data as $key => $value) {
                 $sender->$key = $value;
             }

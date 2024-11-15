@@ -15,7 +15,7 @@ use yii\helpers\Html;
     <?= $search->field('anytext_like') ?>
 </div>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('access-subclients')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('author_id')->widget(ClientCombo::class); ?>
     </div>
@@ -53,7 +53,7 @@ use yii\helpers\Html;
     ]) ?>
 </div>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('access-subclients')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('responsible_id')->widget(ClientCombo::class, [
             'clientType' => 'manager',

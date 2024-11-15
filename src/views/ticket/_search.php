@@ -28,7 +28,7 @@ use yii\web\View;
     <?= $search->field('numbers') ?>
 </div>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('access-subclients')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('author_id')->widget(ClientCombo::class); ?>
     </div>
@@ -62,7 +62,7 @@ use yii\web\View;
     ]) ?>
 </div>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('access-subclients')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('responsible')->widget(ClientCombo::class, [
             'clientType' => ['manager', 'admin', 'owner', 'reseller'],
