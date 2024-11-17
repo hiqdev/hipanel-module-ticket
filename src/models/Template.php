@@ -83,8 +83,7 @@ class Template extends Article
     {
         $sender = $event->sender;
         if ($event->name === self::EVENT_AFTER_FIND) {
-            //$data = Json::decode($sender->data) ?? [];
-            $data = [];
+            $data = Json::decode($sender->data) ?? [];
             foreach ($data as $key => $value) {
                 $sender->$key = $value;
             }
