@@ -158,7 +158,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                     <div class="col-md-3">
                         <?php
                         $is = $model instanceof Answer;
-                        if (Yii::$app->user->can('support') && $model->canSetSpent() ) : ?>
+                        if (Yii::$app->user->can('ticket.set-time') && $model->canSetSpent() ) : ?>
                             <div class="pull-right">
                                 <?= $form->field($model, 'spent')->widget(TimePicker::class, [
                                     'options' => [
@@ -179,7 +179,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                     </div>
                     <div class="col-md-7">
                         <div class="pull-right">
-                            <?php if (!$model->isNewRecord && $model->isAttributeActive('is_private') && Yii::$app->user->can('manage')) : ?>
+                            <?php if (!$model->isNewRecord && $model->isAttributeActive('is_private') && Yii::$app->user->can('ticket.set-private')) : ?>
                                 <?= $form->field($model, 'is_private')->checkbox(['class' => 'option-input']) ?>
                             <?php endif; ?>
                         </div>

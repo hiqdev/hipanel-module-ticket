@@ -38,7 +38,7 @@ class Template extends Article
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['responsible', 'priority', 'topics'], 'safe'],
+            [['responsible', 'priority', 'topics', 'data'], 'safe'],
         ]);
     }
 

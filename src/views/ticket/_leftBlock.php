@@ -72,7 +72,7 @@ $form = ConditionalFormWidget::begin([
 
         <?= $this->render('_advancedForm', compact('form', 'model', 'topic_data', 'state_data', 'priority_data', 'action')) ?>
 
-        <?php if (!$model->isNewRecord && Yii::$app->user->can('support')) : ?>
+        <?php if (!$model->isNewRecord && Yii::$app->user->can('access-subclients')) : ?>
             <?php $box->beginFooter() ?>
             <?= $this->render('_subscribeButton', compact('model')) ?>
             <?php $box->endFooter() ?>

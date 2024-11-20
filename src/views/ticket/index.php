@@ -78,7 +78,7 @@ CSS
 
 <?php $page->beginContent('sorter-actions') ?>
     <?= $page->renderSorter([
-        'attributes' => Yii::$app->user->can('support') ?  [
+        'attributes' => Yii::$app->user->can('access-subclients') ?  [
             'create_time', 'lastanswer', 'spent',
             'subject', 'responsible_id', 'recipient', 'author', 'author_seller',
         ] : ['subject'],
@@ -86,7 +86,7 @@ CSS
 <?php $page->endContent() ?>
 
 <?php $page->beginContent('bulk-actions') ?>
-    <?php if (Yii::$app->user->can('support')) : ?>
+    <?php if (Yii::$app->user->can('access-subclients')) : ?>
         <?= $page->renderBulkButton('subscribe', Yii::t('hipanel:ticket', 'Subscribe')) ?>
         <?= $page->renderBulkButton('unsubscribe', Yii::t('hipanel:ticket', 'Unsubscribe')) ?>
     <?php endif ?>
