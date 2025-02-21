@@ -160,7 +160,6 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                         $is = $model instanceof Answer;
                         if (Yii::$app->user->can('ticket.set-time') && $model->canSetSpent() ) : ?>
                             <div class="pull-right">
-                                <?= $form->field($model, 'spent_billable')->checkbox(['class' => 'option-input', 'checked' => true]) ?>
                                 <?= $form->field($model, 'spent')->widget(TimePicker::class, [
                                     'options' => [
                                         'value' => $model instanceof Answer
