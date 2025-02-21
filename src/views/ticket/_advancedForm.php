@@ -12,7 +12,7 @@ use yii\widgets\DetailView;
  * @var Thread $model
  */
 
-$isSupport = Yii::$app->user->can('access-subclient') && !Yii::$app->user->identity->is('client');
+$isSupport = Yii::$app->user->can('access-subclients') && !Yii::$app->user->identity->is('client');
 $isNewRecord = $model->isNewRecord;
 
 if ($isNewRecord) {
