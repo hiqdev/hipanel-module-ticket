@@ -111,6 +111,7 @@ class Answer extends \hipanel\base\Model
                 'integer',
                 'enableClientValidation' => false,
             ],
+            [['spent_billable'], 'boolean'],
             [
                 ['message', 'id', 'answer_id'],
                 'required',
@@ -129,6 +130,7 @@ class Answer extends \hipanel\base\Model
                     return Yii::$app->user->can('ticket.set-private');
                 },
             ],
+            [['spent_billable'], 'boolean', 'on' => ['update', 'create']],
         ];
     }
 
