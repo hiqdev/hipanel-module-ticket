@@ -33,7 +33,12 @@ $separator = '&nbsp;·&nbsp;';
                 <?php endif ?>
                 <?= $separator ?> <?= Html::tag('span', Yii::$app->formatter->asDatetime($answer->create_time)) ?>
                 <?php if (Yii::$app->user->can('client.read-ip') && $answer->ip) : ?>
-                    <?= $separator ?> <?= Html::tag('span', 'IP: ' . $answer->ip) ?>
+                    <?= $separator ?>
+                        <?php if (filter_var($answer->ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) : ?>
+                            <?= Html::tag('span', 'IP: ' . $answer->ip) ?>
+                        <?php else : ?>
+                              <?= Html::tag('span', 'Via E-Mail') ?>
+                        <?php endif ?>
                     <?php $country_name = Yii::$app->geoip->lookupCountryName($answer->ip); ?>
                     <?php if ($country_name) : ?>
                         <?= $separator ?> <?= Html::tag('span', Yii::t('hipanel:ticket', 'Country') . ': ' . $country_name) ?>
