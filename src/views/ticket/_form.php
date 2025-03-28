@@ -4,18 +4,27 @@ use hipanel\assets\OcticonsAsset;
 use hipanel\modules\ticket\models\Answer;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
+use hipanel\modules\ticket\widgets\TemplatesWidget;
 use hipanel\widgets\FileInput;
 use hipanel\widgets\TimePicker;
 use hipanel\assets\CheckboxStyleAsset;
+use hisite\modules\news\models\Article;
 use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\web\View;
 
 /**
- * @var \yii\web\View
+ * @var array $priority_data
+ * @var array $state_data
+ * @var array $topic_data
+ * @var string $action
+ * @var View $this
  * @var Answer|Thread $model
  */
+
 OcticonsAsset::register($this);
 CheckboxStyleAsset::register($this);
-$emptyPreviewText = \yii\helpers\Json::encode(Yii::t('hipanel:ticket', 'Nothing to preview'));
+$emptyPreviewText = Json::encode(Yii::t('hipanel:ticket', 'Nothing to preview'));
 $this->registerJs(<<< JS
 // Fetch preview
 $(".js-get-preview").on('click', function (event) {
@@ -27,7 +36,7 @@ $(".js-get-preview").on('click', function (event) {
     });
 });
 JS
-    , \yii\web\View::POS_READY);
+    , View::POS_READY);
 
 $this->registerCss(<<< 'CSS'
 .checkbox label {
@@ -120,9 +129,9 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
         </div>
     </div>
     <div class="hidden-form-inputs">
-        <?php if (class_exists(\hisite\modules\news\models\Article::class)): ?>
+        <?php if (class_exists(Article::class)): ?>
             <div class="row">
-                <?= \hipanel\modules\ticket\widgets\TemplatesWidget::widget() ?>
+                <?= TemplatesWidget::widget() ?>
             </div>
         <?php endif ?>
         <div class="row">
@@ -166,12 +175,8 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                                             ? (new DateTime('@' . (int) $model->spent * 60))->format('H:i')
                                             : '00:00',
                                     ],
-                                    'pluginOptions' => [
-                                        'showSeconds' => false,
-                                        'showMeridian' => false,
-                                        'minuteStep' => 1,
-                                        'hourStep' => 1,
-                                        'defaultTime' => '00:00',
+                                    'clientOptions' => [
+                                        'minuteIncrement' => 1,
                                     ],
                                 ])->label(false); ?>
                             </div>
@@ -183,14 +188,10 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                                 <?= $form->field($model, 'is_private')->checkbox(['class' => 'option-input']) ?>
                             <?php endif; ?>
                         </div>
-                        <!-- /.pull-right -->
                     </div>
                 </div>
             </div>
-            <!-- /.col-md-12 -->
-            <!-- /.row -->
         </div>
-        <!-- /.row -->
     </div>
 </div>
 
