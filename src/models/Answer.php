@@ -97,6 +97,7 @@ class Answer extends \hipanel\base\Model
             'is_moved',
             'ip',
             'file',
+            'spent_billable',
         ];
     }
 
