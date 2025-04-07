@@ -52,7 +52,7 @@ CSS
 
 <?php
 $form = ConditionalFormWidget::begin([
-    'form' => isset($form) ? $form : null,
+    'form' => $form ?? null,
     'options' => [
         'id' => 'leave-comment-form',
         'action' => $action,
@@ -137,19 +137,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
         <div class="row">
             <?php if ($model->isAttributeActive('file')) : ?>
                 <div class="col-md-12">
-                    <?= $form->field($model, 'file[]')->widget(FileInput::class, [
-                        'options' => [
-                            'multiple' => true,
-                        ],
-                        'pluginOptions' => [
-                            'previewFileType' => 'any',
-                            'showRemove' => true,
-                            'showUpload' => false,
-                            'initialPreviewShowDelete' => true,
-                            'maxFileCount' => 15,
-                            'msgFilesTooMany' => Yii::t('hipanel', 'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}'),
-                        ],
-                    ]) ?>
+                    <?= $form->field($model, 'file[]')->widget(FileInput::class, ['options' => ['multiple' => true]]) ?>
                 </div>
             <?php endif; ?>
             <div class="col-md-12">
