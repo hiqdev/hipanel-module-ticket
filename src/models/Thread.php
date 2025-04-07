@@ -13,6 +13,7 @@ namespace hipanel\modules\ticket\models;
 use hipanel\behaviors\File;
 use hipanel\helpers\Markdown;
 use hipanel\modules\client\models\Client;
+use hipanel\validators\FileValidator;
 use stdClass;
 use Yii;
 use yii\helpers\HtmlPurifier;
@@ -199,7 +200,7 @@ class Thread extends \hipanel\base\Model
             ],
             [['state'], 'default', 'value' => self::DEFAULT_SHOW_ALL, 'on' => ['default']],
             [['id'], 'integer', 'on' => 'answer'],
-            [['file'], 'file', 'maxFiles' => 15],
+            [['file'], FileValidator::class, 'maxFiles' => 15],
             [['lastanswer', 'create_time', 'recipient'], 'safe'],
             [['author', 'author_seller'], 'safe', 'when' => Yii::$app->user->can('access-subclients')],
         ];
