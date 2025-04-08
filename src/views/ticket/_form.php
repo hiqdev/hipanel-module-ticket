@@ -167,6 +167,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                                         'minuteIncrement' => 1,
                                     ],
                                 ])->label(false); ?>
+                                <?= $form->field($model, 'spent_billable')->checkbox(['class' => 'option-input', 'checked' => true]) ?>
                             </div>
                         <?php endif; ?>
                     </div>
