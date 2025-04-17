@@ -130,6 +130,7 @@ class Thread extends \hipanel\base\Model
             'time_till',
 
             'contact',
+            'spent_billable',
         ];
     }
 
@@ -141,6 +142,7 @@ class Thread extends \hipanel\base\Model
         return [
             [['author_id', 'responsible_id'], 'integer'],
             [['subject', 'message'], 'required', 'on' => ['create']],
+            [['spent_billable'], 'boolean', 'trueValue' => 1, 'falseValue' => 0],
             [['subject'], 'string', 'min' => 3],
             [['id'], 'required', 'on' => ['answer', 'update-answer', 'open', 'close']],
             [['id', 'message', 'state'], 'required', 'on' => ['answer-and-close']],
