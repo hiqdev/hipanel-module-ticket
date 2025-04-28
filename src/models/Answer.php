@@ -153,6 +153,7 @@ class Answer extends \hipanel\base\Model
             'file' => Yii::t('hipanel:ticket', 'Files'),
             'lastanswer' => Yii::t('hipanel:ticket', 'Last answer'),
             'author_seller' => Yii::t('hipanel:ticket', 'Seller'),
+            'spent_billable' => Yii::t('hipanel:ticket', 'Is billable?'),
         ]);
     }
 
