@@ -226,6 +226,7 @@ class Thread extends \hipanel\base\Model
             'lastanswer' => Yii::t('hipanel:ticket', 'Last answer'),
             'author_seller' => Yii::t('hipanel:ticket', 'Seller'),
             'watcher_ids' => Yii::t('hipanel:ticket', 'Watchers'),
+            'spent_billable' => Yii::t('hipanel:ticket', 'Is billable?'),
         ]);
     }
 
