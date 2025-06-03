@@ -86,6 +86,7 @@ class TemplatesWidget extends Widget
                 'lang' => new JsExpression('language'),
             ],
             'success' => new JsExpression("function (data) {
+                const exists = (attribute) => data.hasOwnProperty(attribute) && data[attribute] != null;
                 if ('text' in data && data.text) {
                     var messageText = $('#thread-message').val();
                     if (messageText.length > 0) {
@@ -93,13 +94,13 @@ class TemplatesWidget extends Widget
                     }
                     $('$this->textareaSelector').val(messageText + data.text).trigger('blur').focus();
                 }
-                if('responsible' in data && data.responsible.length > 0) {
+                if (exists('responsible')) {
                     $('#thread-responsible').append(new Option(data.responsible, data.responsible, true, true)).trigger('change');
                 }
-                if('priority' in data && data.priority.length > 0) {
+                if (exists('priority')) {
                     $('#thread-priority').val(data.priority).trigger('change');
                 }
-                if('topics' in data && data.topics.length > 0) {
+                if (exists('topics')) {
                     $('#thread-topics').val(data.topics).trigger('change');
                 }
             }"),

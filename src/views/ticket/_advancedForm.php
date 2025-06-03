@@ -1,5 +1,6 @@
 <?php
 
+use hipanel\components\User;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\modules\ticket\models\Thread;
 use hiqdev\combo\StaticCombo;
@@ -10,17 +11,19 @@ use yii\widgets\DetailView;
 
 /**
  * @var Thread $model
+ * @var User $user
  */
 
+$user = Yii::$app->user->identity;
 $isSupport = Yii::$app->user->can('access-subclients') && !Yii::$app->user->identity->is('client');
 $isNewRecord = $model->isNewRecord;
 
 if ($isNewRecord) {
     if ($isSupport) {
-        $model->priority = 'medium';
-        $model->responsible = Yii::$app->user->identity->login;
+        $model->priority = $model->priority ?? 'medium';
+        $model->responsible = $user->login;
     } else {
-        $model->recipient_id = Yii::$app->user->identity->id;
+        $model->recipient_id = $user->id;
     }
     $this->registerCss("
     .table.detail-view { table-layout: fixed; }
