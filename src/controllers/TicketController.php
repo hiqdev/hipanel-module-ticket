@@ -152,9 +152,7 @@ class TicketController extends \hipanel\base\CrudController
             'create' => [
                 'class' => SmartCreateAction::class,
                 'success' => Yii::t('hipanel:ticket', 'Ticket posted'),
-                'data' => function () {
-                    return $this->prepareRefs();
-                },
+                'data' => fn(): array => $this->prepareRefs(),
             ],
             'delete' => [
                 'class' => SmartPerformAction::class,
@@ -277,7 +275,7 @@ class TicketController extends \hipanel\base\CrudController
     /**
      * @return array
      */
-    protected function prepareRefs()
+    protected function prepareRefs(): array
     {
         $state_data = array_merge([Thread::DEFAULT_SHOW_ALL => Yii::t('hipanel', 'Show all')],
             $this->getClassRefs('state', 'hipanel:ticket'));

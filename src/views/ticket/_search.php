@@ -1,14 +1,15 @@
 <?php
 
+use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\AdvancedSearch;
-use hiqdev\yii2\daterangepicker\DateRangePicker;
+use hipanel\widgets\TagsInput;
 use hiqdev\combo\StaticCombo;
-use yii\helpers\Html;
+use hiqdev\yii2\daterangepicker\DateRangePicker;
 use yii\web\View;
 
 /**
- * @var View
+ * @var View $this
  * @var AdvancedSearch $search
  * @var array $state_data
  * @var array $priority_data
@@ -30,7 +31,7 @@ use yii\web\View;
 
 <?php if (Yii::$app->user->can('access-subclients')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('author_id')->widget(ClientCombo::class); ?>
+        <?= $search->field('author_id')->widget(ClientCombo::class) ?>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -38,22 +39,29 @@ use yii\web\View;
             'clientType' => 'client',
         ]) ?>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
-        <?= Html::label(Yii::t('hipanel', 'Date')) ?>
         <?= DateRangePicker::widget([
             'model' => $search->model,
             'attribute' => 'time_from',
             'attribute2' => 'time_till',
             'options' => [
                 'class' => 'form-control',
+                'placeholder' => $search->model->getAttributeLabel('time_from'),
             ],
             'dateFormat' => 'yyyy-MM-dd',
         ]) ?>
     </div>
 </div>
+
+<?php if (Yii::$app->user->can('owner-staff')) : ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('client_tags')->widget(TagsInput::class, ['searchModel' => new Client()]) ?>
+    </div>
+<?php endif ?>
+
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('state')->widget(StaticCombo::class, [
         'data' => $state_data,
@@ -67,7 +75,7 @@ use yii\web\View;
         <?= $search->field('responsible')->widget(ClientCombo::class, [
             'clientType' => ['manager', 'admin', 'owner', 'reseller'],
             'multiple' => true,
-        ]); ?>
+        ]) ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('priority')->widget(StaticCombo::class, [
@@ -86,14 +94,14 @@ use yii\web\View;
             ],
         ]) ?>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('topics')->widget(StaticCombo::class, [
         'data' => $topic_data,
         'hasId' => true,
         'multiple' => true,
-    ]); ?>
+    ]) ?>
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
