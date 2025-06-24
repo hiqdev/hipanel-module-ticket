@@ -5,6 +5,7 @@
  * @var Client $client
  */
 
+use hipanel\grid\TagsColumn;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\stub\ClientRelationFreeStub;
@@ -56,7 +57,7 @@ if (!is_null($client)) {
                     'boxed' => false,
                     'columns' => array_filter(
                         $client->login === 'anonym' ? ['name', 'email'] : [
-                            'name', 'email', 'messengers', 'country', 'language', 'state',
+                            'name', 'email', 'tags' => ['class' => TagsColumn::class, 'widgetOptions' => ['forceReadOnly' => true]], 'messengers', 'country', 'language', 'state',
                             Yii::$app->user->can('bill.read') ? 'balance' : null,
                             Yii::$app->user->can('bill.read') ? 'credit' : null,
                             class_exists(\hipanel\modules\server\Module::class) ? 'servers_spoiler' : null,
