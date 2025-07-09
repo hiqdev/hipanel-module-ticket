@@ -6,6 +6,7 @@ use hipanel\modules\ticket\menus\TemplateDetailMenu;
 use hipanel\modules\ticket\models\Template;
 use hipanel\widgets\Box;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\web\View;
 
 /**
@@ -15,7 +16,7 @@ use yii\web\View;
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:ticket', 'Answer templates'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = StringHelper::truncateWords($this->title, 6);
 
 ?>
 
@@ -40,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= TemplateDetailMenu::widget(['model' => $model]) ?>
         </div>
         <?php Box::end() ?>
-            <?php $box = Box::begin(['renderBody' => false]) ?>
+            <?php $box = Box::begin(['renderBody' => false, 'bodyOptions' => ['class' => 'table-responsive no-padding']]) ?>
             <?php $box->beginHeader() ?>
                 <?= $box->renderTitle(Yii::t('hipanel:ticket', 'Template details')) ?>
             <?php $box->endHeader() ?>
