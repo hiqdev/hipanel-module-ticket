@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * HiPanel tickets module
  *
@@ -29,9 +31,7 @@ class TemplateGridView extends \hipanel\grid\BoxedGridView
                 'nameAttribute' => 'author',
             ],
             'post_date' => [
-                'value' => function ($model) {
-                    return Yii::$app->formatter->asDatetime($model->post_date);
-                },
+                'value' => fn($model): string => $this->formatter->asDatetime($model->post_date),
             ],
             'actions' => [
                 'class' => MenuColumn::class,
@@ -46,6 +46,7 @@ class TemplateGridView extends \hipanel\grid\BoxedGridView
             'name' => [
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
+                'contentOptions' => ['style' => 'white-space: break-spaces;'],
             ],
         ]);
     }
