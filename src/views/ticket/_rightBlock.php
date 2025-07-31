@@ -2,6 +2,7 @@
 
 use hipanel\helpers\Url;
 use hipanel\modules\ticket\assets\ThreadCheckerAsset;
+use hipanel\modules\ticket\widgets\ThreadDecorator;
 use hipanel\widgets\AjaxModal;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
@@ -10,9 +11,9 @@ use yii\web\JsExpression;
 use yii\web\View;
 
 /**
- * @var View
+ * @var View $this
  * @var \hipanel\modules\ticket\models\Thread $model
- * @var \hipanel\modules\ticket\widgets\ThreadDecorator $decorator
+ * @var ThreadDecorator $decorator
  */
 ThreadCheckerAsset::register($this);
 
@@ -23,17 +24,24 @@ $threadCheckerOptions = Json::encode([
 ]);
 
 $this->registerJs(<<<JS
+function openCommentForm (event) {
+  var button = $(event.currentTarget);
+  var comments_form = $('.leave-comment-form');
+  var comment_tab_sibling = comments_form.prev();
+
+  button.after(comments_form);
+  comment_tab_sibling.after(button);
+  comments_form.find('textarea').focus().trigger('focus');
+}
+
 $('.widget-article-comments').threadChecker($threadCheckerOptions);
 
-$('.message-block-move-btn').on('click', function () {
-    var button = $(this);
-    var comments_form = $('.leave-comment-form');
-    var comment_tab_sibling = comments_form.prev();
+$('.message-block-move-btn').on('click', openCommentForm);
 
-    button.after(comments_form);
-    comment_tab_sibling.after(button);
-    comments_form.find('textarea').focus().trigger('focus');
-});
+const messageElement = document.getElementById('thread-message');
+if (typeof openCommentForm !== 'undefined' && messageElement && messageElement.value) {
+  $('.message-block-move-btn').click();
+}
 
 $(".comment-quote-button").on("click", function(event) {
     event.preventDefault();
@@ -59,7 +67,8 @@ $(".comment-quote-button").on("click", function(event) {
     });
 });
 JS
-    , View::POS_READY);
+    , View::POS_LOAD);
+
 ?>
 
 <div class="box box-widget">
