@@ -59,6 +59,9 @@
             if (data.html) {
                 this.element.html(data.html);
             }
+            if ("csrf" in data) {
+              $('#leave-comment-form').find('input[name="_csrf"]').val(data.csrf);
+            }
         }
     };
 

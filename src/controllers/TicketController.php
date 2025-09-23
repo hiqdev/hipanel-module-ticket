@@ -399,7 +399,7 @@ class TicketController extends \hipanel\base\CrudController
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        $result = ['id' => $id, 'answer_id' => $answer_id];
+        $result = ['id' => $id, 'answer_id' => $answer_id, 'csrf' => Yii::$app->request->csrfToken];
 
         try {
             $data = Thread::perform('get-last-answer-id', ['id' => $id, 'answer_id' => $answer_id]);
