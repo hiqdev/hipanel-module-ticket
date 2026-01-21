@@ -23,7 +23,7 @@ class StatisticController extends \hipanel\base\CrudController
             [
                 'class' => EasyAccessControl::class,
                 'actions' => [
-                    '*' => 'manage',
+                    '*' => 'ticket.read-statistics',
                 ],
 
             ],
