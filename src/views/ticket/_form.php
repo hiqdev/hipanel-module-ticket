@@ -182,8 +182,8 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                     </div>
                     <div class="col-md-3">
                         <div class="pull-right">
-                            <?php if (!$model->isNewRecord) : ?>
-                                <?php // $model->responsible = $model->responsible ?? Yii::$app->user->username ?>
+                            <?php if (!$model->isNewRecord && Yii::$app->user->can('owner-staff')) : ?>
+                                <?php $model->topics ??= 'technical' ?>
                                 <?= $form->field($model, 'responsible')->widget(ClientCombo::class, [
                                     'clientType' => $model->getResponsibleClientTypes(),
                                 ]) ?>
@@ -191,9 +191,6 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                                     'hasId' => true,
                                     'data' => $topic_data ?? [],
                                     'multiple' => true,
-                                    'inputOptions' => [
-                                        'value' => 'technical',
-                                    ],
                                 ]) ?>
                             <?php endif ?>
                         </div>
