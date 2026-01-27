@@ -5,6 +5,8 @@ use hipanel\modules\ticket\models\Answer;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\modules\ticket\widgets\TemplatesWidget;
+use hipanel\modules\client\widgets\combo\ClientCombo;
+use hiqdev\combo\StaticCombo;
 use hipanel\widgets\FileInput;
 use hipanel\widgets\TimePicker;
 use hipanel\assets\CheckboxStyleAsset;
@@ -171,11 +173,29 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                             </div>
                         <?php endif; ?>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-3">
                         <div class="pull-right">
                             <?php if (!$model->isNewRecord && $model->isAttributeActive('is_private') && Yii::$app->user->can('ticket.set-private')) : ?>
                                 <?= $form->field($model, 'is_private')->checkbox(['class' => 'option-input']) ?>
                             <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="pull-right">
+                            <?php if (!$model->isNewRecord) : ?>
+                                <?php // $model->responsible = $model->responsible ?? Yii::$app->user->username ?>
+                                <?= $form->field($model, 'responsible')->widget(ClientCombo::class, [
+                                    'clientType' => $model->getResponsibleClientTypes(),
+                                ]) ?>
+                                <?= $form->field($model, 'topics')->widget(StaticCombo::class, [
+                                    'hasId' => true,
+                                    'data' => $topic_data ?? [],
+                                    'multiple' => true,
+                                    'inputOptions' => [
+                                        'value' => 'technical',
+                                    ],
+                                ]) ?>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
