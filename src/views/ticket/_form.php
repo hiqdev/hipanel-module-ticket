@@ -183,7 +183,7 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                     <div class="col-md-3">
                         <div class="pull-right">
                             <?php if (!$model->isNewRecord && Yii::$app->user->can('owner-staff')) : ?>
-                                <?php $model->topics ??= 'technical' ?>
+                                <?php $model->topics = empty($model->topics) ? 'technical' : array_keys($model->topics) ?>
                                 <?= $form->field($model, 'responsible')->widget(ClientCombo::class, [
                                     'clientType' => $model->getResponsibleClientTypes(),
                                 ]) ?>
