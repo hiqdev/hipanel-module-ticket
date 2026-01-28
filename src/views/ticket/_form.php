@@ -183,7 +183,10 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                     <div class="col-md-3">
                         <div class="pull-right">
                             <?php if (!$model->isNewRecord && Yii::$app->user->can('owner-staff')) : ?>
-                                <?php $model->topics = empty($model->topics) ? ['technical'] : array_keys($model->topics) ?>
+                                <?php $topics = array_keys($model->topics ?? [] ) ?>
+                                <?php if (!empty(Yii::$app->params['module.ticket.default.topics'])): ?>
+                                    <?php $topics = $topics ?: Yii::$app->params['module.ticket.default.topics'] ?>
+                                <?php endif ?>
                                 <?php $model->responsible ??= Yii::$app->user->getIdentity()->username ?>
                                 <?= $form->field($model, 'responsible')->widget(ClientCombo::class, [
                                     'clientType' => $model->getResponsibleClientTypes(),
@@ -192,6 +195,9 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                                     'hasId' => true,
                                     'data' => $topic_data ?? [],
                                     'multiple' => true,
+                                    'inputOptions' => [
+                                        'value' => $topics,
+                                    ],
                                 ]) ?>
                             <?php endif ?>
                         </div>
