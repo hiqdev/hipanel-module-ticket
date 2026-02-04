@@ -28,6 +28,7 @@ use yii\web\NotFoundHttpException;
 class Thread extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
+    use ResponsibleTrait;
 
     const DEFAULT_SHOW_ALL = 'all';
 
@@ -309,16 +310,6 @@ class Thread extends \hipanel\base\Model
     {
         // TODO: redo API in order to have different `Thread` and `ThreadMessage` models
         return $this->hasMany(Answer::class, ['id' => 'id'])->joinWith('files')->indexBy('answer_id');
-    }
-
-    /**
-     * Returns array of client types, that can be set as responsible for the thread.
-     *
-     * @return array
-     */
-    public static function getResponsibleClientTypes()
-    {
-        return [Client::TYPE_SELLER, Client::TYPE_ADMIN, Client::TYPE_MANAGER, Client::TYPE_OWNER];
     }
 
     /**
