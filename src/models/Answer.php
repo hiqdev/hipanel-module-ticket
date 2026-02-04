@@ -21,6 +21,7 @@ use Yii;
 class Answer extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
+    use ResponsibleTrait;
 
     public static $i18nDictionary = 'hipanel:ticket';
 
@@ -98,6 +99,9 @@ class Answer extends \hipanel\base\Model
             'ip',
             'file',
             'spent_billable',
+            'responsible',
+            'responsible_id',
+            'topics',
         ];
     }
 
@@ -108,7 +112,7 @@ class Answer extends \hipanel\base\Model
     {
         return [
             [
-                ['id', 'answer_id', 'spent', 'spent_hours'],
+                ['id', 'answer_id', 'spent', 'spent_hours', 'responsible_id'],
                 'integer',
                 'enableClientValidation' => false,
             ],
@@ -132,6 +136,7 @@ class Answer extends \hipanel\base\Model
                 },
             ],
             [['spent_billable'], 'boolean', 'on' => ['update', 'create']],
+            [['responsible', 'topics'], 'safe'],
         ];
     }
 
