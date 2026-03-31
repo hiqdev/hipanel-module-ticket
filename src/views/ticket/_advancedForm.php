@@ -16,6 +16,7 @@ use yii\widgets\DetailView;
 
 $user = Yii::$app->user->identity;
 $isSupport = Yii::$app->user->can('access-subclients') && !Yii::$app->user->identity->is('client');
+$isOwnerStaff = $isSupport && Yii::$app->user->can('owner-staff');
 $isNewRecord = $model->isNewRecord;
 
 if ($isNewRecord) {
@@ -81,7 +82,7 @@ $this->registerCss(".table.detail-view { margin-bottom: 0px; }");
                     ],
                 ]),
             ] : null,
-            $isSupport ? [
+            $isOwnerStaff ? [
                 'attribute' => 'responsible',
                 'format' => 'raw',
                 'value' => $isNewRecord ? $form->field($model, 'responsible')->widget(ClientCombo::class, [
