@@ -187,10 +187,6 @@ $('#{$form->getId()} textarea').one('focus', function(event) {
                                 <?php if (!empty(Yii::$app->params['module.ticket.default.topics'])): ?>
                                     <?php $topics = $topics ?: Yii::$app->params['module.ticket.default.topics'] ?>
                                 <?php endif ?>
-                                <?php $model->responsible ??= Yii::$app->user->getIdentity()->username ?>
-                                <?= $form->field($model, 'responsible')->widget(ClientCombo::class, [
-                                    'clientType' => $model->getResponsibleClientTypes(),
-                                ]) ?>
                                 <?= $form->field($model, 'topics')->widget(StaticCombo::class, [
                                     'hasId' => true,
                                     'data' => $topic_data ?? [],
