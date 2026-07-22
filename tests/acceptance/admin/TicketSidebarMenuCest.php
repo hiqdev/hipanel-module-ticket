@@ -13,9 +13,7 @@ class TicketSidebarMenuCest
         $menu->ensureContains('Support', [
             'Tickets' => '@ticket/index',
             'Templates' => '@ticket/template/index',
-        ]);
-        $menu->ensureDoesNotContain('Support', [
-            'Tickets statistics',
+            'Tickets statistics' => '/ticket/statistic/index',
         ]);
     }
 }
