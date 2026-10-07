@@ -37,6 +37,11 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                         'url'   => ['/ticket/statistic/index'],
                         'visible' => Yii::$app->user->can('ticket.read-statistics'),
                     ],
+                    'export' => [
+                        'label' => Yii::t('hipanel:ticket', 'Export with threads'),
+                        'url'   => ['/ticket/ticket/tickets-export'],
+                        'visible' => Yii::$app->user->can('ticket.export'),
+                    ],
                 ],
             ],
         ];
