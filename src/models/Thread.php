@@ -16,7 +16,6 @@ use hipanel\modules\client\models\Client;
 use hipanel\validators\FileValidator;
 use stdClass;
 use Yii;
-use yii\helpers\HtmlPurifier;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -261,13 +260,29 @@ class Thread extends \hipanel\base\Model
     {
         $message = str_replace(["\n\r", "\r\r", "\r\n"], "\n", $message); // "\n\n",
         $message = Markdown::process($message);
-        $message = HtmlPurifier::process($message, [
-            'HTML.SafeObject' => true, // Allow safe HTML entities
-            'Core.EscapeInvalidTags' => true, // Escape not allowed tags instead of stripping them
-            'Core.LexerImpl' => 'DirectLex', // Do not try to close unclosed tags
-        ]);
 
-        return $message;
+        return self::getPurifier()->purify($message);
+    }
+
+    private static ?\HTMLPurifier $purifier = null;
+
+    /**
+     * One shared instance: yii\helpers\HtmlPurifier::process() builds a new HTMLPurifier
+     * and re-reads its definition cache on every call, which exhausts memory on threads with hundreds of answers.
+     */
+    private static function getPurifier(): \HTMLPurifier
+    {
+        if (self::$purifier === null) {
+            $config = \HTMLPurifier_Config::createDefault();
+            $config->set('HTML.SafeObject', true); // Allow safe HTML entities
+            $config->set('Core.EscapeInvalidTags', true); // Escape not allowed tags instead of stripping them
+            $config->set('Core.LexerImpl', 'DirectLex'); // Do not try to close unclosed tags
+            $config->set('Cache.SerializerPath', Yii::$app->getRuntimePath());
+            $config->set('Cache.SerializerPermissions', 0775);
+            self::$purifier = new \HTMLPurifier($config);
+        }
+
+        return self::$purifier;
     }
 
     public function prepareSpentTime()
