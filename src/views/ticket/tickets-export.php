@@ -36,7 +36,7 @@ JS
             <div class="box-body">
                 <?php $form = ActiveForm::begin(['id' => 'tickets-export-form']) ?>
 
-                <?= $form->field($model, 'time_from')->widget(DateRangePicker::class, [
+                <?= $form->field($model, 'time_from', ['validateOnBlur' => false, 'validateOnChange' => false])->widget(DateRangePicker::class, [
                     'attribute2' => 'time_till',
                     'dateFormat' => 'yyyy-MM-dd',
                     'options' => ['class' => 'form-control'],
@@ -68,6 +68,18 @@ JS
                 ]) ?>
 
                 <?php ActiveForm::end() ?>
+                <?php
+                // The picker fills its inputs without firing change events, so validating on blur
+                // reports "Period cannot be blank" before a range is picked, and the error stays.
+                // Re-validate once the range is applied or cleared instead. Registered after the
+                // form so it runs after the widget's own handler has set the values.
+                $periodInputId = Html::getInputId($model, 'time_from');
+                $this->registerJs(<<<JS
+                    $('#$periodInputId').on('apply.daterangepicker cancel.daterangepicker', function () {
+                        $('#tickets-export-form').yiiActiveForm('validateAttribute', '$periodInputId');
+                    });
+                JS);
+                ?>
             </div>
         </div>
     </div>
