@@ -26,6 +26,7 @@ use hipanel\actions\ViewAction;
 use hipanel\filters\EasyAccessControl;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\stub\ClientRelationFreeStub;
+use hipanel\modules\ticket\forms\TicketExportSearch;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
 use hipanel\modules\ticket\models\TicketSettings;
@@ -78,6 +79,7 @@ class TicketController extends \hipanel\base\CrudController
                     'create' => 'ticket.create',
                     'answer' => 'ticket.answer',
                     'delete' => 'ticket.delete',
+                    'tickets-export' => 'ticket.export',
                     '*' => 'ticket.read',
                 ],
             ],
@@ -285,6 +287,32 @@ class TicketController extends \hipanel\base\CrudController
             'state_data' => $state_data,
             'priority_data' => $this->getPriorities(),
         ];
+    }
+
+    /**
+     * Downloads tickets with full message threads as JSON (the hiapi `ticketsExport` command).
+     */
+    public function actionTicketsExport(): Response|string
+    {
+        $model = new TicketExportSearch();
+        if ($model->load($this->request->post()) && $model->validate()) {
+            try {
+                $tickets = Thread::perform(['tickets', 'export'], $model->toApiParams());
+
+                return $this->response->sendContentAsFile(
+                    json_encode($tickets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE | JSON_THROW_ON_ERROR),
+                    $model->fileName(),
+                    ['mimeType' => 'application/json']
+                );
+            } catch (ResponseErrorException $e) {
+                $this->session->setFlash('error', Yii::t('hipanel:ticket', 'Failed to export tickets: {error}', ['error' => $e->getMessage()]));
+            }
+        }
+
+        return $this->render('tickets-export', [
+            'model' => $model,
+            'topic_data' => $this->getRefs('topic,ticket', 'hipanel:ticket'),
+        ]);
     }
 
     /**
