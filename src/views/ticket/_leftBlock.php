@@ -2,6 +2,7 @@
 
 use hipanel\helpers\HtmlHelper;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\ticket\menus\TicketDetailMenu;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\widgets\ConditionalFormWidget;
 use hipanel\widgets\Box;
@@ -77,6 +78,8 @@ $form = ConditionalFormWidget::begin([
             <?= $this->render('_subscribeButton', compact('model')) ?>
             <?php $box->endFooter() ?>
         <?php endif ?>
+
+        <?= TicketDetailMenu::widget(['model' => $model]) ?>
 
         <?php $box->end() ?>
     </div>
