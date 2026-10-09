@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * HiPanel tickets module
  *
@@ -10,6 +13,8 @@
 
 namespace hipanel\modules\ticket\menus;
 
+use hipanel\widgets\AuditButton;
+
 class TicketDetailMenu extends \hipanel\menus\AbstractDetailMenu
 {
     public $model;
@@ -17,7 +22,13 @@ class TicketDetailMenu extends \hipanel\menus\AbstractDetailMenu
     public function items()
     {
         $actions = TicketActionsMenu::create(['model' => $this->model])->items();
-        $items = array_merge($actions, []);
+        $items = [
+            [
+                'label' => AuditButton::widget(['model' => $this->model, 'linkOptions' => ['style' => 'text-align: center;']]),
+                'encode' => false,
+                'visible' => !$this->model->isNewRecord,
+            ]
+        ];
 
         return $items;
     }
