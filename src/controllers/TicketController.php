@@ -30,6 +30,7 @@ use hipanel\modules\ticket\forms\TicketExportSearch;
 use hipanel\modules\ticket\models\Thread;
 use hipanel\modules\ticket\models\ThreadSearch;
 use hipanel\modules\ticket\models\TicketSettings;
+use hiqdev\hiart\RequestErrorException;
 use hiqdev\hiart\ResponseErrorException;
 use Yii;
 use yii\base\Event;
@@ -304,7 +305,7 @@ class TicketController extends \hipanel\base\CrudController
                     $model->fileName(),
                     ['mimeType' => 'application/json']
                 );
-            } catch (ResponseErrorException $e) {
+            } catch (ResponseErrorException|RequestErrorException $e) {
                 $this->session->setFlash('error', Yii::t('hipanel:ticket', 'Failed to export tickets: {error}', ['error' => $e->getMessage()]));
             }
         }
