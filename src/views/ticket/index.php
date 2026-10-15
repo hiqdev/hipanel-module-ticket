@@ -70,6 +70,9 @@ CSS
 
 <?php $page->beginContent('main-actions') ?>
     <?= Html::a(Yii::t('hipanel:ticket', 'Create ticket'), ['@ticket/create'], ['class' => 'btn btn-sm btn-success']) ?>
+    <?php if (Yii::$app->user->can('ticket.export')) : ?>
+        <?= Html::a(Yii::t('hipanel:ticket', 'Export with threads'), ['@ticket/tickets-export'], ['class' => 'btn btn-sm btn-default']) ?>
+    <?php endif ?>
 <?php $page->endContent() ?>
 
 <?php $page->beginContent('legend') ?>
