@@ -108,6 +108,16 @@ CSS
 <?php $page->endContent() ?>
 
 <?php $page->beginContent('table') ?>
+    <?php if ($recipientWithStaff = $model->getRecipientOrStaffCurrent()) : ?>
+        <?php $recipientId = array_key_first($recipientWithStaff) ?>
+        <div class="alert alert-info">
+            <?= Yii::t('hipanel:ticket', 'Tickets of {client} and its managers and admins.', ['client' => Html::encode($recipientWithStaff[$recipientId])]) ?>
+            <?= Html::a(
+                Yii::t('hipanel:ticket', 'Show only {client}', ['client' => Html::encode($recipientWithStaff[$recipientId])]),
+                ['@ticket/index', 'ThreadSearch' => ['recipient_id' => $recipientId]]
+            ) ?>
+        </div>
+    <?php endif ?>
     <?php $page->beginBulkForm() ?>
         <?= TicketGridView::widget([
             'boxed' => false,

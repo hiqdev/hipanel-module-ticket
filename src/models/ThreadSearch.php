@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace hipanel\modules\ticket\models;
 
 use hipanel\base\SearchModelTrait;
+use hipanel\modules\client\models\Client;
 use Yii;
 
 /**
@@ -32,6 +33,7 @@ class ThreadSearch extends Thread
             'message_like',
             'hide_payment',
             'client_tags',
+            'recipient_or_staff_id',
         ]);
     }
 
@@ -43,6 +45,29 @@ class ThreadSearch extends Thread
             'numbers' => Yii::t('hipanel:ticket', 'Ticket numbers separated by commas'),
             'hide_payment' => Yii::t('hipanel:ticket', 'Hide payment tickets'),
             'client_tags' => Yii::t('hipanel:ticket', 'Client Tags'),
+            'recipient_or_staff_id' => Yii::t('hipanel:ticket', 'Recipient or Sataff'),
         ]);
     }
+
+    /**
+     * Option for the client combo: the combo only knows the id from the URL and would show it instead of the login.
+     *
+     * @return array<int|string, string> client id => login, empty when the filter is not set
+     */
+    public function getRecipientOrStaffCurrent(): array
+    {
+        if (empty($this->recipient_or_staff_id)) {
+            return [];
+        }
+
+        $this->recipientOrStaffCurrent ??= (static function (mixed $id): array {
+            $client = Client::find()->where(['id' => $id])->select(['id', 'login'])->one();
+
+            return $client ? [$id => $client->login] : [];
+        })($this->recipient_or_staff_id);
+
+        return $this->recipientOrStaffCurrent;
+    }
+
+    private ?array $recipientOrStaffCurrent = null;
 }
