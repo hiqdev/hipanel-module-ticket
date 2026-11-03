@@ -69,9 +69,7 @@ class TicketGridView extends BoxedGridView
                 'contentOptions' => [
                     'style' => 'width: 1%; white-space: nowrap;',
                 ],
-                'value' => function ($model) {
-                    return ClientSellerLink::widget(compact('model'));
-                },
+                'value' => fn($model) => ClientSellerLink::widget(compact('model')),
             ],
             'responsible_id' => [
                 'class' => ClientColumn::class,
@@ -83,24 +81,20 @@ class TicketGridView extends BoxedGridView
                 'contentOptions' => [
                     'style' => 'width: 1%; white-space: nowrap;',
                 ],
-                'value' => function ($model) {
-                    return Html::a(Html::encode($model['responsible']), ['/client/client/view', 'id' => $model->responsible_id]);
-                },
+                'value' => fn($model) => Html::a(Html::encode($model['responsible']), ['/client/client/view', 'id' => $model->responsible_id]),
                 'visible' => Yii::$app->user->can('access-subclients'),
             ],
             'recipient_id' => [
                 'class' => ClientColumn::class,
-                'idAttribute' => 'recipient_id',
                 'label' => Yii::t('hipanel:ticket', 'Recipient'),
-                'sortAttribute' => 'recipient',
+                'idAttribute' => 'recipient_id',
                 'attribute' => 'recipient_id',
+                'sortAttribute' => 'recipient',
                 'format' => 'raw',
                 'contentOptions' => [
                     'style' => 'width: 1%; white-space: nowrap;',
                 ],
-                'value' => function ($model) {
-                    return Html::a(Html::encode($model->recipient), ['/client/client/view', 'id' => $model->recipient_id]);
-                },
+                'value' => fn($model) => Html::a(Html::encode($model->recipient), ['/client/client/view', 'id' => $model->recipient_id]),
                 'visible' => Yii::$app->user->can('access-subclients'),
             ],
             'answer_count' => [
