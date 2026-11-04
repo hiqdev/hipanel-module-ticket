@@ -45,7 +45,7 @@ class ThreadSearch extends Thread
             'numbers' => Yii::t('hipanel:ticket', 'Ticket numbers separated by commas'),
             'hide_payment' => Yii::t('hipanel:ticket', 'Hide payment tickets'),
             'client_tags' => Yii::t('hipanel:ticket', 'Client Tags'),
-            'recipient_or_staff_id' => Yii::t('hipanel:ticket', 'Recipient or Sataff'),
+            'recipient_or_staff_id' => Yii::t('hipanel:ticket', 'Recipient or Staff'),
         ]);
     }
 
