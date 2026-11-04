@@ -56,7 +56,7 @@ class ThreadSearch extends Thread
      */
     public function getRecipientOrStaffCurrent(): array
     {
-        if (empty($this->recipient_or_staff_id)) {
+        if (empty($this->recipient_or_staff_id) || !is_scalar($this->recipient_or_staff_id)) {
             return [];
         }
 
